@@ -1,0 +1,163 @@
+﻿using System;
+using HarmonyLib;
+using ItemBrowser.Entries;
+using ItemBrowser.Utilities;
+using UnityEngine;
+
+// ReSharper disable InconsistentNaming
+
+namespace ItemBrowser.Browser {
+	public class ItemBrowserUI : ItemBrowserWindow {
+		public static event Action<ItemBrowserUI> OnInit;
+		public static event Action<ItemBrowserUI> OnUninit;
+		
+		[SerializeField]
+		private ObjectListWindow objectListWindow;
+		[SerializeField]
+		private ObjectEntriesWindow objectEntriesWindow;
+
+		private void Awake() {
+			IsShowing = false;
+			OnInit?.Invoke(this);
+		}
+		
+		private void OnDestroy() {
+			OnUninit?.Invoke(this);
+		}
+
+		protected override void OnShow(bool isFirstTimeShowing) {
+			if (isFirstTimeShowing) {
+				objectListWindow.IsShowing = true;
+				objectEntriesWindow.IsShowing = false;
+			}
+			
+			HideMapAndInventoryIfShowing();
+			PlayToggleSound();
+			Manager.ui.DeselectAnySelectedUIElement();
+		}
+
+		protected override void OnHide() {
+			PlayToggleSound();
+		}
+
+		public bool ShowObjectSources(ObjectDataCD objectData) {
+			if (!objectEntriesWindow.PushObjectData(objectData, ObjectEntryType.Source))
+				return false;
+			
+			objectListWindow.IsShowing = false;
+			objectEntriesWindow.IsShowing = true;
+
+			return true;
+		}
+
+		public void ShowItemList() {
+			objectListWindow.IsShowing = true;
+			objectEntriesWindow.IsShowing = false;
+			objectEntriesWindow.Clear();
+		}
+
+		private void LateUpdate() {
+			transform.localScale = Manager.ui.CalcGameplayUITargetScaleMultiplier();
+			UpdateGoBack();
+			HideMapAndInventoryIfShowing();
+		}
+
+		private void UpdateGoBack() {
+			if (Manager.menu.IsAnyMenuActive() || Manager.input.activeInputField != null || !Manager.input.IsMenuStartButtonDown())
+				return;
+
+			if (objectEntriesWindow.HasAnyHistory) {
+				objectEntriesWindow.PopObjectData();
+				UserInterfaceUtils.PlayMenuCloseSound();
+			} else if (objectEntriesWindow.IsShowing) {
+				ShowItemList();
+				UserInterfaceUtils.PlayMenuCloseSound();
+			} else {
+				IsShowing = false;
+			}
+		}
+
+		private void HideMapAndInventoryIfShowing() {
+			if (Manager.ui.isAnyInventoryShowing)
+				Manager.ui.HideAllInventoryAndCraftingUI();
+			
+			if (Manager.ui.isShowingMap)
+				Manager.ui.HideMap();
+		}
+
+		private void PlayToggleSound() {
+			if (Manager.main.player == null)
+				return;
+			
+			AudioManager.Sfx(SfxTableID.inventorySFXInfoTab, Manager.main.player.transform.position);
+		}
+		
+		[HarmonyPatch]
+		public static class Patches {
+			[HarmonyPatch(typeof(MenuManager), "IsPauseDisabled")]
+			[HarmonyPostfix]
+			private static void MenuManager_IsPauseDisabled(MenuManager __instance, ref bool __result) {
+				if (ItemBrowserAPI.ItemBrowserUI!= null && ItemBrowserAPI.ItemBrowserUI.IsShowing)
+					__result = true;
+			}
+			
+			[HarmonyPatch(typeof(PlayerController), "get_isInteractionBlocked")]
+			[HarmonyPostfix]
+			private static void PlayerController_get_isInteractionBlocked(PlayerController __instance, ref bool __result) {
+				// Prevent using items / scrolling hotbar
+				if (ItemBrowserAPI.ItemBrowserUI != null && ItemBrowserAPI.ItemBrowserUI.IsShowing)
+					__result = true;
+			}
+			
+			[HarmonyPatch(typeof(PlayerController), "get_isUIShortCutsBlocked")]
+			[HarmonyPostfix]
+			private static void PlayerController_get_isUIShortCutsBlocked(PlayerController __instance, ref bool __result) {
+				if (ItemBrowserAPI.ItemBrowserUI != null && ItemBrowserAPI.ItemBrowserUI.IsShowing)
+					__result = true;
+			}
+			
+			[HarmonyPatch(typeof(PlayerController), "get_isMovingBlocked")]
+			[HarmonyPostfix]
+			private static void PlayerController_get_isMovingBlocked(PlayerController __instance, ref bool __result) {
+				// Pretty sure this doesn't do anything
+				if (ItemBrowserAPI.ItemBrowserUI != null && ItemBrowserAPI.ItemBrowserUI.IsShowing)
+					__result = false;
+			}
+			
+			[HarmonyPatch(typeof(UIManager), "get_isMouseShowing")]
+			[HarmonyPostfix]
+			private static void UIManager_get_isMouseShowing(UIManager __instance, ref bool __result) {
+				// Force mouse to appear (for controllers)
+				if (ItemBrowserAPI.ItemBrowserUI != null && ItemBrowserAPI.ItemBrowserUI.IsShowing)
+					__result = true;
+			}
+
+			[HarmonyPatch(typeof(SendClientInputSystem), "PlayerInteractionBlocked")]
+			[HarmonyPostfix]
+			private static void SendClientInputSystem_PlayerInteractionBlocked(SendClientInputSystem __instance, ref bool __result) {
+				// Prevent using items / scrolling hotbar
+				if (ItemBrowserAPI.ItemBrowserUI != null && ItemBrowserAPI.ItemBrowserUI.IsShowing)
+					__result = true;
+			}
+			
+			[HarmonyPatch(typeof(SendClientInputSystem), "PlayerInputBlocked")]
+			[HarmonyPostfix]
+			private static void SendClientInputSystem_PlayerInputBlocked(SendClientInputSystem __instance, ref bool __result) {
+				// Prevent moving when using a controller
+				if (ItemBrowserAPI.ItemBrowserUI != null && ItemBrowserAPI.ItemBrowserUI.IsShowing && !Manager.input.singleplayerInputModule.PrefersKeyboardAndMouse())
+					__result = true;
+			}
+			
+			[HarmonyPatch(typeof(InGameButtonHintsUI), "LateUpdate")]
+			[HarmonyPrefix]
+			private static bool InGameButtonHintsUI_LateUpdate(InGameButtonHintsUI __instance) {
+				// Hide button hints in bottom right
+				if (ItemBrowserAPI.ItemBrowserUI != null && !ItemBrowserAPI.ItemBrowserUI.IsShowing)
+					return true;
+				
+				__instance.container.SetActive(false);
+				return false;
+			}
+		}
+	}
+}

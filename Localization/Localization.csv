@@ -1,0 +1,273 @@
+Key	Type	Desc	English	German	French (France)	Portuguese (Brazil)	Italian (Italy)	Japanese	Korean	Russian	Spanish	Ukrainian	Chinese (Simplified)	Chinese (Traditional)	Thai
+ItemBrowser:SearchHint	Text		Search...												
+ItemBrowser:Items	Text		Items												
+ItemBrowser:Creatures	Text		Creatures												
+ItemBrowser:Cooking	Text		Cooking												
+ItemBrowser:NameAndAmountFormat	Text		{0} x{1}												
+ItemBrowser:SourcesFor	Text		{0} source												
+ItemBrowser:SourcesForPlural	Text		{0} sources												
+ItemBrowser:ObjectEntryTypeHeader_Item/Source	Text		Sources												
+ItemBrowser:ObjectEntryTypeHeader_Item/Usage	Text		Usages												
+ItemBrowser:ObjectEntryTypeHeader_Creature/Source	Text		Spawning												
+ItemBrowser:ObjectEntryTypeHeader_Creature/Usage	Text		Usages												
+ItemBrowser:Usages	Text		Usages												
+ItemBrowser:PrevSource	Text		Previous source												
+ItemBrowser:NextSource	Text		Next source												
+ItemBrowser:ButtonHint/Clear	Text		Clear: {0}												
+ItemBrowser:ButtonHint/ViewUsage	Text		View usages: {0}												
+ItemBrowser:ButtonHint/ViewSource	Text		View sources: {0}												
+ItemBrowser:ButtonHint/RestoreDefaults	Text		Restore defaults: {0}												
+ItemBrowser:Sorting	Text		Sort												
+ItemBrowser:ItemSorter/Alphabetical	Text		Alphabetical												
+ItemBrowser:ItemSorter/Category	Text		By creative category												
+ItemBrowser:ItemSorter/InternalIndex	Text		By internal index												
+ItemBrowser:ItemSorter/Damage	Text		By damage												
+ItemBrowser:ItemSorter/Level	Text		By level												
+ItemBrowser:ItemSorter/Value	Text		By value												
+ItemBrowser:SortingOrder	Text		Sort order												
+ItemBrowser:SortingOrder/Ascending	Text		Ascending												
+ItemBrowser:SortingOrder/Descending	Text		Descending												
+ItemBrowser:ShowFilters	Text		Show filters												
+ItemBrowser:HideFilters	Text		Hide filters												
+ItemBrowser:FilteredResults	Text		{0}/{1} results												
+ItemBrowser:FilterState/Include	Text		Including												
+ItemBrowser:FilterState/Exclude	Text		Excluding												
+ItemBrowser:ItemFilter/Source	Text		Source												
+ItemBrowser:ItemFilter/Source_FromMods	Text		From mods												
+ItemBrowser:ItemFilter/Source_FromModsDesc	Text		Items added by any mod												
+ItemBrowser:ItemFilter/Source_FromMod	Text		From {0}												
+ItemBrowser:ItemFilter/Source_FromModDesc	Text		Items added by the {0} mod												
+ItemBrowser:ItemFilter/Damage	Text		Damage												
+ItemBrowser:ItemFilter/Damage_AnyDamage	Text		Any damage												
+ItemBrowser:ItemFilter/Damage_AnyDamageDesc	Text		Items dealing any damage type												
+ItemBrowser:ItemFilter/Damage_PhysicalMeleeDamage	Text		Physical melee damage												
+ItemBrowser:ItemFilter/Damage_PhysicalMeleeDamageDesc	Text		Items dealing physical melee damage												
+ItemBrowser:ItemFilter/Damage_PhysicalRangeDamage	Text		Physical range damage												
+ItemBrowser:ItemFilter/Damage_PhysicalRangeDamageDesc	Text		Items dealing physical range damage												
+ItemBrowser:ItemFilter/Damage_MagicDamage	Text		Magic damage												
+ItemBrowser:ItemFilter/Damage_MagicDamageDesc	Text		Items dealing physical or range magic damage												
+ItemBrowser:ItemFilter/Damage_SummonDamage	Text		Summon damage												
+ItemBrowser:ItemFilter/Damage_SummonDamageDesc	Text		Items that summon minions												
+ItemBrowser:ItemFilter/Equipment	Text		Equipment												
+ItemBrowser:ItemFilter/Equipment_Weapon	Text		Weapon												
+ItemBrowser:ItemFilter/Equipment_WeaponDesc	Text		Items that deal damage and are not tools												
+ItemBrowser:ItemFilter/Equipment_Tool	Text		Tool												
+ItemBrowser:ItemFilter/Equipment_ToolDesc	Text		Items that are tools												
+ItemBrowser:ItemFilter/Equipment_Armor	Text		Armor												
+ItemBrowser:ItemFilter/Equipment_ArmorDesc	Text		Items equipped in the armor slots												
+ItemBrowser:ItemFilter/Equipment_Accessory	Text		Accessory												
+ItemBrowser:ItemFilter/Equipment_AccessoryDesc	Text		Items equipped in the accessory slots												
+ItemBrowser:ItemFilter/Equipment_Ring	Text		Ring												
+ItemBrowser:ItemFilter/Equipment_RingDesc	Text		Items equipped in the ring slots												
+ItemBrowser:ItemFilter/Equipment_Necklace	Text		Necklace												
+ItemBrowser:ItemFilter/Equipment_NecklaceDesc	Text		Items equipped in the necklace slots												
+ItemBrowser:ItemFilter/Equipment_OffHand	Text		Off-hand												
+ItemBrowser:ItemFilter/Equipment_OffHandDesc	Text		Items equipped in the off-hand slot												
+ItemBrowser:ItemFilter/Equipment_Lantern	Text		Lantern												
+ItemBrowser:ItemFilter/Equipment_LanternDesc	Text		Items equipped in the lantern slot												
+ItemBrowser:ItemFilter/Equipment_Bag	Text		Bag												
+ItemBrowser:ItemFilter/Equipment_BagDesc	Text		Items equipped in the bag slot												
+ItemBrowser:ItemFilter/Equipment_Pouch	Text		Pouch												
+ItemBrowser:ItemFilter/Equipment_PouchDesc	Text		Items equipped in the pouch slots												
+ItemBrowser:ItemFilter/Equipment_Pet	Text		Pet												
+ItemBrowser:ItemFilter/Equipment_PetDesc	Text		Items equipped in the pet slot												
+ItemBrowser:ItemFilter/Equipment_Helm	Text		Helm												
+ItemBrowser:ItemFilter/Equipment_HelmDesc	Text		Items equipped in the helm slot												
+ItemBrowser:ItemFilter/Equipment_BreastArmor	Text		Chest												
+ItemBrowser:ItemFilter/Equipment_BreastArmorDesc	Text		Items equipped in the chest slot												
+ItemBrowser:ItemFilter/Equipment_PantsArmor	Text		Pants												
+ItemBrowser:ItemFilter/Equipment_PantsArmorDesc	Text		Items equipped in the pants slot												
+ItemBrowser:ItemFilter/Utility	Text		Utility												
+ItemBrowser:ItemFilter/Utility_Placeable	Text		Placeable												
+ItemBrowser:ItemFilter/Utility_PlaceableDesc	Text		Items that are placeable												
+ItemBrowser:ItemFilter/Utility_Consumable	Text		Consumable												
+ItemBrowser:ItemFilter/Utility_ConsumableDesc	Text		Items that are consumable												
+ItemBrowser:ItemFilter/Utility_Material	Text		Material												
+ItemBrowser:ItemFilter/Utility_MaterialDesc	Text		Items used to craft other items												
+ItemBrowser:ItemFilter/Utility_Craftable	Text		Currently craftable												
+ItemBrowser:ItemFilter/Utility_CraftableDesc	Text		Items currently craftable using materials from your inventory and nearby chests												
+ItemBrowser:ItemFilter/Utility_Discovered	Text		Discovered												
+ItemBrowser:ItemFilter/Utility_DiscoveredDesc	Text		Items that you've picked up before												
+ItemBrowser:ItemFilter/Utility_Unobtainable	Text		Unobtainable												
+ItemBrowser:ItemFilter/Utility_UnobtainableDesc	Text		Items that aren't obtainable without cheats												
+ItemBrowser:ItemFilter/Utility_CookingIngredient	Text		Cooking ingredient												
+ItemBrowser:ItemFilter/Utility_CookingIngredientDesc	Text		Items that are cooking ingredients												
+ItemBrowser:ItemFilter/Utility_Sand	Text		Any sand block												
+ItemBrowser:ItemFilter/Utility_SandDesc	Text		Items usable in "any sand block" recipes												
+ItemBrowser:ItemFilter/Rarity	Text		Rarity												
+ItemBrowser:ItemFilter/Rarity_Poor	Text		Poor												
+ItemBrowser:ItemFilter/Rarity_PoorDesc	Text		Items of rarity poor												
+ItemBrowser:ItemFilter/Rarity_Common	Text		Common												
+ItemBrowser:ItemFilter/Rarity_CommonDesc	Text		Items of rarity common												
+ItemBrowser:ItemFilter/Rarity_Uncommon	Text		Uncommon												
+ItemBrowser:ItemFilter/Rarity_UncommonDesc	Text		Items of rarity uncommon												
+ItemBrowser:ItemFilter/Rarity_Rare	Text		Rare												
+ItemBrowser:ItemFilter/Rarity_RareDesc	Text		Items of rarity rare												
+ItemBrowser:ItemFilter/Rarity_Epic	Text		Epic												
+ItemBrowser:ItemFilter/Rarity_EpicDesc	Text		Items of rarity epic												
+ItemBrowser:ItemFilter/Rarity_Legendary	Text		Legendary												
+ItemBrowser:ItemFilter/Rarity_LegendaryDesc	Text		Items of rarity legendary												
+ItemBrowser:ItemFilter/VersionAdded	Text		Version												
+ItemBrowser:ItemFilter/VersionAdded_Version	Text		{0}												
+ItemBrowser:ItemFilter/VersionAdded_VersionDesc	Text		Items added in {0}												
+ItemBrowser:ItemFilter/Level	Text		Level												
+ItemBrowser:ItemFilter/Level_Level	Text		Level {0}												
+ItemBrowser:ItemFilter/Level_LevelDesc	Text		Items with a base level of {0}												
+ItemBrowser:ObjectEntry/Terrain	Text		Terrain generation												
+ItemBrowser:ObjectEntry/OreBoulderExtraction	Text		Ore boulder extraction												
+ItemBrowser:ObjectEntry/Crafting	Text		Crafting												
+ItemBrowser:ObjectEntry/Recipe	Text		Combining materials												
+ItemBrowser:ObjectEntry/Fishing	Text		Fishing												
+ItemBrowser:ObjectEntry/Trading	Text		Trading												
+ItemBrowser:ObjectEntry/VendingMachine	Text		Vending												
+ItemBrowser:ObjectEntry/Merchant	Text		Merchant												
+ItemBrowser:ObjectEntry/CattleProduce	Text		Cattle produce												
+ItemBrowser:ObjectEntry/Loot	Text		Loot												
+ItemBrowser:ObjectEntry/Drops	Text		Drops												
+ItemBrowser:ObjectEntry/StructureLoot	Text		Structure-exclusive loot												
+ItemBrowser:ObjectEntry/StructureDrops	Text		Structure-exclusive drops												
+ItemBrowser:ObjectEntry/Farming	Text		Farming												
+ItemBrowser:ObjectEntry/JewelryCrafter	Text		Polishing												
+ItemBrowser:ObjectEntry/Salvaging	Text		Salvaging												
+ItemBrowser:ObjectEntry/BackgroundPerks	Text		Background perks												
+ItemBrowser:ObjectEntry/NaturalSpawnInitial	Text		Initial generation												
+ItemBrowser:ObjectEntry/NaturalSpawnRespawn	Text		Respawn event												
+ItemBrowser:ObjectEntry/NaturalSpawnAroundObject	Text		Over time around entity												
+ItemBrowser:ObjectEntry/HabitableRoom	Text		Habitable room												
+ItemBrowser:ObjectEntry/LockedChestDrops	Text		Wall destruction												
+ItemBrowser:ObjectEntry/ArchaeologistDrops	Text		Wall destruction												
+ItemBrowser:ObjectEntry/Breeding	Text		Breeding												
+ItemBrowser:ObjectEntry/ChallengeArenaReward	Text		Challenge arena reward												
+ItemBrowser:ObjectEntry/StructureContents	Text		Plundering												
+ItemBrowser:MoreInfo/Farming_0	Text		Grown from a {0}												
+ItemBrowser:MoreInfo/Farming_0_Normal	Text		Grown from a normal {0}												
+ItemBrowser:MoreInfo/Farming_0_Golden	Text		Grown from a golden {0}												
+ItemBrowser:MoreInfo/Farming_1	Text		Seeds have a {0}-{1}% chance to become golden when planted with the Expert Gardener talent active												
+ItemBrowser:MoreInfo/Farming_2	Text		Takes {0} min to grow												
+ItemBrowser:MoreInfo/Crafting_0_Station	Text		Crafted at {0}												
+ItemBrowser:MoreInfo/Crafting_0_Recipe	Text		Crafted using {0}												
+ItemBrowser:MoreInfo/Crafting_1	Text		Materials:												
+ItemBrowser:MoreInfo/Crafting_2	Text		- {0} x{1}												
+ItemBrowser:MoreInfo/Crafting_3	Text		Takes {0} sec to craft												
+ItemBrowser:MoreInfo/Crafting_4	Text		Requires {0} nearby												
+ItemBrowser:MoreInfo/JewelryCrafter_0	Text		Crafting a {0}												
+ItemBrowser:MoreInfo/JewelryCrafter_1	Text		{0}-{1}% chance, with the Jewelry Crafter talent active												
+ItemBrowser:MoreInfo/Merchant_0	Text		Purchased from the {0} for {1} ancient coins												
+ItemBrowser:MoreInfo/Merchant_1	Text		{0} stocked at a time												
+ItemBrowser:MoreInfo/Merchant_2_LarvaBossStatueActivated	Text		Only available after activating the Ghorm Statue												
+ItemBrowser:MoreInfo/Merchant_2_HiveBossStatueActivated	Text		Only available after activating the Malugaz Statue												
+ItemBrowser:MoreInfo/Merchant_2_CoreActivated	Text		Only available after activating The Core												
+ItemBrowser:MoreInfo/Merchant_2_CoreBossDefeated	Text		Only available after defeating the Core Commander												
+ItemBrowser:MoreInfo/VendingMachine_0	Text		Purchased from the {0} for {1} ancient coins												
+ItemBrowser:MoreInfo/OreBoulderExtraction_0	Text		Drilling a {0} with a stationary drill												
+ItemBrowser:MoreInfo/OreBoulderExtraction_1	Text		Provides {0} ore total												
+ItemBrowser:MoreInfo/CattleProduce_0	Text		Produced by a {0} after eating {1} time												
+ItemBrowser:MoreInfo/CattleProduce_0_Plural	Text		Produced by a {0} after eating {1} times												
+ItemBrowser:MoreInfo/CattleProduce_1	Text		Suitable feed:												
+ItemBrowser:MoreInfo/CattleProduce_2	Text		- {0}												
+ItemBrowser:MoreInfo/Trading_0	Text		From trading with the {0}												
+ItemBrowser:MoreInfo/Trading_1	Text		Materials:												
+ItemBrowser:MoreInfo/Trading_2	Text		- {0} x{1}												
+ItemBrowser:MoreInfo/Fishing_0_Biome	Text		Fished from Normal Water in {0}												
+ItemBrowser:MoreInfo/Fishing_0_Liquid	Text		Fished from {0} in any biome												
+ItemBrowser:MoreInfo/Fishing_1_Fish	Text		{0}% base chance when catching a fish												
+ItemBrowser:MoreInfo/Fishing_1_Loot	Text		{0}% base chance when catching loot												
+ItemBrowser:MoreInfo/BackgroundPerks_0	Text		Received when creating a character with the {0} background												
+ItemBrowser:MoreInfo/BackgroundPerks_1	Text		Provides {0}												
+ItemBrowser:MoreInfo/Salvaging_0	Text		From salvaging {0} in Salvage and Repair Station												
+ItemBrowser:MoreInfo/Salvaging_1	Text		Always drops {0}												
+ItemBrowser:MoreInfo/Salvaging_1_Durability	Text		Drops {0}-{1}, based on the item's current durability												
+ItemBrowser:MoreInfo/LockedChestDrops_0	Text		From breaking {0} walls in {1}												
+ItemBrowser:MoreInfo/LockedChestDrops_1	Text		{0}% chance per wall												
+ItemBrowser:MoreInfo/NaturalSpawnInitial_0_AnyBiome	Text		Spawns on suitable tiles when an area in any biome is loaded for the first time												
+ItemBrowser:MoreInfo/NaturalSpawnInitial_0_SpecificBiome	Text		Spawns on suitable tiles when an area in {0} is loaded for the first time												
+ItemBrowser:MoreInfo/NaturalSpawnInitial_1	Text		{0}% chance (per suitable tile)												
+ItemBrowser:MoreInfo/NaturalSpawnInitial_2	Text		Suitable tiles:												
+ItemBrowser:MoreInfo/NaturalSpawnInitial_3	Text		- {0}												
+ItemBrowser:MoreInfo/NaturalSpawnInitial_4	Text		Must also be directly adjacent to one of the following:												
+ItemBrowser:MoreInfo/NaturalSpawnRespawn_0_AnyBiome	Text		Spawns on suitable tiles placed in {0} every (approx.) 15 min												
+ItemBrowser:MoreInfo/NaturalSpawnRespawn_0_SpecificBiome	Text		Spawns on suitable tiles placed in any biome every (approx.) 15 min												
+ItemBrowser:MoreInfo/NaturalSpawnRespawn_1	Text		{0}% chance (per suitable tile)												
+ItemBrowser:MoreInfo/NaturalSpawnRespawn_2	Text		Suitable tiles:												
+ItemBrowser:MoreInfo/NaturalSpawnRespawn_3	Text		- {0}												
+ItemBrowser:MoreInfo/NaturalSpawnRespawn_4	Text		Must also be directly adjacent to one of the following:												
+ItemBrowser:MoreInfo/Drops_0	Text		Dropped by {0}												
+ItemBrowser:MoreInfo/Drops_0_RandomPool	Text		Dropped by {0} (random pool)												
+ItemBrowser:MoreInfo/Drops_0_GuaranteedPool	Text		Dropped by {0} (guaranteed pool)												
+ItemBrowser:MoreInfo/Drops_1	Text		{0}% chance												
+ItemBrowser:MoreInfo/Drops_1_ForOne	Text		- {0}% chance of being dropped at least once, on average												
+ItemBrowser:MoreInfo/Drops_1_PerRoll	Text		- {0}% chance of being dropped per roll, in {1} rolls												
+ItemBrowser:MoreInfo/Drops_2	Text		Can only drop when {0} is the closest biome out of Azeos' Wilderness, The Sunken Sea and The Desert of Beginnings												
+ItemBrowser:MoreInfo/Drops_3	Text		Can only drop during {0}												
+ItemBrowser:MoreInfo/Drops_4	Text		Drop chances, rolls and amounts are based on a player count of {0}												
+ItemBrowser:MoreInfo/Drops_5	Text		Found in the following scenes:												
+ItemBrowser:MoreInfo/Drops_6	Text		- {0} x{1}												
+ItemBrowser:MoreInfo/Loot_0	Text		Looted from {0}												
+ItemBrowser:MoreInfo/Loot_0_RandomPool	Text		Looted from {0} (random pool)												
+ItemBrowser:MoreInfo/Loot_0_GuaranteedPool	Text		Looted from {0} (guaranteed pool)												
+ItemBrowser:MoreInfo/Loot_1	Text		{0}% chance												
+ItemBrowser:MoreInfo/Loot_1_ForOne	Text		- {0}% chance of being dropped at least once, on average												
+ItemBrowser:MoreInfo/Loot_1_PerRoll	Text		- {0}% chance of being dropped per roll, in {1} rolls												
+ItemBrowser:MoreInfo/Loot_2	Text		Can only drop when {0} is the closest biome out of Azeos' Wilderness, The Sunken Sea and The Desert of Beginnings												
+ItemBrowser:MoreInfo/Loot_3	Text		Found in the following scenes:												
+ItemBrowser:MoreInfo/Loot_4	Text		- {0} x{1}												
+ItemBrowser:MoreInfo/StructureContents_1_Scene	Text		Found in the {0} scene												
+ItemBrowser:MoreInfo/StructureContents_1_Dungeon	Text		Found in the {0} dungeon												
+ItemBrowser:MoreInfo/StructureContents_2_Scene	Text		Contains {0} total												
+ItemBrowser:MoreInfo/StructureContents_2_Dungeon	Text		Contains a varying amount												
+ItemBrowser:MoreInfo/ChallengeArenaReward_0	Text		Reward chest contents after completing a challenge arena												
+ItemBrowser:MoreInfo/ChallengeArenaReward_0_RandomPool	Text		Reward chest contents after completing a challenge arena (random pool)												
+ItemBrowser:MoreInfo/ChallengeArenaReward_0_GuaranteedPool	Text		Reward chest contents after completing a challenge arena (guaranteed pool)												
+ItemBrowser:MoreInfo/ChallengeArenaReward_1	Text		{0}% chance												
+ItemBrowser:MoreInfo/ChallengeArenaReward_1_ForOne	Text		- {0}% chance of being dropped at least once, on average												
+ItemBrowser:MoreInfo/ChallengeArenaReward_1_PerRoll	Text		- {0}% chance of being dropped per roll, in {1} rolls												
+ItemBrowser:MoreInfo/ChallengeArenaReward_1_BraveMerchant	Text		- {0}% chance if the Brave Merchant is already active in the world												
+ItemBrowser:MoreInfo/ChallengeArenaReward_2	Text		Can only drop when {0} is the closest biome out of Azeos' Wilderness, The Sunken Sea and The Desert of Beginnings												
+ItemBrowser:ObjectCategoryNames/CattleKelpFood	Text		Any kelp												
+ItemBrowser:ObjectCategoryNames/Sand	Text		Any sand block												
+ItemBrowser:ObjectCategoryNames/CattlePlantFood	Text		Any farmable plant												
+ItemBrowser:ObjectCategoryNames/Insect	Text		Any critter except glowbugs												
+ItemBrowser:ObjectCategoryNames/UncommonOrLowerCookedFood	Text		Any cooked food of uncommon or lower rarity												
+ItemBrowser:ObjectCategoryNames/RareOrHigherCookedFood	Text		Any cooked food of rare or higher rarity												
+ItemBrowser:LiquidNames/Dirt	Text		Normal Water												
+ItemBrowser:LiquidNames/Lava	Text		Lava												
+ItemBrowser:LiquidNames/LarvaHive	Text		Acid Water												
+ItemBrowser:LiquidNames/Mold	Text		Mold Water												
+ItemBrowser:LiquidNames/Sea	Text		Sea Water												
+ItemBrowser:LiquidNames/Crystal	Text		Shimmering Water												
+ItemBrowser:LiquidNames/Passage	Text		Passage Water												
+ItemBrowser:CatchType/Fish	Text		Fish catch												
+ItemBrowser:CatchType/Loot	Text		Loot catch												
+ItemBrowser:WallBlockSuffix	Text		{0} wall												
+ItemBrowser:AnyTileType/ground	Text		Any ground tile												
+ItemBrowser:AnyTileType/wall	Text		Any wall tile												
+ItemBrowser:AnyTileType/water	Text		Any liquid												
+ItemBrowser:AnyTileType/smallGrass	Text		Any small grass tile												
+ItemBrowser:AnyTileType/pit	Text		Pit												
+ItemBrowser:GroundBlockSuffix	Text		{0} ground												
+ItemBrowser:GuaranteedPool	Text		Guaranteed pool												
+ItemBrowser:RandomPool	Text		Random pool												
+ItemBrowser:ItemNameOverrides/Water_0	Text		Normal Water												
+ItemBrowser:ItemNameOverrides/Water_1	Text		Acid Water												
+ItemBrowser:ItemNameOverrides/Water_2	Text		Mold Water												
+ItemBrowser:ItemNameOverrides/Water_3	Text		Sea Water												
+ItemBrowser:ItemNameOverrides/Water_4	Text		Shimmering Water												
+ItemBrowser:ItemNameOverrides/Water_5	Text		Passage Water												
+ItemBrowser:ItemNameOverrides/Lava_0	Text		Lava												
+ItemBrowser:ItemNameOverrides/DiggingSpot_0	Text		Digging Spot												
+ItemBrowser:ItemNameOverrides/DiggingSpotNature_0	Text		Grass Digging Spot												
+ItemBrowser:ItemNameOverrides/DiggingSpotSea_0	Text		Beach Digging Spot												
+ItemBrowser:ItemNameOverrides/DiggingSpotDesert_0	Text		Desert Digging Spot												
+ItemBrowser:ItemNameOverrides/DiggingSpotLava_0	Text		Lava Rock Digging Spot												
+ItemBrowser:ItemNameOverrides/FallingRockDestructible_0	Text		Fallen Rock												
+ItemBrowser:ItemNameOverrides/BirdBoss_1	Text		Awakened Azeos												
+ItemBrowser:StructureType/Scene	Text		Scene												
+ItemBrowser:StructureType/Dungeon	Text		Dungeon												
+ItemBrowser:StructureExclusiveLoot	Text		Structure-exclusive loot												
+ItemBrowser:StructureExclusiveDrop	Text		Structure-exclusive drop												
+ItemBrowser:Options/CheatMode	Text		Cheat mode												
+ItemBrowser:Options/CheatModeDesc	Text		Allows you to spawn in certain items by pressing {0}+{1} in the Item Browser. Only works in creative mode or if you're an admin.												
+ItemBrowser:Options/ShowTechnicalInfo	Text		Show technical info												
+ItemBrowser:Options/ShowTechnicalInfoDesc	Text		Shows some technical details when hovering over an item in the Item Browser, such as IDs.												
+ItemBrowser:Options/DefaultDiscoveredFilter	Text		Default discovered filter												
+ItemBrowser:Options/DefaultDiscoveredFilterDesc	Text		Toggles the discovered filter in the Item Browser on by default, only showing items you have picked up before.												

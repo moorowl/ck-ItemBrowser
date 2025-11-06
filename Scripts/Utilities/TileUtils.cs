@@ -1,0 +1,45 @@
+﻿using I2.Loc;
+using PugTilemap;
+
+namespace ItemBrowser.Utilities {
+	public static class TileUtils {
+		public static bool IsBlock(TileType tileType, Tileset tileset, out ObjectID wallObjectId, out ObjectID groundObjectId) {
+			wallObjectId = ObjectID.None;
+			groundObjectId = ObjectID.None;
+			
+			if (tileType != TileType.wall && tileType != TileType.ground)
+				return false;
+			
+			var wallObjectInfo = PugDatabase.TryGetTileItemInfo(TileType.wall, (int) tileset);
+			var groundObjectInfo = PugDatabase.TryGetTileItemInfo(TileType.ground, (int) tileset);
+			if (wallObjectInfo == null || groundObjectInfo == null)
+				return false;
+			
+			wallObjectId = wallObjectInfo.objectID;
+			groundObjectId = groundObjectInfo.objectID;
+			return true;
+		}
+		
+		public static bool IsBlock(TileType tileType, Tileset tileset) {
+			return IsBlock(tileType, tileset, out _, out _);
+		}
+		
+		public static string GetLocalizedDisplayName(TileType tileType, Tileset? tileset) {
+			if (tileset == null)
+				return LocalizationManager.GetTranslation($"ItemBrowser:AnyTileType/{tileType}");
+
+			if (IsBlock(tileType, tileset.Value, out var wallObjectId, out _)) {
+				return string.Format(
+					LocalizationManager.GetTranslation(tileType == TileType.wall ? "ItemBrowser:WallBlockSuffix" : "ItemBrowser:GroundBlockSuffix"),
+					ObjectUtils.GetLocalizedDisplayName(wallObjectId)
+				);
+			}
+			
+			var objectInfo = PugDatabase.TryGetTileItemInfo(tileType, (int) tileset);
+			if (objectInfo != null)
+				return ObjectUtils.GetLocalizedDisplayName(objectInfo.objectID, objectInfo.variation);
+
+			return $"{tileType}/{tileset}";
+		}
+	}
+}
