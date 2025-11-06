@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using ItemBrowser.Entries.Defaults.Sources;
+using ItemBrowser.Entries;
+using ItemBrowser.Entries.Defaults;
 using UnityEngine;
 
 namespace ItemBrowser.Browser.ObjectList {
@@ -81,7 +82,7 @@ namespace ItemBrowser.Browser.ObjectList {
 			
 			var slotObject = GetSlotObject();
 			if (filtersPanel.DisplayItemCraftingRequirements) {
-				var craftingSources = ItemBrowserAPI.ObjectEntries.GetEntriesOfType<Crafting>(slotObject.objectID, slotObject.variation).ToList();
+				var craftingSources = ItemBrowserAPI.ObjectEntries.GetEntries<Crafting>(ObjectEntryType.Source, slotObject.objectID, slotObject.variation).ToList();
 				if (craftingSources.Count > 0) {
 					// TODO support multiple stations!
 					var firstCraftingSource = craftingSources[0];

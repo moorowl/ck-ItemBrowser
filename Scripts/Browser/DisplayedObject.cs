@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using ItemBrowser.Entries;
 using ItemBrowser.Utilities;
 using PugMod;
 using PugTilemap;
@@ -12,8 +13,8 @@ namespace ItemBrowser.Browser {
 		public virtual (int Min, int Max) Amount => (ContainedObject.amount, ContainedObject.amount);
 			
 		public virtual void Update(SlotUIBase slot) { }
-
-		public virtual bool ShowSources(SlotUIBase slot) {
+		
+		public virtual bool ShowEntries(SlotUIBase slot, ObjectEntryType type) {
 			return false;
 		}
 
@@ -50,8 +51,8 @@ namespace ItemBrowser.Browser {
 				Amount = (amount, amount);
 			}
 			
-			public override bool ShowSources(SlotUIBase slot) {
-				return ItemBrowserAPI.ItemBrowserUI.ShowObjectSources(_objectData);
+			public override bool ShowEntries(SlotUIBase slot, ObjectEntryType type) {
+				return ItemBrowserAPI.ItemBrowserUI.ShowObjectEntries(_objectData, type);
 			}
 
 			public override TextAndFormatFields GetHoverTitle(SlotUIBase slot) {
@@ -182,11 +183,8 @@ namespace ItemBrowser.Browser {
 				}
 			}
 			
-			public override bool ShowSources(SlotUIBase slot) {
-				if (_staticObject != null)
-					return _staticObject.ShowSources(slot);
-				
-				return false;
+			public override bool ShowEntries(SlotUIBase slot, ObjectEntryType type) {
+				return _staticObject != null && _staticObject.ShowEntries(slot, type);
 			}
 
 			public override TextAndFormatFields GetHoverTitle(SlotUIBase slot) {

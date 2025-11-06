@@ -6,41 +6,54 @@ using UnityEngine;
 
 namespace ItemBrowser.Entries {
 	public class ObjectEntryRegistry {
-		private readonly Dictionary<ObjectDataCD, EntryLookup> _entries = new();
-
-		public IEnumerable<ObjectEntry> GetEntries(ObjectID id, int variation) {
-			var objectData = new ObjectDataCD {
-				objectID = id,
-				variation = variation,
-			};
-			return !_entries.TryGetValue(objectData, out var entries) ? Array.Empty<ObjectEntry>() : entries.GetEntries();
-		}
+		private readonly Dictionary<ObjectDataCD, EntryLookup>[] _entries = new[] {
+			new Dictionary<ObjectDataCD, EntryLookup>(),
+			new Dictionary<ObjectDataCD, EntryLookup>()
+		};
 		
-		public IEnumerable<T> GetEntriesOfType<T>(ObjectID id, int variation) where T : ObjectEntry {
+		public IEnumerable<ObjectEntry> GetAllEntries(ObjectEntryType type, ObjectID id, int variation) {
 			var objectData = new ObjectDataCD {
 				objectID = id,
 				variation = variation,
 			};
-			return !_entries.TryGetValue(objectData, out var entries) ? Array.Empty<T>() : entries.GetEntriesOfType<T>();
-		}
-		
-		public void Register(ObjectID id, int variation, ObjectEntry entry) {
-			if (id == ObjectID.GiantMushroom)
-				id = ObjectID.GiantMushroom2;
-			
-			var objectData = new ObjectDataCD {
-				objectID = id,
-				variation = variation,
-			};
-			if (!_entries.ContainsKey(objectData))
-				_entries[objectData] = new EntryLookup();
-			
-			_entries[objectData].Add(entry);
+			return !_entries[(int) type].TryGetValue(objectData, out var entries) ? Array.Empty<ObjectEntry>() : entries.GetEntries();
 		}
 
+		public IEnumerable<ObjectEntry> GetAllEntries(ObjectEntryType type, ObjectDataCD objectData) {
+			return GetAllEntries(type, objectData.objectID, objectData.variation);
+		}
+		
+		public IEnumerable<T> GetEntries<T>(ObjectEntryType type, ObjectID id, int variation) where T : ObjectEntry {
+			var objectData = new ObjectDataCD {
+				objectID = id,
+				variation = variation,
+			};
+			return !_entries[(int) type].TryGetValue(objectData, out var entries) ? Array.Empty<T>() : entries.GetEntriesOfType<T>();
+		}
+		
+		public IEnumerable<T> GetEntries<T>(ObjectEntryType type, ObjectDataCD objectData) where T : ObjectEntry {
+			return GetEntries<T>(type, objectData.objectID, objectData.variation);
+		}
+		
+		public void Register(ObjectEntryType type, ObjectID id, int variation, ObjectEntry entry) {
+			var objectData = new ObjectDataCD {
+				objectID = TryReplaceObjectID(id),
+				variation = variation,
+			};
+			if (!_entries[(int) type].ContainsKey(objectData))
+				_entries[(int) type][objectData] = new EntryLookup();
+			
+			_entries[(int) type][objectData].Add(entry);
+		}
+		
+		public void Register(ObjectEntryType type, ObjectDataCD objectData, ObjectEntry entry) {
+			Register(type, objectData.objectID, objectData.variation, entry);
+		}
+		
 		internal void RegisterFromProviders(List<ObjectEntryProvider> providers) {
-			_entries.Clear();
-			
+			foreach (var entries in _entries)
+				entries.Clear();
+
 			var allObjects = DatabaseConversionUtility.GetPrefabList(Manager.ecs.pugDatabase).Select(prefabData => {
 				var objectData = new ObjectData {
 					objectID = prefabData.ObjectInfo.objectID,
@@ -58,6 +71,13 @@ namespace ItemBrowser.Entries {
 					Debug.LogException(ex);
 				}
 			}
+		}
+
+		private static ObjectID TryReplaceObjectID(ObjectID id) {
+			return id switch {
+				ObjectID.GiantMushroom => ObjectID.GiantMushroom2,
+				_ => id
+			};
 		}
 		
 		private class EntryLookup {

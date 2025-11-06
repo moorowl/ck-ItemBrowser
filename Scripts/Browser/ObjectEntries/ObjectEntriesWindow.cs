@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ItemBrowser.Entries;
+using ItemBrowser.Utilities;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -16,27 +17,37 @@ namespace ItemBrowser.Browser {
 		[SerializeField]
 		private PugText selectedTypeText;
 		[SerializeField]
+		private ChangeCategoryAndTypeButton nextTypeButton;
+		[SerializeField]
+		private ChangeCategoryAndTypeButton prevTypeButton;
+		[SerializeField]
 		private PugText selectedCategoryText;
 		[SerializeField]
-		private ChangeCategoryButton nextCategoryButton;
+		private ChangeCategoryAndTypeButton nextCategoryButton;
 		[SerializeField]
-		private ChangeCategoryButton prevCategoryButton;
+		private ChangeCategoryAndTypeButton prevCategoryButton;
 		[SerializeField]
-		private ChangeCategoryButton categoryButtonPrefab;
+		private ChangeCategoryAndTypeButton categoryButtonPrefab;
 		[SerializeField]
 		private Transform categoryButtonContainer;
 		[SerializeField]
 		private float categoryButtonGap;
 		
 		private ObjectDataCD _objectData;
-		private List<List<ObjectEntry>> _entries;
-		private readonly List<ChangeCategoryButton> _categoryButtons = new();
+		private List<List<ObjectEntry>> _entries = new();
+
+		private readonly List<ChangeCategoryAndTypeButton> _categoryButtons = new();
 		private readonly Stack<(ObjectDataCD ObjectData, ObjectEntryType SelectedType, int SelectedCategory, float ScrollProgress)> _history = new();
 		
 		public ObjectEntryType SelectedType { get; private set; }
 		public int SelectedCategory { get; private set; }
-
 		public bool HasAnyHistory => _history.Count > 0;
+		public ObjectEntryType NextType => SelectedType switch {
+			ObjectEntryType.Source => ObjectEntryType.Usage,
+			ObjectEntryType.Usage => ObjectEntryType.Source,
+			_ => throw new ArgumentOutOfRangeException()
+		};
+		public bool IsSelectedObjectNonObtainable { get; private set; }
 		
 		private void LateUpdate() {
 			var inputModule = Manager.main.player.inputModule;
@@ -67,7 +78,7 @@ namespace ItemBrowser.Browser {
 			if (objectData.Equals(_objectData))
 				return false;
 			
-			var entries = ItemBrowserAPI.ObjectEntries.GetEntries(objectData.objectID, objectData.variation).Where(entry => entry.Category.Type == SelectedType);
+			var entries = ItemBrowserAPI.ObjectEntries.GetAllEntries(initialSelectedType, objectData.objectID, objectData.variation);
 			if (!entries.Any())
 				return false;
 			
@@ -98,17 +109,26 @@ namespace ItemBrowser.Browser {
 		
 		public void SetTypeAndCategory(ObjectEntryType type, int category, float scrollProgress = 1f) {
 			SelectedType = type;
-			SelectedCategory = category;
+			SelectedCategory = Math.Clamp(category, 0, Math.Max(_entries.Count - 1, 0));
 
-			_entries = ItemBrowserAPI.ObjectEntries.GetEntries(_objectData.objectID, _objectData.variation)
-				.Where(entry => entry.Category.Type == SelectedType)
-				.GroupBy(details => details.Category.Title)
+			IsSelectedObjectNonObtainable = ObjectUtils.IsNonObtainable(_objectData.objectID, _objectData.variation);
+			var allEntriesOfSelectedType = ItemBrowserAPI.ObjectEntries.GetAllEntries(SelectedType, _objectData.objectID, _objectData.variation).ToList();
+			var allEntriesOfOtherType = ItemBrowserAPI.ObjectEntries.GetAllEntries(NextType, _objectData.objectID, _objectData.variation).ToList();
+			
+			_entries = allEntriesOfSelectedType
+				.GroupBy(details => details.Category.GetTitle(IsSelectedObjectNonObtainable))
 				.Select(group => group.ToList())
 				.OrderByDescending(entries => entries.First().Category.Priority)
 				.ToList();
-			
+
 			selectedItemSlot.SetObjectData(_objectData);
-			selectedTypeText.Render($"ItemBrowser:ObjectEntryTypeHeader_Item/{SelectedType}");
+			
+			var typeHeaderTerm = IsSelectedObjectNonObtainable
+				? $"ItemBrowser:ObjectEntryTypeHeader_NonObtainable/{SelectedType}"
+				: $"ItemBrowser:ObjectEntryTypeHeader/{SelectedType}";
+			selectedTypeText.Render(typeHeaderTerm);
+			nextTypeButton.canBeClicked = false;
+			prevTypeButton.canBeClicked = false;
 			
 			selectedCategoryText.gameObject.SetActive(false);
 			nextCategoryButton.canBeClicked = false;
@@ -119,8 +139,15 @@ namespace ItemBrowser.Browser {
 				button.gameObject.SetActive(false);
 			for (var i = 0; i < Math.Min(_entries.Count, MaxCategoryButtons); i++) {
 				var button = _categoryButtons[i];
-				button.SetCategory(i, _entries[i].Count, _entries[i].First().Category);
+				button.SetCategoryAndType(i, _entries[i].Count, SelectedType, _entries[i].First().Category);
 				button.gameObject.SetActive(true);
+			}
+
+			if (allEntriesOfOtherType.Any()) {
+				nextTypeButton.canBeClicked = true;
+				nextTypeButton.SetCategoryAndType(0, 0, NextType, allEntriesOfOtherType.First().Category);
+				prevTypeButton.canBeClicked = true;
+				prevTypeButton.SetCategoryAndType(0, 0, NextType, allEntriesOfOtherType.First().Category);
 			}
 			
 			if (_entries.Count == 0) {
@@ -135,7 +162,7 @@ namespace ItemBrowser.Browser {
 			}
 			
 			selectedCategoryText.gameObject.SetActive(true);
-			selectedCategoryText.Render(details[0].Category.Title);
+			selectedCategoryText.Render(details[0].Category.GetTitle(IsSelectedObjectNonObtainable));
 
 			if (_entries.Count >= 2) {
 				var nextCategoryIndex = SelectedCategory + 1;
@@ -149,16 +176,16 @@ namespace ItemBrowser.Browser {
 				var prevCategory = _entries[prevCategoryIndex].First().Category;
 				
 				nextCategoryButton.canBeClicked = true;
-				nextCategoryButton.SetCategory(nextCategoryIndex, 0, nextCategory);
+				nextCategoryButton.SetCategoryAndType(nextCategoryIndex, 0, SelectedType, nextCategory);
 				prevCategoryButton.canBeClicked = true;
-				prevCategoryButton.SetCategory(prevCategoryIndex, 0, prevCategory);
+				prevCategoryButton.SetCategoryAndType(prevCategoryIndex, 0, SelectedType, prevCategory);
 			}
 			
 			objectEntriesList.SetEntries(_objectData, details, scrollProgress);
 		}
 
 		public void SetCategory(int category) {
-			SetTypeAndCategory(SelectedType, Math.Clamp(category, 0, _entries.Count - 1));
+			SetTypeAndCategory(SelectedType, category);
 		}
 
 		private void CycleToNextCategory() {

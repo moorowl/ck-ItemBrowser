@@ -40,17 +40,21 @@ namespace ItemBrowser.Browser {
 			PlayToggleSound();
 		}
 
-		public bool ShowObjectSources(ObjectDataCD objectData) {
-			if (!objectEntriesWindow.PushObjectData(objectData, ObjectEntryType.Source))
+		public bool ShowObjectEntries(ObjectDataCD objectData, ObjectEntryType type) {
+			if (!objectEntriesWindow.PushObjectData(objectData, type)) {
+				AudioManager.SfxUI(SfxID.menu_denied, 1.15f, false, 0.4f, 0.05f);
 				return false;
-			
+			}
+
+			IsShowing = true;
 			objectListWindow.IsShowing = false;
 			objectEntriesWindow.IsShowing = true;
 
 			return true;
 		}
-
+		
 		public void ShowItemList() {
+			IsShowing = true;
 			objectListWindow.IsShowing = true;
 			objectEntriesWindow.IsShowing = false;
 			objectEntriesWindow.Clear();

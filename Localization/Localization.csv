@@ -4,15 +4,21 @@ ItemBrowser:Items	Text		Items
 ItemBrowser:Creatures	Text		Creatures												
 ItemBrowser:Cooking	Text		Cooking												
 ItemBrowser:NameAndAmountFormat	Text		{0} x{1}												
-ItemBrowser:SourcesFor	Text		{0} source												
-ItemBrowser:SourcesForPlural	Text		{0} sources												
-ItemBrowser:ObjectEntryTypeHeader_Item/Source	Text		Sources												
-ItemBrowser:ObjectEntryTypeHeader_Item/Usage	Text		Usages												
-ItemBrowser:ObjectEntryTypeHeader_Creature/Source	Text		Spawning												
-ItemBrowser:ObjectEntryTypeHeader_Creature/Usage	Text		Usages												
+ItemBrowser:EntriesAmount/Source	Text		{0} source												
+ItemBrowser:EntriesAmountPlural/Source	Text		{0} sources												
+ItemBrowser:EntriesAmount/Usage	Text		{0} usage												
+ItemBrowser:EntriesAmountPlural/Usage	Text		{0} usages												
+ItemBrowser:ObjectEntryTypeHeader/Source	Text		Obtaining												
+ItemBrowser:ObjectEntryTypeHeader/Usage	Text		Usage												
+ItemBrowser:ObjectEntryTypeHeader_NonObtainable/Source	Text		Spawning												
+ItemBrowser:ObjectEntryTypeHeader_NonObtainable/Usage	Text		Usage												
 ItemBrowser:Usages	Text		Usages												
 ItemBrowser:PrevSource	Text		Previous source												
 ItemBrowser:NextSource	Text		Next source												
+ItemBrowser:ShowType/Source	Text		Show obtaining												
+ItemBrowser:ShowType/Usage	Text		Show usage												
+ItemBrowser:ShowType_NonObtainable/Source	Text		Show spawning												
+ItemBrowser:ShowType_NonObtainable/Usage	Text		Show usage												
 ItemBrowser:ButtonHint/Clear	Text		Clear: {0}												
 ItemBrowser:ButtonHint/ViewUsage	Text		View usages: {0}												
 ItemBrowser:ButtonHint/ViewSource	Text		View sources: {0}												
@@ -139,6 +145,7 @@ ItemBrowser:ObjectEntry/ArchaeologistDrops	Text		Wall destruction
 ItemBrowser:ObjectEntry/Breeding	Text		Breeding												
 ItemBrowser:ObjectEntry/ChallengeArenaReward	Text		Challenge arena reward												
 ItemBrowser:ObjectEntry/StructureContents	Text		Plundering												
+ItemBrowser:ObjectEntry/StructureContents_NonObtainable	Text		Structure contents												
 ItemBrowser:MoreInfo/Farming_0	Text		Grown from a {0}												
 ItemBrowser:MoreInfo/Farming_0_Normal	Text		Grown from a normal {0}												
 ItemBrowser:MoreInfo/Farming_0_Golden	Text		Grown from a golden {0}												

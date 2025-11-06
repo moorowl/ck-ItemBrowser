@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using ItemBrowser.Entries;
 using ItemBrowser.Utilities;
 using UnityEngine;
 
@@ -65,7 +66,14 @@ namespace ItemBrowser.Browser {
 				return;
 			}
 
-			if (linksSource && _displayedObject.ShowSources(this))
+			if (linksSource && _displayedObject.ShowEntries(this, ObjectEntryType.Source))
+				UserInterfaceUtils.PlayMenuOpenSound();
+		}
+
+		public override void OnRightClicked(bool mod1, bool mod2) {
+			base.OnRightClicked(mod1, mod2);
+			
+			if (linksUsage && _displayedObject.ShowEntries(this, ObjectEntryType.Usage))
 				UserInterfaceUtils.PlayMenuOpenSound();
 		}
 

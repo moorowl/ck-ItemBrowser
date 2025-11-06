@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using I2.Loc;
 using Unity.Entities;
 using Unity.Mathematics;
@@ -169,6 +170,46 @@ namespace ItemBrowser.Utilities {
 				iconToUse = iconOverride;
 
 			return iconToUse;
+		}
+
+		public static bool IsNonObtainable(ObjectID id, int variation = 0) {
+			var objectInfo = PugDatabase.GetObjectInfo(id, variation);
+			if (objectInfo == null)
+				return true;
+
+			if (objectInfo.objectType is ObjectType.NonObtainable or ObjectType.Creature or ObjectType.Critter or ObjectType.PlayerType)
+				return true;
+
+			if (PugDatabase.HasComponent<DestructibleObjectCD>(id, variation) || PugDatabase.HasComponent<IndestructibleCD>(id, variation) || PugDatabase.HasComponent<DestroyTimerCD>(id, variation))
+				return true;
+			
+			if (PugDatabase.HasComponent<AllowHealthRegenerationInCombatCD>(id, variation) && PugDatabase.GetComponent<HealthCD>(id).maxHealth >= 9999999 && PugDatabase.GetComponent<HealthRegenerationCD>(id).NormalizedHealthIncreasePerFiveSeconds >= 1f)
+				return true;
+
+			return false;
+		}
+
+		public static IEnumerable<ObjectDataCD> GroupAndSumObjects(IEnumerable<ObjectDataCD> objects, bool ignoreVariation) {
+			return objects.GroupBy(objectData => ignoreVariation ? (int) objectData.objectID : (((int) objectData.objectID) * 10000) + objectData.variation)
+				.Select(group => {
+					var first = group.First();
+					return new ObjectDataCD {
+						objectID = first.objectID,
+						variation = first.variation,
+						amount = group.Sum(objectData => PugDatabase.GetObjectInfo(first.objectID, first.variation) is { isStackable: true } ? objectData.amount : 1)
+					};
+				});
+		}
+		
+		public static IEnumerable<CraftingObject> GroupAndSumObjects(IEnumerable<CraftingObject> objects) {
+			return objects.GroupBy(objectData => objectData.objectID)
+				.Select(group => {
+					var first = group.First();
+					return new CraftingObject {
+						objectID = first.objectID,
+						amount = group.Sum(objectData => PugDatabase.GetObjectInfo(first.objectID) is { isStackable: true } ? objectData.amount : 1)
+					};
+				});
 		}
 		
 		public static int GetDamage(ObjectID id, int variation = 0) {

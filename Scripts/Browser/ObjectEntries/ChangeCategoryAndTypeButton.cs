@@ -1,0 +1,95 @@
+﻿using System;
+using System.Collections.Generic;
+using ItemBrowser.Entries;
+using ItemBrowser.Utilities;
+using UnityEngine;
+
+namespace ItemBrowser.Browser {
+	public class ChangeCategoryAndTypeButton : BasicButton {
+		[SerializeField]
+		private ObjectEntriesWindow objectEntriesWindow;
+		[SerializeField]
+		private SpriteRenderer[] icons;
+		[SerializeField]
+		private ButtonStyle style;
+
+		private int _categoryIndex;
+		private int _entriesInCategory;
+		private ObjectEntryType _type;
+		private ObjectEntryCategory _category;
+
+		private enum ButtonStyle {
+			TopButton,
+			CycleCategory,
+			CycleType
+		}
+
+		public void SetCategoryAndType(int categoryIndex, int entriesInCategory, ObjectEntryType type, ObjectEntryCategory category) {
+			_categoryIndex = categoryIndex;
+			_entriesInCategory = entriesInCategory;
+			_type = type;
+			_category = category;
+
+			var objectInfo = PugDatabase.GetObjectInfo(category.Icon);
+			foreach (var icon in icons)
+				icon.sprite = objectInfo.smallIcon ?? objectInfo.icon;
+			
+			LateUpdate();
+		}
+
+		protected override void LateUpdate() {
+			IsToggled = objectEntriesWindow.SelectedCategory == _categoryIndex && objectEntriesWindow.SelectedType == _type;
+			
+			base.LateUpdate();
+		}
+
+		public override void OnLeftClicked(bool mod1, bool mod2) {
+			base.OnLeftClicked(mod1, mod2);
+
+			if (IsToggled || !canBeClicked)
+				return;
+			
+			UserInterfaceUtils.PlayMenuOpenSound(0.0025f * _categoryIndex);
+			objectEntriesWindow.SetTypeAndCategory(_type, _categoryIndex);
+		}
+
+		public override TextAndFormatFields GetHoverTitle() {
+			if (!canBeClicked)
+				return null;
+
+			return new TextAndFormatFields {
+				text = style switch {
+					ButtonStyle.TopButton => _category.Title,
+					ButtonStyle.CycleCategory => optionalTitle.mTerm,
+					ButtonStyle.CycleType => objectEntriesWindow.IsSelectedObjectNonObtainable ? $"ItemBrowser:ShowType_NonObtainable/{_type}" : $"ItemBrowser:ShowType/{_type}",
+					_ => throw new ArgumentOutOfRangeException()
+				}
+			};
+		}
+
+		public override List<TextAndFormatFields> GetHoverDescription() {
+			if (!canBeClicked)
+				return null;
+			
+			var lines = new List<TextAndFormatFields>();
+
+			if (style == ButtonStyle.TopButton) {
+				lines.Add(new() {
+					text = _entriesInCategory == 1 ? $"ItemBrowser:EntriesAmount/{_type}" : $"ItemBrowser:EntriesAmountPlural/{_type}",
+					formatFields = new[] {
+						_entriesInCategory.ToString()
+					},
+					dontLocalizeFormatFields = true,
+					color = TextUtils.DescriptionColor
+				});
+			} else if (style == ButtonStyle.CycleCategory) {
+				lines.Add(new TextAndFormatFields {
+					text = _category.GetTitle(objectEntriesWindow.IsSelectedObjectNonObtainable),
+					color = TextUtils.DescriptionColor
+				});
+			}
+			
+			return lines;
+		}
+	}
+}
