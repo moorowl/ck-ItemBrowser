@@ -54,7 +54,7 @@ namespace ItemBrowser.Utilities {
 		private static void SetupAssociatedObjects() {
 			AssociatedObjects.Clear();
 			AssociatedMod.Clear();
-			
+
 			foreach (var authoring in Manager.mod.ExtraAuthoring) {
 				var gameObject = authoring.gameObject;
 
@@ -64,8 +64,8 @@ namespace ItemBrowser.Utilities {
 				if (gameObject.TryGetComponent<ObjectAuthoring>(out var objectAuthoring)) {
 					var internalName = objectAuthoring.objectName;
 					if (internalName.Contains(":")) {
-						var sourceMod = internalName.Split(':')[0];
-						associatedModId = API.ModLoader.LoadedMods.FirstOrDefault(mod => mod.Metadata.name == sourceMod)?.ModId ?? UnknownModId;
+						var sourceMod = ProcessModInternalName(internalName.Split(':')[0]);
+						associatedModId = API.ModLoader.LoadedMods.FirstOrDefault(mod => ProcessModInternalName(mod.Metadata.name) == sourceMod)?.ModId ?? UnknownModId;
 						objectId = API.Authoring.GetObjectID(internalName);
 					}
 				}
@@ -78,6 +78,12 @@ namespace ItemBrowser.Utilities {
 				
 				AssociatedObjects[associatedModId].Add(objectId);
 				AssociatedMod.TryAdd(objectId, associatedModId);
+			}
+
+			return;
+
+			string ProcessModInternalName(string name) {
+				return name.ToLowerInvariant().Replace("-", "").Replace("_", "").Replace(" ", "");
 			}
 		}
 	}
