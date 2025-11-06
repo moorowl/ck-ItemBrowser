@@ -63,7 +63,7 @@ namespace ItemBrowser.Entries.Defaults.Sources {
 					foreach (var objectData in combinedObjectDatas) {
 						registry.Register(objectData.objectID, objectData.variation, new StructureContents {
 							Amount = objectData.amount,
-							Scene = StructureUtils.GetFixedSceneName(customSceneBlob.sceneName.ToString())
+							Scene = customSceneBlob.sceneName.ToString()
 						});
 					}
 				}

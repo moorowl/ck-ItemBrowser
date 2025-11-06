@@ -136,7 +136,7 @@ namespace ItemBrowser.Entries.Defaults.Sources {
 					MoreInfo.AddLine(new TextAndFormatFields {
 						text = "ItemBrowser:MoreInfo/Loot_4",
 						formatFields = new[] {
-							scene.Name,
+							StructureUtils.GetPersistentSceneName(scene.Name),
 							scene.Amount.ToString()
 						},
 						dontLocalizeFormatFields = true,

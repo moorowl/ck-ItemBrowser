@@ -158,7 +158,7 @@ namespace ItemBrowser.Entries.Defaults.Sources {
 					MoreInfo.AddLine(new TextAndFormatFields {
 						text = "ItemBrowser:MoreInfo/Drops_6",
 						formatFields = new[] {
-							scene.Name,
+							StructureUtils.GetPersistentSceneName(scene.Name),
 							scene.Amount.ToString()
 						},
 						dontLocalizeFormatFields = true,

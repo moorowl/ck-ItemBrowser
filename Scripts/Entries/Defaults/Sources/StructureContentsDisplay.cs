@@ -30,7 +30,7 @@ namespace ItemBrowser.Entries.Defaults.Sources {
 
 			if (Entry.Scene != null) {
 				structureTypeText.Render("ItemBrowser:StructureType/Scene");
-				structureNameText.Render(Entry.Scene);
+				structureNameText.Render(StructureUtils.GetPersistentSceneName(Entry.Scene));
 			} else if (Entry.Dungeon != null) {
 				structureTypeText.Render("ItemBrowser:StructureType/Dungeon");
 				structureNameText.Render(Entry.Dungeon);
@@ -42,7 +42,7 @@ namespace ItemBrowser.Entries.Defaults.Sources {
 				MoreInfo.AddLine(new TextAndFormatFields {
 					text = "ItemBrowser:MoreInfo/StructureContents_1_Scene",
 					formatFields = new[] {
-						Entry.Scene
+						StructureUtils.GetPersistentSceneName(Entry.Scene)
 					},
 					dontLocalizeFormatFields = true,
 					color = TextUtils.DescriptionColor
