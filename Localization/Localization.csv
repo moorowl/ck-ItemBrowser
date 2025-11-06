@@ -185,8 +185,8 @@ ItemBrowser:MoreInfo/NaturalSpawnInitial_1	Text		{0}% chance (per suitable tile)
 ItemBrowser:MoreInfo/NaturalSpawnInitial_2	Text		Suitable tiles:												
 ItemBrowser:MoreInfo/NaturalSpawnInitial_3	Text		- {0}												
 ItemBrowser:MoreInfo/NaturalSpawnInitial_4	Text		Must also be directly adjacent to one of the following:												
-ItemBrowser:MoreInfo/NaturalSpawnRespawn_0_AnyBiome	Text		Spawns on suitable tiles placed in {0} every (approx.) 15 min												
-ItemBrowser:MoreInfo/NaturalSpawnRespawn_0_SpecificBiome	Text		Spawns on suitable tiles placed in any biome every (approx.) 15 min												
+ItemBrowser:MoreInfo/NaturalSpawnRespawn_0_SpecificBiome	Text		Spawns on suitable tiles placed in {0} every (approx.) 15 min												
+ItemBrowser:MoreInfo/NaturalSpawnRespawn_0_AnyBiome	Text		Spawns on suitable tiles placed in any biome every (approx.) 15 min												
 ItemBrowser:MoreInfo/NaturalSpawnRespawn_1	Text		{0}% chance (per suitable tile)												
 ItemBrowser:MoreInfo/NaturalSpawnRespawn_2	Text		Suitable tiles:												
 ItemBrowser:MoreInfo/NaturalSpawnRespawn_3	Text		- {0}												
@@ -270,4 +270,4 @@ ItemBrowser:Options/CheatModeDesc	Text		Allows you to spawn in certain items by 
 ItemBrowser:Options/ShowTechnicalInfo	Text		Show technical info												
 ItemBrowser:Options/ShowTechnicalInfoDesc	Text		Shows some technical details when hovering over an item in the Item Browser, such as IDs.												
 ItemBrowser:Options/DefaultDiscoveredFilter	Text		Default discovered filter												
-ItemBrowser:Options/DefaultDiscoveredFilterDesc	Text		Toggles the discovered filter in the Item Browser on by default, only showing items you have picked up before.												
+ItemBrowser:Options/DefaultDiscoveredFilterDesc	Text		Toggles the discovered filter in the Item Browser on by default, only showing items you've picked up before.												
