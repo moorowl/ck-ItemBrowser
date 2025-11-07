@@ -76,6 +76,7 @@ namespace ItemBrowser.Entries {
 		private static ObjectID TryReplaceObjectID(ObjectID id) {
 			return id switch {
 				ObjectID.GiantMushroom => ObjectID.GiantMushroom2,
+				ObjectID.OldRebreather => ObjectID.OldSporeMask,
 				_ => id
 			};
 		}
