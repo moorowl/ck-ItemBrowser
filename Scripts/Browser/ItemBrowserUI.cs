@@ -29,10 +29,11 @@ namespace ItemBrowser.Browser {
 			if (isFirstTimeShowing) {
 				objectListWindow.IsShowing = true;
 				objectEntriesWindow.IsShowing = false;
+			} else {
+				HideMapAndInventoryIfShowing();
+				PlayToggleSound();	
 			}
 			
-			HideMapAndInventoryIfShowing();
-			PlayToggleSound();
 			Manager.ui.DeselectAnySelectedUIElement();
 		}
 
@@ -81,7 +82,7 @@ namespace ItemBrowser.Browser {
 			}
 		}
 
-		private void HideMapAndInventoryIfShowing() {
+		private static void HideMapAndInventoryIfShowing() {
 			if (Manager.ui.isAnyInventoryShowing)
 				Manager.ui.HideAllInventoryAndCraftingUI();
 			
@@ -89,7 +90,7 @@ namespace ItemBrowser.Browser {
 				Manager.ui.HideMap();
 		}
 
-		private void PlayToggleSound() {
+		private static void PlayToggleSound() {
 			if (Manager.main.player == null)
 				return;
 			
