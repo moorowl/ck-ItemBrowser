@@ -17,7 +17,7 @@ namespace ItemBrowser.Browser {
 		private ObjectEntriesWindow objectEntriesWindow;
 
 		private void Awake() {
-			IsShowing = false;
+			gameObject.SetActive(false);
 			OnInit?.Invoke(this);
 		}
 		
@@ -29,11 +29,10 @@ namespace ItemBrowser.Browser {
 			if (isFirstTimeShowing) {
 				objectListWindow.IsShowing = true;
 				objectEntriesWindow.IsShowing = false;
-			} else {
-				HideMapAndInventoryIfShowing();
-				PlayToggleSound();	
 			}
 			
+			HideMapAndInventoryIfShowing();
+			PlayToggleSound();
 			Manager.ui.DeselectAnySelectedUIElement();
 		}
 
