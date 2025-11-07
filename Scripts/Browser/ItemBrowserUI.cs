@@ -41,7 +41,7 @@ namespace ItemBrowser.Browser {
 		}
 
 		public bool ShowObjectEntries(ObjectDataCD objectData, ObjectEntryType type) {
-			if (!objectEntriesWindow.PushObjectData(objectData, type)) {
+			if (!objectEntriesWindow.PushObjectData(objectData, type, !IsShowing)) {
 				AudioManager.SfxUI(SfxID.menu_denied, 1.15f, false, 0.4f, 0.05f);
 				return false;
 			}

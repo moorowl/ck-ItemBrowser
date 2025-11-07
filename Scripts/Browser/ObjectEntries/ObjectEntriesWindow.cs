@@ -74,17 +74,20 @@ namespace ItemBrowser.Browser {
 			}
 		}
 
-		public bool PushObjectData(ObjectDataCD objectData, ObjectEntryType initialSelectedType) {
+		public bool PushObjectData(ObjectDataCD objectData, ObjectEntryType initialSelectedType, bool clearHistory) {
 			if (objectData.Equals(_objectData))
 				return false;
 			
 			var entries = ItemBrowserAPI.ObjectEntries.GetAllEntries(initialSelectedType, objectData.objectID, objectData.variation);
 			if (!entries.Any())
 				return false;
-			
-			if (_objectData.objectID != ObjectID.None)
+
+			if (clearHistory) {
+				_history.Clear();
+			} else if (_objectData.objectID != ObjectID.None) {
 				_history.Push((_objectData, SelectedType, SelectedCategory, objectEntriesList.CurrentScrollProgress));
-			
+			}
+
 			_objectData = objectData;
 			SetTypeAndCategory(initialSelectedType, 0);
 
