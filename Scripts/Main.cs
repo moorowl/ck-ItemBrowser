@@ -91,7 +91,8 @@ public class Main : IMod {
 				new StructureContents.Provider(),
 				new NaturalSpawnAroundObject.Provider(),
 				new TerrainGeneration.Provider(),
-				new MerchantSpawning.Provider()
+				new MerchantSpawning.Provider(),
+				new Miscellaneous.Provider()
 			);
 
 			RegisterItemSorters();
