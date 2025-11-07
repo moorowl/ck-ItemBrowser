@@ -31,6 +31,7 @@ namespace ItemBrowser.Browser {
 				objectEntriesWindow.IsShowing = false;
 			}
 			
+			UpdateScale();
 			HideMapAndInventoryIfShowing();
 			PlayToggleSound();
 			Manager.ui.DeselectAnySelectedUIElement();
@@ -63,11 +64,15 @@ namespace ItemBrowser.Browser {
 		}
 
 		private void LateUpdate() {
-			transform.localScale = Manager.ui.CalcGameplayUITargetScaleMultiplier();
+			UpdateScale();
 			UpdateGoBack();
 			HideMapAndInventoryIfShowing();
 		}
 
+		private void UpdateScale() {
+			transform.localScale = Manager.ui.CalcGameplayUITargetScaleMultiplier();
+		}
+		
 		private void UpdateGoBack() {
 			if (Manager.menu.IsAnyMenuActive() || Manager.input.activeInputField != null || !Manager.input.IsMenuStartButtonDown())
 				return;
