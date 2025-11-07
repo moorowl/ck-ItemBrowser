@@ -18,7 +18,8 @@ public class Main : IMod {
 	public const string Version = "0.1.0";
 	public const string InternalName = "ItemBrowser";
 	public const string DisplayName = "Item Browser";
-	
+
+	internal static Options Options { get; private set; } = new();
 	internal static AssetBundle AssetBundle { get; private set; }
 
 	public void EarlyInit() {

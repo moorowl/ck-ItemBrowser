@@ -58,28 +58,6 @@ namespace ItemBrowser.Browser.ObjectList {
 		public override List<TextAndFormatFields> GetHoverDescription() {
 			var lines = base.GetHoverDescription();
 			
-			/*lines.Add(new TextAndFormatFields {
-				text = $"{(int) ObjectData.objectID}:{ObjectData.variation} ({ObjectData.objectID})",
-				dontLocalize = true,
-				color = TextUtils.DescriptionColor * 0.5f
-			});
-
-			var prefabInfo = PugDatabase.GetObjectInfo(ObjectData.objectID, ObjectData.variation).prefabInfos[0];
-			if (prefabInfo.ecsPrefab != null) {
-				lines.Add(new TextAndFormatFields {
-					text = $"Authoring: {prefabInfo.ecsPrefab.gameObject.name}",
-					dontLocalize = true,
-					color = TextUtils.DescriptionColor * 0.5f
-				});	
-			}
-			if (prefabInfo.prefab != null) {
-				lines.Add(new TextAndFormatFields {
-					text = $"Graphical: {prefabInfo.prefab.gameObject.name}",
-					dontLocalize = true,
-					color = TextUtils.DescriptionColor * 0.5f
-				});	
-			}*/
-			
 			var slotObject = GetSlotObject();
 			if (filtersPanel.DisplayItemCraftingRequirements) {
 				var craftingSources = ItemBrowserAPI.ObjectEntries.GetEntries<Crafting>(ObjectEntryType.Source, slotObject.objectID, slotObject.variation).ToList();
