@@ -39,24 +39,7 @@ public class Main : IMod {
 
 	public void Shutdown() { }
 
-	public void Update() {
-		// TODO move this elsewhere (and make the keys customizable)
-		if (ItemBrowserAPI.ItemBrowserUI != null && Manager.main.player != null) {
-			if (Input.GetKeyDown(KeyCode.LeftBracket))
-				ItemBrowserAPI.ItemBrowserUI.IsShowing = !ItemBrowserAPI.ItemBrowserUI.IsShowing;
-
-			if (Manager.ui.currentSelectedUIElement is SlotUIBase slot) {
-				var containedObjectData = slot.GetContainedObject().objectData;
-				if (containedObjectData.objectID != ObjectID.None) {
-					if (Input.GetKeyDown(KeyCode.G))
-						ItemBrowserAPI.ItemBrowserUI.ShowObjectEntries(containedObjectData, ObjectEntryType.Source);
-
-					if (Input.GetKeyDown(KeyCode.H))
-						ItemBrowserAPI.ItemBrowserUI.ShowObjectEntries(containedObjectData, ObjectEntryType.Usage);
-				}
-			}
-		}
-	}
+	public void Update() { }
 
 	public void ModObjectLoaded(Object obj) {
 		BuiltinContent.OnModObjectLoaded(obj);
