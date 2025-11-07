@@ -130,9 +130,13 @@ namespace ItemBrowser.Utilities {
 		}
 
 		public static float GetChanceForActiveWorld(EnvironmentalSpawnChance chance) {
+			var worldGenSettings = Manager.saves.GetWorldInfo().worldGenerationSettings;
+			
 			return chance.source switch {
 				EnvironmentalSpawnChance.Source.Constant => chance.constantValue.GetValueForCurrentPlatform(),
-				EnvironmentalSpawnChance.Source.WorldGenSetting => chance.worldGenDependentValue.GetValue(Manager.saves.GetWorldInfo().worldGenerationSettings[(int) chance.worldGenDependentValue.worldGenSetting].level),
+				EnvironmentalSpawnChance.Source.WorldGenSetting => worldGenSettings.Count == 0
+					? chance.worldGenDependentValue.GetValue(WorldGenerationSettingLevel.Normal)
+					: chance.worldGenDependentValue.GetValue(worldGenSettings[(int) chance.worldGenDependentValue.worldGenSetting].level),
 				_ => throw new ArgumentOutOfRangeException()
 			};
 		}
