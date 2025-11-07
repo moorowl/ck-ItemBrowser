@@ -16,6 +16,7 @@ namespace ItemBrowser.Browser {
 		private int _categoryIndex;
 		private int _entriesInCategory;
 		private ObjectEntryType _type;
+		private int _entriesInType;
 		private ObjectEntryCategory _category;
 
 		private enum ButtonStyle {
@@ -24,10 +25,11 @@ namespace ItemBrowser.Browser {
 			CycleType
 		}
 
-		public void SetCategoryAndType(int categoryIndex, int entriesInCategory, ObjectEntryType type, ObjectEntryCategory category) {
+		public void SetCategoryAndType(int categoryIndex, int entriesInCategory, ObjectEntryType type, int entriesInType, ObjectEntryCategory category) {
 			_categoryIndex = categoryIndex;
 			_entriesInCategory = entriesInCategory;
 			_type = type;
+			_entriesInType = entriesInType;
 			_category = category;
 
 			var objectInfo = PugDatabase.GetObjectInfo(category.Icon);
@@ -87,8 +89,17 @@ namespace ItemBrowser.Browser {
 					text = _category.GetTitle(objectEntriesWindow.IsSelectedObjectNonObtainable),
 					color = TextUtils.DescriptionColor
 				});
+			} else if (style == ButtonStyle.CycleType) {
+				lines.Add(new() {
+					text = _entriesInType == 1 ? $"ItemBrowser:EntriesAmount/{_type}" : $"ItemBrowser:EntriesAmountPlural/{_type}",
+					formatFields = new[] {
+						_entriesInType.ToString()
+					},
+					dontLocalizeFormatFields = true,
+					color = TextUtils.DescriptionColor
+				});
 			}
-			
+
 			return lines;
 		}
 	}

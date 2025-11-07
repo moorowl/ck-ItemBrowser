@@ -139,15 +139,15 @@ namespace ItemBrowser.Browser {
 				button.gameObject.SetActive(false);
 			for (var i = 0; i < Math.Min(_entries.Count, MaxCategoryButtons); i++) {
 				var button = _categoryButtons[i];
-				button.SetCategoryAndType(i, _entries[i].Count, SelectedType, _entries[i].First().Category);
+				button.SetCategoryAndType(i, _entries[i].Count, SelectedType, allEntriesOfSelectedType.Count, _entries[i].First().Category);
 				button.gameObject.SetActive(true);
 			}
 
 			if (allEntriesOfOtherType.Any()) {
 				nextTypeButton.canBeClicked = true;
-				nextTypeButton.SetCategoryAndType(0, 0, NextType, allEntriesOfOtherType.First().Category);
+				nextTypeButton.SetCategoryAndType(0, 0, NextType, allEntriesOfOtherType.Count, allEntriesOfOtherType.First().Category);
 				prevTypeButton.canBeClicked = true;
-				prevTypeButton.SetCategoryAndType(0, 0, NextType, allEntriesOfOtherType.First().Category);
+				prevTypeButton.SetCategoryAndType(0, 0, NextType, allEntriesOfOtherType.Count, allEntriesOfOtherType.First().Category);
 			}
 			
 			if (_entries.Count == 0) {
@@ -176,9 +176,9 @@ namespace ItemBrowser.Browser {
 				var prevCategory = _entries[prevCategoryIndex].First().Category;
 				
 				nextCategoryButton.canBeClicked = true;
-				nextCategoryButton.SetCategoryAndType(nextCategoryIndex, 0, SelectedType, nextCategory);
+				nextCategoryButton.SetCategoryAndType(nextCategoryIndex, 0, SelectedType, allEntriesOfSelectedType.Count, nextCategory);
 				prevCategoryButton.canBeClicked = true;
-				prevCategoryButton.SetCategoryAndType(prevCategoryIndex, 0, SelectedType, prevCategory);
+				prevCategoryButton.SetCategoryAndType(prevCategoryIndex, 0, SelectedType, allEntriesOfSelectedType.Count, prevCategory);
 			}
 			
 			objectEntriesList.SetEntries(_objectData, details, scrollProgress);
