@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using I2.Loc;
@@ -210,6 +211,13 @@ namespace ItemBrowser.Utilities {
 						amount = group.Sum(objectData => PugDatabase.GetObjectInfo(first.objectID) is { isStackable: true } ? objectData.amount : 1)
 					};
 				});
+		}
+		
+		public static IEnumerable<ObjectDataCD> GetAllObjectsWithTag(ObjectCategoryTag tag) {
+			if (tag == ObjectCategoryTag.None)
+				return Array.Empty<ObjectDataCD>();
+			
+			return PugDatabase.objectsByType.Keys.Where(objectData => objectData.variation == 0 && PugDatabase.GetObjectInfo(objectData.objectID, objectData.variation).tags.Contains(tag));
 		}
 		
 		public static int GetDamage(ObjectID id, int variation = 0) {

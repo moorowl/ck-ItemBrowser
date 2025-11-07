@@ -142,8 +142,7 @@ namespace ItemBrowser.Browser {
 			}
 
 			private static IEnumerable<ObjectDataCD> GetObjectsToDisplay(ObjectCategoryTag tag) {
-				var allObjectsWithTag = GetAllObjectsWithTag(tag);
-
+				var allObjectsWithTag = ObjectUtils.GetAllObjectsWithTag(tag);
 				return tag switch {
 					ObjectCategoryTag.UncommonOrLowerCookedFood or ObjectCategoryTag.RareOrHigherCookedFood => allObjectsWithTag.Select(objectData => new ObjectDataCD {
 						objectID = objectData.objectID,
@@ -152,10 +151,6 @@ namespace ItemBrowser.Browser {
 					ObjectCategoryTag.CattlePlantFood => allObjectsWithTag.Where(objectData => !PugDatabase.HasComponent<PlantCD>(objectData)),
 					_ => allObjectsWithTag
 				};
-			}
-
-			private static IEnumerable<ObjectDataCD> GetAllObjectsWithTag(ObjectCategoryTag tag) {
-				return PugDatabase.objectsByType.Keys.Where(objectData => objectData.variation == 0 && PugDatabase.GetObjectInfo(objectData.objectID, objectData.variation).tags.Contains(tag));
 			}
 		}
 		

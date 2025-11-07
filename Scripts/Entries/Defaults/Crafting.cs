@@ -61,6 +61,8 @@ namespace ItemBrowser.Entries.Defaults {
 						registry.Register(ObjectEntryType.Usage, objectData.objectID, 0, entry);
 						foreach (var ingredient in ObjectUtils.GroupAndSumObjects(canCraftObjectInfo.requiredObjectsToCraft))
 							registry.Register(ObjectEntryType.Usage, ingredient.objectID, 0, entry);
+						foreach (var ingredient in ObjectUtils.GetAllObjectsWithTag(canCraftObjectInfo.craftingSettings.canOnlyUseAnyMaterialsWithTag))
+							registry.Register(ObjectEntryType.Usage, ingredient.objectID, 0, entry);
 					}
 				}
 				
