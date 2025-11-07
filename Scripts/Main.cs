@@ -75,7 +75,8 @@ public class Main : IMod {
 				new NaturalSpawnAroundObject.Provider(),
 				new TerrainGeneration.Provider(),
 				new MerchantSpawning.Provider(),
-				new Miscellaneous.Provider()
+				new Miscellaneous.Provider(),
+				new Breeding.Provider()
 			);
 
 			RegisterItemSorters();

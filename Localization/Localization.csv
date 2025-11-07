@@ -232,6 +232,8 @@ ItemBrowser:MoreInfo/ChallengeArenaReward_1_PerRoll	Text		- {0}% chance of being
 ItemBrowser:MoreInfo/ChallengeArenaReward_1_BraveMerchant	Text		- {0}% chance if the Brave Merchant is already active in the world												
 ItemBrowser:MoreInfo/ChallengeArenaReward_2	Text		Can only drop when {0} is the closest biome out of Azeos' Wilderness, The Sunken Sea and The Desert of Beginnings												
 ItemBrowser:MoreInfo/MerchantSpawning_0	Text		Placing a {0} inside a habitable room causes the {0} to move in												
+ItemBrowser:MoreInfo/Breeding_0	Text		A {0} may be produced by two {1}s after they have both eaten enough and are next to each other												
+ItemBrowser:MoreInfo/Breeding_1	Text		{0} meals required												
 ItemBrowser:ObjectCategoryNames/CattleKelpFood	Text		Any kelp												
 ItemBrowser:ObjectCategoryNames/Sand	Text		Any sand block												
 ItemBrowser:ObjectCategoryNames/CattlePlantFood	Text		Any farmable plant												
