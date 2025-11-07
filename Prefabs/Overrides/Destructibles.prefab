@@ -66,7 +66,7 @@ MonoBehaviour:
   overrideName: 1
   setNameManually: 0
   name: ItemBrowser:ItemNameOverrides/WoodenDestructible_1
-  overrideIcon: 1
+  overrideIcon: 0
   icon: {fileID: 0}
 --- !u!114 &1061262087298341543
 MonoBehaviour:
@@ -85,7 +85,7 @@ MonoBehaviour:
   overrideName: 1
   setNameManually: 1
   name: ItemBrowser:ItemNameOverrides/WoodenDestructible_1
-  overrideIcon: 1
+  overrideIcon: 0
   icon: {fileID: 0}
 --- !u!114 &3894814066970221507
 MonoBehaviour:
@@ -104,7 +104,7 @@ MonoBehaviour:
   overrideName: 1
   setNameManually: 1
   name: ItemBrowser:ItemNameOverrides/WoodenDestructible_1
-  overrideIcon: 1
+  overrideIcon: 0
   icon: {fileID: 0}
 --- !u!114 &4682401747763164783
 MonoBehaviour:
@@ -123,7 +123,7 @@ MonoBehaviour:
   overrideName: 1
   setNameManually: 0
   name: ItemBrowser:ItemNameOverrides/NatureWoodenDestructible_1
-  overrideIcon: 1
+  overrideIcon: 0
   icon: {fileID: 0}
 --- !u!114 &5840390512028526778
 MonoBehaviour:
@@ -142,7 +142,7 @@ MonoBehaviour:
   overrideName: 1
   setNameManually: 1
   name: ItemBrowser:ItemNameOverrides/NatureWoodenDestructible_1
-  overrideIcon: 1
+  overrideIcon: 0
   icon: {fileID: 0}
 --- !u!114 &2225634416679968932
 MonoBehaviour:
@@ -161,7 +161,7 @@ MonoBehaviour:
   overrideName: 1
   setNameManually: 1
   name: ItemBrowser:ItemNameOverrides/NatureWoodenDestructible_3
-  overrideIcon: 1
+  overrideIcon: 0
   icon: {fileID: 0}
 --- !u!114 &1836198388255361274
 MonoBehaviour:
@@ -180,7 +180,7 @@ MonoBehaviour:
   overrideName: 1
   setNameManually: 0
   name: ItemBrowser:ItemNameOverrides/SeaWoodenDestructible_1
-  overrideIcon: 1
+  overrideIcon: 0
   icon: {fileID: 0}
 --- !u!114 &6821751037662164367
 MonoBehaviour:
@@ -199,7 +199,7 @@ MonoBehaviour:
   overrideName: 1
   setNameManually: 1
   name: ItemBrowser:ItemNameOverrides/SeaWoodenDestructible_1
-  overrideIcon: 1
+  overrideIcon: 0
   icon: {fileID: 0}
 --- !u!114 &2907043970092227129
 MonoBehaviour:
@@ -218,7 +218,7 @@ MonoBehaviour:
   overrideName: 1
   setNameManually: 1
   name: ItemBrowser:ItemNameOverrides/SeaWoodenDestructible_1
-  overrideIcon: 1
+  overrideIcon: 0
   icon: {fileID: 0}
 --- !u!114 &3838542513372921251
 MonoBehaviour:
@@ -237,7 +237,7 @@ MonoBehaviour:
   overrideName: 1
   setNameManually: 0
   name: ItemBrowser:ItemNameOverrides/LavaWoodenDestructible_1
-  overrideIcon: 1
+  overrideIcon: 0
   icon: {fileID: 0}
 --- !u!114 &8859187788280336927
 MonoBehaviour:
@@ -256,7 +256,7 @@ MonoBehaviour:
   overrideName: 1
   setNameManually: 1
   name: ItemBrowser:ItemNameOverrides/LavaWoodenDestructible_1
-  overrideIcon: 1
+  overrideIcon: 0
   icon: {fileID: 0}
 --- !u!114 &7706325964851136833
 MonoBehaviour:
@@ -275,7 +275,7 @@ MonoBehaviour:
   overrideName: 1
   setNameManually: 1
   name: ItemBrowser:ItemNameOverrides/LavaWoodenDestructible_1
-  overrideIcon: 1
+  overrideIcon: 0
   icon: {fileID: 0}
 --- !u!114 &7769587548339290482
 MonoBehaviour:
@@ -294,7 +294,7 @@ MonoBehaviour:
   overrideName: 1
   setNameManually: 0
   name: ItemBrowser:ItemNameOverrides/NatureDestructible_1
-  overrideIcon: 1
+  overrideIcon: 0
   icon: {fileID: 0}
 --- !u!114 &1815663698324590449
 MonoBehaviour:
@@ -332,7 +332,7 @@ MonoBehaviour:
   overrideName: 1
   setNameManually: 1
   name: ItemBrowser:ItemNameOverrides/AFWoodenDestructible_1
-  overrideIcon: 1
+  overrideIcon: 0
   icon: {fileID: 0}
 --- !u!114 &6889770996060984235
 MonoBehaviour:
@@ -351,7 +351,7 @@ MonoBehaviour:
   overrideName: 1
   setNameManually: 1
   name: ItemBrowser:ItemNameOverrides/AFWoodenDestructible_1
-  overrideIcon: 1
+  overrideIcon: 0
   icon: {fileID: 0}
 --- !u!114 &3328706866291426525
 MonoBehaviour:
@@ -370,7 +370,7 @@ MonoBehaviour:
   overrideName: 1
   setNameManually: 0
   name: ItemBrowser:ItemNameOverrides/FallingRockDestructible_0
-  overrideIcon: 1
+  overrideIcon: 0
   icon: {fileID: 21300000, guid: 7a096ed0099cfee4690ea50e89111456, type: 3}
 --- !u!114 &1029190075529615702
 MonoBehaviour:
