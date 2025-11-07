@@ -44,10 +44,10 @@ namespace ItemBrowser {
 			foreach (var overrides in ObjectNameAndIconOverrides) {
 				var objectData = overrides.ObjectData;
 				
-				if (!string.IsNullOrWhiteSpace(overrides.name))
+				if (overrides.overrideName && !string.IsNullOrWhiteSpace(overrides.name))
 					ObjectNameOverrides.TryAdd(objectData, overrides.name);
 				
-				if (overrides.icon != null)
+				if (overrides.overrideIcon)
 					ObjectIconOverrides.TryAdd(objectData, overrides.icon);
 			}
 			
@@ -98,8 +98,8 @@ namespace ItemBrowser {
 			if (PugDatabase.HasComponent<CookedFoodCD>(objectData))
 				return false;
 
-			if ((objectInfo.objectType == ObjectType.Creature || objectInfo.objectType == ObjectType.PlayerType) && !PugDatabase.HasComponent<PetCD>(objectData))
-				return false;
+			//if ((objectInfo.objectType == ObjectType.Creature || objectInfo.objectType == ObjectType.PlayerType) && !PugDatabase.HasComponent<PetCD>(objectData))
+				//return false;
 
 			if (PugDatabase.HasComponent<ProjectileCD>(objectData))
 				return false;

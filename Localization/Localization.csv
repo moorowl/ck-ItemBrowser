@@ -267,6 +267,19 @@ ItemBrowser:ItemNameOverrides/DiggingSpotSea_0	Text		Beach Digging Spot
 ItemBrowser:ItemNameOverrides/DiggingSpotDesert_0	Text		Desert Digging Spot												
 ItemBrowser:ItemNameOverrides/DiggingSpotLava_0	Text		Lava Rock Digging Spot												
 ItemBrowser:ItemNameOverrides/FallingRockDestructible_0	Text		Fallen Rock												
+ItemBrowser:ItemNameOverrides/SlimeBossStatue_0	Text		Glurch the Abominous Mass Statue												
+ItemBrowser:ItemNameOverrides/LarvaBossStatue_0	Text		Ghorm the Devourer Statue												
+ItemBrowser:ItemNameOverrides/LarvaHiveBossStatue_0	Text		Malugaz the Corrupted Statue												
+ItemBrowser:ItemNameOverrides/Player_0	Text		Player												
+ItemBrowser:ItemNameOverrides/WoodenDestructible_1	Text		Large Wooden Crate												
+ItemBrowser:ItemNameOverrides/NatureWoodenDestructible_1	Text		Large Overgrown Wooden Crate												
+ItemBrowser:ItemNameOverrides/SeaWoodenDestructible_1	Text		Large Driftwood Wooden Crate												
+ItemBrowser:ItemNameOverrides/LavaWoodenDestructible_1	Text		Large Charred Crate												
+ItemBrowser:ItemNameOverrides/NatureDestructible_1	Text		Large Flower Vessel												
+ItemBrowser:ItemNameOverrides/Larva_1	Text		Hive Larva												
+ItemBrowser:ItemNameOverrides/BigLarva_1	Text		Big Hive Larva												
+ItemBrowser:ItemNameOverrides/AmberBoulder_0	Text		Amber Boulder												
+ItemBrowser:ItemNameOverrides/NatureCicadaEnemy_0	Text		Floracada												
 ItemBrowser:ItemNameOverrides/BirdBoss_1	Text		Awakened Azeos												
 ItemBrowser:StructureType/Scene	Text		Scene												
 ItemBrowser:StructureType/Dungeon	Text		Dungeon												

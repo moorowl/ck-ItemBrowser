@@ -11,10 +11,14 @@ namespace ItemBrowser.Utilities.DataStructures {
 		[SerializeField]
 		private int appliesToObjectVariation; 
 		
-		[SerializeField]
-		private bool setNameManually;
+		public bool overrideName = true;
+		[ShowIf("overrideName")]
+		public bool setNameManually;
 		[ShowIf("setNameManually")]
 		public string name;
+		
+		public bool overrideIcon = true;
+		[ShowIf("overrideIcon")]
 		public Sprite icon;
 
 		public ObjectDataCD ObjectData => new() {
@@ -23,7 +27,7 @@ namespace ItemBrowser.Utilities.DataStructures {
 		};
 
 		private void OnValidate() {
-			if (!setNameManually)
+			if (overrideName && !setNameManually)
 				name = $"ItemBrowser:ItemNameOverrides/{appliesToObject}_{appliesToObjectVariation}";
 		}
 	}
