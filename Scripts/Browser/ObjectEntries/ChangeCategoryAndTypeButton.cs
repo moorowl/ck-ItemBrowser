@@ -61,7 +61,7 @@ namespace ItemBrowser.Browser {
 
 			return new TextAndFormatFields {
 				text = style switch {
-					ButtonStyle.TopButton => _category.Title,
+					ButtonStyle.TopButton => _category.GetTitle(objectEntriesWindow.IsSelectedObjectNonObtainable),
 					ButtonStyle.CycleCategory => optionalTitle.mTerm,
 					ButtonStyle.CycleType => objectEntriesWindow.IsSelectedObjectNonObtainable ? $"ItemBrowser:ShowType_NonObtainable/{_type}" : $"ItemBrowser:ShowType/{_type}",
 					_ => throw new ArgumentOutOfRangeException()
