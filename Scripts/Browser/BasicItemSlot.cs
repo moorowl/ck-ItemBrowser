@@ -66,15 +66,15 @@ namespace ItemBrowser.Browser {
 				return;
 			}
 
-			if (linksSource && _displayedObject.ShowEntries(this, ObjectEntryType.Source))
-				UserInterfaceUtils.PlayMenuOpenSound();
+			if (linksSource)
+				_displayedObject.ShowEntries(this, ObjectEntryType.Source);
 		}
 
 		public override void OnRightClicked(bool mod1, bool mod2) {
 			base.OnRightClicked(mod1, mod2);
-			
-			if (linksUsage && _displayedObject.ShowEntries(this, ObjectEntryType.Usage))
-				UserInterfaceUtils.PlayMenuOpenSound();
+
+			if (linksUsage)
+				_displayedObject.ShowEntries(this, ObjectEntryType.Usage);
 		}
 
 		public override TextAndFormatFields GetHoverTitle() {

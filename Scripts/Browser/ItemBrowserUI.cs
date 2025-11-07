@@ -49,6 +49,8 @@ namespace ItemBrowser.Browser {
 			IsShowing = true;
 			objectListWindow.IsShowing = false;
 			objectEntriesWindow.IsShowing = true;
+			
+			UserInterfaceUtils.PlayMenuOpenSound();
 
 			return true;
 		}
