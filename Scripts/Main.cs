@@ -90,7 +90,8 @@ public class Main : IMod {
 				new ItemBrowser.Entries.Defaults.VendingMachine.Provider(),
 				new StructureContents.Provider(),
 				new NaturalSpawnAroundObject.Provider(),
-				new TerrainGeneration.Provider()
+				new TerrainGeneration.Provider(),
+				new MerchantSpawning.Provider()
 			);
 
 			RegisterItemSorters();

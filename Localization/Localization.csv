@@ -139,13 +139,14 @@ ItemBrowser:ObjectEntry/BackgroundPerks	Text		Background perks
 ItemBrowser:ObjectEntry/NaturalSpawnInitial	Text		Initial generation												
 ItemBrowser:ObjectEntry/NaturalSpawnRespawn	Text		Respawn event												
 ItemBrowser:ObjectEntry/NaturalSpawnAroundObject	Text		Over time around entity												
-ItemBrowser:ObjectEntry/HabitableRoom	Text		Habitable room												
+ItemBrowser:ObjectEntry/MerchantSpawning	Text		Merchant spawning												
 ItemBrowser:ObjectEntry/LockedChestDrops	Text		Wall destruction												
 ItemBrowser:ObjectEntry/ArchaeologistDrops	Text		Wall destruction												
 ItemBrowser:ObjectEntry/Breeding	Text		Breeding												
 ItemBrowser:ObjectEntry/ChallengeArenaReward	Text		Challenge arena reward												
 ItemBrowser:ObjectEntry/StructureContents	Text		Plundering												
 ItemBrowser:ObjectEntry/StructureContents_NonObtainable	Text		Structure contents												
+ItemBrowser:ObjectEntry/Miscellaneous	Text		Miscellaneous												
 ItemBrowser:MoreInfo/Farming_0	Text		Grown from a {0}												
 ItemBrowser:MoreInfo/Farming_0_Normal	Text		Grown from a normal {0}												
 ItemBrowser:MoreInfo/Farming_0_Golden	Text		Grown from a golden {0}												
@@ -230,6 +231,7 @@ ItemBrowser:MoreInfo/ChallengeArenaReward_1_ForOne	Text		- {0}% chance of being 
 ItemBrowser:MoreInfo/ChallengeArenaReward_1_PerRoll	Text		- {0}% chance of being dropped per roll, in {1} rolls												
 ItemBrowser:MoreInfo/ChallengeArenaReward_1_BraveMerchant	Text		- {0}% chance if the Brave Merchant is already active in the world												
 ItemBrowser:MoreInfo/ChallengeArenaReward_2	Text		Can only drop when {0} is the closest biome out of Azeos' Wilderness, The Sunken Sea and The Desert of Beginnings												
+ItemBrowser:MoreInfo/MerchantSpawning_0	Text		Placing a {0} inside a habitable room causes the {0} to move in												
 ItemBrowser:ObjectCategoryNames/CattleKelpFood	Text		Any kelp												
 ItemBrowser:ObjectCategoryNames/Sand	Text		Any sand block												
 ItemBrowser:ObjectCategoryNames/CattlePlantFood	Text		Any farmable plant												
@@ -291,3 +293,5 @@ ItemBrowser:Options/ShowTechnicalInfo	Text		Show technical info
 ItemBrowser:Options/ShowTechnicalInfoDesc	Text		Shows some technical details when hovering over an item in the Item Browser, such as IDs.												
 ItemBrowser:Options/DefaultDiscoveredFilter	Text		Default discovered filter												
 ItemBrowser:Options/DefaultDiscoveredFilterDesc	Text		Toggles the discovered filter in the Item Browser on by default, only showing items you've picked up before.												
+ItemBrowser:MiscellaneousDesc/Greggy	Text		Creating a character named "Greggy" (case-sensitive)												
+ItemBrowser:MiscellaneousDesc/CreativeOrbLantern	Text		Creating a creative mode character												
