@@ -89,7 +89,8 @@ public class Main : IMod {
 				new ChallengeArenaReward.Provider(),
 				new ItemBrowser.Entries.Defaults.VendingMachine.Provider(),
 				new StructureContents.Provider(),
-				new NaturalSpawnAroundObject.Provider()
+				new NaturalSpawnAroundObject.Provider(),
+				new TerrainGeneration.Provider()
 			);
 
 			RegisterItemSorters();
