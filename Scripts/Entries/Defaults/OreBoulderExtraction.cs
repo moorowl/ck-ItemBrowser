@@ -6,6 +6,7 @@ namespace ItemBrowser.Entries.Defaults {
 	public class OreBoulderExtraction : ObjectEntry {
 		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/OreBoulderExtraction", ObjectID.GoldOreBoulder, 5000);
 		
+		public ObjectID Result { get; protected set; }
 		public ObjectID OreBoulder { get; protected set; }
 		public int TotalOre { get; protected set; }
 		
@@ -17,11 +18,14 @@ namespace ItemBrowser.Entries.Defaults {
 					
 					if (dropsLootWhenDamagedCD.minHealthToDropLoot != 0)
 						continue;
-					
-					registry.Register(ObjectEntryType.Source, dropsLootWhenDamagedCD.dropsLoot, 0, new OreBoulderExtraction {
+
+					var entry = new OreBoulderExtraction {
+						Result = dropsLootWhenDamagedCD.dropsLoot,
 						OreBoulder = objectData.objectID,
 						TotalOre = (int) math.floor(healthCD.maxHealth / (float) dropsLootWhenDamagedCD.damageToDealToDropLoot)
-					});
+					};
+					registry.Register(ObjectEntryType.Source, dropsLootWhenDamagedCD.dropsLoot, 0, entry);
+					registry.Register(ObjectEntryType.Usage, objectData.objectID, 0, entry);
 				}
 			}
 		}
