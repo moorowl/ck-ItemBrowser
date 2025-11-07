@@ -3,6 +3,7 @@ using System.Linq;
 using ItemBrowser.Browser;
 using ItemBrowser.Utilities;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace ItemBrowser.Entries.Defaults {
 	public class LootDisplay : ObjectEntryDisplay<Loot> {
@@ -17,7 +18,7 @@ namespace ItemBrowser.Entries.Defaults {
 		[SerializeField]
 		private float textOffsetWhenShowingBoth;
 		[SerializeField]
-		private BasicButton structureExclusiveIcon;
+		private MoreInfoButton structureInfo;
 
 		private int _lastPlayerCount;
 
@@ -39,6 +40,7 @@ namespace ItemBrowser.Entries.Defaults {
 		public override void RenderSelf() {
 			RenderBody();
 			RenderMoreInfo();
+			RenderStructureInfo();
 			_lastPlayerCount = WorldUtils.ClientPlayerCount;
 		}
 
@@ -64,8 +66,6 @@ namespace ItemBrowser.Entries.Defaults {
 			poolTypeText.gameObject.SetActive(showPoolTypeText);
 			if (showPoolTypeText)
 				poolTypeText.Render(Entry.IsFromGuaranteedPool ? "ItemBrowser:GuaranteedPool" : "ItemBrowser:RandomPool");
-			
-			structureExclusiveIcon.gameObject.SetActive(Entry.FoundInScenes.Count > 0 || Entry.FoundInDungeons.Count > 0);
 		}
 
 		private void RenderMoreInfo() {
@@ -124,20 +124,29 @@ namespace ItemBrowser.Entries.Defaults {
 					});	
 				}
 			}
+		}
 
+		private void RenderStructureInfo() {
+			structureInfo.gameObject.SetActive(Entry.FoundInScenes.Count > 0 || Entry.FoundInDungeons.Count > 0);
+			if (!structureInfo.gameObject.activeSelf)
+				return;
+			
+			structureInfo.Clear();
+			structureInfo.AddLine(new TextAndFormatFields {
+				text = "ItemBrowser:StructureExclusiveLoot"
+			});
+			
 			if (Entry.FoundInScenes.Count > 0) {
-				MoreInfo.AddPadding();
-				MoreInfo.AddLine(new TextAndFormatFields {
+				structureInfo.AddLine(new TextAndFormatFields {
 					text = "ItemBrowser:MoreInfo/Loot_3",
 					color = TextUtils.DescriptionColor
 				});
 
 				foreach (var scene in Entry.FoundInScenes) {
-					MoreInfo.AddLine(new TextAndFormatFields {
+					structureInfo.AddLine(new TextAndFormatFields {
 						text = "ItemBrowser:MoreInfo/Loot_4",
 						formatFields = new[] {
-							StructureUtils.GetPersistentSceneName(scene.Name),
-							scene.Amount.ToString()
+							StructureUtils.GetPersistentSceneName(scene.Name)
 						},
 						dontLocalizeFormatFields = true,
 						color = TextUtils.DescriptionColor

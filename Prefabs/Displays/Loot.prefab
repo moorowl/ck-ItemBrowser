@@ -225,9 +225,9 @@ GameObject:
   m_Component:
   - component: {fileID: 331401113564793266}
   - component: {fileID: 7632643010847639605}
-  - component: {fileID: 8220482078724078427}
+  - component: {fileID: 1360511680289674854}
   m_Layer: 5
-  m_Name: structureIcon
+  m_Name: structureInfo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -271,7 +271,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.5625, y: 0.5625, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8220482078724078427
+--- !u!114 &1360511680289674854
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -280,7 +280,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5134699687941060169}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4a880f432bc4cc28a889722269c5b1f, type: 3}
+  m_Script: {fileID: 11500000, guid: 78d4928724e443bbb1dbb146513b29e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   topUIElements:
@@ -288,8 +288,7 @@ MonoBehaviour:
   bottomUIElements: []
   leftUIElements:
   - {fileID: 8110691323894934873}
-  rightUIElements:
-  - {fileID: 9122015134071768588}
+  rightUIElements: []
   childElements: []
   selectFirstEnabledElementInList: 0
   invokeSelectionEvents: 0
@@ -579,14 +578,14 @@ MonoBehaviour:
   bottomMostUIElements:
   - {fileID: 9122015134071768588}
   - {fileID: 8110691323894934873}
-  - {fileID: 8220482078724078427}
+  - {fileID: 1360511680289674854}
   moreInfoButton: {fileID: 1175822458289469767}
   resultSlot: {fileID: 8110691323894934873}
   sourceSlot: {fileID: 9122015134071768588}
   chanceForOneText: {fileID: 1849748499764583067}
   poolTypeText: {fileID: 2072649948985531966}
   textOffsetWhenShowingBoth: 0.3125
-  structureExclusiveIcon: {fileID: 8220482078724078427}
+  structureInfo: {fileID: 1360511680289674854}
 --- !u!1001 &2795889677246832141
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -826,7 +825,7 @@ PrefabInstance:
         type: 3}
       propertyPath: 'bottomUIElements.Array.data[0]'
       value: 
-      objectReference: {fileID: 8220482078724078427}
+      objectReference: {fileID: 1360511680289674854}
     - target: {fileID: 4206001446296706395, guid: 5fa33eba93a8b0147bd395bc55fc2fbb,
         type: 3}
       propertyPath: m_Name
