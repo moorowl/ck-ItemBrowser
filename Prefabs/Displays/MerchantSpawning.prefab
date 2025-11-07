@@ -175,7 +175,7 @@ PrefabInstance:
         type: 3}
       propertyPath: 'rightUIElements.Array.data[0]'
       value: 
-      objectReference: {fileID: 1175822458289469767}
+      objectReference: {fileID: 2081502300906473980}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -311,7 +311,7 @@ PrefabInstance:
     - target: {fileID: 2639280554169913878, guid: 43a739b2d2b45fe4bb5817b99deae7f4,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 2639280554169913878, guid: 43a739b2d2b45fe4bb5817b99deae7f4,
         type: 3}
@@ -360,9 +360,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6366707470054676481, guid: 43a739b2d2b45fe4bb5817b99deae7f4,
         type: 3}
+      propertyPath: leftUIElements.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6366707470054676481, guid: 43a739b2d2b45fe4bb5817b99deae7f4,
+        type: 3}
       propertyPath: rightUIElements.Array.size
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6366707470054676481, guid: 43a739b2d2b45fe4bb5817b99deae7f4,
+        type: 3}
+      propertyPath: 'leftUIElements.Array.data[0]'
+      value: 
+      objectReference: {fileID: 9122015134071768588}
     - target: {fileID: 6366707470054676481, guid: 43a739b2d2b45fe4bb5817b99deae7f4,
         type: 3}
       propertyPath: 'rightUIElements.Array.data[0]'
