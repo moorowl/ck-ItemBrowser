@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ItemBrowser.Entries.Defaults {
 	public class ArchaeologistDrops : ObjectEntry {
-		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/ArchaeologistDrops", ObjectID.WallDirtBlock, 5100);
+		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/ArchaeologistDrops", ObjectID.WallStoneBlock, 5100);
 		
 		public float Chance { get; protected set; }
 		

@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace ItemBrowser.Entries.Defaults {
 	public class LockedChestDrops : ObjectEntry {
-		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/LockedChestDrops", ObjectID.WallDirtBlock, 5100);
+		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/LockedChestDrops", ObjectID.WallStoneBlock, 5100);
 		
 		public Biome RequiredBiome { get; protected set; }
 		public Tileset RequiredTileset { get; protected set; }
