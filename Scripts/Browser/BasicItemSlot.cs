@@ -165,8 +165,6 @@ namespace ItemBrowser.Browser {
 				return false;
 
 			var slotObject = GetSlotObject();
-			var objectInfo = PugDatabase.GetObjectInfo(slotObject.objectID, slotObject.variation);
-
 			if (amount.Max > 1 && !AmountIsShownAsBar()) {
 				var text = amount.Min != amount.Max ? $"{amount.Min}-{amount.Max}" : amount.Min.ToString();
 				
