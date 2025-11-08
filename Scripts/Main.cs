@@ -22,6 +22,8 @@ public class Main : IMod {
 	internal static Options Options { get; private set; } = new();
 	internal static AssetBundle AssetBundle { get; private set; }
 
+	private bool _registeredContent;
+
 	public void EarlyInit() {
 		Debug.Log($"[{DisplayName}]: Mod version: {Version}");
 
@@ -29,7 +31,11 @@ public class Main : IMod {
 		AssetBundle = modInfo!.AssetBundles[0];
 
 		ItemBrowserUI.OnInit += _ => {
+			if (_registeredContent)
+				return;
+			
 			BuiltinContent.Register();
+			_registeredContent = true;
 		};
 	}
 
