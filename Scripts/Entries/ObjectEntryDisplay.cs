@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ItemBrowser.Browser;
+using ItemBrowser.Utilities;
 using UnityEngine;
 
 namespace ItemBrowser.Entries {
@@ -28,7 +29,7 @@ namespace ItemBrowser.Entries {
 			if (moreInfoButton != null) {
 				moreInfoButton.Clear();
 				moreInfoButton.AddLine(new TextAndFormatFields {
-					text = Entry.Category.Title
+					text = Entry.Category.GetTitle(ObjectUtils.IsNonObtainable(ObjectData.objectID, ObjectData.variation))
 				});
 			}
 			
