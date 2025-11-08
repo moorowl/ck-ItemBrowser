@@ -50,6 +50,7 @@ namespace ItemBrowser.Browser {
 				filtersPanel.IsShowing = false;
 			}
 			
+			RefreshItemList();
 			AdjustWindowPosition();
 		}
 
@@ -90,8 +91,6 @@ namespace ItemBrowser.Browser {
 				foreach (var filter in group.Value)
 					filtersPanel.AddFilter(filter);
 			}
-			
-			RequestItemListRefresh();
 		}
 		
 		protected abstract List<Sorter<ObjectDataCD>> GetSorters();
