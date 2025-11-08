@@ -105,6 +105,7 @@ namespace ItemBrowser.Utilities {
 				};
 				var objectName = DisplayNames.GetValueOrDefault(objectData);
 				objectName ??= $"ZZZ+{objectData.objectID}+{objectData.variation}";
+				objectName += $"+{objectData.variation}";
 
 				objectNames.Add((objectData, objectName));
 			}
