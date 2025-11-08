@@ -153,16 +153,12 @@ namespace ItemBrowser.Browser {
 				prevTypeButton.SetCategoryAndType(0, 0, NextType, allEntriesOfOtherType.Count, allEntriesOfOtherType.First().Category);
 			}
 			
-			if (_entries.Count == 0) {
-				objectEntriesList.ClearEntries();
+			if (_entries.Count == 0)
 				return;
-			}
 
 			var details = _entries[category];
-			if (details.Count == 0) {
-				objectEntriesList.ClearEntries();
+			if (details.Count == 0)
 				return;
-			}
 			
 			selectedCategoryText.gameObject.SetActive(true);
 			selectedCategoryText.Render(details[0].Category.GetTitle(IsSelectedObjectNonObtainable));
