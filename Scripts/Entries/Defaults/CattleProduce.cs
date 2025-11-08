@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ItemBrowser.Utilities;
 using UnityEngine;
 
 namespace ItemBrowser.Entries.Defaults {
@@ -46,6 +47,11 @@ namespace ItemBrowser.Entries.Defaults {
 						};
 						registry.Register(ObjectEntryType.Source, canCraftObject.objectID, 0, entry);
 						registry.Register(ObjectEntryType.Usage, objectData.objectID, 0, entry);
+						foreach (var eatsTag in eatsTags) {
+							foreach (var ingredient in ObjectUtils.GetAllObjectsWithTag(eatsTag)) {
+								registry.Register(ObjectEntryType.Usage, ingredient.objectID, ingredient.variation, entry);
+							}
+						}
 					}
 				}
 			}
