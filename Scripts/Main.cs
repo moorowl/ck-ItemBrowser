@@ -80,7 +80,9 @@ public class Main : IMod {
 			);
 
 			RegisterItemSorters();
+			RegisterCreatureSorters();
 			RegisterItemFilters();
+			//RegisterCreatureFilters();
 		}
 
 		public static void OnModObjectLoaded(Object obj) {
@@ -112,6 +114,15 @@ public class Main : IMod {
 			});
 			ItemBrowserAPI.RegisterItemSorter(new("ItemBrowser:ItemSorter/Value") {
 				Function = objectData => ObjectUtils.GetValue(objectData.objectID, objectData.variation)
+			});
+		}
+		
+		private static void RegisterCreatureSorters() {
+			ItemBrowserAPI.RegisterCreatureSorter(new("ItemBrowser:CreatureSorter/Alphabetical") {
+				Function = objectData => -ObjectUtils.GetDisplayNameSortOrder(objectData.objectID, objectData.variation)
+			});
+			ItemBrowserAPI.RegisterCreatureSorter(new("ItemBrowser:CreatureSorter/InternalIndex") {
+				Function = objectData => (int) objectData.objectID * 10000 + objectData.variation
 			});
 		}
 

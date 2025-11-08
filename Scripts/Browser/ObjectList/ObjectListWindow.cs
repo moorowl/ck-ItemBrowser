@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using ItemBrowser.Browser.ObjectList;
 using ItemBrowser.Utilities;
 using ItemBrowser.Utilities.DataStructures.SortingAndFiltering;
@@ -33,8 +34,7 @@ namespace ItemBrowser.Browser {
 		private Mode _currentMode;
 		private bool _refreshItemList;
 		private float _refreshedItemListTime;
-		private readonly List<ObjectDataCD> _cachedObjectList = new();
-		
+
 		public int IncludedObjects { get; private set; }
 		public int ExcludedObjects { get; private set; }
 		
@@ -188,25 +188,25 @@ namespace ItemBrowser.Browser {
 			_searchFilter.Term = SearchTerm;
 			
 			// Filtering
-			var allItems = PugDatabase.objectsByType.Keys.Where(ItemBrowserAPI.ShouldItemBeIncluded).ToList();
+			var allItems = _currentMode switch {
+				Mode.Items => PugDatabase.objectsByType.Keys.Where(ItemBrowserAPI.ShouldItemBeIncluded).ToList(),
+				Mode.Creatures => PugDatabase.objectsByType.Keys.Where(ItemBrowserAPI.ShouldCreatureBeIncluded).ToList(),
+				_ => new List<ObjectDataCD>()
+			};
 			var filteredItems = allItems
 				.Where(MatchesFilters)
 				.OrderBy(item => CurrentSorter.Function(item))
 				.ThenBy(item => _sorters[0].Function(item))
-				.ThenBy(item => item.variation)
 				.ToList();
 			
 			if (UseReverseSorting)
 				filteredItems.Reverse();
-
-			_cachedObjectList.Clear();
-			_cachedObjectList.AddRange(filteredItems);
-			objectList.SetObjects(_cachedObjectList);
+				
+			objectList.SetObjects(filteredItems);
+			_refreshedItemListTime = Time.time;
 			
 			IncludedObjects = filteredItems.Count;
 			ExcludedObjects = allItems.Count - IncludedObjects;
-
-			_refreshedItemListTime = Time.time;
 		}
 
 		private bool MatchesFilters(ObjectDataCD objectData) {

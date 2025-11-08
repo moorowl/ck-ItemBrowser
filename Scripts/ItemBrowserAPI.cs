@@ -38,7 +38,7 @@ namespace ItemBrowser {
 		private static void InitBrowserUI() {
 			var prefab = Main.AssetBundle.LoadAsset<GameObject>("Assets/ItemBrowser/Prefabs/ItemBrowserUI.prefab");
 			ItemBrowserUI = Object.Instantiate(prefab, API.Rendering.UICamera.transform).GetComponent<ItemBrowserUI>();
-
+			
 			ObjectEntries.RegisterFromProviders(ObjectEntryProviders);
 
 			foreach (var overrides in ObjectNameAndIconOverrides) {
@@ -98,8 +98,23 @@ namespace ItemBrowser {
 			if (PugDatabase.HasComponent<CookedFoodCD>(objectData))
 				return false;
 
-			//if ((objectInfo.objectType == ObjectType.Creature || objectInfo.objectType == ObjectType.PlayerType) && !PugDatabase.HasComponent<PetCD>(objectData))
-				//return false;
+			if (objectInfo.objectType is ObjectType.Creature or ObjectType.Critter or ObjectType.PlayerType && !PugDatabase.HasComponent<PetCD>(objectData))
+				return false;
+
+			if (PugDatabase.HasComponent<ProjectileCD>(objectData))
+				return false;
+
+			return (objectInfo.variation == 0 || objectInfo.objectID == ObjectID.Bucket || (objectInfo.objectID == ObjectID.LargeAncientDestructible && objectInfo.variation <= 5) || objectInfo.objectID == ObjectID.LargeCityDestructible || objectInfo.objectID == ObjectID.LargeMoldDestructible || objectInfo.objectID == ObjectID.LargeJellyfishDestructable || objectInfo.objectID == ObjectID.LargeDesertDestructible || objectInfo.objectID == ObjectID.WoodenDestructible || objectInfo.objectID == ObjectID.NatureWoodenDestructible || objectInfo.objectID == ObjectID.SeaWoodenDestructible || objectInfo.objectID == ObjectID.LavaWoodenDestructible || objectInfo.objectID == ObjectID.LargeDesertTempleDestructible || objectInfo.objectID == ObjectID.HiveDestructible || objectInfo.objectID == ObjectID.LargeMoldDestructible || objectInfo.objectID == ObjectID.NatureDestructible || objectInfo.objectID == ObjectID.GreenLargeDesertDestructible || objectInfo.objectID == ObjectID.LargeAlienTechDestructible || objectInfo.objectID == ObjectID.Stalagmite || (objectInfo.objectID == ObjectID.Larva && objectInfo.variation <= 1) || (objectInfo.objectID == ObjectID.BigLarva && objectInfo.variation <= 1)) && !objectInfo.isCustomScenePrefab;
+		}
+		
+		public static bool ShouldCreatureBeIncluded(ObjectDataCD objectData) {
+			var objectInfo = PugDatabase.GetObjectInfo(objectData.objectID, objectData.variation);
+
+			if (PugDatabase.HasComponent<CookedFoodCD>(objectData))
+				return false;
+
+			if ((objectInfo.objectType != ObjectType.Creature && objectInfo.objectType != ObjectType.Critter) || PugDatabase.HasComponent<PetCD>(objectData))
+				return false;
 
 			if (PugDatabase.HasComponent<ProjectileCD>(objectData))
 				return false;
