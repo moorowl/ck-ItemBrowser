@@ -75,7 +75,7 @@ namespace ItemBrowser.Browser {
 		}
 
 		public bool PushObjectData(ObjectDataCD objectData, ObjectEntryType initialSelectedType, bool clearHistory) {
-			if (objectData.Equals(_objectData))
+			if (objectData.Equals(_objectData) && initialSelectedType == SelectedType)
 				return false;
 			
 			var entries = ItemBrowserAPI.ObjectEntries.GetAllEntries(initialSelectedType, objectData.objectID, objectData.variation);
@@ -84,7 +84,7 @@ namespace ItemBrowser.Browser {
 
 			if (clearHistory) {
 				_history.Clear();
-			} else if (_objectData.objectID != ObjectID.None) {
+			} else if (_objectData.objectID != ObjectID.None && !_objectData.Equals(objectData)) {
 				_history.Push((_objectData, SelectedType, SelectedCategory, objectEntriesList.CurrentScrollProgress));
 			}
 
