@@ -16,6 +16,8 @@ namespace ItemBrowser.Browser {
 		private ObjectListContainerWindow objectListContainerWindow;
 		[SerializeField]
 		private ObjectEntriesWindow objectEntriesWindow;
+
+		private bool _entriesOpenedOutsideOfBrowser;
 		
 		private void Awake() {
 			gameObject.SetActive(false);
@@ -49,6 +51,8 @@ namespace ItemBrowser.Browser {
 				return false;
 			}
 
+			_entriesOpenedOutsideOfBrowser = !IsShowing;
+
 			IsShowing = true;
 			objectListContainerWindow.IsShowing = false;
 			objectEntriesWindow.IsShowing = true;
@@ -63,6 +67,7 @@ namespace ItemBrowser.Browser {
 			objectListContainerWindow.IsShowing = true;
 			objectEntriesWindow.IsShowing = false;
 			objectEntriesWindow.Clear();
+			_entriesOpenedOutsideOfBrowser = false;
 		}
 		
 		private void LateUpdate() {
@@ -82,7 +87,7 @@ namespace ItemBrowser.Browser {
 			if (objectEntriesWindow.HasAnyHistory) {
 				objectEntriesWindow.PopObjectData();
 				UserInterfaceUtils.PlayMenuCloseSound();
-			} else if (objectEntriesWindow.IsShowing) {
+			} else if (objectEntriesWindow.IsShowing && !_entriesOpenedOutsideOfBrowser) {
 				ShowObjectList();
 				UserInterfaceUtils.PlayMenuCloseSound();
 			} else {
