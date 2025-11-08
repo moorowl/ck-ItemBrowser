@@ -313,7 +313,7 @@ MonoBehaviour:
   overrideName: 1
   setNameManually: 0
   name: ItemBrowser:ItemNameOverrides/AFWoodenDestructible_1
-  overrideIcon: 1
+  overrideIcon: 0
   icon: {fileID: 0}
 --- !u!114 &8133140380506592069
 MonoBehaviour:
@@ -389,5 +389,5 @@ MonoBehaviour:
   overrideName: 1
   setNameManually: 0
   name: ItemBrowser:ItemNameOverrides/AmberBoulder_0
-  overrideIcon: 1
+  overrideIcon: 0
   icon: {fileID: 21300000, guid: 34a1f4aed20a1f8419fb8d0f488964fa, type: 3}
