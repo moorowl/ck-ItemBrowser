@@ -170,6 +170,8 @@ ItemBrowser:ObjectEntry/ChallengeArenaReward	Text		Challenge arena reward
 ItemBrowser:ObjectEntry/StructureContents	Text		Plundering												
 ItemBrowser:ObjectEntry/StructureContents_NonObtainable	Text		Structure contents												
 ItemBrowser:ObjectEntry/Miscellaneous	Text		Miscellaneous												
+ItemBrowser:ObjectEntry/CreatureSummoning	Text		Summoning												
+ItemBrowser:ObjectEntry/BossAdds	Text		Boss adds												
 ItemBrowser:MoreInfo/Farming_0	Text		Grown from a {0}												
 ItemBrowser:MoreInfo/Farming_0_Normal	Text		Grown from a normal {0}												
 ItemBrowser:MoreInfo/Farming_0_Golden	Text		Grown from a golden {0}												
@@ -252,11 +254,17 @@ ItemBrowser:MoreInfo/ChallengeArenaReward_0_GuaranteedPool	Text		Reward chest co
 ItemBrowser:MoreInfo/ChallengeArenaReward_1	Text		{0}% chance												
 ItemBrowser:MoreInfo/ChallengeArenaReward_1_ForOne	Text		- {0}% chance of being dropped at least once, on average												
 ItemBrowser:MoreInfo/ChallengeArenaReward_1_PerRoll	Text		- {0}% chance of being dropped per roll, in {1} rolls												
-ItemBrowser:MoreInfo/ChallengeArenaReward_1_BraveMerchant	Text		- {0}% chance if the Brave Merchant is already active in the world												
+ItemBrowser:MoreInfo/ChallengeArenaReward_1_BraveMerchant	Text		({0}% if the Brave Merchant is already active in the world)												
 ItemBrowser:MoreInfo/ChallengeArenaReward_2	Text		Can only drop when {0} is the closest biome out of Azeos' Wilderness, The Sunken Sea and The Desert of Beginnings												
-ItemBrowser:MoreInfo/MerchantSpawning_0	Text		Placing a {0} inside a habitable room causes the {0} to move in												
+ItemBrowser:MoreInfo/MerchantSpawning_0	Text		Placing a {0} inside a habitable room causes the {1} to move in												
 ItemBrowser:MoreInfo/Breeding_0	Text		A {0} may be produced by two {1}s after they have both eaten enough and are next to each other												
 ItemBrowser:MoreInfo/Breeding_1	Text		{0} meals required												
+ItemBrowser:MoreInfo/CreatureSummoning_0_SummonArea	Text		Placing a {0} on or near the {1} summons {2}												
+ItemBrowser:MoreInfo/CreatureSummoning_0_LureWithBait	Text		Placing a {0} near {1} will lure it into battle												
+ItemBrowser:MoreInfo/CreatureSummoning_0_CastItem	Text		Using the {0} summons {1}												
+ItemBrowser:MoreInfo/CreatureSummoning_0_Azeos	Text		Placing a {0} inside Azeos' Arena summons {1}												
+ItemBrowser:MoreInfo/CreatureSummoning_0_Omoroth	Text		Fishing in a whirlpool in Omoroth's Arena with the {0} equipped summons {1}												
+ItemBrowser:MoreInfo/CreatureSummoning_0_RaAkar	Text		Placing a {0} inside Ra-Akar's Arena summons {1}												
 ItemBrowser:ObjectCategoryNames/CattleKelpFood	Text		Any kelp												
 ItemBrowser:ObjectCategoryNames/Sand	Text		Any sand block												
 ItemBrowser:ObjectCategoryNames/CattlePlantFood	Text		Any farmable plant												

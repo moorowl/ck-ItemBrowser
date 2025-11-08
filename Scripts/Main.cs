@@ -23,22 +23,14 @@ public class Main : IMod {
 
 	internal static Options Options { get; private set; } = new();
 	internal static AssetBundle AssetBundle { get; private set; }
-
-	private bool _registeredContent;
-
+	
 	public void EarlyInit() {
 		Debug.Log($"[{DisplayName}]: Mod version: {Version}");
 
 		var modInfo = API.ModLoader.LoadedMods.FirstOrDefault(modInfo => modInfo.Handlers.Contains(this));
 		AssetBundle = modInfo!.AssetBundles[0];
 
-		ItemBrowserUI.OnInit += _ => {
-			if (_registeredContent)
-				return;
-			
-			BuiltinContent.Register();
-			_registeredContent = true;
-		};
+		ItemBrowserAPI.OnInit += BuiltinContent.Register;
 	}
 
 	public void Init() {
@@ -91,7 +83,8 @@ public class Main : IMod {
 				new TerrainGeneration.Provider(),
 				new MerchantSpawning.Provider(),
 				new Miscellaneous.Provider(),
-				new Breeding.Provider()
+				new Breeding.Provider(),
+				new CreatureSummoning.Provider()
 			);
 
 			RegisterSorters();

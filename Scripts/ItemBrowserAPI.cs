@@ -16,6 +16,7 @@ using Object = UnityEngine.Object;
 namespace ItemBrowser {
 	public static class ItemBrowserAPI {
 		public static event Action OnClientLanguageChanged;
+		public static event Action OnInit;
 		
 		public static ItemBrowserUI ItemBrowserUI { get; private set; }
 
@@ -34,12 +35,12 @@ namespace ItemBrowser {
 		private static readonly List<ObjectNameAndIconOverride> ObjectNameAndIconOverrides = new();
 		internal static Dictionary<ObjectDataCD, string> ObjectNameOverrides = new();
 		internal static Dictionary<ObjectDataCD, Sprite> ObjectIconOverrides = new();
+
+		private static bool _hasRegisteredContent;
 		
 		private static void InitBrowserUI() {
 			var prefab = Main.AssetBundle.LoadAsset<GameObject>("Assets/ItemBrowser/Prefabs/ItemBrowserUI.prefab");
 			ItemBrowserUI = Object.Instantiate(prefab, API.Rendering.UICamera.transform).GetComponent<ItemBrowserUI>();
-			
-			ObjectEntries.RegisterFromProviders(ObjectEntryProviders);
 
 			foreach (var overrides in ObjectNameAndIconOverrides) {
 				var objectData = overrides.ObjectData;
@@ -52,6 +53,13 @@ namespace ItemBrowser {
 			}
 			
 			ObjectUtils.InitOnWorldLoad();
+
+			if (!_hasRegisteredContent) {
+				OnInit?.Invoke();
+				_hasRegisteredContent = true;
+			}
+			
+			ObjectEntries.RegisterFromProviders(ObjectEntryProviders);
 		}
 
 		private static void UninitBrowserUI() {
@@ -119,7 +127,7 @@ namespace ItemBrowser {
 			if (PugDatabase.HasComponent<ProjectileCD>(objectData))
 				return false;
 
-			return (objectInfo.variation == 0 || objectInfo.objectID == ObjectID.Bucket || (objectInfo.objectID == ObjectID.LargeAncientDestructible && objectInfo.variation <= 5) || objectInfo.objectID == ObjectID.LargeCityDestructible || objectInfo.objectID == ObjectID.LargeMoldDestructible || objectInfo.objectID == ObjectID.LargeJellyfishDestructable || objectInfo.objectID == ObjectID.LargeDesertDestructible || objectInfo.objectID == ObjectID.WoodenDestructible || objectInfo.objectID == ObjectID.NatureWoodenDestructible || objectInfo.objectID == ObjectID.SeaWoodenDestructible || objectInfo.objectID == ObjectID.LavaWoodenDestructible || objectInfo.objectID == ObjectID.LargeDesertTempleDestructible || objectInfo.objectID == ObjectID.HiveDestructible || objectInfo.objectID == ObjectID.LargeMoldDestructible || objectInfo.objectID == ObjectID.NatureDestructible || objectInfo.objectID == ObjectID.GreenLargeDesertDestructible || objectInfo.objectID == ObjectID.LargeAlienTechDestructible || objectInfo.objectID == ObjectID.Stalagmite || (objectInfo.objectID == ObjectID.Larva && objectInfo.variation <= 1) || (objectInfo.objectID == ObjectID.BigLarva && objectInfo.variation <= 1)) && !objectInfo.isCustomScenePrefab;
+			return (objectInfo.variation == 0 || objectInfo.objectID == ObjectID.BirdBoss || objectInfo.objectID == ObjectID.Bucket || (objectInfo.objectID == ObjectID.LargeAncientDestructible && objectInfo.variation <= 5) || objectInfo.objectID == ObjectID.LargeCityDestructible || objectInfo.objectID == ObjectID.LargeMoldDestructible || objectInfo.objectID == ObjectID.LargeJellyfishDestructable || objectInfo.objectID == ObjectID.LargeDesertDestructible || objectInfo.objectID == ObjectID.WoodenDestructible || objectInfo.objectID == ObjectID.NatureWoodenDestructible || objectInfo.objectID == ObjectID.SeaWoodenDestructible || objectInfo.objectID == ObjectID.LavaWoodenDestructible || objectInfo.objectID == ObjectID.LargeDesertTempleDestructible || objectInfo.objectID == ObjectID.HiveDestructible || objectInfo.objectID == ObjectID.LargeMoldDestructible || objectInfo.objectID == ObjectID.NatureDestructible || objectInfo.objectID == ObjectID.GreenLargeDesertDestructible || objectInfo.objectID == ObjectID.LargeAlienTechDestructible || objectInfo.objectID == ObjectID.Stalagmite || (objectInfo.objectID == ObjectID.Larva && objectInfo.variation <= 1) || (objectInfo.objectID == ObjectID.BigLarva && objectInfo.variation <= 1)) && !objectInfo.isCustomScenePrefab;
 		}
 
 		public static void RegisterItemSorter(Sorter<ObjectDataCD> sorter) {
