@@ -23,6 +23,7 @@ namespace ItemBrowser.Browser {
 		private List<ObjectEntry> _entries;
 		private float _top;
 		private PoolSystem _activeDisplayPool;
+		private ObjectEntryDisplayBase _activeDisplayComponent;
 		private readonly List<ObjectEntryDisplayBase> _activeDisplays = new();
 		private readonly List<GameObject> _activeDividers = new();
 
@@ -46,11 +47,13 @@ namespace ItemBrowser.Browser {
 
 			if (_entries.Count == 0)
 				return;
-			
-			_activeDisplayPool = GetDisplayPool(entries[0].GetType());
-			if (_activeDisplayPool == null)
+
+			if (!TryGetDisplayPool(entries[0].GetType(), out var pool, out var component))
 				return;
 			
+			_activeDisplayPool = pool;
+			_activeDisplayComponent = component;
+
 			RenderList();
 			
 			scrollWindow.SetScrollValue(scrollProgress);
@@ -75,7 +78,7 @@ namespace ItemBrowser.Browser {
 		private void RenderList() {
 			ClearList();
 
-			foreach (var entry in _entries) {
+			foreach (var entry in _activeDisplayComponent.SortEntries(_entries)) {
 				var display = _activeDisplayPool.GetFreeComponent<ObjectEntryDisplayBase>(true, true);
 				display.SetEntry(entry, _objectData);
 				display.Render();
@@ -119,18 +122,22 @@ namespace ItemBrowser.Browser {
 			}
 		}
 		
-		private PoolSystem GetDisplayPool(Type entryType) {
+		private bool TryGetDisplayPool(Type entryType, out PoolSystem pool, out ObjectEntryDisplayBase component) {
+			pool = null;
+			component = null;
+			
 			if (!ItemBrowserAPI.ObjectEntryDisplayPrefabs.TryGetValue(entryType, out var displayPrefab))
-				return null;
+				return false;
 			
-			var displayPrefabComponent = displayPrefab.GetComponent<ObjectEntryDisplayBase>();
-			if (displayPrefabComponent == null)
-				return null;
-			
+			component = displayPrefab.GetComponent<ObjectEntryDisplayBase>();
+			if (component == null)
+				return false;
+
 			if (!_displayPools.ContainsKey(entryType))
 				_displayPools[entryType] = new PoolSystem(displayPrefab, typeof(ObjectEntryDisplayBase), autoParent: scrollWindow.scrollingContent, autoEnable: true, initialSize: 16);
 
-			return _displayPools.GetValueOrDefault(entryType);
+			pool = _displayPools[entryType];
+			return true;
 		}
 
 		private void SetupPools() {
@@ -139,7 +146,7 @@ namespace ItemBrowser.Browser {
 			
 			_dividerPool = new PoolSystem(dividerTemplate, autoParent: scrollWindow.scrollingContent, autoEnable: true, initialSize: 16);
 			foreach (var (entryType, _) in ItemBrowserAPI.ObjectEntryDisplayPrefabs)
-				GetDisplayPool(entryType);
+				TryGetDisplayPool(entryType, out _, out _);
 		}
 		
 		public void UpdateContainingElements(float scroll) { }
