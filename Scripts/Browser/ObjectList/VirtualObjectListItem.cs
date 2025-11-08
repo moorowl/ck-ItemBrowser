@@ -11,7 +11,7 @@ namespace ItemBrowser.Browser.ObjectList {
 		
 		public override float localScrollPosition => transform.localPosition.y + transform.parent.localPosition.y;
 		private VirtualObjectList VirtualObjectList => (VirtualObjectList) slotsUIContainer;
-		private bool ShowHoverWindow => VirtualObjectList != null && VirtualObjectList.uiScrollWindow.IsShowingPosition(localScrollPosition, background.size.y / 2f);
+		private bool ShowHoverWindow => VirtualObjectList != null && VirtualObjectList.uiScrollWindow.IsShowingPosition(localScrollPosition, background.size.y);
 		public override bool isVisibleOnScreen => ShowHoverWindow && base.isVisibleOnScreen;
 
 		public void SetObjectData(ObjectData objectData, VirtualObjectList craftingSelectorUI) {

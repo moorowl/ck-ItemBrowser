@@ -7,15 +7,10 @@ using ItemBrowser.Utilities;
 using ItemBrowser.Utilities.DataStructures.SortingAndFiltering;
 using PugMod;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace ItemBrowser.Browser {
-	public class ObjectListWindow : ItemBrowserWindow {
-		private enum Mode {
-			Items,
-			Creatures,
-			Cooking
-		}
-		
+	public abstract class ObjectListWindow : ItemBrowserWindow {
 		[SerializeField]
 		private VirtualObjectList objectList;
 		[SerializeField]
@@ -23,15 +18,9 @@ namespace ItemBrowser.Browser {
 		[SerializeField]
 		private SpriteMask searchInputMask;
 		[SerializeField]
-		private BasicButton itemsButton;
-		[SerializeField]
-		private BasicButton creaturesButton;
-		[SerializeField]
-		private BasicButton cookingButton;
-		[SerializeField]
 		private FiltersPanel filtersPanel;
-
-		private Mode _currentMode;
+		public Transform tabButtonsAnchor;
+		
 		private bool _refreshItemList;
 		private float _refreshedItemListTime;
 
@@ -57,7 +46,7 @@ namespace ItemBrowser.Browser {
 		protected override void OnShow(bool isFirstTimeShowing) {
 			objectList.ShowContainerUI();
 			if (isFirstTimeShowing) {
-				SetMode(Mode.Items);
+				SetupFiltersAndSorting();
 				filtersPanel.IsShowing = false;
 			}
 			
@@ -76,10 +65,6 @@ namespace ItemBrowser.Browser {
 				_lastSearchTerm = currentSearchTerm;
 			}
 			
-			itemsButton.IsToggled = _currentMode == Mode.Items;
-			creaturesButton.IsToggled = _currentMode == Mode.Creatures;
-			cookingButton.IsToggled = _currentMode == Mode.Cooking;
-
 			if (filtersPanel.HasDynamicFiltersEnabled && Time.time >= _refreshedItemListTime + 1f)
 				RequestItemListRefresh();
 			
@@ -89,28 +74,15 @@ namespace ItemBrowser.Browser {
 			}
 		}
 		
-		private void SetMode(Mode mode) {
-			_currentMode = mode;
-
+		private void SetupFiltersAndSorting() {
 			// Setup sorters
 			_currentSorterIndex = 0;
-			_sorters = _currentMode switch {
-				Mode.Items => ItemBrowserAPI.ItemSorters,
-				Mode.Creatures => ItemBrowserAPI.CreatureSorters,
-				Mode.Cooking => ItemBrowserAPI.CookingSorters,
-				_ => throw new ArgumentOutOfRangeException()
-			};
+			_sorters = GetSorters();
 			UseReverseSorting = true;
 			
 			// Setup filters
 			filtersPanel.Clear();
-			var filters = _currentMode switch {
-				Mode.Items => ItemBrowserAPI.ItemFilters,
-				Mode.Creatures => ItemBrowserAPI.CreatureFilters,
-				Mode.Cooking => ItemBrowserAPI.CookingFilters,
-				_ => throw new ArgumentOutOfRangeException()
-			};
-			var filterGroups = filters.GroupBy(x => x.Group)
+			var filterGroups = GetFilters().GroupBy(x => x.Group)
 				.ToDictionary(group => group.Key, group => group.Select(x => x.Filter).ToList());
 
 			foreach (var group in filterGroups) {
@@ -121,6 +93,12 @@ namespace ItemBrowser.Browser {
 			
 			RequestItemListRefresh();
 		}
+		
+		protected abstract List<Sorter<ObjectDataCD>> GetSorters();
+		
+		protected abstract List<(string Group, Filter<ObjectDataCD> Filter)> GetFilters();
+		
+		protected abstract List<ObjectDataCD> GetIncludedObjects();
 		
 		public void ToggleFiltersPanel() {
 			filtersPanel.IsShowing = !filtersPanel.IsShowing;
@@ -154,18 +132,6 @@ namespace ItemBrowser.Browser {
 			searchInput.ResetText();
 		}
 		
-		public void SetItemsMode() {
-			SetMode(Mode.Items);
-		}
-		
-		public void SetCreaturesMode() {
-        	SetMode(Mode.Creatures);
-        }
-		
-        public void SetCookingMode() {
-	        SetMode(Mode.Cooking);
-        }
-
 		private void AdjustWindowPosition() {
 			transform.localPosition = new Vector3(filtersPanel.IsShowing ? -((filtersPanel.WindowWidth / 2f) + (1f / 16f)) : 0f, transform.localPosition.y, transform.localPosition.z);
 		}
@@ -188,11 +154,7 @@ namespace ItemBrowser.Browser {
 			_searchFilter.Term = SearchTerm;
 			
 			// Filtering
-			var allItems = _currentMode switch {
-				Mode.Items => PugDatabase.objectsByType.Keys.Where(ItemBrowserAPI.ShouldItemBeIncluded).ToList(),
-				Mode.Creatures => PugDatabase.objectsByType.Keys.Where(ItemBrowserAPI.ShouldCreatureBeIncluded).ToList(),
-				_ => new List<ObjectDataCD>()
-			};
+			var allItems = GetIncludedObjects();
 			var filteredItems = allItems
 				.Where(MatchesFilters)
 				.OrderBy(item => CurrentSorter.Function(item))

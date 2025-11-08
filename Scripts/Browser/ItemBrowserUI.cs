@@ -1,5 +1,6 @@
 ﻿using System;
 using HarmonyLib;
+using ItemBrowser.Browser.ObjectList;
 using ItemBrowser.Entries;
 using ItemBrowser.Utilities;
 using UnityEngine;
@@ -12,10 +13,10 @@ namespace ItemBrowser.Browser {
 		public static event Action<ItemBrowserUI> OnUninit;
 		
 		[SerializeField]
-		private ObjectListWindow objectListWindow;
+		private ObjectListContainerWindow objectListContainerWindow;
 		[SerializeField]
 		private ObjectEntriesWindow objectEntriesWindow;
-
+		
 		private void Awake() {
 			gameObject.SetActive(false);
 			OnInit?.Invoke(this);
@@ -27,7 +28,8 @@ namespace ItemBrowser.Browser {
 
 		protected override void OnShow(bool isFirstTimeShowing) {
 			if (isFirstTimeShowing) {
-				objectListWindow.IsShowing = true;
+				objectListContainerWindow.IsShowing = true;
+				objectListContainerWindow.SetItemsTab();
 				objectEntriesWindow.IsShowing = false;
 			}
 			
@@ -48,7 +50,7 @@ namespace ItemBrowser.Browser {
 			}
 
 			IsShowing = true;
-			objectListWindow.IsShowing = false;
+			objectListContainerWindow.IsShowing = false;
 			objectEntriesWindow.IsShowing = true;
 			
 			UserInterfaceUtils.PlayMenuOpenSound();
@@ -56,13 +58,13 @@ namespace ItemBrowser.Browser {
 			return true;
 		}
 		
-		public void ShowItemList() {
+		public void ShowObjectList() {
 			IsShowing = true;
-			objectListWindow.IsShowing = true;
+			objectListContainerWindow.IsShowing = true;
 			objectEntriesWindow.IsShowing = false;
 			objectEntriesWindow.Clear();
 		}
-
+		
 		private void LateUpdate() {
 			UpdateScale();
 			UpdateGoBack();
@@ -81,7 +83,7 @@ namespace ItemBrowser.Browser {
 				objectEntriesWindow.PopObjectData();
 				UserInterfaceUtils.PlayMenuCloseSound();
 			} else if (objectEntriesWindow.IsShowing) {
-				ShowItemList();
+				ShowObjectList();
 				UserInterfaceUtils.PlayMenuCloseSound();
 			} else {
 				IsShowing = false;

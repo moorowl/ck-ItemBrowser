@@ -24,12 +24,12 @@ ItemBrowser:ButtonHint/ViewUsage	Text		View usages: {0}
 ItemBrowser:ButtonHint/ViewSource	Text		View sources: {0}												
 ItemBrowser:ButtonHint/RestoreDefaults	Text		Restore defaults: {0}												
 ItemBrowser:Sorting	Text		Sort												
-ItemBrowser:ItemSorter/Alphabetical	Text		Alphabetical												
-ItemBrowser:ItemSorter/Category	Text		By creative category												
-ItemBrowser:ItemSorter/InternalIndex	Text		By internal index												
-ItemBrowser:ItemSorter/Damage	Text		By damage												
-ItemBrowser:ItemSorter/Level	Text		By level												
-ItemBrowser:ItemSorter/Value	Text		By value												
+ItemBrowser:Sorters/Alphabetical	Text		Alphabetical												
+ItemBrowser:Sorters/Category	Text		By creative category												
+ItemBrowser:Sorters/InternalIndex	Text		By internal index												
+ItemBrowser:Sorters/Damage	Text		By damage												
+ItemBrowser:Sorters/Level	Text		By level												
+ItemBrowser:Sorters/Value	Text		By value												
 ItemBrowser:SortingOrder	Text		Sort order												
 ItemBrowser:SortingOrder/Ascending	Text		Ascending												
 ItemBrowser:SortingOrder/Descending	Text		Descending												
@@ -38,87 +38,110 @@ ItemBrowser:HideFilters	Text		Hide filters
 ItemBrowser:FilteredResults	Text		{0}/{1} results												
 ItemBrowser:FilterState/Include	Text		Including												
 ItemBrowser:FilterState/Exclude	Text		Excluding												
-ItemBrowser:ItemFilter/Source	Text		Source												
-ItemBrowser:ItemFilter/Source_FromMods	Text		From mods												
-ItemBrowser:ItemFilter/Source_FromModsDesc	Text		Items added by any mod												
-ItemBrowser:ItemFilter/Source_FromMod	Text		From {0}												
-ItemBrowser:ItemFilter/Source_FromModDesc	Text		Items added by the {0} mod												
-ItemBrowser:ItemFilter/Damage	Text		Damage												
-ItemBrowser:ItemFilter/Damage_AnyDamage	Text		Any damage												
-ItemBrowser:ItemFilter/Damage_AnyDamageDesc	Text		Items dealing any damage type												
-ItemBrowser:ItemFilter/Damage_PhysicalMeleeDamage	Text		Physical melee damage												
-ItemBrowser:ItemFilter/Damage_PhysicalMeleeDamageDesc	Text		Items dealing physical melee damage												
-ItemBrowser:ItemFilter/Damage_PhysicalRangeDamage	Text		Physical range damage												
-ItemBrowser:ItemFilter/Damage_PhysicalRangeDamageDesc	Text		Items dealing physical range damage												
-ItemBrowser:ItemFilter/Damage_MagicDamage	Text		Magic damage												
-ItemBrowser:ItemFilter/Damage_MagicDamageDesc	Text		Items dealing physical or range magic damage												
-ItemBrowser:ItemFilter/Damage_SummonDamage	Text		Summon damage												
-ItemBrowser:ItemFilter/Damage_SummonDamageDesc	Text		Items that summon minions												
-ItemBrowser:ItemFilter/Equipment	Text		Equipment												
-ItemBrowser:ItemFilter/Equipment_Weapon	Text		Weapon												
-ItemBrowser:ItemFilter/Equipment_WeaponDesc	Text		Items that deal damage and are not tools												
-ItemBrowser:ItemFilter/Equipment_Tool	Text		Tool												
-ItemBrowser:ItemFilter/Equipment_ToolDesc	Text		Items that are tools												
-ItemBrowser:ItemFilter/Equipment_Armor	Text		Armor												
-ItemBrowser:ItemFilter/Equipment_ArmorDesc	Text		Items equipped in the armor slots												
-ItemBrowser:ItemFilter/Equipment_Accessory	Text		Accessory												
-ItemBrowser:ItemFilter/Equipment_AccessoryDesc	Text		Items equipped in the accessory slots												
-ItemBrowser:ItemFilter/Equipment_Ring	Text		Ring												
-ItemBrowser:ItemFilter/Equipment_RingDesc	Text		Items equipped in the ring slots												
-ItemBrowser:ItemFilter/Equipment_Necklace	Text		Necklace												
-ItemBrowser:ItemFilter/Equipment_NecklaceDesc	Text		Items equipped in the necklace slots												
-ItemBrowser:ItemFilter/Equipment_OffHand	Text		Off-hand												
-ItemBrowser:ItemFilter/Equipment_OffHandDesc	Text		Items equipped in the off-hand slot												
-ItemBrowser:ItemFilter/Equipment_Lantern	Text		Lantern												
-ItemBrowser:ItemFilter/Equipment_LanternDesc	Text		Items equipped in the lantern slot												
-ItemBrowser:ItemFilter/Equipment_Bag	Text		Bag												
-ItemBrowser:ItemFilter/Equipment_BagDesc	Text		Items equipped in the bag slot												
-ItemBrowser:ItemFilter/Equipment_Pouch	Text		Pouch												
-ItemBrowser:ItemFilter/Equipment_PouchDesc	Text		Items equipped in the pouch slots												
-ItemBrowser:ItemFilter/Equipment_Pet	Text		Pet												
-ItemBrowser:ItemFilter/Equipment_PetDesc	Text		Items equipped in the pet slot												
-ItemBrowser:ItemFilter/Equipment_Helm	Text		Helm												
-ItemBrowser:ItemFilter/Equipment_HelmDesc	Text		Items equipped in the helm slot												
-ItemBrowser:ItemFilter/Equipment_BreastArmor	Text		Chest												
-ItemBrowser:ItemFilter/Equipment_BreastArmorDesc	Text		Items equipped in the chest slot												
-ItemBrowser:ItemFilter/Equipment_PantsArmor	Text		Pants												
-ItemBrowser:ItemFilter/Equipment_PantsArmorDesc	Text		Items equipped in the pants slot												
-ItemBrowser:ItemFilter/Utility	Text		Utility												
-ItemBrowser:ItemFilter/Utility_Placeable	Text		Placeable												
-ItemBrowser:ItemFilter/Utility_PlaceableDesc	Text		Items that are placeable												
-ItemBrowser:ItemFilter/Utility_Consumable	Text		Consumable												
-ItemBrowser:ItemFilter/Utility_ConsumableDesc	Text		Items that are consumable												
-ItemBrowser:ItemFilter/Utility_Material	Text		Material												
-ItemBrowser:ItemFilter/Utility_MaterialDesc	Text		Items used to craft other items												
-ItemBrowser:ItemFilter/Utility_Craftable	Text		Currently craftable												
-ItemBrowser:ItemFilter/Utility_CraftableDesc	Text		Items currently craftable using materials from your inventory and nearby chests												
-ItemBrowser:ItemFilter/Utility_Discovered	Text		Discovered												
-ItemBrowser:ItemFilter/Utility_DiscoveredDesc	Text		Items that you've picked up before												
-ItemBrowser:ItemFilter/Utility_Unobtainable	Text		Unobtainable												
-ItemBrowser:ItemFilter/Utility_UnobtainableDesc	Text		Items that aren't obtainable without cheats												
-ItemBrowser:ItemFilter/Utility_CookingIngredient	Text		Cooking ingredient												
-ItemBrowser:ItemFilter/Utility_CookingIngredientDesc	Text		Items that are cooking ingredients												
-ItemBrowser:ItemFilter/Utility_Sand	Text		Any sand block												
-ItemBrowser:ItemFilter/Utility_SandDesc	Text		Items usable in "any sand block" recipes												
-ItemBrowser:ItemFilter/Rarity	Text		Rarity												
-ItemBrowser:ItemFilter/Rarity_Poor	Text		Poor												
-ItemBrowser:ItemFilter/Rarity_PoorDesc	Text		Items of rarity poor												
-ItemBrowser:ItemFilter/Rarity_Common	Text		Common												
-ItemBrowser:ItemFilter/Rarity_CommonDesc	Text		Items of rarity common												
-ItemBrowser:ItemFilter/Rarity_Uncommon	Text		Uncommon												
-ItemBrowser:ItemFilter/Rarity_UncommonDesc	Text		Items of rarity uncommon												
-ItemBrowser:ItemFilter/Rarity_Rare	Text		Rare												
-ItemBrowser:ItemFilter/Rarity_RareDesc	Text		Items of rarity rare												
-ItemBrowser:ItemFilter/Rarity_Epic	Text		Epic												
-ItemBrowser:ItemFilter/Rarity_EpicDesc	Text		Items of rarity epic												
-ItemBrowser:ItemFilter/Rarity_Legendary	Text		Legendary												
-ItemBrowser:ItemFilter/Rarity_LegendaryDesc	Text		Items of rarity legendary												
-ItemBrowser:ItemFilter/VersionAdded	Text		Version												
-ItemBrowser:ItemFilter/VersionAdded_Version	Text		{0}												
-ItemBrowser:ItemFilter/VersionAdded_VersionDesc	Text		Items added in {0}												
-ItemBrowser:ItemFilter/Level	Text		Level												
-ItemBrowser:ItemFilter/Level_Level	Text		Level {0}												
-ItemBrowser:ItemFilter/Level_LevelDesc	Text		Items with a base level of {0}												
+ItemBrowser:Filters/Source	Text		Source												
+ItemBrowser:Filters/Source_Item_FromMods	Text		From mods												
+ItemBrowser:Filters/Source_Item_FromModsDesc	Text		Items added by any mod												
+ItemBrowser:Filters/Source_Item_FromMod	Text		From {0}												
+ItemBrowser:Filters/Source_Item_FromModDesc	Text		Items added by the {0} mod												
+ItemBrowser:Filters/Source_Creature_FromMods	Text		From mods												
+ItemBrowser:Filters/Source_Creature_FromModsDesc	Text		Creatures added by any mod												
+ItemBrowser:Filters/Source_Creature_FromMod	Text		From {0}												
+ItemBrowser:Filters/Source_Creature_FromModDesc	Text		Creatures added by the {0} mod												
+ItemBrowser:Filters/Damage	Text		Damage												
+ItemBrowser:Filters/Damage_AnyDamage	Text		Any damage												
+ItemBrowser:Filters/Damage_AnyDamageDesc	Text		Items dealing any damage type												
+ItemBrowser:Filters/Damage_PhysicalMeleeDamage	Text		Physical melee damage												
+ItemBrowser:Filters/Damage_PhysicalMeleeDamageDesc	Text		Items dealing physical melee damage												
+ItemBrowser:Filters/Damage_PhysicalRangeDamage	Text		Physical range damage												
+ItemBrowser:Filters/Damage_PhysicalRangeDamageDesc	Text		Items dealing physical range damage												
+ItemBrowser:Filters/Damage_MagicDamage	Text		Magic damage												
+ItemBrowser:Filters/Damage_MagicDamageDesc	Text		Items dealing physical or range magic damage												
+ItemBrowser:Filters/Damage_SummonDamage	Text		Summon damage												
+ItemBrowser:Filters/Damage_SummonDamageDesc	Text		Items that summon minions												
+ItemBrowser:Filters/Equipment	Text		Equipment												
+ItemBrowser:Filters/Equipment_Weapon	Text		Weapon												
+ItemBrowser:Filters/Equipment_WeaponDesc	Text		Items that deal damage and are not tools												
+ItemBrowser:Filters/Equipment_Tool	Text		Tool												
+ItemBrowser:Filters/Equipment_ToolDesc	Text		Items that are tools												
+ItemBrowser:Filters/Equipment_Armor	Text		Armor												
+ItemBrowser:Filters/Equipment_ArmorDesc	Text		Items equipped in the armor slots												
+ItemBrowser:Filters/Equipment_Accessory	Text		Accessory												
+ItemBrowser:Filters/Equipment_AccessoryDesc	Text		Items equipped in the accessory slots												
+ItemBrowser:Filters/Equipment_Ring	Text		Ring												
+ItemBrowser:Filters/Equipment_RingDesc	Text		Items equipped in the ring slots												
+ItemBrowser:Filters/Equipment_Necklace	Text		Necklace												
+ItemBrowser:Filters/Equipment_NecklaceDesc	Text		Items equipped in the necklace slots												
+ItemBrowser:Filters/Equipment_OffHand	Text		Off-hand												
+ItemBrowser:Filters/Equipment_OffHandDesc	Text		Items equipped in the off-hand slot												
+ItemBrowser:Filters/Equipment_Lantern	Text		Lantern												
+ItemBrowser:Filters/Equipment_LanternDesc	Text		Items equipped in the lantern slot												
+ItemBrowser:Filters/Equipment_Bag	Text		Bag												
+ItemBrowser:Filters/Equipment_BagDesc	Text		Items equipped in the bag slot												
+ItemBrowser:Filters/Equipment_Pouch	Text		Pouch												
+ItemBrowser:Filters/Equipment_PouchDesc	Text		Items equipped in the pouch slots												
+ItemBrowser:Filters/Equipment_Pet	Text		Pet												
+ItemBrowser:Filters/Equipment_PetDesc	Text		Items equipped in the pet slot												
+ItemBrowser:Filters/Equipment_Helm	Text		Helm												
+ItemBrowser:Filters/Equipment_HelmDesc	Text		Items equipped in the helm slot												
+ItemBrowser:Filters/Equipment_BreastArmor	Text		Chest												
+ItemBrowser:Filters/Equipment_BreastArmorDesc	Text		Items equipped in the chest slot												
+ItemBrowser:Filters/Equipment_PantsArmor	Text		Pants												
+ItemBrowser:Filters/Equipment_PantsArmorDesc	Text		Items equipped in the pants slot												
+ItemBrowser:Filters/Utility	Text		Utility												
+ItemBrowser:Filters/Utility_Placeable	Text		Placeable												
+ItemBrowser:Filters/Utility_PlaceableDesc	Text		Items that are placeable												
+ItemBrowser:Filters/Utility_Consumable	Text		Consumable												
+ItemBrowser:Filters/Utility_ConsumableDesc	Text		Items that are consumable												
+ItemBrowser:Filters/Utility_Material	Text		Material												
+ItemBrowser:Filters/Utility_MaterialDesc	Text		Items used to craft other items												
+ItemBrowser:Filters/Utility_Craftable	Text		Currently craftable												
+ItemBrowser:Filters/Utility_CraftableDesc	Text		Items currently craftable using materials from your inventory and nearby chests												
+ItemBrowser:Filters/Utility_Discovered	Text		Discovered												
+ItemBrowser:Filters/Utility_DiscoveredDesc	Text		Items that you've picked up before												
+ItemBrowser:Filters/Utility_Unobtainable	Text		Unobtainable												
+ItemBrowser:Filters/Utility_UnobtainableDesc	Text		Items that aren't obtainable without cheats												
+ItemBrowser:Filters/Utility_CookingIngredient	Text		Cooking ingredient												
+ItemBrowser:Filters/Utility_CookingIngredientDesc	Text		Items that are cooking ingredients												
+ItemBrowser:Filters/Utility_Sand	Text		Any sand block												
+ItemBrowser:Filters/Utility_SandDesc	Text		Items usable in 'any sand block' recipes												
+ItemBrowser:Filters/Utility_Unspawnable	Text		Unspawnable												
+ItemBrowser:Filters/Utility_UnspawnableDesc	Text		Creatures that can't be spawned without cheats												
+ItemBrowser:Filters/Rarity	Text		Rarity												
+ItemBrowser:Filters/Rarity_Poor	Text		Poor												
+ItemBrowser:Filters/Rarity_PoorDesc	Text		Items of rarity poor												
+ItemBrowser:Filters/Rarity_Common	Text		Common												
+ItemBrowser:Filters/Rarity_CommonDesc	Text		Items of rarity common												
+ItemBrowser:Filters/Rarity_Uncommon	Text		Uncommon												
+ItemBrowser:Filters/Rarity_UncommonDesc	Text		Items of rarity uncommon												
+ItemBrowser:Filters/Rarity_Rare	Text		Rare												
+ItemBrowser:Filters/Rarity_RareDesc	Text		Items of rarity rare												
+ItemBrowser:Filters/Rarity_Epic	Text		Epic												
+ItemBrowser:Filters/Rarity_EpicDesc	Text		Items of rarity epic												
+ItemBrowser:Filters/Rarity_Legendary	Text		Legendary												
+ItemBrowser:Filters/Rarity_LegendaryDesc	Text		Items of rarity legendary												
+ItemBrowser:Filters/VersionAdded	Text		Version												
+ItemBrowser:Filters/VersionAdded_Item_Version	Text		{0}												
+ItemBrowser:Filters/VersionAdded_Item_VersionDesc	Text		Items added in {0}												
+ItemBrowser:Filters/VersionAdded_Creature_Version	Text		{0}												
+ItemBrowser:Filters/VersionAdded_Creature_VersionDesc	Text		Creatures added in {0}												
+ItemBrowser:Filters/Level	Text		Level												
+ItemBrowser:Filters/Level_Level	Text		Level {0}												
+ItemBrowser:Filters/Level_LevelDesc	Text		Items with a base level of {0}												
+ItemBrowser:Filters/Type	Text		Type												
+ItemBrowser:Filters/Type_Hostile	Text		Hostile												
+ItemBrowser:Filters/Type_HostileDesc	Text		Creatures that are hostile towards the player												
+ItemBrowser:Filters/Type_Boss	Text		Boss												
+ItemBrowser:Filters/Type_BossDesc	Text		Creatures that are bosses or boss minions												
+ItemBrowser:Filters/Type_Cattle	Text		Cattle												
+ItemBrowser:Filters/Type_CattleDesc	Text		Creatures that are cattle												
+ItemBrowser:Filters/Type_Critter	Text		Critter												
+ItemBrowser:Filters/Type_CritterDesc	Text		Creatures that are critters												
+ItemBrowser:Filters/Type_Merchant	Text		Merchant												
+ItemBrowser:Filters/Type_MerchantDesc	Text		Creatures that are merchants												
+ItemBrowser:Filters/Type_Minion	Text		Merchant												
+ItemBrowser:Filters/Type_MinionDesc	Text		Creatures that are minions												
+ItemBrowser:Filters/Faction	Text		Faction												
+ItemBrowser:Filters/Faction_FactionDesc	Text		Creatures in the {0} faction												
 ItemBrowser:ObjectEntry/TerrainGeneration	Text		Terrain generation												
 ItemBrowser:ObjectEntry/OreBoulderExtraction	Text		Ore boulder extraction												
 ItemBrowser:ObjectEntry/Crafting	Text		Crafting												
@@ -295,8 +318,31 @@ ItemBrowser:Options/ShowTechnicalInfo	Text		Show technical info
 ItemBrowser:Options/ShowTechnicalInfoDesc	Text		Shows some technical details when hovering over an item in the Item Browser, such as IDs.												
 ItemBrowser:Options/DefaultDiscoveredFilter	Text		Default discovered filter												
 ItemBrowser:Options/DefaultDiscoveredFilterDesc	Text		Toggles the discovered filter in the Item Browser on by default, only showing items you've picked up before.												
-ItemBrowser:MiscellaneousDesc/Greggy	Text		Creating a character named "Greggy" (case-sensitive)												
+ItemBrowser:MiscellaneousDesc/Greggy	Text		Creating a character named 'Greggy' (case-sensitive)												
 ItemBrowser:MiscellaneousDesc/CreativeOrbLantern	Text		Creating a creative mode character												
 ItemBrowser:ToggleBrowserPC	Text		Item Browser: Toggle browser												
 ItemBrowser:ShowUsagesPC	Text		Item Browser: Show usage												
 ItemBrowser:ShowSourcesPC	Text		Item Browser: Show obtaining												
+ItemBrowser:FactionNames/None	Text		None												
+ItemBrowser:FactionNames/Larva	Text		Larva												
+ItemBrowser:FactionNames/Caveling	Text		Caveling												
+ItemBrowser:FactionNames/Slime	Text		Slime												
+ItemBrowser:FactionNames/Neutral	Text		Neutral												
+ItemBrowser:FactionNames/Player	Text		Player												
+ItemBrowser:FactionNames/OnlyAttacksPlayer	Text		Only attacks player												
+ItemBrowser:FactionNames/Bird	Text		Bird												
+ItemBrowser:FactionNames/AttacksAllButNotAttacked	Text		Attacks all but not attacked												
+ItemBrowser:FactionNames/MoldInfected	Text		Mold infected												
+ItemBrowser:FactionNames/NatureCaveling	Text		Nature caveling												
+ItemBrowser:FactionNames/Merchant	Text		Merchant												
+ItemBrowser:FactionNames/SeaCaveling	Text		Sea caveling												
+ItemBrowser:FactionNames/SeaCreature	Text		Sea creature												
+ItemBrowser:FactionNames/Scarab	Text		Scarab												
+ItemBrowser:FactionNames/LavaCreature	Text		Lava creature												
+ItemBrowser:FactionNames/CanOnlyBeAttackedByPlayerOrExplosion	Text		Can only be attacked by player or explosion												
+ItemBrowser:FactionNames/UnfriendlyAgainstAll	Text		Unfriendly against all												
+ItemBrowser:FactionNames/DesertCaveling	Text		Desert caveling												
+ItemBrowser:FactionNames/CrystalCreature	Text		Crystal creature												
+ItemBrowser:FactionNames/MushroomEnemy	Text		Mushroom enemy												
+ItemBrowser:FactionNames/CoreBoss	Text		Core boss												
+ItemBrowser:FactionNames/PassageEnemy	Text		Passage creature												

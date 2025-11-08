@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using ItemBrowser.Utilities;
 using ItemBrowser;
@@ -6,6 +7,7 @@ using ItemBrowser.Entries;
 using ItemBrowser.Browser;
 using ItemBrowser.Entries.Defaults;
 using ItemBrowser.Utilities.DataStructures;
+using ItemBrowser.Utilities.DataStructures.SortingAndFiltering;
 using PugMod;
 using PugProperties;
 using PugTilemap;
@@ -56,6 +58,13 @@ public class Main : IMod {
 	}
 	
 	private static class BuiltinContent {
+		private static readonly HashSet<FactionID> UnusedCreatureFactions = new() {
+			FactionID.AttacksAllButNotPlayer,
+			FactionID.PlayerMinion,
+			FactionID.Explosion,
+			FactionID.__MAX_VALUE
+		};
+		
 		public static void Register() {
 			ItemBrowserAPI.RegisterObjectEntryProviders(
 				new ArchaeologistDrops.Provider(),
@@ -85,10 +94,8 @@ public class Main : IMod {
 				new Breeding.Provider()
 			);
 
-			RegisterItemSorters();
-			RegisterCreatureSorters();
-			RegisterItemFilters();
-			//RegisterCreatureFilters();
+			RegisterSorters();
+			RegisterFilters();
 		}
 
 		public static void OnModObjectLoaded(Object obj) {
@@ -102,64 +109,82 @@ public class Main : IMod {
 				ItemBrowserAPI.RegisterObjectNameAndIconOverride((ObjectNameAndIconOverride) overrides);
 		}
 
-		private static void RegisterItemSorters() {
-			ItemBrowserAPI.RegisterItemSorter(new("ItemBrowser:ItemSorter/Alphabetical") {
+		private static void RegisterSorters() {
+			// Item sorters
+			ItemBrowserAPI.RegisterItemSorter(new("ItemBrowser:Sorters/Alphabetical") {
 				Function = objectData => -ObjectUtils.GetDisplayNameSortOrder(objectData.objectID, objectData.variation)
 			});
-			/*RegisterItemSorter(new("ItemBrowser:ItemSorter/Category") {
+			/*RegisterItemSorter(new("ItemBrowser:Sorters/Category") {
 				Function = objectData => -ObjectUtils.GetDisplayNameScore(objectData.objectID, objectData.variation)
 			});*/
-			ItemBrowserAPI.RegisterItemSorter(new("ItemBrowser:ItemSorter/InternalIndex") {
+			ItemBrowserAPI.RegisterItemSorter(new("ItemBrowser:Sorters/InternalIndex") {
 				Function = objectData => (int) objectData.objectID * 10000 + objectData.variation
 			});
-			ItemBrowserAPI.RegisterItemSorter(new("ItemBrowser:ItemSorter/Damage") {
+			ItemBrowserAPI.RegisterItemSorter(new("ItemBrowser:Sorters/Damage") {
 				Function = objectData => ObjectUtils.GetDamage(objectData.objectID, objectData.variation)
 			});
-			ItemBrowserAPI.RegisterItemSorter(new("ItemBrowser:ItemSorter/Level") {
+			ItemBrowserAPI.RegisterItemSorter(new("ItemBrowser:Sorters/Level") {
 				Function = objectData => ObjectUtils.GetBaseLevel(objectData.objectID, objectData.variation)
 			});
-			ItemBrowserAPI.RegisterItemSorter(new("ItemBrowser:ItemSorter/Value") {
+			ItemBrowserAPI.RegisterItemSorter(new("ItemBrowser:Sorters/Value") {
 				Function = objectData => ObjectUtils.GetValue(objectData.objectID, objectData.variation)
+			});
+			
+			// Creature sorters
+			ItemBrowserAPI.RegisterCreatureSorter(new("ItemBrowser:Sorters/Alphabetical") {
+				Function = objectData => -ObjectUtils.GetDisplayNameSortOrder(objectData.objectID, objectData.variation)
+			});
+			ItemBrowserAPI.RegisterCreatureSorter(new("ItemBrowser:Sorters/InternalIndex") {
+				Function = objectData => (int) objectData.objectID * 10000 + objectData.variation
+			});
+			ItemBrowserAPI.RegisterCreatureSorter(new("ItemBrowser:Sorters/Level") {
+				Function = objectData => ObjectUtils.GetBaseLevel(objectData.objectID, objectData.variation)
 			});
 		}
 		
-		private static void RegisterCreatureSorters() {
-			ItemBrowserAPI.RegisterCreatureSorter(new("ItemBrowser:CreatureSorter/Alphabetical") {
-				Function = objectData => -ObjectUtils.GetDisplayNameSortOrder(objectData.objectID, objectData.variation)
-			});
-			ItemBrowserAPI.RegisterCreatureSorter(new("ItemBrowser:CreatureSorter/InternalIndex") {
-				Function = objectData => (int) objectData.objectID * 10000 + objectData.variation
-			});
-		}
-
-		private static void RegisterItemFilters() {
+		private static void RegisterFilters() {
 			// Source
-			const string sourceGroup = "ItemBrowser:ItemFilter/Source";
-			ItemBrowserAPI.RegisterItemFilter(sourceGroup, new($"{sourceGroup}_FromMods") {
-				Function = objectData => (int) objectData.objectID > Constants.maxNonModdedObjectID,
-				Group = "Source"
+			const string sourceGroup = "ItemBrowser:Filters/Source";
+			ItemBrowserAPI.RegisterItemFilter(sourceGroup, new($"{sourceGroup}_Item_FromMods") {
+				Function = objectData => (int) objectData.objectID > Constants.maxNonModdedObjectID
+			});
+			ItemBrowserAPI.RegisterItemFilter(sourceGroup, new($"{sourceGroup}_Creature_FromMods") {
+				Function = objectData => (int) objectData.objectID > Constants.maxNonModdedObjectID
 			});
 			foreach (var mod in API.ModLoader.LoadedMods.OrderBy(mod => ModUtils.GetDisplayName(mod.ModId))) {
 				var displayName = ModUtils.GetDisplayName(mod.ModId);
-				var objectIds = ModUtils.GetAssociatedObjects(mod.ModId)
+				
+				var objectIds = ModUtils.GetAssociatedObjects(mod.ModId);
+				var itemIds = objectIds
 					.Where(id => ItemBrowserAPI.ShouldItemBeIncluded(new ObjectDataCD { objectID = id }))
 					.ToList();
+				var creatureIds = objectIds
+					.Where(id => ItemBrowserAPI.ShouldCreatureBeIncluded(new ObjectDataCD { objectID = id }))
+					.ToList();
 
-				if (objectIds.Count == 0)
-					continue;
-
-				ItemBrowserAPI.RegisterItemFilter(sourceGroup, new($"{sourceGroup}_FromMod") {
-					NameFormatFields = new[] { displayName },
-					LocalizeNameFormatFields = false,
-					DescriptionFormatFields = new[] { displayName },
-					LocalizeDescriptionFormatFields = false,
-					Function = objectData => objectIds.Contains(objectData.objectID),
-					Group = "Source"
-				});
+				if (itemIds.Count > 0) {
+					ItemBrowserAPI.RegisterItemFilter(sourceGroup, new($"{sourceGroup}_Item_FromMod") {
+						NameFormatFields = new[] { displayName },
+						LocalizeNameFormatFields = false,
+						DescriptionFormatFields = new[] { displayName },
+						LocalizeDescriptionFormatFields = false,
+						Function = objectData => itemIds.Contains(objectData.objectID)
+					});	
+				}
+				
+				if (creatureIds.Count > 0) {
+					ItemBrowserAPI.RegisterCreatureFilter(sourceGroup, new($"{sourceGroup}_Creature_FromMod") {
+						NameFormatFields = new[] { displayName },
+						LocalizeNameFormatFields = false,
+						DescriptionFormatFields = new[] { displayName },
+						LocalizeDescriptionFormatFields = false,
+						Function = objectData => creatureIds.Contains(objectData.objectID)
+					});	
+				}
 			}
 
-			// Damage
-			const string damageGroup = "ItemBrowser:ItemFilter/Damage";
+			// Item damage
+			const string damageGroup = "ItemBrowser:Filters/Damage";
 			ItemBrowserAPI.RegisterItemFilter(damageGroup, new($"{damageGroup}_AnyDamage") {
 				Function = objectData => PugDatabase.HasComponent<HasWeaponDamageCD>(objectData)
 				                         || (PugDatabase.TryGetComponent<SecondaryUseCD>(objectData, out var secondaryUse) && secondaryUse.summonsMinion)
@@ -177,8 +202,8 @@ public class Main : IMod {
 				Function = objectData => PugDatabase.TryGetComponent<SecondaryUseCD>(objectData, out var secondaryUse) && secondaryUse.summonsMinion
 			});
 
-			// Equipment
-			const string equipmentGroup = "ItemBrowser:ItemFilter/Equipment";
+			// Item equipment
+			const string equipmentGroup = "ItemBrowser:Filters/Equipment";
 			ItemBrowserAPI.RegisterItemFilter(equipmentGroup, new($"{equipmentGroup}_Weapon") {
 				Function = objectData => {
 					var objectType = PugDatabase.GetObjectInfo(objectData.objectID, objectData.variation).objectType;
@@ -264,8 +289,8 @@ public class Main : IMod {
 				Function = objectData => PugDatabase.HasComponent<PetCD>(objectData)
 			});
 
-			// Utility
-			const string utilityGroup = "ItemBrowser:ItemFilter/Utility";
+			// Item utility
+			const string utilityGroup = "ItemBrowser:Filters/Utility";
 			ItemBrowserAPI.RegisterItemFilter(utilityGroup, new($"{utilityGroup}_Placeable") {
 				Function = objectData => {
 					var objectType = PugDatabase.GetObjectInfo(objectData.objectID, objectData.variation).objectType;
@@ -364,16 +389,16 @@ public class Main : IMod {
 				}
 			});
 
-			// Rarity
-			const string rarityGroup = "ItemBrowser:ItemFilter/Rarity";
+			// Item rarity
+			const string rarityGroup = "ItemBrowser:Filters/Rarity";
 			foreach (var rarity in Enum.GetValues(typeof(Rarity)).Cast<Rarity>()) {
 				ItemBrowserAPI.RegisterItemFilter(rarityGroup, new($"{rarityGroup}_{rarity}") {
 					Function = objectData => PugDatabase.GetObjectInfo(objectData.objectID, objectData.variation).rarity == rarity
 				});
 			}
 
-			/* Level
-			const string levelGroup = "ItemBrowser:ItemFilter/Level";
+			// Item level
+			const string levelGroup = "ItemBrowser:Filters/Level";
 			for (var i = 1; i <= LevelScaling.GetMaxLevel(); i++) {
 				var level = i;
 				ItemBrowserAPI.RegisterItemFilter(levelGroup, new($"{levelGroup}_Level") {
@@ -381,33 +406,73 @@ public class Main : IMod {
 					LocalizeNameFormatFields = false,
 					DescriptionFormatFields = new[] { i.ToString() },
 					LocalizeDescriptionFormatFields = false,
-					Function = objectData => ObjectUtils.GetLevel(objectData) == level
+					Function = objectData => ObjectUtils.GetBaseLevel(objectData.objectID, objectData.variation) == level
 				});
-			}*/
+			}
+			
+			// Creature type
+			const string typeGroup = "ItemBrowser:Filters/Type";
+			ItemBrowserAPI.RegisterCreatureFilter(typeGroup, new($"{typeGroup}_Hostile") {
+				Function = objectData => !ObjectCategoryTagsCD.HasTag(PugDatabase.GetComponent<ObjectCategoryTagsCD>(objectData).tagsBitMask, ObjectCategoryTag.NonHostileCreature)
+					&& !PugDatabase.HasComponent<CattleCD>(objectData)
+					&& !PugDatabase.HasComponent<CritterCD>(objectData)
+					&& !PugDatabase.HasComponent<MerchantCD>(objectData)
+			});
+			ItemBrowserAPI.RegisterCreatureFilter(typeGroup, new($"{typeGroup}_Boss") {
+				Function = PugDatabase.HasComponent<BossCD>
+			});
+			ItemBrowserAPI.RegisterCreatureFilter(typeGroup, new($"{typeGroup}_Merchant") {
+				Function = PugDatabase.HasComponent<MerchantCD>
+			});
+			ItemBrowserAPI.RegisterCreatureFilter(typeGroup, new($"{typeGroup}_Cattle") {
+				Function = PugDatabase.HasComponent<CattleCD>
+			});
+			ItemBrowserAPI.RegisterCreatureFilter(typeGroup, new($"{typeGroup}_Critter") {
+				Function = PugDatabase.HasComponent<CritterCD>
+			});
+			
+			// Creature faction
+			const string factionGroup = "ItemBrowser:Filters/Faction";
+			foreach (var faction in Enum.GetValues(typeof(FactionID)).Cast<FactionID>()) {
+				if (UnusedCreatureFactions.Contains(faction))
+					continue;
+				
+				ItemBrowserAPI.RegisterCreatureFilter(factionGroup, new($"CheatTools:FactionNames/{faction}", $"{factionGroup}_FactionDesc") {
+					DescriptionFormatFields = new[] { faction.ToString() },
+					Function = objectData => PugDatabase.TryGetComponent<FactionCD>(objectData, out var factionCD) && factionCD.faction == faction
+				});
+			}
 
 			// Version added
-			const string versionGroup = "ItemBrowser:ItemFilter/VersionAdded";
-			ItemBrowserAPI.RegisterItemFilter(versionGroup, new($"{versionGroup}_Version") {
-				NameFormatFields = new[] { "1.1" },
-				LocalizeNameFormatFields = false,
-				DescriptionFormatFields = new[] { "1.1" },
-				LocalizeDescriptionFormatFields = false,
-				Function = objectData => ObjectsAddedByVersion.In11.Contains(objectData.objectID)
-			});
-			ItemBrowserAPI.RegisterItemFilter(versionGroup, new($"{versionGroup}_Version") {
-				NameFormatFields = new[] { "1.1.1" },
-				LocalizeNameFormatFields = false,
-				DescriptionFormatFields = new[] { "1.1.1" },
-				LocalizeDescriptionFormatFields = false,
-				Function = objectData => ObjectsAddedByVersion.In111.Contains(objectData.objectID)
-			});
-			ItemBrowserAPI.RegisterItemFilter(versionGroup, new($"{versionGroup}_Version") {
-				NameFormatFields = new[] { "1.1.2" },
-				LocalizeNameFormatFields = false,
-				DescriptionFormatFields = new[] { "1.1.2" },
-				LocalizeDescriptionFormatFields = false,
-				Function = objectData => ObjectsAddedByVersion.In112.Contains(objectData.objectID)
-			});
+			const string versionGroup = "ItemBrowser:Filters/VersionAdded";
+			var versions = new[] {
+				("1.0", ObjectsAddedByVersion.In10, true, true),
+				("1.0.1", ObjectsAddedByVersion.In101, true, true),
+				("1.0.2", ObjectsAddedByVersion.In102, true, false),
+				("1.1", ObjectsAddedByVersion.In11, true, true),
+				("1.1.1", ObjectsAddedByVersion.In111, true, true),
+				("1.1.2", ObjectsAddedByVersion.In112, true, false)
+			};
+			foreach (var version in versions) {
+				if (version.Item3) {
+					ItemBrowserAPI.RegisterItemFilter(versionGroup, new Filter<ObjectDataCD>($"{versionGroup}_Item_Version") {
+						NameFormatFields = new[] { version.Item1 },
+						LocalizeNameFormatFields = false,
+						DescriptionFormatFields = new[] { version.Item1 },
+						LocalizeDescriptionFormatFields = false,
+						Function = objectData => version.Item2.Contains(objectData.objectID)
+					});	
+				}
+				if (version.Item4) {
+					ItemBrowserAPI.RegisterCreatureFilter(versionGroup, new Filter<ObjectDataCD>($"{versionGroup}_Creature_Version") {
+						NameFormatFields = new[] { version.Item1 },
+						LocalizeNameFormatFields = false,
+						DescriptionFormatFields = new[] { version.Item1 },
+						LocalizeDescriptionFormatFields = false,
+						Function = objectData => version.Item2.Contains(objectData.objectID)
+					});
+				}
+			}
 		}
 	}
 }
