@@ -4,7 +4,7 @@ using System.Linq;
 using ItemBrowser.Utilities;
 using ItemBrowser;
 using ItemBrowser.Entries;
-using ItemBrowser.Browser;
+using ItemBrowser.Config;
 using ItemBrowser.Entries.Defaults;
 using ItemBrowser.Utilities.DataStructures;
 using ItemBrowser.Utilities.DataStructures.SortingAndFiltering;
@@ -21,7 +21,7 @@ public class Main : IMod {
 	public const string InternalName = "ItemBrowser";
 	public const string DisplayName = "Item Browser";
 
-	internal static Options Options { get; private set; } = new();
+	internal static ConfigFile Config { get; } = new();
 	internal static AssetBundle AssetBundle { get; private set; }
 	
 	public void EarlyInit() {
@@ -34,6 +34,8 @@ public class Main : IMod {
 	}
 
 	public void Init() {
+		Config.Load();
+		
 		ModUtils.InitOnModLoad();
 	}
 
@@ -46,7 +48,11 @@ public class Main : IMod {
 	}
 
 	public static void Log(string context, string text) {
-		Debug.Log($"[ItemBrowser] {context}: {text}");
+		Debug.Log($"[ItemBrowser]: ({context}) {text}");
+	}
+	
+	public static void Log(Exception ex) {
+		Debug.LogException(ex);
 	}
 	
 	private static class BuiltinContent {

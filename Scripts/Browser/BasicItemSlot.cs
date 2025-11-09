@@ -28,6 +28,8 @@ namespace ItemBrowser.Browser {
 				UpdateVisuals();
 			}
 		}
+
+		private bool CanCheatInObjects => Main.Config.CheatMode && (Manager.saves.IsCreativeModeCharacter() || Manager.main.player.adminPrivileges >= 1);
 		
 		protected override void Awake() {
 			base.Awake();
@@ -56,7 +58,7 @@ namespace ItemBrowser.Browser {
 			var input = Manager.input.singleplayerInputModule;
 			var containedObjectData = _displayedObject.ContainedObject.objectData;
 			
-			if (input.IsButtonCurrentlyDown(PlayerInput.InputType.PICK_UP_HALF) && Manager.saves.IsCreativeModeCharacter()) {
+			if (input.IsButtonCurrentlyDown(PlayerInput.InputType.PICK_UP_HALF) && CanCheatInObjects) {
 				var pickUpTen = mod1 && PugDatabase.GetObjectInfo(containedObjectData.objectID, containedObjectData.variation) is { isStackable: true };
 
 				var player = Manager.main.player;

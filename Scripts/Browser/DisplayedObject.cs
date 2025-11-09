@@ -81,7 +81,7 @@ namespace ItemBrowser.Browser {
 					}
 				};
 
-				if (Main.Options.ShowTechnicalInfo) {
+				if (Main.Config.ShowTechnicalInfo) {
 					lines.Add(new TextAndFormatFields {
 						text = $"{(int) _objectData.objectID}:{_objectData.variation} ({_objectData.objectID})",
 						dontLocalize = true
@@ -168,7 +168,7 @@ namespace ItemBrowser.Browser {
 			}
 
 			public override List<TextAndFormatFields> GetHoverDescription(SlotUIBase slot) {
-				if (Main.Options.ShowTechnicalInfo) {
+				if (Main.Config.ShowTechnicalInfo) {
 					return new List<TextAndFormatFields> {
 						new() {
 							text = _tag.ToString(),

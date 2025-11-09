@@ -321,12 +321,11 @@ ItemBrowser:StructureType/Scene	Text		Scene
 ItemBrowser:StructureType/Dungeon	Text		Dungeon												
 ItemBrowser:StructureExclusiveLoot	Text		Structure-exclusive loot												
 ItemBrowser:StructureExclusiveDrop	Text		Structure-exclusive drop												
-ItemBrowser:Options/CheatMode	Text		Cheat mode												
-ItemBrowser:Options/CheatModeDesc	Text		Allows you to spawn in certain items by pressing {0}+{1} in the Item Browser. Only works in creative mode or if you're an admin.												
-ItemBrowser:Options/ShowTechnicalInfo	Text		Show technical info												
-ItemBrowser:Options/ShowTechnicalInfoDesc	Text		Shows some technical details when hovering over an item in the Item Browser, such as IDs.												
-ItemBrowser:Options/DefaultDiscoveredFilter	Text		Default discovered filter												
-ItemBrowser:Options/DefaultDiscoveredFilterDesc	Text		Toggles the discovered filter in the Item Browser on by default, only showing items you've picked up before.												
+ItemBrowser:Config	Text		Item Browser settings												
+ItemBrowser:Config/CheatMode	Text		Cheat mode												
+ItemBrowser:Config/ShowTechnicalInfo	Text		Show technical info												
+ItemBrowser:Config/ResetToDefault	Text		Reset to default												
+ItemBrowser:Config/DefaultDiscoveredFilter	Text		Default discovered filter												
 ItemBrowser:MiscellaneousDesc/Greggy	Text		Creating a character named 'Greggy' (case-sensitive)												
 ItemBrowser:MiscellaneousDesc/CreativeOrbLantern	Text		Creating a creative mode character												
 ItemBrowser:ToggleBrowserPC	Text		Item Browser: Toggle browser												
