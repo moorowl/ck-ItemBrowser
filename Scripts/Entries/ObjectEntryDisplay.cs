@@ -49,7 +49,7 @@ namespace ItemBrowser.Entries {
 				height = Mathf.Max(height, Mathf.Abs(boxCollider.transform.localPosition.y) + Mathf.Abs(boxCollider.size.y));
 			
 			foreach (var pugText in GetComponentsInChildren<PugText>())
-				height = Mathf.Max(height, Mathf.Abs(pugText.dimensions.y) + Mathf.Abs(pugText.dimensions.height / 2f));
+				height = Mathf.Max(height, Mathf.Abs(pugText.dimensions.y) + Mathf.Abs((pugText.dimensions.height / 2f) - (2f / 16f)));
 
 			return height;
 		}
