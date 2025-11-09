@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Newtonsoft.Json;
 using PugMod;
 using UnityEngine;
 
@@ -31,7 +32,7 @@ namespace ItemBrowser.Config {
 				API.ConfigFilesystem.CreateDirectory(Main.InternalName);
 			
 			try {
-				var serializedData = JsonUtility.ToJson(SerializeData());
+				var serializedData = JsonConvert.SerializeObject(SerializeData());
 				API.ConfigFilesystem.Write(FilePath, Encoding.UTF8.GetBytes(serializedData));
 			} catch (Exception ex) {
 				Main.Log(nameof(ConfigFile), "Error while saving file");
@@ -48,7 +49,7 @@ namespace ItemBrowser.Config {
 			}
 			
 			try {
-				var serializedData = JsonUtility.FromJson<SerializedData>(Encoding.UTF8.GetString(API.ConfigFilesystem.Read(FilePath)));
+				var serializedData = JsonConvert.DeserializeObject<SerializedData>(Encoding.UTF8.GetString(API.ConfigFilesystem.Read(FilePath)));
 				DeserializeData(serializedData);
 			} catch (Exception ex) {
 				Main.Log(nameof(ConfigFile), "Error while loading file, using defaults");
