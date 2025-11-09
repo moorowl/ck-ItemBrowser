@@ -32,7 +32,7 @@ namespace ItemBrowser.Entries.Defaults {
 						
 						allObjectDatas.Add(new ObjectDataCD {
 							objectID = objectData.objectID,
-							variation = objectData.variation,
+							variation = ObjectUtils.GetPrimaryVariation(objectData.objectID, objectData.variation),
 							amount = 1
 						});
 					}
@@ -45,20 +45,13 @@ namespace ItemBrowser.Entries.Defaults {
 						if (objectInfo != null) {
 							allObjectDatas.Add(new ObjectDataCD {
 								objectID = objectInfo.objectID,
-								variation = objectInfo.variation,
+								variation = ObjectUtils.GetPrimaryVariation(objectInfo.objectID, objectInfo.variation),
 								amount = 1
 							});
 						}
 					}
 
-					var combinedObjectDatas = allObjectDatas.GroupBy(objectData => objectData.objectID).Select(group => {
-						var entry = group.First();
-						return new ObjectDataCD {
-							objectID = entry.objectID,
-							variation = entry.variation,
-							amount = group.Sum(objectData => objectData.amount)
-						};
-					});
+					var combinedObjectDatas = ObjectUtils.GroupAndSumObjects(allObjectDatas, false);
 
 					foreach (var objectData in combinedObjectDatas) {
 						registry.Register(ObjectEntryType.Source, objectData.objectID, objectData.variation, new StructureContents {

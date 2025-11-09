@@ -48,7 +48,8 @@ namespace ItemBrowser.Utilities {
 		private static readonly Dictionary<ObjectDataCD, string> DisplayNameTerms = new();
 		private static readonly Dictionary<ObjectDataCD, int> DisplayNameSortOrders = new();
 		private static readonly Dictionary<ObjectID, HashSet<string>> Categories = new();
-
+		private static readonly Dictionary<ObjectDataCD, int> PrimaryVariations = new();
+		
 		internal static void InitOnWorldLoad() {
 			SetupDisplayNamesAndCategories();
 		}
@@ -86,7 +87,8 @@ namespace ItemBrowser.Utilities {
 					}, false).text;
 				}
 
-				DisplayNames.TryAdd(objectData, localizedName);
+				if (localizedName != null)
+					DisplayNames.TryAdd(objectData, localizedName);
 				DisplayNameTerms.TryAdd(objectData, unlocalizedName);
 			}
 			
@@ -126,6 +128,21 @@ namespace ItemBrowser.Utilities {
 					Categories[objectId].Add(subCategory.ToString());
 				}
 			}
+
+			PrimaryVariations.Clear();
+			
+			var nameToPrimaryVariation = new Dictionary<string, int>();
+			foreach (var objectData in PugDatabase.objectsByType.Keys.OrderBy(objectData => objectData.variation)) {
+				var displayName = DisplayNames.GetValueOrDefault(objectData) ?? objectData.objectID.ToString();
+
+				if (nameToPrimaryVariation.TryGetValue(displayName, out var primaryVariation)) {
+					PrimaryVariations[objectData] = primaryVariation;
+					Main.Log(nameof(ObjectUtils), $"{objectData.objectID}:{objectData.variation} -> {primaryVariation}");
+				} else {
+					nameToPrimaryVariation[displayName] = objectData.variation;
+					PrimaryVariations[objectData] = objectData.variation;
+				}
+			}
 		}
 		
 		public static string GetLocalizedDisplayName(ObjectID id, int variation = 0) {
@@ -151,6 +168,17 @@ namespace ItemBrowser.Utilities {
 		
 		public static HashSet<string> GetCategories(ObjectID id) {
 			return Categories.GetValueOrDefault(id);
+		}
+
+		public static int GetPrimaryVariation(ObjectID id, int variation) {
+			return PrimaryVariations.GetValueOrDefault(new ObjectDataCD {
+				objectID = id,
+				variation = variation
+			}, variation);
+		}
+		
+		public static bool IsPrimaryVariation(ObjectID id, int variation) {
+			return GetPrimaryVariation(id, variation) == variation;
 		}
 
 		public static Sprite GetIcon(ObjectID id, int variation = 0, bool preferSmallIcons = false) {

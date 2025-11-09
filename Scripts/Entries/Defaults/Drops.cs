@@ -211,7 +211,7 @@ namespace ItemBrowser.Entries.Defaults {
 				// Normal objects
 				foreach (var (objectData, authoring) in allObjects) {
 					var entity = PugDatabase.GetPrimaryPrefabEntity(objectData.objectID, pugDatabaseBankBlob, objectData.variation);
-					if (entity == Unity.Entities.Entity.Null)
+					if (entity == Unity.Entities.Entity.Null || !ObjectUtils.IsPrimaryVariation(objectData.objectID, objectData.variation))
 						continue;
 					
 					AddEntriesFromPrefab(API.Client.World, objectData, entity);

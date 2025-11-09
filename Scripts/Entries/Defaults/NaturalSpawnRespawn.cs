@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using ItemBrowser.Utilities;
 using PugTilemap;
 using UnityEngine;
 
@@ -31,6 +32,10 @@ namespace ItemBrowser.Entries.Defaults {
 							for (var i = spawn.variation.min; i <= spawn.variation.max; i++)
 								variations.Add(new ValueWithWeight<int>(i, 1f));
 						}
+						
+						variations.RemoveAll(variation => !ObjectUtils.IsPrimaryVariation(spawn.objectID, variation.value));
+						if (variations.Count == 0)
+							variations.Add(new ValueWithWeight<int>(0, 1f));
 						
 						foreach (var variation in variations) {
 							foreach (var tileset in tilesets) {
