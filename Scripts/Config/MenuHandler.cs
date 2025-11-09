@@ -57,7 +57,7 @@ namespace ItemBrowser.Config {
 				AddMenuOption(settings, "Assets/ItemBrowser/Prefabs/MenuOptions.prefab");
 			}
 			
-			[HarmonyPatch(typeof(RadicalMenu), "TypeToMenu")]
+			[HarmonyPatch(typeof(RadicalMenu), "PopMenu")]
 			[HarmonyPrefix]
 			public static void MenuManager_PopMenu(MenuManager __instance) {
 				var topMenu = __instance.GetTopMenu();
