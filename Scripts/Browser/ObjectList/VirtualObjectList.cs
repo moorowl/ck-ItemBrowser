@@ -90,7 +90,7 @@ namespace ItemBrowser.Browser.ObjectList {
 
 		public float GetCurrentWindowHeight() {
 			if (itemSlots.Count > MAX_COLUMNS)
-				return (math.abs(itemSlots[0].transform.localPosition.y - itemSlots[MAX_COLUMNS].transform.localPosition.y) * ((_objects.Count - 1f) / MAX_COLUMNS + 1f)) - 2.5f;
+				return (math.abs(itemSlots[0].transform.localPosition.y - itemSlots[MAX_COLUMNS].transform.localPosition.y) * ((_objects.Count - 1f) / MAX_COLUMNS + 1f)) - 1f;
 
 			return 0f;
 		}
