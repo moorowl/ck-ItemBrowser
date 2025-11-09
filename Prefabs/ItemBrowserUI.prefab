@@ -8570,6 +8570,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectList: {fileID: 8029579429101136625}
   searchInput: {fileID: 3770063469521743511}
+  otherSearchInputsToSync:
+  - {fileID: 1833067378169538758}
   searchInputMask: {fileID: 5141156688624412407}
   filtersPanel: {fileID: 1254606159830434543}
   tabButtonsAnchor: {fileID: 259260654703318175}
@@ -16961,6 +16963,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectList: {fileID: 8711156953105458776}
   searchInput: {fileID: 1833067378169538758}
+  otherSearchInputsToSync:
+  - {fileID: 3770063469521743511}
   searchInputMask: {fileID: 7233674349380088196}
   filtersPanel: {fileID: 1671546495232284839}
   tabButtonsAnchor: {fileID: 3271357293309519688}

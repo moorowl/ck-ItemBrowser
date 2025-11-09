@@ -16,6 +16,8 @@ namespace ItemBrowser.Browser {
 		[SerializeField]
 		private TextInputField searchInput;
 		[SerializeField]
+		private TextInputField[] otherSearchInputsToSync;
+		[SerializeField]
 		private SpriteMask searchInputMask;
 		[SerializeField]
 		private FiltersPanel filtersPanel;
@@ -27,7 +29,7 @@ namespace ItemBrowser.Browser {
 		public int IncludedObjects { get; private set; }
 		public int ExcludedObjects { get; private set; }
 		
-		private string SearchTerm => searchInput.pugText.GetText();
+		private string SearchTerm => searchInput.GetInputText();
 		private string _lastSearchTerm = string.Empty;
 		
 		private List<Sorter<ObjectDataCD>> _sorters;
@@ -61,6 +63,9 @@ namespace ItemBrowser.Browser {
 		private void LateUpdate() {
 			var currentSearchTerm = SearchTerm;
 			if (currentSearchTerm != _lastSearchTerm) {
+				foreach (var otherSearchInput in otherSearchInputsToSync)
+					otherSearchInput.SetInputText(currentSearchTerm);
+				
 				AdjustSearchFieldPosition();
 				RequestItemListRefresh();
 				_lastSearchTerm = currentSearchTerm;
@@ -129,6 +134,8 @@ namespace ItemBrowser.Browser {
 
 		public void ClearSearch() {
 			searchInput.ResetText();
+			foreach (var otherSearchInput in otherSearchInputsToSync)
+				otherSearchInput.ResetText();
 		}
 		
 		private void AdjustWindowPosition() {
