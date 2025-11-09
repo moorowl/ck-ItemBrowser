@@ -84,12 +84,10 @@ namespace ItemBrowser.Browser {
 				display.Render();
 				
 				var height = RoundToPixelPerfectPosition.RoundFloat(display.CalculateHeight());
-				var halfHeight = RoundToPixelPerfectPosition.RoundFloat(height / 2f);
 				
-				_top -= halfHeight;
-				display.transform.localPosition = new Vector3(0f, _top, 0f);
+				display.transform.localPosition = new Vector3(0f, _top - 0.625f, 0f);
 				_activeDisplays.Add(display);
-				_top -= halfHeight;
+				_top -= height + ((height - 1.25f) / 2.5f);
 				
 				_top -= dividerPadding;
 				var divider = _dividerPool.GetFreeObject(true, true);
