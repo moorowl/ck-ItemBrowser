@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using HarmonyLib;
 using ItemBrowser.DataStructures;
 using ItemBrowser.Entries;
+using PlayerState;
 using Rewired;
 using Rewired.Data;
 using Rewired.Data.Mapping;
@@ -20,21 +21,23 @@ namespace ItemBrowser {
 		[HarmonyPatch(typeof(InputManager), "LateUpdate")]
 		[HarmonyPostfix]
 		public static void InputManager_LateUpdate(InputManager __instance) {
-			if (ItemBrowserAPI.ItemBrowserUI != null && Manager.main.player != null) {
-				var input = Manager.input.singleplayerInputModule;
-				
-				if (input.WasButtonPressedDownThisFrame(ToggleBrowserInput))
-					ItemBrowserAPI.ItemBrowserUI.IsShowing = !ItemBrowserAPI.ItemBrowserUI.IsShowing;
+			var player = Manager.main.player;
+			
+			if (player == null || ItemBrowserAPI.ItemBrowserUI == null || Time.timeScale == 0f || EntityUtility.GetComponentData<PlayerStateCD>(player.entity, player.world).isStateLocked || !Manager.main.currentSceneHandler.isSceneHandlerReady)
+				return;
+			
+			var input = Manager.input.singleplayerInputModule;
+			if (input.WasButtonPressedDownThisFrame(ToggleBrowserInput))
+				ItemBrowserAPI.ItemBrowserUI.IsShowing = !ItemBrowserAPI.ItemBrowserUI.IsShowing;
 
-				if (Manager.ui.currentSelectedUIElement is SlotUIBase slot) {
-					var containedObjectData = slot.GetContainedObject().objectData;
-					if (containedObjectData.objectID != ObjectID.None) {
-						if (input.WasButtonPressedDownThisFrame(ShowSourcesInput))
-							ItemBrowserAPI.ItemBrowserUI.ShowObjectEntries(containedObjectData, ObjectEntryType.Source);
+			if (Manager.ui.currentSelectedUIElement is SlotUIBase slot) {
+				var containedObjectData = slot.GetContainedObject().objectData;
+				if (containedObjectData.objectID != ObjectID.None) {
+					if (input.WasButtonPressedDownThisFrame(ShowSourcesInput))
+						ItemBrowserAPI.ItemBrowserUI.ShowObjectEntries(containedObjectData, ObjectEntryType.Source);
 
-						if (input.WasButtonPressedDownThisFrame(ShowUsagesInput))
-							ItemBrowserAPI.ItemBrowserUI.ShowObjectEntries(containedObjectData, ObjectEntryType.Usage);
-					}
+					if (input.WasButtonPressedDownThisFrame(ShowUsagesInput))
+						ItemBrowserAPI.ItemBrowserUI.ShowObjectEntries(containedObjectData, ObjectEntryType.Usage);
 				}
 			}
 		}
