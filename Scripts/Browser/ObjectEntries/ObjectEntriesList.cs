@@ -132,7 +132,7 @@ namespace ItemBrowser.Browser {
 				return false;
 
 			if (!_displayPools.ContainsKey(entryType))
-				_displayPools[entryType] = new PoolSystem(displayPrefab, typeof(ObjectEntryDisplayBase), autoParent: scrollWindow.scrollingContent, autoEnable: true, initialSize: 16);
+				_displayPools[entryType] = new PoolSystem(displayPrefab, typeof(ObjectEntryDisplayBase), autoParent: scrollWindow.scrollingContent, autoEnable: true, initialSize: 16, maxSize: 1024);
 
 			pool = _displayPools[entryType];
 			return true;
@@ -142,7 +142,7 @@ namespace ItemBrowser.Browser {
 			if (_dividerPool != null)
 				return;
 			
-			_dividerPool = new PoolSystem(dividerTemplate, autoParent: scrollWindow.scrollingContent, autoEnable: true, initialSize: 16);
+			_dividerPool = new PoolSystem(dividerTemplate, autoParent: scrollWindow.scrollingContent, autoEnable: true, initialSize: 16, maxSize: 1024);
 			foreach (var (entryType, _) in ItemBrowserAPI.ObjectEntryDisplayPrefabs)
 				TryGetDisplayPool(entryType, out _, out _);
 		}
