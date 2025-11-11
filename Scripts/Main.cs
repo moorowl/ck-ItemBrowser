@@ -80,7 +80,6 @@ public class Main : IMod {
 				new OreBoulderExtraction.Provider(),
 				new Salvaging.Provider(),
 				new Trading.Provider(),
-				new BackgroundPerks.Provider(),
 				new Loot.Provider(),
 				new ChallengeArenaReward.Provider(),
 				new ItemBrowser.Entries.Defaults.VendingMachine.Provider(),
@@ -147,7 +146,7 @@ public class Main : IMod {
 			ItemBrowserAPI.RegisterItemFilter(sourceGroup, new($"{sourceGroup}_Item_FromMods") {
 				Function = objectData => (int) objectData.objectID > Constants.maxNonModdedObjectID
 			});
-			ItemBrowserAPI.RegisterItemFilter(sourceGroup, new($"{sourceGroup}_Creature_FromMods") {
+			ItemBrowserAPI.RegisterCreatureFilter(sourceGroup, new($"{sourceGroup}_Creature_FromMods") {
 				Function = objectData => (int) objectData.objectID > Constants.maxNonModdedObjectID
 			});
 			foreach (var mod in API.ModLoader.LoadedMods.OrderBy(mod => ModUtils.GetDisplayName(mod.ModId))) {
@@ -287,8 +286,29 @@ public class Main : IMod {
 			ItemBrowserAPI.RegisterItemFilter(equipmentGroup, new($"{equipmentGroup}_Pet") {
 				Function = objectData => PugDatabase.HasComponent<PetCD>(objectData)
 			});
+			
+			// Creature type
+			const string typeGroup = "ItemBrowser:Filters/Type";
+			ItemBrowserAPI.RegisterCreatureFilter(typeGroup, new($"{typeGroup}_Hostile") {
+				Function = objectData => !ObjectCategoryTagsCD.HasTag(PugDatabase.GetComponent<ObjectCategoryTagsCD>(objectData).tagsBitMask, ObjectCategoryTag.NonHostileCreature)
+					&& !PugDatabase.HasComponent<CattleCD>(objectData)
+					&& !PugDatabase.HasComponent<CritterCD>(objectData)
+					&& !PugDatabase.HasComponent<MerchantCD>(objectData)
+			});
+			ItemBrowserAPI.RegisterCreatureFilter(typeGroup, new($"{typeGroup}_Boss") {
+				Function = PugDatabase.HasComponent<BossCD>
+			});
+			ItemBrowserAPI.RegisterCreatureFilter(typeGroup, new($"{typeGroup}_Merchant") {
+				Function = PugDatabase.HasComponent<MerchantCD>
+			});
+			ItemBrowserAPI.RegisterCreatureFilter(typeGroup, new($"{typeGroup}_Cattle") {
+				Function = PugDatabase.HasComponent<CattleCD>
+			});
+			ItemBrowserAPI.RegisterCreatureFilter(typeGroup, new($"{typeGroup}_Critter") {
+				Function = PugDatabase.HasComponent<CritterCD>
+			});
 
-			// Item utility
+			// Utility
 			const string utilityGroup = "ItemBrowser:Filters/Utility";
 			ItemBrowserAPI.RegisterItemFilter(utilityGroup, new($"{utilityGroup}_Placeable") {
 				Function = objectData => {
@@ -301,9 +321,6 @@ public class Main : IMod {
 			ItemBrowserAPI.RegisterItemFilter(utilityGroup, new($"{utilityGroup}_Consumable") {
 				Function = objectData => PugDatabase.HasComponent<GivesConditionsWhenConsumedBuffer>(objectData)
 				                         || (PugDatabase.TryGetComponent<CastItemCD>(objectData, out var castItem) && castItem.useType != CastItemUseType.LeashCattle)
-			});
-			ItemBrowserAPI.RegisterItemFilter(utilityGroup, new($"{utilityGroup}_Material") {
-				Function = objectData => false
 			});
 			ItemBrowserAPI.RegisterItemFilter(utilityGroup, new($"{utilityGroup}_Craftable") {
 				Function = objectData => {
@@ -332,30 +349,6 @@ public class Main : IMod {
 					return objectInfo.tags.Contains(ObjectCategoryTag.CookingIngredient);
 				}
 			});
-			ItemBrowserAPI.RegisterItemFilter(utilityGroup, new($"{utilityGroup}_Sand") {
-				Function = objectData => {
-					var objectInfo = PugDatabase.GetObjectInfo(objectData.objectID, objectData.variation);
-					return objectInfo.tags.Contains(ObjectCategoryTag.Sand);
-				}
-			});
-			ItemBrowserAPI.RegisterItemFilter(utilityGroup, new($"{utilityGroup}_CattlePlantFood") {
-				Function = objectData => {
-					var objectInfo = PugDatabase.GetObjectInfo(objectData.objectID, objectData.variation);
-					return objectInfo.tags.Contains(ObjectCategoryTag.CattlePlantFood);
-				}
-			});
-			ItemBrowserAPI.RegisterItemFilter(utilityGroup, new($"{utilityGroup}_Insect") {
-				Function = objectData => {
-					var objectInfo = PugDatabase.GetObjectInfo(objectData.objectID, objectData.variation);
-					return objectInfo.tags.Contains(ObjectCategoryTag.Insect);
-				}
-			});
-			ItemBrowserAPI.RegisterItemFilter(utilityGroup, new($"{utilityGroup}_CattleKelpFood") {
-				Function = objectData => {
-					var objectInfo = PugDatabase.GetObjectInfo(objectData.objectID, objectData.variation);
-					return objectInfo.tags.Contains(ObjectCategoryTag.CattleKelpFood);
-				}
-			});
 			ItemBrowserAPI.RegisterItemFilter(utilityGroup, new($"{utilityGroup}_Paintable") {
 				Function = objectData => PugDatabase.HasComponent<PaintableObjectCD>(objectData)
 			});
@@ -364,29 +357,25 @@ public class Main : IMod {
 				FunctionIsDynamic = true
 			});
 			ItemBrowserAPI.RegisterItemFilter(utilityGroup, new($"{utilityGroup}_Unobtainable") {
-				Function = objectData => {
-					var objectType = PugDatabase.GetObjectInfo(objectData.objectID, objectData.variation).objectType;
-					if (objectType == ObjectType.NonObtainable)
-						return true;
-
-					if (PugDatabase.HasComponent<IndestructibleCD>(objectData))
-						return true;
-
-					if (PugDatabase.TryGetComponent<HealthCD>(objectData, out var health) && health.maxHealth >= 1000000)
-						return true;
-
-					if (PugDatabase.HasComponent<DontSerializeCD>(objectData) && objectType != ObjectType.Creature && objectType != ObjectType.Critter && !PugDatabase.HasComponent<TileCD>(objectData))
-						return true;
-
-					if (PugDatabase.GetComponent<TileCD>(objectData).tileType == TileType.ground)
-						return true;
-
-					if (ObjectUtils.GetLocalizedDisplayName(objectData.objectID, objectData.variation) == null)
-						return true;
-
-					return false;
-				}
+				Function = objectData => ObjectUtils.IsNonObtainableInItemList(objectData.objectID, objectData.variation) || !ItemBrowserAPI.ObjectEntries.GetAllEntries(ObjectEntryType.Source, objectData).Any(),
+				DefaultState = FilterState.Exclude
 			});
+			ItemBrowserAPI.RegisterCreatureFilter(utilityGroup, new($"{utilityGroup}_Unspawnable") {
+				Function = objectData => ObjectUtils.IsNonObtainableInItemList(objectData.objectID, objectData.variation) || !ItemBrowserAPI.ObjectEntries.GetAllEntries(ObjectEntryType.Source, objectData).Any(),
+				DefaultState = FilterState.Exclude
+			});
+			
+			// Creature faction
+			const string factionGroup = "ItemBrowser:Filters/Faction";
+			foreach (var faction in Enum.GetValues(typeof(FactionID)).Cast<FactionID>()) {
+				if (UnusedCreatureFactions.Contains(faction))
+					continue;
+				
+				ItemBrowserAPI.RegisterCreatureFilter(factionGroup, new($"CheatTools:FactionNames/{faction}", $"{factionGroup}_FactionDesc") {
+					DescriptionFormatFields = new[] { faction.ToString() },
+					Function = objectData => PugDatabase.TryGetComponent<FactionCD>(objectData, out var factionCD) && factionCD.faction == faction
+				});
+			}
 
 			// Item rarity
 			const string rarityGroup = "ItemBrowser:Filters/Rarity";
@@ -406,39 +395,6 @@ public class Main : IMod {
 					DescriptionFormatFields = new[] { i.ToString() },
 					LocalizeDescriptionFormatFields = false,
 					Function = objectData => ObjectUtils.GetBaseLevel(objectData.objectID, objectData.variation) == level
-				});
-			}
-			
-			// Creature type
-			const string typeGroup = "ItemBrowser:Filters/Type";
-			ItemBrowserAPI.RegisterCreatureFilter(typeGroup, new($"{typeGroup}_Hostile") {
-				Function = objectData => !ObjectCategoryTagsCD.HasTag(PugDatabase.GetComponent<ObjectCategoryTagsCD>(objectData).tagsBitMask, ObjectCategoryTag.NonHostileCreature)
-					&& !PugDatabase.HasComponent<CattleCD>(objectData)
-					&& !PugDatabase.HasComponent<CritterCD>(objectData)
-					&& !PugDatabase.HasComponent<MerchantCD>(objectData)
-			});
-			ItemBrowserAPI.RegisterCreatureFilter(typeGroup, new($"{typeGroup}_Boss") {
-				Function = PugDatabase.HasComponent<BossCD>
-			});
-			ItemBrowserAPI.RegisterCreatureFilter(typeGroup, new($"{typeGroup}_Merchant") {
-				Function = PugDatabase.HasComponent<MerchantCD>
-			});
-			ItemBrowserAPI.RegisterCreatureFilter(typeGroup, new($"{typeGroup}_Cattle") {
-				Function = PugDatabase.HasComponent<CattleCD>
-			});
-			ItemBrowserAPI.RegisterCreatureFilter(typeGroup, new($"{typeGroup}_Critter") {
-				Function = PugDatabase.HasComponent<CritterCD>
-			});
-			
-			// Creature faction
-			const string factionGroup = "ItemBrowser:Filters/Faction";
-			foreach (var faction in Enum.GetValues(typeof(FactionID)).Cast<FactionID>()) {
-				if (UnusedCreatureFactions.Contains(faction))
-					continue;
-				
-				ItemBrowserAPI.RegisterCreatureFilter(factionGroup, new($"CheatTools:FactionNames/{faction}", $"{factionGroup}_FactionDesc") {
-					DescriptionFormatFields = new[] { faction.ToString() },
-					Function = objectData => PugDatabase.TryGetComponent<FactionCD>(objectData, out var factionCD) && factionCD.faction == faction
 				});
 			}
 
