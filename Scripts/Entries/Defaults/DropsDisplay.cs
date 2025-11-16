@@ -3,7 +3,6 @@ using System.Linq;
 using ItemBrowser.Browser;
 using ItemBrowser.Utilities;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace ItemBrowser.Entries.Defaults {
 	public class DropsDisplay : ObjectEntryDisplay<Drops> {
@@ -24,8 +23,8 @@ namespace ItemBrowser.Entries.Defaults {
 
 		public override IEnumerable<Drops> SortEntries(IEnumerable<Drops> entries) {
 			return entries
-				.OrderByDescending(entry => entry.FoundInScenes.Count > 0 ? 1 : 0)
-				.ThenBy(entry => ObjectUtils.GetLocalizedDisplayName(entry.Entity, entry.EntityVariation))
+				.OrderByDescending(entry => entry.FoundInScenes.Count > 0 ? 0 : 1)
+				.ThenBy(entry => ObjectUtils.GetLocalizedDisplayName(entry.Entity.Id, entry.Entity.Variation))
 				.ThenByDescending(entry => entry.IsFromGuaranteedPool ? 1 : 0);
 		}
 		
@@ -45,12 +44,12 @@ namespace ItemBrowser.Entries.Defaults {
 
 		private void RenderBody() {
 			resultSlot.DisplayedObject = new DisplayedObject.Static(new ObjectDataCD {
-				objectID = ObjectData.objectID,
-				variation = ObjectData.variation
+				objectID = Entry.Result.Id,
+				variation = Entry.Result.Variation
 			}, Entry.Amount());
 			sourceSlot.DisplayedObject = new DisplayedObject.Static(new ObjectDataCD {
-				objectID = Entry.Entity,
-				variation = Entry.EntityVariation
+				objectID = Entry.Entity.Id,
+				variation = Entry.Entity.Variation
 			});
 			
 			var showPoolTypeText = Entry.IsFromTableWithGuaranteedPool;
@@ -77,7 +76,7 @@ namespace ItemBrowser.Entries.Defaults {
 			MoreInfo.AddLine(new TextAndFormatFields {
 				text = showPoolTypeText ? (Entry.IsFromGuaranteedPool ? "ItemBrowser:MoreInfo/Drops_0_GuaranteedPool" : "ItemBrowser:MoreInfo/Drops_0_RandomPool") : "ItemBrowser:MoreInfo/Drops_0",
 				formatFields = new[] {
-					ObjectUtils.GetUnlocalizedDisplayName(Entry.Entity, Entry.EntityVariation)
+					ObjectUtils.GetUnlocalizedDisplayName(Entry.Entity.Id, Entry.Entity.Variation)
 				},
 				color = TextUtils.DescriptionColor
 			});

@@ -43,6 +43,7 @@ namespace ItemBrowser.Browser {
 
 		protected override void OnHide() {
 			PlayToggleSound();
+			_entriesOpenedOutsideOfBrowser = false;
 		}
 
 		public bool ShowObjectEntries(ObjectDataCD objectData, ObjectEntryType type) {
@@ -74,6 +75,7 @@ namespace ItemBrowser.Browser {
 			UpdateScale();
 			UpdateGoBack();
 			HideMapAndInventoryIfShowing();
+			UpdateSwapToInventory();
 		}
 
 		private void UpdateScale() {
@@ -95,6 +97,17 @@ namespace ItemBrowser.Browser {
 			}
 		}
 
+		private void UpdateSwapToInventory() {
+			var player = Manager.main.player;
+			if (player.guestMode)
+				return;
+
+			if (player.inputModule.WasButtonPressedDownThisFrame(PlayerInput.InputType.TOGGLE_INVENTORY)) {
+				player.OpenPlayerInventory();
+				IsShowing = false;
+			}
+		}
+		
 		private static void HideMapAndInventoryIfShowing() {
 			if (Manager.ui.isAnyInventoryShowing)
 				Manager.ui.HideAllInventoryAndCraftingUI();

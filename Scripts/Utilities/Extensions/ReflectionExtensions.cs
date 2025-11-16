@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using PugMod;
 
-namespace ItemBrowser.DataStructures {
+namespace ItemBrowser.Utilities.Extensions {
 	public static class ReflectionExtensions {
 		public static T GetValue<T>(this object obj, string memberName) {
 			var member = obj.GetType().GetMembersChecked().FirstOrDefault(x => x.GetNameChecked() == memberName);

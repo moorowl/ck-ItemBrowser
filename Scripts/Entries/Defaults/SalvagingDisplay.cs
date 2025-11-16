@@ -16,11 +16,10 @@ namespace ItemBrowser.Entries.Defaults {
 
 		private void RenderBody() {
 			resultSlot.DisplayedObject = new DisplayedObject.Static(new ObjectDataCD {
-				objectID = ObjectData.objectID,
-				variation = ObjectData.variation
-			}, Entry.Amount);
+				objectID = Entry.Result
+			}, Entry.ResultAmount);
 			sourceSlot.DisplayedObject = new DisplayedObject.Static(new ObjectDataCD {
-				objectID = Entry.Salvaged
+				objectID = Entry.ItemSalvaged
 			});
 		}
 
@@ -29,17 +28,17 @@ namespace ItemBrowser.Entries.Defaults {
 			MoreInfo.AddLine(new TextAndFormatFields {
 				text = "ItemBrowser:MoreInfo/Salvaging_0",
 				formatFields = new[] {
-					ObjectUtils.GetUnlocalizedDisplayName(Entry.Salvaged)
+					ObjectUtils.GetUnlocalizedDisplayName(Entry.ItemSalvaged)
 				},
 				color = TextUtils.DescriptionColor
 			});
-			if (Entry.Amount.Min != Entry.Amount.Max) {
+			if (Entry.ResultAmount.Min != Entry.ResultAmount.Max) {
 				// Drops x-x
 				MoreInfo.AddLine(new TextAndFormatFields {
 					text = "ItemBrowser:MoreInfo/Salvaging_1_Durability",
 					formatFields = new[] {
-						Entry.Amount.Min.ToString(),
-						Entry.Amount.Max.ToString()
+						Entry.ResultAmount.Min.ToString(),
+						Entry.ResultAmount.Max.ToString()
 					},
 					dontLocalizeFormatFields = true,
 					color = TextUtils.DescriptionColor
@@ -49,7 +48,7 @@ namespace ItemBrowser.Entries.Defaults {
 				MoreInfo.AddLine(new TextAndFormatFields {
 					text = "ItemBrowser:MoreInfo/Salvaging_1",
 					formatFields = new[] {
-						Entry.Amount.Max.ToString()
+						Entry.ResultAmount.Max.ToString()
 					},
 					dontLocalizeFormatFields = true,
 					color = TextUtils.DescriptionColor

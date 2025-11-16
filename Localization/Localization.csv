@@ -33,6 +33,7 @@ ItemBrowser:Sorters/Value	Text		By value
 ItemBrowser:SortingOrder	Text		Sort order												
 ItemBrowser:SortingOrder/Ascending	Text		Ascending												
 ItemBrowser:SortingOrder/Descending	Text		Descending												
+ItemBrowser:ClearSearch	Text		Clear search												
 ItemBrowser:ShowFilters	Text		Show filters												
 ItemBrowser:HideFilters	Text		Hide filters												
 ItemBrowser:FilteredResults	Text		{0}/{1} results												
@@ -98,14 +99,14 @@ ItemBrowser:Filters/Utility_Craftable	Text		Currently craftable
 ItemBrowser:Filters/Utility_CraftableDesc	Text		Items currently craftable using materials from your inventory and nearby chests												
 ItemBrowser:Filters/Utility_Discovered	Text		Discovered												
 ItemBrowser:Filters/Utility_DiscoveredDesc	Text		Items that you've picked up before												
-ItemBrowser:Filters/Utility_Unobtainable	Text		Unobtainable												
-ItemBrowser:Filters/Utility_UnobtainableDesc	Text		Items that aren't obtainable without cheats												
+ItemBrowser:Filters/Utility_Technical_Item	Text		Technical												
+ItemBrowser:Filters/Utility_Technical_ItemDesc	Text		Items that are generally irrelevant to normal gameplay and can't be obtained without cheats.												
+ItemBrowser:Filters/Utility_Technical_Creature	Text		Technical												
+ItemBrowser:Filters/Utility_Technical_CreatureDesc	Text		Creatures that are generally irrelevant to normal gameplay and can't be spawned without cheats.												
 ItemBrowser:Filters/Utility_CookingIngredient	Text		Cooking ingredient												
 ItemBrowser:Filters/Utility_CookingIngredientDesc	Text		Items that are cooking ingredients												
-ItemBrowser:Filters/Utility_Sand	Text		Any sand block												
-ItemBrowser:Filters/Utility_SandDesc	Text		Items usable in 'any sand block' recipes												
-ItemBrowser:Filters/Utility_Unspawnable	Text		Unspawnable												
-ItemBrowser:Filters/Utility_UnspawnableDesc	Text		Creatures that can't be spawned without cheats												
+ItemBrowser:Filters/Utility_Paintable	Text		Paintable												
+ItemBrowser:Filters/Utility_PaintableDesc	Text		Items that are paintable												
 ItemBrowser:Filters/Rarity	Text		Rarity												
 ItemBrowser:Filters/Rarity_Poor	Text		Poor												
 ItemBrowser:Filters/Rarity_PoorDesc	Text		Items of rarity poor												
@@ -138,7 +139,7 @@ ItemBrowser:Filters/Type_Critter	Text		Critter
 ItemBrowser:Filters/Type_CritterDesc	Text		Creatures that are critters												
 ItemBrowser:Filters/Type_Merchant	Text		Merchant												
 ItemBrowser:Filters/Type_MerchantDesc	Text		Creatures that are merchants												
-ItemBrowser:Filters/Type_Minion	Text		Merchant												
+ItemBrowser:Filters/Type_Minion	Text		Minion												
 ItemBrowser:Filters/Type_MinionDesc	Text		Creatures that are minions												
 ItemBrowser:Filters/Faction	Text		Faction												
 ItemBrowser:Filters/Faction_FactionDesc	Text		Creatures in the {0} faction												
@@ -172,6 +173,8 @@ ItemBrowser:ObjectEntry/StructureContents_NonObtainable	Text		Structure contents
 ItemBrowser:ObjectEntry/Miscellaneous	Text		Miscellaneous												
 ItemBrowser:ObjectEntry/CreatureSummoning	Text		Summoning												
 ItemBrowser:ObjectEntry/BossAdds	Text		Boss adds												
+ItemBrowser:ObjectEntry/DropsWhenDamaged	Text		Drops when damaged												
+ItemBrowser:ObjectEntry/UpgradeMaterial	Text		Upgrade material												
 ItemBrowser:MoreInfo/Farming_0	Text		Grown from a {0}												
 ItemBrowser:MoreInfo/Farming_0_Normal	Text		Grown from a normal {0}												
 ItemBrowser:MoreInfo/Farming_0_Golden	Text		Grown from a golden {0}												
@@ -207,7 +210,7 @@ ItemBrowser:MoreInfo/Fishing_1_Fish	Text		{0}% base chance when catching a fish
 ItemBrowser:MoreInfo/Fishing_1_Loot	Text		{0}% base chance when catching loot												
 ItemBrowser:MoreInfo/BackgroundPerks_0	Text		Received when creating a character with the {0} background												
 ItemBrowser:MoreInfo/BackgroundPerks_1	Text		Provides {0}												
-ItemBrowser:MoreInfo/Salvaging_0	Text		From salvaging {0} in Salvage and Repair Station												
+ItemBrowser:MoreInfo/Salvaging_0	Text		From salvaging {0}												
 ItemBrowser:MoreInfo/Salvaging_1	Text		Always drops {0}												
 ItemBrowser:MoreInfo/Salvaging_1_Durability	Text		Drops {0}-{1}, based on the item's current durability												
 ItemBrowser:MoreInfo/LockedChestDrops_0	Text		From breaking {0} walls in {1}												
@@ -265,6 +268,12 @@ ItemBrowser:MoreInfo/CreatureSummoning_0_CastItem	Text		Using the {0} summons {1
 ItemBrowser:MoreInfo/CreatureSummoning_0_Azeos	Text		Placing a {0} inside Azeos' Arena summons {1}												
 ItemBrowser:MoreInfo/CreatureSummoning_0_Omoroth	Text		Fishing in a whirlpool in Omoroth's Arena with the {0} equipped summons {1}												
 ItemBrowser:MoreInfo/CreatureSummoning_0_RaAkar	Text		Placing a {0} inside Ra-Akar's Arena summons {1}												
+ItemBrowser:MoreInfo/UpgradeMaterial_0	Text		Used to upgrade items from level {0} to {1}												
+ItemBrowser:MoreInfo/UpgradeMaterial_1	Text		Materials:												
+ItemBrowser:MoreInfo/UpgradeMaterial_2	Text		- {0} x{1}												
+ItemBrowser:MoreInfo/DropsWhenDamaged_0	Text		Dropped by {0} when damaged												
+ItemBrowser:MoreInfo/DropsWhenDamaged_1	Text		1 dropped for every {0} damage dealt												
+ItemBrowser:MoreInfo/DropsWhenDamaged_2	Text		Can only drop when health is at least {0}/{1}												
 ItemBrowser:ObjectCategoryNames/CattleKelpFood	Text		Any kelp												
 ItemBrowser:ObjectCategoryNames/Sand	Text		Any sand block												
 ItemBrowser:ObjectCategoryNames/CattlePlantFood	Text		Any farmable plant												
@@ -296,25 +305,25 @@ ItemBrowser:ItemNameOverrides/Water_3	Text		Sea Water
 ItemBrowser:ItemNameOverrides/Water_4	Text		Shimmering Water												
 ItemBrowser:ItemNameOverrides/Water_5	Text		Passage Water												
 ItemBrowser:ItemNameOverrides/Lava_0	Text		Lava												
-ItemBrowser:ItemNameOverrides/DiggingSpot_0	Text		Digging Spot												
-ItemBrowser:ItemNameOverrides/DiggingSpotNature_0	Text		Grass Digging Spot												
-ItemBrowser:ItemNameOverrides/DiggingSpotSea_0	Text		Beach Digging Spot												
-ItemBrowser:ItemNameOverrides/DiggingSpotDesert_0	Text		Desert Digging Spot												
-ItemBrowser:ItemNameOverrides/DiggingSpotLava_0	Text		Lava Rock Digging Spot												
-ItemBrowser:ItemNameOverrides/FallingRockDestructible_0	Text		Fallen Rock												
-ItemBrowser:ItemNameOverrides/SlimeBossStatue_0	Text		Glurch the Abominous Mass Statue												
-ItemBrowser:ItemNameOverrides/LarvaBossStatue_0	Text		Ghorm the Devourer Statue												
-ItemBrowser:ItemNameOverrides/LarvaHiveBossStatue_0	Text		Malugaz the Corrupted Statue												
+ItemBrowser:ItemNameOverrides/DiggingSpot_0	Text		Digging Spot*												
+ItemBrowser:ItemNameOverrides/DiggingSpotNature_0	Text		Grass Digging Spot*												
+ItemBrowser:ItemNameOverrides/DiggingSpotSea_0	Text		Beach Digging Spot*												
+ItemBrowser:ItemNameOverrides/DiggingSpotDesert_0	Text		Desert Digging Spot*												
+ItemBrowser:ItemNameOverrides/DiggingSpotLava_0	Text		Lava Rock Digging Spot*												
+ItemBrowser:ItemNameOverrides/FallingRockDestructible_0	Text		Fallen Rock*												
+ItemBrowser:ItemNameOverrides/SlimeBossStatue_0	Text		Glurch the Abominous Mass Statue*												
+ItemBrowser:ItemNameOverrides/LarvaBossStatue_0	Text		Ghorm the Devourer Statue*												
+ItemBrowser:ItemNameOverrides/LarvaHiveBossStatue_0	Text		Malugaz the Corrupted Statue*												
 ItemBrowser:ItemNameOverrides/Player_0	Text		Player												
-ItemBrowser:ItemNameOverrides/WoodenDestructible_1	Text		Large Wooden Crate												
-ItemBrowser:ItemNameOverrides/NatureWoodenDestructible_1	Text		Large Overgrown Wooden Crate												
-ItemBrowser:ItemNameOverrides/SeaWoodenDestructible_1	Text		Large Driftwood Wooden Crate												
-ItemBrowser:ItemNameOverrides/LavaWoodenDestructible_1	Text		Large Charred Crate												
-ItemBrowser:ItemNameOverrides/NatureDestructible_1	Text		Large Flower Vessel												
-ItemBrowser:ItemNameOverrides/AFWoodenDestructible_1	Text		Large Office Crate												
+ItemBrowser:ItemNameOverrides/WoodenDestructible_1	Text		Large Wooden Crate*												
+ItemBrowser:ItemNameOverrides/NatureWoodenDestructible_1	Text		Large Overgrown Wooden Crate*												
+ItemBrowser:ItemNameOverrides/SeaWoodenDestructible_1	Text		Large Driftwood Wooden Crate*												
+ItemBrowser:ItemNameOverrides/LavaWoodenDestructible_1	Text		Large Charred Crate*												
+ItemBrowser:ItemNameOverrides/NatureDestructible_1	Text		Large Flower Vessel*												
+ItemBrowser:ItemNameOverrides/AFWoodenDestructible_1	Text		Large Office Crate*												
 ItemBrowser:ItemNameOverrides/Larva_1	Text		Hive Larva												
 ItemBrowser:ItemNameOverrides/BigLarva_1	Text		Big Hive Larva												
-ItemBrowser:ItemNameOverrides/AmberBoulder_0	Text		Amber Boulder												
+ItemBrowser:ItemNameOverrides/AmberBoulder_0	Text		Amber Boulder*												
 ItemBrowser:ItemNameOverrides/NatureCicadaEnemy_0	Text		Floracada												
 ItemBrowser:ItemNameOverrides/BirdBoss_1	Text		Awakened Azeos												
 ItemBrowser:StructureType/Scene	Text		Scene												
@@ -324,13 +333,26 @@ ItemBrowser:StructureExclusiveDrop	Text		Structure-exclusive drop
 ItemBrowser:Config	Text		Item Browser settings												
 ItemBrowser:Config/CheatMode	Text		Cheat mode												
 ItemBrowser:Config/ShowTechnicalInfo	Text		Show technical info												
+ItemBrowser:Config/ShowSourceMod	Text		Show source mod												
 ItemBrowser:Config/ResetToDefault	Text		Reset to default												
 ItemBrowser:Config/DefaultDiscoveredFilter	Text		Default discovered filter												
+ItemBrowser:Config/DefaultTechnicalFilter	Text		Default technical filter												
+ItemBrowser:Config/VanillaStructureNames	Text		Vanilla structure names												
+ItemBrowser:Config/VanillaStructureNames_Internal	Text		Internal names												
+ItemBrowser:Config/VanillaStructureNames_Fandom	Text		Fandom wiki names												
+ItemBrowser:Config/ModdedStructureNames_Internal	Text		Internal names												
+ItemBrowser:Config/ModdedStructureNames_Provided	Text		Provided names												
 ItemBrowser:MiscellaneousDesc/Greggy	Text		Creating a character named 'Greggy' (case-sensitive)												
 ItemBrowser:MiscellaneousDesc/CreativeOrbLantern	Text		Creating a creative mode character												
+ItemBrowser:MiscellaneousDesc/BossAdds	Text		Spawned by {0}												
+ItemBrowser:MiscellaneousDesc/FallenRockEvent	Text		Falls from the ceiling during a cave-in												
+ItemBrowser:MiscellaneousDesc/OctopusTentacleEvent	Text		Appears from the water rarely while exploring The Sunken Sea												
+ItemBrowser:MiscellaneousDesc/BombScarabEvent	Text		Appears from the ground rarely while exploring The Desert of Beginnings												
+ItemBrowser:MiscellaneousDesc/SnarePlant	Text		Occasionally planted by {0}												
 ItemBrowser:ToggleBrowserPC	Text		Item Browser: Toggle browser												
 ItemBrowser:ShowUsagesPC	Text		Item Browser: Show usage												
 ItemBrowser:ShowSourcesPC	Text		Item Browser: Show obtaining												
+ItemBrowser:FavoritePC	Text		Item Browser: Adds to favorites												
 ItemBrowser:FactionNames/None	Text		None												
 ItemBrowser:FactionNames/Larva	Text		Larva												
 ItemBrowser:FactionNames/Caveling	Text		Caveling												

@@ -34,7 +34,7 @@ namespace ItemBrowser.Browser.ObjectList {
 
 			itemListTabButton.IsToggled = itemListWindow.IsShowing;
 			creatureListTabButton.IsToggled = creatureListWindow.IsShowing;
-			
+
 			tabButtonsRoot.SetParent(CurrentWindow.tabButtonsAnchor, false);
 		}
 

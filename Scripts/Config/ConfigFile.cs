@@ -4,28 +4,46 @@ using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
 using PugMod;
-using UnityEngine;
 
 namespace ItemBrowser.Config {
-	public class ConfigFile {
+	public static class ConfigFile {
 		private const string FilePath = Main.InternalName + "/Config.json";
 		private const int CurrentVersion = 0;
 		
-		public bool CheatMode { get; set; }
-		public bool ShowTechnicalInfo { get; set; }
-		public bool DefaultDiscoveredFilter { get; set; }
-		public HashSet<ObjectDataCD> FavoritedObjects { get; set; }
+		private static RadicalMenu _settingsMenu;
+		
+		public static bool CheatMode { get; set; }
+		public static bool ShowTechnicalInfo { get; set; }
+		public static bool ShowSourceMod { get; set; }
+		public static bool DefaultDiscoveredFilter { get; set; }
+		public static bool DefaultTechnicalFilter { get; set; }
+		public static HashSet<ObjectDataCD> FavoritedObjects { get; set; }
 
-		public void ResetToDefault() {
+		public static void Init() {
+			Load();
+			
+			MenuHandler.OnInit += () => {
+				_settingsMenu = MenuHandler.AddMenu(19900, "ItemBrowser:Config");
+				MenuHandler.AddMenuOption(_settingsMenu, Main.AssetBundle, "Assets/ItemBrowser/Prefabs/MenuOptions.prefab");
+			};
+			MenuHandler.OnMenuClosed += (menu) => {
+				if (menu == _settingsMenu)
+					Save();
+			};
+		}
+		
+		public static void ResetToDefault() {
 			CheatMode = true;
 			ShowTechnicalInfo = false;
+			ShowSourceMod = true;
 			DefaultDiscoveredFilter = false;
+			DefaultTechnicalFilter = true;
 			FavoritedObjects = new HashSet<ObjectDataCD>();
 
 			Save();
 		}
 		
-		public void Save() {
+		private static void Save() {
 			Main.Log(nameof(ConfigFile), "Saving file...");
 			
 			if (!API.ConfigFilesystem.DirectoryExists(Main.InternalName))
@@ -40,7 +58,7 @@ namespace ItemBrowser.Config {
 			}
 		}
 		
-		public void Load() {
+		private static void Load() {
 			Main.Log(nameof(ConfigFile), "Loading file...");
 			
 			if (!API.ConfigFilesystem.FileExists(FilePath)) {
@@ -58,12 +76,14 @@ namespace ItemBrowser.Config {
 			}
 		}
 
-		private SerializedData SerializeData() {
+		private static SerializedData SerializeData() {
 			return new SerializedData {
 				Version = CurrentVersion,
 				CheatMode = CheatMode,
 				ShowTechnicalInfo = ShowTechnicalInfo,
+				ShowSourceMod = ShowSourceMod,
 				DefaultDiscoveredFilter = DefaultDiscoveredFilter,
+				DefaultTechnicalFilter = DefaultTechnicalFilter,
 				FavoritedObjects = FavoritedObjects.Select(x => new SerializedData.FavoritedObject {
 					InternalName = API.Authoring.ObjectProperties.GetPropertyString(x.objectID, "name"),
 					Variation = x.variation,
@@ -71,10 +91,12 @@ namespace ItemBrowser.Config {
 			};
 		}
 
-		private void DeserializeData(SerializedData data) {
+		private static void DeserializeData(SerializedData data) {
 			CheatMode = data.CheatMode;
 			ShowTechnicalInfo = data.ShowTechnicalInfo;
+			ShowSourceMod = data.ShowSourceMod;
 			DefaultDiscoveredFilter = data.DefaultDiscoveredFilter;
+			DefaultTechnicalFilter = data.DefaultTechnicalFilter;
 			FavoritedObjects = data.FavoritedObjects.Select(x => new ObjectDataCD {
 				objectID = API.Authoring.GetObjectID(x.InternalName),
 				variation = x.Variation
@@ -90,7 +112,9 @@ namespace ItemBrowser.Config {
 			public int Version;
 			public bool CheatMode;
 			public bool ShowTechnicalInfo;
+			public bool ShowSourceMod;
 			public bool DefaultDiscoveredFilter;
+			public bool DefaultTechnicalFilter;
 			public List<FavoritedObject> FavoritedObjects;
 		}
 	}

@@ -23,8 +23,8 @@ namespace ItemBrowser.Entries.Defaults {
 							Stock = info.amount,
 							Requirement = info.requirementToBeAvailable
 						};
-						registry.Register(ObjectEntryType.Source, info.objectID, 0, entry);
-						registry.Register(ObjectEntryType.Usage, objectData.objectID, 0, entry);
+						registry.Register(ObjectEntryType.Source, entry.Result, 0, entry);
+						registry.Register(ObjectEntryType.Usage, entry.MerchantType, 0, entry);
 					}
 				}
 			}

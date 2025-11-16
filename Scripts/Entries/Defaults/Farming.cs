@@ -6,6 +6,7 @@ namespace ItemBrowser.Entries.Defaults {
 	public class Farming : ObjectEntry {
 		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/Farming", ObjectID.HeartBerrySeed, 4900);
 		
+		public ObjectID Result { get; protected set; }
 		public ObjectID Seed { get; protected set; }
 		public bool HasGoldSeed  { get; protected set; }
 		public bool RequiresGoldSeed { get; protected set; }
@@ -26,22 +27,28 @@ namespace ItemBrowser.Entries.Defaults {
 					var plantAuthoring = allObjects.First(x => x.ObjectData.objectID == turnsIntoPlant && x.ObjectData.variation == 0).Authoring.GetComponent<PlantAuthoring>();
 					var plantGrowthSettings = plantAuthoring.growingSettings;
 					growthTime += plantGrowthSettings.timeBetweenStages * plantGrowthSettings.highestStage;
-					
-					registry.Register(ObjectEntryType.Source, plantAuthoring.objectToDropWhenHarvested, 0, new Farming {
+
+					var normalEntry = new Farming {
+						Result = plantAuthoring.objectToDropWhenHarvested,
 						Seed = objectData.objectID,
 						RequiresGoldSeed = false,
 						HasGoldSeed = turnsIntoPlantVariationRare > 0,
 						GrowthTime = growthTime
-					});
+					};
+					registry.Register(ObjectEntryType.Source, normalEntry.Result, 0, normalEntry);
+					registry.Register(ObjectEntryType.Usage, normalEntry.Seed, 0, normalEntry);
 
 					if (turnsIntoPlantVariationRare > 0) {
 						var rarePlantAuthoring = allObjects.First(x => x.ObjectData.objectID == turnsIntoPlant && x.ObjectData.variation == turnsIntoPlantVariationRare).Authoring.GetComponent<PlantAuthoring>();
-						registry.Register(ObjectEntryType.Source, rarePlantAuthoring.objectToDropWhenHarvested, 0, new Farming {
+						var goldEntry = new Farming {
+							Result = rarePlantAuthoring.objectToDropWhenHarvested,
 							Seed = objectData.objectID,
 							RequiresGoldSeed = true,
 							HasGoldSeed = true,
 							GrowthTime = growthTime
-						});
+						};
+						registry.Register(ObjectEntryType.Source, goldEntry.Result, 0, goldEntry);
+						registry.Register(ObjectEntryType.Usage, goldEntry.Seed, 0, goldEntry);
 					}
 				}
 			}

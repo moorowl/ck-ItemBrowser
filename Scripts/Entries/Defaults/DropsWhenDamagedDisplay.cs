@@ -1,0 +1,66 @@
+﻿using ItemBrowser.Browser;
+using ItemBrowser.Utilities;
+using UnityEngine;
+
+namespace ItemBrowser.Entries.Defaults {
+	public class DropsWhenDamagedDisplay : ObjectEntryDisplay<DropsWhenDamaged> {
+		[SerializeField]
+		private BasicItemSlot resultSlot;
+		[SerializeField]
+		private BasicItemSlot entitySlot;
+		[SerializeField]
+		private PugText damageToDropText;
+		[SerializeField]
+		private PugText healthToDropText;
+
+		public override void RenderSelf() {
+			RenderBody();
+			RenderMoreInfo();
+		}
+
+		private void RenderBody() {
+			resultSlot.DisplayedObject = new DisplayedObject.Static(new ObjectDataCD {
+				objectID = Entry.Result.Id,
+				variation = Entry.Result.Variation
+			});
+			entitySlot.DisplayedObject = new DisplayedObject.Static(new ObjectDataCD {
+				objectID = Entry.Entity.Id,
+				variation = Entry.Entity.Variation
+			});
+		}
+
+		private void RenderMoreInfo() {
+			MoreInfo.AddLine(new TextAndFormatFields {
+				text = "ItemBrowser:MoreInfo/DropsWhenDamaged_0",
+				formatFields = new[] {
+					ObjectUtils.GetUnlocalizedDisplayName(Entry.Entity.Id, Entry.Entity.Variation)
+				},
+				color = TextUtils.DescriptionColor
+			});
+			MoreInfo.AddPadding();
+			MoreInfo.AddLine(new TextAndFormatFields {
+				text = "ItemBrowser:MoreInfo/DropsWhenDamaged_1",
+				formatFields = new[] {
+					Entry.DamageRequiredToDrop.ToString()
+				},
+				dontLocalizeFormatFields = true,
+				color = TextUtils.DescriptionColor
+			});
+
+			if (Entry.HealthRequiredToDrop > 0) {
+				var maxHealth = PugDatabase.GetComponent<HealthCD>(Entry.Entity.Id, Entry.Entity.Variation).maxHealth;
+				
+				MoreInfo.AddPadding();
+				MoreInfo.AddLine(new TextAndFormatFields {
+					text = "ItemBrowser:MoreInfo/DropsWhenDamaged_2",
+					formatFields = new[] {
+						Entry.HealthRequiredToDrop.ToString(),
+						maxHealth.ToString()
+					},
+					dontLocalizeFormatFields = true,
+					color = TextUtils.DescriptionColor
+				});
+			}
+		}
+	}
+}

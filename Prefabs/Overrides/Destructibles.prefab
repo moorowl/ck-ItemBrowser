@@ -160,7 +160,7 @@ MonoBehaviour:
   appliesToObjectVariation: 3
   overrideName: 1
   setNameManually: 1
-  name: ItemBrowser:ItemNameOverrides/NatureWoodenDestructible_3
+  name: ItemBrowser:ItemNameOverrides/NatureWoodenDestructible_1
   overrideIcon: 0
   icon: {fileID: 0}
 --- !u!114 &1836198388255361274

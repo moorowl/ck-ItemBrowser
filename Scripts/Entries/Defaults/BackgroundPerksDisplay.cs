@@ -1,11 +1,16 @@
-﻿using ItemBrowser.Browser;
+﻿using System;
+using ItemBrowser.Browser;
 using ItemBrowser.Utilities;
 using UnityEngine;
 
 namespace ItemBrowser.Entries.Defaults {
 	public class BackgroundPerksDisplay : ObjectEntryDisplay<BackgroundPerks> {
+		private static readonly Lazy<SkillIconsTable> SkillIconsTable = new(() => Resources.Load<SkillIconsTable>("SkillIconsTable"));
+		
 		[SerializeField]
 		private BasicButton background;
+		[SerializeField]
+		private SpriteRenderer backgroundIcon;
 		[SerializeField]
 		private BasicItemSlot resultSlot;
 
@@ -16,11 +21,12 @@ namespace ItemBrowser.Entries.Defaults {
 
 		private void RenderBody() {
 			resultSlot.DisplayedObject = new DisplayedObject.Static(new ObjectDataCD {
-				objectID = ObjectData.objectID,
-				variation = ObjectData.variation,
-				amount = Entry.Amount
+				objectID = Entry.Result.Id,
+				variation = Entry.Result.Variation,
+				amount = Entry.Result.Amount
 			});
 			background.optionalTitle.mTerm = $"Roles/{Entry.Background}";
+			backgroundIcon.sprite = SkillIconsTable.Value.GetIcon(Entry.BackgroundSkill).icon;
 		}
 
 		private void RenderMoreInfo() {
@@ -35,7 +41,7 @@ namespace ItemBrowser.Entries.Defaults {
 			MoreInfo.AddLine(new TextAndFormatFields {
 				text = "ItemBrowser:MoreInfo/BackgroundPerks_1",
 				formatFields = new[] {
-					Entry.Amount.ToString()
+					Entry.Result.Amount.ToString()
 				},
 				dontLocalizeFormatFields = true,
 				color = TextUtils.DescriptionColor

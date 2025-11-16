@@ -4,7 +4,6 @@ using System.Linq;
 using ItemBrowser.Entries;
 using ItemBrowser.Utilities;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace ItemBrowser.Browser {
 	public class ObjectEntriesWindow : ItemBrowserWindow {
@@ -12,7 +11,7 @@ namespace ItemBrowser.Browser {
 		
 		[SerializeField]
 		private SelectedItemSlot selectedItemSlot;
-		[FormerlySerializedAs("itemDetailsList")] [SerializeField]
+		[SerializeField]
 		private ObjectEntriesList objectEntriesList;
 		[SerializeField]
 		private PugText selectedTypeText;

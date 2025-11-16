@@ -7,6 +7,7 @@ namespace ItemBrowser.Entries.Defaults {
 	public class NaturalSpawnInitial : ObjectEntry {
 		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/NaturalSpawnInitial", ObjectID.Bush, 4700);
 		
+		public (ObjectID Id, int Variation) Result { get; protected set; }
 		public EnvironmentSpawnType Type { get; protected set; }
 		public int AmountToSpawn { get; protected set; }
 		public Tileset? TilesetToSpawnOn { get; protected set; }
@@ -19,12 +20,12 @@ namespace ItemBrowser.Entries.Defaults {
 			public override void Register(ObjectEntryRegistry registry, List<(ObjectData ObjectData, GameObject Authoring)> allObjects) {
 				var spawnTable = Manager.mod.SpawnTable;
 				
-				foreach (var entry in spawnTable.spawnObjects) {
-					var tilesets = entry.spawnCheck.tilesets;
+				foreach (var spawnData in spawnTable.spawnObjects) {
+					var tilesets = spawnData.spawnCheck.tilesets;
 					if (tilesets.Count == 0)
 						tilesets.Add(Tileset.MAX_VALUE);
 					
-					foreach (var spawn in entry.spawns) {
+					foreach (var spawn in spawnData.spawns) {
 						var variations = new List<ValueWithWeight<int>>();
 						if (spawn.advancedVariationControl) {
 							variations.AddRange(spawn.weightedVariations.value);
@@ -39,15 +40,17 @@ namespace ItemBrowser.Entries.Defaults {
 
 						foreach (var variation in variations) {
 							foreach (var tileset in tilesets) {
-								registry.Register(ObjectEntryType.Source, spawn.objectID, variation.value, new NaturalSpawnInitial {
+								var entry = new NaturalSpawnInitial {
+									Result = (spawn.objectID, variation.value),
 									Type = spawn.spawnType,
 									AmountToSpawn = spawn.amount,
 									TilesetToSpawnOn = tileset == Tileset.MAX_VALUE ? null : tileset,
 									ClusterSpawnChance = spawn.clusterSpawnChance,
 									ClusterSpreadChance = spawn.clusterSpreadChance,
 									ClusterSpreadFourWayOnly = spawn.clusterSpreadFourWayOnly,
-									SpawnCheck = entry.spawnCheck
-								});
+									SpawnCheck = spawnData.spawnCheck
+								};
+								registry.Register(ObjectEntryType.Source, entry.Result.Id, entry.Result.Variation, entry);
 							}
 						}
 					}

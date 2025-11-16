@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using ItemBrowser.Entries;
-using PugMod;
 using UnityEngine;
 
 namespace ItemBrowser.Browser {

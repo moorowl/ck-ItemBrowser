@@ -1,15 +1,21 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using HarmonyLib;
 using PugMod;
 using UnityEngine;
+using Object = UnityEngine.Object;
+
 // ReSharper disable InconsistentNaming
 
 namespace ItemBrowser.Config {
 	internal static class MenuHandler {
+		public static event Action OnInit;
+		public static event Action<RadicalMenu> OnMenuClosed;
+		
 		private static readonly Dictionary<RadicalMenu.MenuType, RadicalMenu> MenusByType = new();
 
-		private static RadicalMenu AddMenu(int id, string term) {
+		public static RadicalMenu AddMenu(int id, string term) {
 			var modMenu = Object.Instantiate(Manager.menu.uiOptionsMenuPrefab, API.Rendering.UICamera.transform).GetComponent<RadicalOptionsMenu>();
 			modMenu.gameObject.SetActive(value: false);
 			modMenu.transform.Find("Title/Title bigtext").GetComponent<PugText>().Render(term);
@@ -36,9 +42,9 @@ namespace ItemBrowser.Config {
 			return modMenu;
 		}
 
-		private static void AddMenuOption(RadicalMenu menu, string prefabPath) {
+		public static void AddMenuOption(RadicalMenu menu, AssetBundle assetBundle, string prefabPath) {
 			var scroll = menu.transform.Find("Options/Scroll");
-			var prefab = Main.AssetBundle.LoadAsset<GameObject>(prefabPath);
+			var prefab = assetBundle.LoadAsset<GameObject>(prefabPath);
 			
 			foreach (var prefabMenuOption in prefab.GetComponentsInChildren(typeof(RadicalMenuOption), true)) {
 				var instance = Object.Instantiate(prefabMenuOption.gameObject, scroll);
@@ -53,17 +59,16 @@ namespace ItemBrowser.Config {
 			[HarmonyPatch(typeof(MenuManager), "Init")]
 			[HarmonyPostfix]
 			public static void MenuManager_Init(MenuManager __instance) {
-				var settings = AddMenu(19900, "ItemBrowser:Config");
-				AddMenuOption(settings, "Assets/ItemBrowser/Prefabs/MenuOptions.prefab");
+				OnInit?.Invoke();
 			}
 			
 			[HarmonyPatch(typeof(MenuManager), "PopMenu")]
 			[HarmonyPrefix]
 			public static void MenuManager_PopMenu(MenuManager __instance) {
 				var topMenu = __instance.GetTopMenu();
-
-				if (MenusByType.Values.Contains(topMenu))
-					Main.Config.Save();
+				
+				if (topMenu!= null)
+					OnMenuClosed?.Invoke(topMenu);
 			}
 			
 			[HarmonyPatch(typeof(RadicalMenu), "TypeToMenu")]

@@ -1,4 +1,5 @@
-﻿using ItemBrowser.Browser;
+﻿using System;
+using ItemBrowser.Browser;
 using ItemBrowser.Utilities;
 using UnityEngine;
 
@@ -20,14 +21,27 @@ namespace ItemBrowser.Entries.Defaults {
 				variation = Entry.Result.Variation
 			}, Entry.Result.Amount);
 
+			descriptionText.formatFields = Entry.Source.Id == ObjectID.None ? Array.Empty<string>() : new[] {
+				ObjectUtils.GetUnlocalizedDisplayName(Entry.Source.Id, Entry.Source.Variation)
+			};
 			descriptionText.Render(Entry.Term);
 		}
 
 		private void RenderMoreInfo() {
-			MoreInfo.AddLine(new TextAndFormatFields {
-				text = Entry.Term,
-				color = TextUtils.DescriptionColor
-			});
+			if (Entry.Source.Id == ObjectID.None) {
+				MoreInfo.AddLine(new TextAndFormatFields {
+					text = Entry.Term,
+					color = TextUtils.DescriptionColor
+				});
+			} else {
+				MoreInfo.AddLine(new TextAndFormatFields {
+					text = Entry.Term,
+					formatFields = new[] {
+						ObjectUtils.GetUnlocalizedDisplayName(Entry.Source.Id, Entry.Source.Variation)
+					},
+					color = TextUtils.DescriptionColor
+				});
+			}
 		}
 	}
 }

@@ -20,8 +20,7 @@ public class Main : IMod {
 	public const string Version = "0.1.0";
 	public const string InternalName = "ItemBrowser";
 	public const string DisplayName = "Item Browser";
-
-	internal static ConfigFile Config { get; } = new();
+	
 	internal static AssetBundle AssetBundle { get; private set; }
 	
 	public void EarlyInit() {
@@ -30,12 +29,12 @@ public class Main : IMod {
 		var modInfo = API.ModLoader.LoadedMods.FirstOrDefault(modInfo => modInfo.Handlers.Contains(this));
 		AssetBundle = modInfo!.AssetBundles[0];
 
+		ConfigFile.Init();
+		
 		ItemBrowserAPI.OnInit += BuiltinContent.Register;
 	}
 
 	public void Init() {
-		Config.Load();
-		
 		ModUtils.InitOnModLoad();
 	}
 
@@ -89,7 +88,9 @@ public class Main : IMod {
 				new MerchantSpawning.Provider(),
 				new Miscellaneous.Provider(),
 				new Breeding.Provider(),
-				new CreatureSummoning.Provider()
+				new CreatureSummoning.Provider(),
+				new UpgradeMaterial.Provider(),
+				new DropsWhenDamaged.Provider()
 			);
 
 			RegisterSorters();
@@ -356,15 +357,49 @@ public class Main : IMod {
 				Function = objectData => Manager.saves.HasDiscoveredObject(objectData.objectID, objectData.variation),
 				FunctionIsDynamic = true
 			});
-			ItemBrowserAPI.RegisterItemFilter(utilityGroup, new($"{utilityGroup}_Unobtainable") {
-				Function = objectData => ObjectUtils.IsNonObtainableInItemList(objectData.objectID, objectData.variation) || !ItemBrowserAPI.ObjectEntries.GetAllEntries(ObjectEntryType.Source, objectData).Any(),
+			ItemBrowserAPI.RegisterItemFilter(utilityGroup, new($"{utilityGroup}_Technical_Item") {
+				Function = objectData => {
+					var objectInfo = PugDatabase.GetObjectInfo(objectData.objectID, objectData.variation);
+					
+					if (PugDatabase.HasComponent<ProjectileCD>(objectData))
+						return true;
+					
+					if (PugDatabase.TryGetComponent<TileCD>(objectData, out var tileCD) && tileCD.tileType == TileType.ground)
+						return true;
+
+					if (ObjectUtils.GetLocalizedDisplayName(objectData.objectID, objectData.variation) == null)
+						return true;
+					
+					if (objectInfo.objectType == ObjectType.NonObtainable && !PugDatabase.HasComponent<DestructibleObjectCD>(objectData) && !PugDatabase.HasComponent<SoulOrbCD>(objectData))
+						return true;
+					
+					return false;
+				},
 				DefaultState = FilterState.Exclude
 			});
-			ItemBrowserAPI.RegisterCreatureFilter(utilityGroup, new($"{utilityGroup}_Unspawnable") {
-				Function = objectData => ObjectUtils.IsNonObtainableInItemList(objectData.objectID, objectData.variation) || !ItemBrowserAPI.ObjectEntries.GetAllEntries(ObjectEntryType.Source, objectData).Any(),
+			ItemBrowserAPI.RegisterCreatureFilter(utilityGroup, new($"{utilityGroup}_Technical_Creature") {
+				Function = objectData => {
+					if (PugDatabase.HasComponent<MinionCD>(objectData))
+						return true;
+
+					if (ObjectUtils.GetLocalizedDisplayName(objectData.objectID, objectData.variation) == null)
+						return true;
+					
+					return false;
+				},
 				DefaultState = FilterState.Exclude
 			});
-			
+			/* For testing
+			ItemBrowserAPI.RegisterItemFilter(utilityGroup, new($"{utilityGroup}_NoSources") {
+				Function = objectData => !ItemBrowserAPI.ObjectEntries.GetAllEntries(ObjectEntryType.Source, objectData).Any()
+			});
+			ItemBrowserAPI.RegisterCreatureFilter(utilityGroup, new($"{utilityGroup}_NoSources") {
+				Function = objectData => !ItemBrowserAPI.ObjectEntries.GetAllEntries(ObjectEntryType.Source, objectData).Any()
+			});
+			ItemBrowserAPI.RegisterItemFilter(utilityGroup, new($"{utilityGroup}_IsNonObtainable") {
+				Function = objectData => ObjectUtils.IsNonObtainable(objectData.objectID, objectData.variation)
+			});*/
+
 			// Creature faction
 			const string factionGroup = "ItemBrowser:Filters/Faction";
 			foreach (var faction in Enum.GetValues(typeof(FactionID)).Cast<FactionID>()) {

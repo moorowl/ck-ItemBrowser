@@ -111,7 +111,7 @@ namespace ItemBrowser.Entries.Defaults {
 				}
 
 				void RegisterLiquid(Biome biome, Tileset tileset) {
-					var objectInfo = PugDatabase.TryGetTileItemInfo(TileType.wall, (int) tileset);
+					var objectInfo = PugDatabase.TryGetTileItemInfo(TileType.water, (int) tileset);
 					registry.Register(ObjectEntryType.Source, objectInfo.objectID, objectInfo.variation, new TerrainGeneration {
 						Result = (objectInfo.objectID, objectInfo.variation),
 						GeneratesInBiome = biome

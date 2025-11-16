@@ -7,6 +7,8 @@ using UnityEngine;
 namespace ItemBrowser.Entries.Defaults {
 	public class FarmingDisplay : ObjectEntryDisplay<Farming> {
 		[SerializeField]
+		private BasicItemSlot resultSlot;
+		[SerializeField]
 		private BasicItemSlot seedSlot;
 
 		public override void RenderSelf() {
@@ -15,6 +17,9 @@ namespace ItemBrowser.Entries.Defaults {
 		}
 
 		private void RenderBody() {
+			resultSlot.DisplayedObject = new DisplayedObject.Static(new ObjectDataCD {
+				objectID = Entry.Result
+			});
 			seedSlot.DisplayedObject = new DisplayedObject.Static(new ObjectDataCD {
 				objectID = Entry.Seed
 			});

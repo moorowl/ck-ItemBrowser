@@ -20,8 +20,8 @@ namespace ItemBrowser.Entries.Defaults {
 						ChildType = breedStateCD.babyType,
 						MealsRequired = breedStateCD.mealsToTrigger
 					};
-					registry.Register(ObjectEntryType.Source, breedStateCD.babyType, 0, entry);
-					registry.Register(ObjectEntryType.Usage, objectData.objectID, 0, entry);
+					registry.Register(ObjectEntryType.Source, entry.ChildType, 0, entry);
+					registry.Register(ObjectEntryType.Usage, entry.ParentType, 0, entry);
 				}
 			}
 		}

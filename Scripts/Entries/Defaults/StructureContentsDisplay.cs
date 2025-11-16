@@ -14,7 +14,7 @@ namespace ItemBrowser.Entries.Defaults {
 		private PugText structureNameText;
 
 		public override IEnumerable<StructureContents> SortEntries(IEnumerable<StructureContents> entries) {
-			return entries.OrderByDescending(entry => entry.Amount).ThenByDescending(entry => entry.Scene ?? entry.Dungeon);
+			return entries.OrderByDescending(entry => entry.Result.Amount).ThenByDescending(entry => entry.Scene ?? entry.Dungeon);
 		}
 		
 		public override void RenderSelf() {
@@ -24,9 +24,9 @@ namespace ItemBrowser.Entries.Defaults {
 
 		private void RenderBody() {
 			resultSlot.DisplayedObject = new DisplayedObject.Static(new ObjectDataCD {
-				objectID = ObjectData.objectID,
-				variation = ObjectData.variation
-			}, Entry.Amount);
+				objectID = Entry.Result.Id,
+				variation = Entry.Result.Variation
+			}, Entry.Result.Amount);
 
 			if (Entry.Scene != null) {
 				structureTypeText.Render("ItemBrowser:StructureType/Scene");
@@ -51,7 +51,7 @@ namespace ItemBrowser.Entries.Defaults {
 				MoreInfo.AddLine(new TextAndFormatFields {
 					text = "ItemBrowser:MoreInfo/StructureContents_2_Scene",
 					formatFields = new[] {
-						Entry.Amount.ToString()
+						Entry.Result.Amount.ToString()
 					},
 					dontLocalizeFormatFields = true,
 					color = TextUtils.DescriptionColor

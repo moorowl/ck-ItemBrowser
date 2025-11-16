@@ -7,8 +7,8 @@ namespace ItemBrowser.Config.MenuOptions {
 			true
 		};
 		protected override bool CurrentOption {
-			get => Main.Config.ShowTechnicalInfo;
-			set => Main.Config.ShowTechnicalInfo = value;
+			get => ConfigFile.ShowTechnicalInfo;
+			set => ConfigFile.ShowTechnicalInfo = value;
 		}
 		
 		protected override void UpdateText() {

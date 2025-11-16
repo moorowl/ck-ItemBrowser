@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ItemBrowser.DataStructures;
+using ItemBrowser.Utilities.Extensions;
 using ItemBrowser.Utilities;
 using PugMod;
 using Unity.Entities;
@@ -11,8 +11,8 @@ namespace ItemBrowser.Entries.Defaults {
 	public class Loot : ObjectEntry {
 		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/Loot", ObjectID.CopperChest, 3700);
 		
-		public ObjectID Entity { get; protected set; }
-		public int EntityVariation  { get; protected set; }
+		public (ObjectID Id, int Variation) Result { get; protected set; }
+		public (ObjectID Id, int Variation) Entity { get; protected set; }
 		public float Chance { get; protected set; }
 		public Func<float> ChanceForOne { get; protected set; }
 		public Func<(int Min, int Max)> Amount { get; protected set; }
@@ -24,8 +24,8 @@ namespace ItemBrowser.Entries.Defaults {
 		public List<(string Name, int Amount)> FoundInDungeons { get; protected set; } = new();
 		
 		protected bool Equals(Loot other) {
-			return Entity == other.Entity
-			       && EntityVariation == other.EntityVariation
+			return Entity.Id == other.Entity.Id
+			       && Entity.Variation == other.Entity.Variation
 			       && Mathf.Approximately(Chance, other.Chance)
 			       && Mathf.Approximately(ChanceForOne(), other.ChanceForOne())
 			       && Amount() == other.Amount()
@@ -47,8 +47,8 @@ namespace ItemBrowser.Entries.Defaults {
 
 		public override int GetHashCode() {
 			var hashCode = new HashCode();
-			hashCode.Add((int) Entity);
-			hashCode.Add(EntityVariation);
+			hashCode.Add((int) Entity.Id);
+			hashCode.Add(Entity.Variation);
 			hashCode.Add(Chance);
 			hashCode.Add(ChanceForOne());
 			hashCode.Add(Amount());
@@ -106,22 +106,23 @@ namespace ItemBrowser.Entries.Defaults {
 							});
 
 						foreach (var containedObject in groupedContainedObjects) {
-							AddNormalOrSceneEntry(containedObject.objectID, containedObject.variation, optionalSceneName, new Loot {
-								Entity = objectData.objectID,
-								EntityVariation = objectData.variation,
+							var entry = new Loot {
+								Result = (containedObject.objectID, ObjectUtils.GetPrimaryVariation(containedObject.objectID, containedObject.variation)),
+								Entity = (objectData.objectID, ObjectUtils.GetPrimaryVariation(objectData.objectID, objectData.variation)),
 								Amount = () => (containedObject.amount, containedObject.amount),
 								Chance = 1f,
 								ChanceForOne = () => 1f,
 								Rolls = () => (1, 1)
-							});
+							};
+							AddNormalOrSceneEntry(entry.Result.Id, entry.Result.Variation, optionalSceneName, entry);
 						}	
 					}
 
 					if (EntityUtility.TryGetComponentData<AddRandomLootCD>(entity, world, out var addRandomLootCD)) {
 						foreach (var drop in LootUtils.GetLootTableContents(addRandomLootCD.lootTableID)) {
-							AddNormalOrSceneEntry(drop.ObjectId, 0, optionalSceneName, new Loot {
-								Entity = objectData.objectID,
-								EntityVariation = objectData.variation,
+							var entry = new Loot {
+								Result = (drop.ObjectId, 0),
+								Entity = (objectData.objectID, ObjectUtils.GetPrimaryVariation(objectData.objectID, objectData.variation)),
 								Chance = drop.Chance,
 								ChanceForOne = () => drop.CalculateChanceForOne(),
 								Amount = () => drop.ObjectAmount,
@@ -129,15 +130,16 @@ namespace ItemBrowser.Entries.Defaults {
 								OnlyDropsInBiome = drop.OnlyDropsInBiome,
 								IsFromGuaranteedPool = drop.IsFromGuaranteedPool,
 								IsFromTableWithGuaranteedPool = drop.TableHasGuaranteedPool
-							});
+							};
+							AddNormalOrSceneEntry(entry.Result.Id, entry.Result.Variation, optionalSceneName, entry);
 						}
 					}
 
 					if (EntityUtility.TryGetComponentData<ChangeVariationWhenContainingObjectCD>(entity, world, out var changeVariationWhenContainingObjectCD)) {
 						foreach (var drop in LootUtils.GetLootTableContents(changeVariationWhenContainingObjectCD.addLootFromTableToNewObject)) {
-							AddNormalOrSceneEntry(drop.ObjectId, 0, optionalSceneName, new Loot {
-								Entity = objectData.objectID,
-								EntityVariation = objectData.variation,
+							var entry = new Loot {
+								Result = (drop.ObjectId, 0),
+								Entity = (objectData.objectID, ObjectUtils.GetPrimaryVariation(objectData.objectID, objectData.variation)),
 								Chance = drop.Chance,
 								ChanceForOne = () => drop.CalculateChanceForOne(),
 								Amount = () => drop.ObjectAmount,
@@ -145,7 +147,8 @@ namespace ItemBrowser.Entries.Defaults {
 								OnlyDropsInBiome = drop.OnlyDropsInBiome,
 								IsFromGuaranteedPool = drop.IsFromGuaranteedPool,
 								IsFromTableWithGuaranteedPool = drop.TableHasGuaranteedPool
-							});
+							};
+							AddNormalOrSceneEntry(entry.Result.Id, entry.Result.Variation, optionalSceneName, entry);
 						}
 						
 						if (EntityUtility.TryGetBuffer<ItemsToAddToNewObjectBuffer>(entity, world, out var itemsToAddToNewObject)) {
@@ -160,15 +163,16 @@ namespace ItemBrowser.Entries.Defaults {
 									};
 								});
 
-							foreach (var entry in groupedItemsToAddToNewObject) {
-								AddNormalOrSceneEntry(entry.objectID, entry.variation, optionalSceneName, new Loot {
-									Entity = objectData.objectID,
-									EntityVariation = objectData.variation,
-									Amount = () => (entry.amount, entry.amount),
+							foreach (var item in groupedItemsToAddToNewObject) {
+								var entry = new Loot {
+									Result = (item.objectID, ObjectUtils.GetPrimaryVariation(item.objectID, item.variation)),
+									Entity = (objectData.objectID, ObjectUtils.GetPrimaryVariation(objectData.objectID, objectData.variation)),
+									Amount = () => (item.amount, item.amount),
 									Chance = 1f,
 									ChanceForOne = () => 1f,
 									Rolls = () => (1, 1)
-								});
+								};
+								AddNormalOrSceneEntry(entry.Result.Id, entry.Result.Variation, optionalSceneName, entry);
 							}
 						}
 					}
@@ -201,9 +205,9 @@ namespace ItemBrowser.Entries.Defaults {
 							var lootTableOverride = prefabInventoryOverride.lootTableOverride;
 							
 							foreach (var drop in LootUtils.GetLootTableContents(lootTableOverride)) {
-								AddEntryFromScene(drop.ObjectId, 0, sceneName, new Loot {
-									Entity = prefabObjectData.objectID,
-									EntityVariation = prefabObjectData.variation,
+								var entry = new Loot {
+									Result = (drop.ObjectId, 0),
+									Entity = (prefabObjectData.objectID, ObjectUtils.GetPrimaryVariation(prefabObjectData.objectID, prefabObjectData.variation)),
 									Chance = drop.Chance,
 									ChanceForOne = () => drop.CalculateChanceForOne(),
 									Amount = () => drop.ObjectAmount,
@@ -211,7 +215,8 @@ namespace ItemBrowser.Entries.Defaults {
 									OnlyDropsInBiome = drop.OnlyDropsInBiome,
 									IsFromGuaranteedPool = drop.IsFromGuaranteedPool,
 									IsFromTableWithGuaranteedPool = drop.TableHasGuaranteedPool
-								});
+								};
+								AddEntryFromScene(entry.Result.Id, entry.Result.Variation, sceneName, entry);
 							}
 						}
 
@@ -227,15 +232,16 @@ namespace ItemBrowser.Entries.Defaults {
 									};
 								});
 							
-							foreach (var entry in groupedItemsOverride) {
-								AddEntryFromScene(entry.objectID, entry.variation, sceneName, new Loot {
-									Entity = prefabObjectData.objectID,
-									EntityVariation = prefabObjectData.variation,
-									Amount = () => (entry.amount, entry.amount),
+							foreach (var item in groupedItemsOverride) {
+								var entry = new Loot {
+									Result = (item.objectID, ObjectUtils.GetPrimaryVariation(item.objectID, item.variation)),
+									Entity = (prefabObjectData.objectID, ObjectUtils.GetPrimaryVariation(prefabObjectData.objectID, prefabObjectData.variation)),
+									Amount = () => (item.amount, item.amount),
 									Chance = 1f,
 									ChanceForOne = () => 1f,
 									Rolls = () => (1, 1)
-								});
+								};
+								AddEntryFromScene(entry.Result.Id, entry.Result.Variation, sceneName, entry);
 							}
 						}
 						
@@ -243,9 +249,11 @@ namespace ItemBrowser.Entries.Defaults {
 							AddEntriesFromPrefab(API.Client.World, prefabObjectData, prefab, sceneName);
 					}
 				}
-				
-				foreach (var entry in entriesToAdd)
+
+				foreach (var entry in entriesToAdd) {
 					registry.Register(ObjectEntryType.Source, entry.Id, entry.Variation, entry.Entry);
+					// registry.Register(ObjectEntryType.Usage, entry.Entry.Entity.Id, entry.Entry.Entity.Variation, entry.Entry);
+				}
 			}
 		}
 	}

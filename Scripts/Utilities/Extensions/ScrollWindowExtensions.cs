@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using PugMod;
 
-namespace ItemBrowser.DataStructures {
+namespace ItemBrowser.Utilities.Extensions {
 	public static class ScrollWindowExtensions {
 		private static readonly MemberInfo MiIsMouseWithinScrollArea = typeof(UIScrollWindow).GetMembersChecked().FirstOrDefault(x => x.GetNameChecked() == "IsMouseWithinScrollArea");
 		

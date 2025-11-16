@@ -22,6 +22,9 @@ namespace ItemBrowser.Entries.Defaults {
 					if (!PugDatabase.TryGetComponent<CraftingCD>(objectData, out var craftingCD) || !PugDatabase.HasComponent<CanCraftObjectsBuffer>(objectData))
 						continue;
 
+					if (ObjectUtils.GetLocalizedDisplayName(objectData.objectID, objectData.variation) == null)
+						continue;
+
 					if (craftingCD.craftingType != CraftingType.Simple && craftingCD.craftingType != CraftingType.ProcessResources && craftingCD.craftingType != CraftingType.BossStatue)
 						continue;
 
@@ -44,6 +47,8 @@ namespace ItemBrowser.Entries.Defaults {
 						if (includedCraftingBuildings.Length > 0)
 							endCanCraftObjectsIndex = includedCraftingBuildings[0].amountOfCraftingOptions - 1;
 					}
+
+					Main.Log(nameof(Crafting), $"{objectData.objectID} can craft {startCanCraftObjectsIndex}-{endCanCraftObjectsIndex}");
 					
 					for (var i = startCanCraftObjectsIndex; i <= endCanCraftObjectsIndex; i++) {
 						var canCraftObject = canCraftObjects[i];

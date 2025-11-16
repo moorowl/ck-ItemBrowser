@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using ItemBrowser.Utilities;
 using PugMod;
 using PugTilemap;
@@ -9,7 +8,7 @@ namespace ItemBrowser.Entries.Defaults {
 	public class StructureContents : ObjectEntry {
 		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/StructureContents", "ItemBrowser:ObjectEntry/StructureContents_NonObtainable", ObjectID.RuinsCavelingPillar, 3200);
 		
-		public int Amount { get; protected set; }
+		public (ObjectID Id, int Variation, int Amount) Result { get; protected set; }
 		public string Scene { get; protected set; }
 		public string Dungeon { get; protected set; }
 		
@@ -40,8 +39,15 @@ namespace ItemBrowser.Entries.Defaults {
 					// Add tiles
 					for (var i = 0; i < customSceneBlob.tiles.Length; i++) {
 						var tile = customSceneBlob.tiles[i];
-						var objectInfo = PugDatabase.TryGetTileItemInfo(tile.tileType == TileType.ground ? TileType.wall : tile.tileType, tile.tileset);
-
+						
+						var tileType = tile.tileType;
+						if (tileType == TileType.ground)
+							tileType = TileType.wall;
+						var tileset = tile.tileset;
+						if (tileType == TileType.bigRoot && tileset == (int) Tileset.Nature)
+							tileset = (int) Tileset.Dirt;
+						
+						var objectInfo = PugDatabase.TryGetTileItemInfo(tileType, tileset);
 						if (objectInfo != null) {
 							allObjectDatas.Add(new ObjectDataCD {
 								objectID = objectInfo.objectID,
@@ -54,10 +60,11 @@ namespace ItemBrowser.Entries.Defaults {
 					var combinedObjectDatas = ObjectUtils.GroupAndSumObjects(allObjectDatas, false);
 
 					foreach (var objectData in combinedObjectDatas) {
-						registry.Register(ObjectEntryType.Source, objectData.objectID, objectData.variation, new StructureContents {
-							Amount = objectData.amount,
+						var entry = new StructureContents {
+							Result = (objectData.objectID, objectData.variation, objectData.amount),
 							Scene = customSceneBlob.sceneName.ToString()
-						});
+						};
+						registry.Register(ObjectEntryType.Source, entry.Result.Id, entry.Result.Variation, entry);
 					}
 				}
 			}

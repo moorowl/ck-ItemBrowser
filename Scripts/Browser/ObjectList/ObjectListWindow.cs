@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using ItemBrowser.Browser.ObjectList;
 using ItemBrowser.Utilities;
 using ItemBrowser.Utilities.DataStructures.SortingAndFiltering;
 using PugMod;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace ItemBrowser.Browser {
 	public abstract class ObjectListWindow : ItemBrowserWindow {
@@ -49,10 +46,10 @@ namespace ItemBrowser.Browser {
 			objectList.ShowContainerUI();
 			if (isFirstTimeShowing) {
 				SetupFiltersAndSorting();
+				RefreshItemList();
 				filtersPanel.IsShowing = false;
 			}
 			
-			RefreshItemList();
 			AdjustWindowPosition();
 		}
 

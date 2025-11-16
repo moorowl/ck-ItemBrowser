@@ -9,6 +9,7 @@ namespace ItemBrowser.Entries.Defaults {
 	public class LockedChestDrops : ObjectEntry {
 		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/LockedChestDrops", ObjectID.WallStoneBlock, 5100);
 		
+		public ObjectID Result { get; protected set; }
 		public Biome RequiredBiome { get; protected set; }
 		public Tileset RequiredTileset { get; protected set; }
 		public float Chance { get; protected set; }
@@ -24,6 +25,7 @@ namespace ItemBrowser.Entries.Defaults {
 							continue;
 						
 						registry.Register(ObjectEntryType.Source, chest, 0, new LockedChestDrops {
+							Result = chest,
 							RequiredBiome = biome,
 							RequiredTileset = tileset,
 							// from DropLootSystem, this isn't a const anywhere?

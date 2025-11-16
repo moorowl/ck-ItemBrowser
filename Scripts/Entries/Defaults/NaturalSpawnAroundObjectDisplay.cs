@@ -21,12 +21,12 @@ namespace ItemBrowser.Entries.Defaults {
 
 		public override void RenderSelf() {
 			resultSlot.DisplayedObject = new DisplayedObject.Static(new ObjectDataCD {
-				objectID = ObjectData.objectID,
-				variation = ObjectData.variation
+				objectID = Entry.Result.Id,
+				variation = Entry.Result.Variation
 			});
 			entitySlot.DisplayedObject = new DisplayedObject.Static(new ObjectDataCD {
-				objectID = Entry.Entity,
-				variation = Entry.EntityVariation
+				objectID = Entry.Entity.Id,
+				variation = Entry.Entity.Variation
 			});
 			
 			biomeOrTilesetSlot.gameObject.SetActive(false);

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using I2.Loc;
+using ItemBrowser.Entries;
+using PugMod;
 using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
@@ -44,13 +46,28 @@ namespace ItemBrowser.Utilities {
 			ObjectType.BeamWeapon
 		};
 		
+		public static readonly HashSet<ObjectID> UnimplementedObjects = new() {
+			ObjectID.DesertBrute,
+			ObjectID.GreeneryPod,
+			ObjectID.WormSegmentTail,
+			ObjectID.ClayWormSegmentTail,
+			ObjectID.NatureWormSegmentTail,
+			ObjectID.GreatWallBlock,
+			ObjectID.WallObsidianBlock,
+			ObjectID.GroundObsidianBlock
+		};
+		
 		private static readonly Dictionary<ObjectDataCD, string> DisplayNames = new();
 		private static readonly Dictionary<ObjectDataCD, string> DisplayNameTerms = new();
 		private static readonly Dictionary<ObjectDataCD, int> DisplayNameSortOrders = new();
 		private static readonly Dictionary<ObjectID, HashSet<string>> Categories = new();
 		private static readonly Dictionary<ObjectDataCD, int> PrimaryVariations = new();
+
+		private static readonly MemberInfo MiObjectPrefabEntityLookup = typeof(PugDatabase).GetMembersChecked().FirstOrDefault(x => x.GetNameChecked() == "objectPrefabEntityLookup");
+		private static Dictionary<ObjectDataCD, Entity> ObjectPrefabEntityLookupRef;
 		
 		internal static void InitOnWorldLoad() {
+			ObjectPrefabEntityLookupRef = (Dictionary<ObjectDataCD, Entity>) API.Reflection.GetValue(MiObjectPrefabEntityLookup, null);
 			SetupDisplayNamesAndCategories();
 		}
 		
@@ -133,7 +150,7 @@ namespace ItemBrowser.Utilities {
 			
 			var nameToPrimaryVariation = new Dictionary<string, int>();
 			foreach (var objectData in PugDatabase.objectsByType.Keys.OrderBy(objectData => objectData.variation)) {
-				var displayName = DisplayNames.GetValueOrDefault(objectData) ?? objectData.objectID.ToString();
+				var displayName = DisplayNames.GetValueOrDefault(objectData) ?? $"{objectData.objectID}:{objectData.variation}";
 
 				if (nameToPrimaryVariation.TryGetValue(displayName, out var primaryVariation)) {
 					PrimaryVariations[objectData] = primaryVariation;
@@ -174,7 +191,7 @@ namespace ItemBrowser.Utilities {
 			return PrimaryVariations.GetValueOrDefault(new ObjectDataCD {
 				objectID = id,
 				variation = variation
-			}, variation);
+			}, 0);
 		}
 		
 		public static bool IsPrimaryVariation(ObjectID id, int variation) {
@@ -201,24 +218,41 @@ namespace ItemBrowser.Utilities {
 
 			return iconToUse;
 		}
-
+		
 		public static bool IsNonObtainable(ObjectID id, int variation = 0) {
 			var objectInfo = PugDatabase.GetObjectInfo(id, variation);
 			if (objectInfo == null)
 				return true;
 
-			if (objectInfo.objectType is ObjectType.NonObtainable or ObjectType.Creature or ObjectType.Critter or ObjectType.PlayerType)
+			var objectData = new ObjectData {
+				objectID = id,
+				variation = variation,
+				amount = 1
+			};
+
+			if (objectInfo.objectType is ObjectType.NonObtainable or ObjectType.Creature or ObjectType.Critter or ObjectType.PlayerType && !PugDatabase.HasComponent<PetCD>(objectData))
 				return true;
 
-			if (PugDatabase.HasComponent<DestructibleObjectCD>(id, variation) || PugDatabase.HasComponent<IndestructibleCD>(id, variation) || PugDatabase.HasComponent<DestroyTimerCD>(id, variation))
+			if (PugDatabase.HasComponent<DontSerializeCD>(objectData) && !PugDatabase.HasComponent<TileCD>(objectData) && !PugDatabase.HasComponent<TileCD>(objectData) && objectInfo.objectType is not ObjectType.Creature or ObjectType.Critter)
 				return true;
 			
-			if (PugDatabase.HasComponent<AllowHealthRegenerationInCombatCD>(id, variation) && PugDatabase.GetComponent<HealthCD>(id).maxHealth >= 9999999 && PugDatabase.GetComponent<HealthRegenerationCD>(id).NormalizedHealthIncreasePerFiveSeconds >= 1f)
+			if (ObjectPrefabEntityLookupRef.TryGetValue(objectData, out var primaryPrefabEntity)) {
+				if (EntityUtility.IsComponentEnabled<IndestructibleCD>(primaryPrefabEntity, API.Client.World))
+					return true;
+				
+				if (EntityUtility.IsComponentEnabled<DontDropSelfCD>(primaryPrefabEntity, API.Client.World) && objectInfo.objectType != ObjectType.PlaceablePrefab && !PugDatabase.HasComponent<IndirectProjectileCD>(objectData) && !PugDatabase.HasComponent<WayPointCD>(objectData) && !PugDatabase.HasComponent<PortalCD>(objectData))
+					return true;
+			}
+			
+			if (PugDatabase.HasComponent<AllowHealthRegenerationInCombatCD>(id, variation) && PugDatabase.GetComponent<HealthCD>(id, variation).maxHealth >= 9999999 && PugDatabase.GetComponent<HealthRegenerationCD>(id, variation).NormalizedHealthIncreasePerFiveSeconds >= 1f)
+				return true;
+
+			if (!ItemBrowserAPI.ObjectEntries.GetAllEntries(ObjectEntryType.Source, id, variation).Any())
 				return true;
 
 			return false;
 		}
-
+		
 		public static IEnumerable<ObjectDataCD> GroupAndSumObjects(IEnumerable<ObjectDataCD> objects, bool ignoreVariation) {
 			return objects.GroupBy(objectData => ignoreVariation ? (int) objectData.objectID : (((int) objectData.objectID) * 10000) + objectData.variation)
 				.Select(group => {

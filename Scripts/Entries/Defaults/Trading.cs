@@ -33,8 +33,8 @@ namespace ItemBrowser.Entries.Defaults {
 							Vendor = (objectData.objectID, objectData.variation),
 							Amount = Math.Max(canCraftObject.amount, 1)
 						};
-						registry.Register(ObjectEntryType.Source, canCraftObject.objectID, 0, entry);
-						registry.Register(ObjectEntryType.Usage, objectData.objectID, objectData.variation, entry);
+						registry.Register(ObjectEntryType.Source, entry.Result.Id, entry.Result.Variation, entry);
+						registry.Register(ObjectEntryType.Usage, entry.Vendor.Id, entry.Vendor.Variation, entry);
 					}
 				}
 			}

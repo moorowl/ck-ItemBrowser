@@ -24,8 +24,8 @@ namespace ItemBrowser.Entries.Defaults {
 						OreBoulder = objectData.objectID,
 						TotalOre = (int) math.floor(healthCD.maxHealth / (float) dropsLootWhenDamagedCD.damageToDealToDropLoot)
 					};
-					registry.Register(ObjectEntryType.Source, dropsLootWhenDamagedCD.dropsLoot, 0, entry);
-					registry.Register(ObjectEntryType.Usage, objectData.objectID, 0, entry);
+					registry.Register(ObjectEntryType.Source, entry.Result, 0, entry);
+					// registry.Register(ObjectEntryType.Usage, entry.OreBoulder, 0, entry);
 				}
 			}
 		}

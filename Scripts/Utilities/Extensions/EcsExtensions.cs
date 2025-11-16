@@ -3,7 +3,7 @@ using PugProperties;
 using Unity.Collections;
 using Unity.Entities;
 
-namespace ItemBrowser.DataStructures {
+namespace ItemBrowser.Utilities.Extensions {
 	public static class EcsExtensions {
 		public static List<T> ConvertToList<T>(this DynamicBuffer<T> buffer) where T : unmanaged {
 			var result = new List<T>(buffer.Length);

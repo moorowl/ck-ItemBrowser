@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -19,11 +20,22 @@ namespace ItemBrowser.Browser.ObjectList {
 		private List<ObjectDataCD> _objects = new();
 		private readonly Dictionary<int, int> _slotToObjectIndex = new();
 
+		protected override void Awake() {
+			base.Awake();
+			
+			ShowContainerUI();
+			HideContainerUI();
+		}
+		
 		public void SetObjects(List<ObjectDataCD> objects) {
+			if (_objects.SequenceEqual(objects))
+				return;
+			
 			_objects = objects;
 			_prevSelectedIndex = 0;
 			_prevStartIndex = 0;
 			uiScrollWindow.ResetScroll();
+			
 			UpdateList();
 		}
 		
@@ -90,7 +102,7 @@ namespace ItemBrowser.Browser.ObjectList {
 
 		public float GetCurrentWindowHeight() {
 			if (itemSlots.Count > MAX_COLUMNS)
-				return (math.abs(itemSlots[0].transform.localPosition.y - itemSlots[MAX_COLUMNS].transform.localPosition.y) * ((_objects.Count - 1f) / MAX_COLUMNS + 1f)) - 1f;
+				return (math.abs(itemSlots[0].transform.localPosition.y - itemSlots[MAX_COLUMNS].transform.localPosition.y) * ((_objects.Count - 1f) / MAX_COLUMNS + 1f)) - 1.25f;
 
 			return 0f;
 		}

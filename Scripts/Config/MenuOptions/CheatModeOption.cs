@@ -7,8 +7,8 @@ namespace ItemBrowser.Config.MenuOptions {
 			true
 		};
 		protected override bool CurrentOption {
-			get => Main.Config.CheatMode;
-			set => Main.Config.CheatMode = value;
+			get => ConfigFile.CheatMode;
+			set => ConfigFile.CheatMode = value;
 		}
 		
 		protected override void UpdateText() {

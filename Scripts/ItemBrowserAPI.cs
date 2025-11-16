@@ -105,14 +105,14 @@ namespace ItemBrowser {
 
 			if (PugDatabase.HasComponent<CookedFoodCD>(objectData))
 				return false;
-
-			if (objectInfo.objectType is ObjectType.Creature or ObjectType.Critter or ObjectType.PlayerType && !PugDatabase.HasComponent<PetCD>(objectData))
+			
+			if (objectInfo.objectType is ObjectType.Creature or ObjectType.Critter && !PugDatabase.HasComponent<PetCD>(objectData))
 				return false;
-
-			if (PugDatabase.HasComponent<ProjectileCD>(objectData))
+			
+			if (objectData.objectID != ObjectID.Bucket && !ObjectUtils.IsPrimaryVariation(objectData.objectID, objectData.variation))
 				return false;
-
-			return (objectInfo.variation == 0 || objectInfo.objectID == ObjectID.Bucket || (objectInfo.objectID == ObjectID.LargeAncientDestructible && objectInfo.variation <= 5) || objectInfo.objectID == ObjectID.LargeCityDestructible || objectInfo.objectID == ObjectID.LargeMoldDestructible || objectInfo.objectID == ObjectID.LargeJellyfishDestructable || objectInfo.objectID == ObjectID.LargeDesertDestructible || objectInfo.objectID == ObjectID.WoodenDestructible || objectInfo.objectID == ObjectID.NatureWoodenDestructible || objectInfo.objectID == ObjectID.SeaWoodenDestructible || objectInfo.objectID == ObjectID.LavaWoodenDestructible || objectInfo.objectID == ObjectID.LargeDesertTempleDestructible || objectInfo.objectID == ObjectID.HiveDestructible || objectInfo.objectID == ObjectID.LargeMoldDestructible || objectInfo.objectID == ObjectID.NatureDestructible || objectInfo.objectID == ObjectID.GreenLargeDesertDestructible || objectInfo.objectID == ObjectID.LargeAlienTechDestructible || objectInfo.objectID == ObjectID.Stalagmite || (objectInfo.objectID == ObjectID.Larva && objectInfo.variation <= 1) || (objectInfo.objectID == ObjectID.BigLarva && objectInfo.variation <= 1)) && !objectInfo.isCustomScenePrefab;
+			
+			return !objectInfo.isCustomScenePrefab;
 		}
 		
 		public static bool ShouldCreatureBeIncluded(ObjectDataCD objectData) {
@@ -124,10 +124,19 @@ namespace ItemBrowser {
 			if ((objectInfo.objectType != ObjectType.Creature && objectInfo.objectType != ObjectType.Critter) || PugDatabase.HasComponent<PetCD>(objectData))
 				return false;
 
-			if (PugDatabase.HasComponent<ProjectileCD>(objectData))
+			if (!ObjectUtils.IsPrimaryVariation(objectData.objectID, objectData.variation))
 				return false;
 
-			return (objectInfo.variation == 0 || objectInfo.objectID == ObjectID.BirdBoss || objectInfo.objectID == ObjectID.Bucket || (objectInfo.objectID == ObjectID.LargeAncientDestructible && objectInfo.variation <= 5) || objectInfo.objectID == ObjectID.LargeCityDestructible || objectInfo.objectID == ObjectID.LargeMoldDestructible || objectInfo.objectID == ObjectID.LargeJellyfishDestructable || objectInfo.objectID == ObjectID.LargeDesertDestructible || objectInfo.objectID == ObjectID.WoodenDestructible || objectInfo.objectID == ObjectID.NatureWoodenDestructible || objectInfo.objectID == ObjectID.SeaWoodenDestructible || objectInfo.objectID == ObjectID.LavaWoodenDestructible || objectInfo.objectID == ObjectID.LargeDesertTempleDestructible || objectInfo.objectID == ObjectID.HiveDestructible || objectInfo.objectID == ObjectID.LargeMoldDestructible || objectInfo.objectID == ObjectID.NatureDestructible || objectInfo.objectID == ObjectID.GreenLargeDesertDestructible || objectInfo.objectID == ObjectID.LargeAlienTechDestructible || objectInfo.objectID == ObjectID.Stalagmite || (objectInfo.objectID == ObjectID.Larva && objectInfo.variation <= 1) || (objectInfo.objectID == ObjectID.BigLarva && objectInfo.variation <= 1)) && !objectInfo.isCustomScenePrefab;
+			return !objectInfo.isCustomScenePrefab;
+		}
+		
+		public static bool ShouldMiscellaneousBeIncluded(ObjectDataCD objectData) {
+			var objectInfo = PugDatabase.GetObjectInfo(objectData.objectID, objectData.variation);
+			
+			if (PugDatabase.HasComponent<CookedFoodCD>(objectData) || !ObjectUtils.IsPrimaryVariation(objectData.objectID, objectData.variation))
+				return false;
+			
+			return !objectInfo.isCustomScenePrefab && !ShouldItemBeIncluded(objectData) && !ShouldCreatureBeIncluded(objectData);
 		}
 
 		public static void RegisterItemSorter(Sorter<ObjectDataCD> sorter) {

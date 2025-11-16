@@ -6,9 +6,10 @@ namespace ItemBrowser.Entries.Defaults {
 	public class Salvaging : ObjectEntry {
 		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/Salvaging", ObjectID.SalvageAndRepairStation, 3300);
 		
-		public ObjectID Salvaged { get; protected set; }
-		public (int Min, int Max) Amount { get; protected set; }
-		
+		public ObjectID Result { get; protected set; }
+		public (int Min, int Max) ResultAmount { get; protected set; }
+		public ObjectID ItemSalvaged { get; protected set; }
+
 		public class Provider : ObjectEntryProvider {
 			public override void Register(ObjectEntryRegistry registry, List<(ObjectData ObjectData, GameObject Authoring)> allObjects) {
 				foreach (var (objectData, _) in allObjects) {
@@ -20,18 +21,20 @@ namespace ItemBrowser.Entries.Defaults {
 					var hasLevel = PugDatabase.HasComponent<LevelCD>(objectData);
 
 					if ((objectInfo.tags.Contains(ObjectCategoryTag.CanBeSalvaged) || hasLevel) && objectInfo.rarity != Rarity.Legendary) {
-						foreach (var entry in objectInfo.requiredObjectsToCraft) {
-							var minAmount = (int) math.round(entry.amount * Constants.minMaterialToGainFromSalvage);
-							var maxAmount = (int) math.round(entry.amount * Constants.maxMaterialToGainFromSalvage);
+						foreach (var craftingObject in objectInfo.requiredObjectsToCraft) {
+							var minAmount = (int) math.round(craftingObject.amount * Constants.minMaterialToGainFromSalvage);
+							var maxAmount = (int) math.round(craftingObject.amount * Constants.maxMaterialToGainFromSalvage);
 
 							if (!hasDurability || !hasLevel)
 								minAmount = maxAmount;
 						
 							if (maxAmount > 0) {
-								registry.Register(ObjectEntryType.Source, entry.objectID, 0, new Salvaging {
-									Salvaged = objectData.objectID,
-									Amount = (minAmount, maxAmount)
-								});
+								var entry = new Salvaging {
+									Result = craftingObject.objectID,
+									ResultAmount = (minAmount, maxAmount),
+									ItemSalvaged = objectData.objectID
+								};
+								registry.Register(ObjectEntryType.Source, entry.Result, 0, entry);
 							}
 						}	
 					}

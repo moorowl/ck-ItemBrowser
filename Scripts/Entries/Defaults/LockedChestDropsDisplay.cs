@@ -21,8 +21,7 @@ namespace ItemBrowser.Entries.Defaults {
 
 		private void RenderBody() {
 			resultSlot.DisplayedObject = new DisplayedObject.Static(new ObjectDataCD {
-				objectID = ObjectData.objectID,
-				variation = ObjectData.variation
+				objectID = Entry.Result
 			});
 			biomeSlot.DisplayedObject = new DisplayedObject.BiomeIcon(Entry.RequiredBiome);
 			blockSlot.DisplayedObject = new DisplayedObject.Tile(TileType.wall, Entry.RequiredTileset);

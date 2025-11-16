@@ -11,7 +11,18 @@ namespace ItemBrowser.Browser {
 		[SerializeField]
 		private GameObject optionalToggledMarker;
 
-		public override bool isShowing => gameObject.activeInHierarchy && canBeClicked;
+		private UIScrollWindow _scrollWindow;
+		
+		public override float localScrollPosition =>  transform.localPosition.y + (_scrollWindow == null ? 0f : _scrollWindow.scrollingContent.localPosition.y);
+		private bool ShowHoverWindow => _scrollWindow == null || _scrollWindow.IsShowingPosition(localScrollPosition);
+		public override bool isVisibleOnScreen => ShowHoverWindow && base.isVisibleOnScreen;
+		public override bool isShowing => gameObject.activeInHierarchy && isVisibleOnScreen && canBeClicked;
+
+		protected override void Awake() {
+			base.Awake();
+			
+			_scrollWindow = GetComponentInParent<UIScrollWindow>();
+		}
 
 		public override void OnRightClicked(bool mod1, bool mod2) {
 			base.OnRightClicked(mod1, mod2);

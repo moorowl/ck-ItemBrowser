@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using HarmonyLib;
-using ItemBrowser.DataStructures;
+using ItemBrowser.Utilities.Extensions;
 using ItemBrowser.Entries;
 using PlayerState;
 using Rewired;

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using ItemBrowser.Config;
 using ItemBrowser.Entries;
 using ItemBrowser.Utilities;
 using UnityEngine;
@@ -29,7 +30,7 @@ namespace ItemBrowser.Browser {
 			}
 		}
 
-		private bool CanCheatInObjects => Main.Config.CheatMode && (Manager.saves.IsCreativeModeCharacter() || Manager.main.player.adminPrivileges >= 1);
+		private static bool CanCheatInObjects => ConfigFile.CheatMode && (Manager.saves.IsCreativeModeCharacter() || Manager.main.player.adminPrivileges >= 1);
 		
 		protected override void Awake() {
 			base.Awake();
@@ -125,6 +126,9 @@ namespace ItemBrowser.Browser {
 
 			var visualObject = DisplayedObject.VisualObject;
 			RenderAmountNumberRange(DisplayedObject.Amount);
+			
+			colorReplacer.UpdateColorReplacerFromObjectData(visualObject);
+			Manager.ui.ApplyAnyIconGradientMap(visualObject, icon);
 			
 			if (visualObject.objectID == ObjectID.None) {
 				SetEmptyIcon();

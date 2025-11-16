@@ -21,8 +21,8 @@ namespace ItemBrowser.Entries.Defaults {
 
 		public override void RenderSelf() {
 			resultSlot.DisplayedObject = new DisplayedObject.Static(new ObjectDataCD {
-				objectID = ObjectData.objectID,
-				variation = ObjectData.variation
+				objectID = Entry.Result.Id,
+				variation = Entry.Result.Variation
 			});
 
 			var isFromBiome = Entry.SpawnCheck.biome != Biome.None;

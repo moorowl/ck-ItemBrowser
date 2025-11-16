@@ -28,8 +28,7 @@ namespace ItemBrowser.Entries.Defaults {
 
 		private void RenderBody() {
 			resultSlot.DisplayedObject = new DisplayedObject.Static(new ObjectDataCD {
-				objectID = ObjectData.objectID,
-				variation = ObjectData.variation
+				objectID = Entry.Result
 			}, Entry.Amount);
 			sourceSlot.DisplayedObject = new DisplayedObject.Static(new ObjectDataCD {
 				objectID = ObjectID.AlienChest

@@ -21,8 +21,8 @@ namespace ItemBrowser.Entries.Defaults {
 							Vendor = objectData.objectID,
 							Stock = objectData.amount
 						};
-						registry.Register(ObjectEntryType.Source, info.objectID, 0, entry);
-						registry.Register(ObjectEntryType.Usage, objectData.objectID, 0, entry);
+						registry.Register(ObjectEntryType.Source, entry.Result, 0, entry);
+						registry.Register(ObjectEntryType.Usage, entry.Vendor, 0, entry);
 					}
 				}
 			}

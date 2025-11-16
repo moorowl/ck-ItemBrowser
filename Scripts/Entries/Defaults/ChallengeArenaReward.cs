@@ -6,6 +6,7 @@ namespace ItemBrowser.Entries.Defaults {
 	public class ChallengeArenaReward : ObjectEntry {
 		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/ChallengeArenaReward", ObjectID.AlienChest, 3750);
 		
+		public ObjectID Result { get; protected set; }
 		public float Chance { get; protected set; }
 		public float ChanceForOne { get; protected set; }
 		public (int Min, int Max) Amount { get; protected set; }
@@ -25,12 +26,14 @@ namespace ItemBrowser.Entries.Defaults {
 			public override void Register(ObjectEntryRegistry registry, List<(ObjectData ObjectData, GameObject Authoring)> allObjects) {
 				// All of these are hardcoded in EventTerminalSystem
 				registry.Register(ObjectEntryType.Source, ObjectID.AlienChest, 0, new ChallengeArenaReward {
+					Result = ObjectID.AlienChest,
 					Amount = (1, 1),
 					Chance = 1f,
 					ChanceForOne = 1f,
 					Rolls = (1, 1)
 				});
 				registry.Register(ObjectEntryType.Source, ObjectID.CrystalMerchantSpawnItem, 0, new ChallengeArenaReward {
+					Result = ObjectID.CrystalMerchantSpawnItem,
 					Amount = (1, 1),
 					Chance = 1f,
 					ChanceForOne = 1f,
@@ -40,6 +43,7 @@ namespace ItemBrowser.Entries.Defaults {
 
 				foreach (var gem in GemstoneTypes) {
 					registry.Register(ObjectEntryType.Source, gem.Id, 0, new ChallengeArenaReward {
+						Result = gem.Id,
 						Amount = (2, 3),
 						Chance = 1f,
 						ChanceForOne = 1f,
@@ -50,6 +54,7 @@ namespace ItemBrowser.Entries.Defaults {
 				
 				foreach (var drop in LootUtils.GetLootTableContents(LootTableID.AlienEventTerminal)) {
 					registry.Register(ObjectEntryType.Source, drop.ObjectId, 0, new ChallengeArenaReward {
+						Result = drop.ObjectId,
 						Chance = drop.Chance,
 						ChanceForOne = drop.CalculateChanceForOne(),
 						Amount = drop.ObjectAmount,

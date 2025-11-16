@@ -8,6 +8,7 @@ namespace ItemBrowser.Entries.Defaults {
 	public class Fishing : ObjectEntry {
 		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/Fishing", ObjectID.IronFishingRod, 4400);
 		
+		public ObjectID Result { get; protected set; }
 		public Biome Biome { get; protected set; }
 		public Tileset Tileset { get; protected set; }
 		public CatchType Type { get; protected set; }
@@ -32,6 +33,7 @@ namespace ItemBrowser.Entries.Defaults {
 					foreach (var drop in LootUtils.GetLootTableContents(info.lootTableID)) {
 						foreach (var tileset in tilesets) {
 							registry.Register(ObjectEntryType.Source, drop.ObjectId, 0, new Fishing {
+								Result = drop.ObjectId,
 								Tileset = tileset,
 								Type = CatchType.Loot,
 								Chance = drop.Chance
@@ -42,6 +44,7 @@ namespace ItemBrowser.Entries.Defaults {
 					foreach (var drop in LootUtils.GetLootTableContents(info.fishLootTableID)) {
 						foreach (var tileset in tilesets) {
 							registry.Register(ObjectEntryType.Source, drop.ObjectId, 0, new Fishing {
+								Result = drop.ObjectId,
 								Tileset = tileset,
 								Type = CatchType.Fish,
 								Chance = drop.Chance
@@ -58,6 +61,7 @@ namespace ItemBrowser.Entries.Defaults {
 					foreach (var drop in LootUtils.GetLootTableContents(info.lootTableID)) {
 						foreach (var biome in biomes) {
 							registry.Register(ObjectEntryType.Source, drop.ObjectId, 0, new Fishing {
+								Result = drop.ObjectId,
 								Biome = biome,
 								Type = CatchType.Loot,
 								Chance = drop.Chance
@@ -68,6 +72,7 @@ namespace ItemBrowser.Entries.Defaults {
 					foreach (var drop in LootUtils.GetLootTableContents(info.fishLootTableID)) {
 						foreach (var biome in biomes) {
 							registry.Register(ObjectEntryType.Source, drop.ObjectId, 0, new Fishing {
+								Result = drop.ObjectId,
 								Biome = biome,
 								Type = CatchType.Fish,
 								Chance = drop.Chance

@@ -1,6 +1,4 @@
-﻿using System.Globalization;
-using System.Linq;
-using ItemBrowser.Utilities;
+﻿using ItemBrowser.Utilities;
 using ItemBrowser.Browser;
 using UnityEngine;
 

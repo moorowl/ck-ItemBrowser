@@ -3,7 +3,6 @@ using System.Linq;
 using ItemBrowser.Browser;
 using ItemBrowser.Utilities;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace ItemBrowser.Entries.Defaults {
 	public class LootDisplay : ObjectEntryDisplay<Loot> {
@@ -26,7 +25,7 @@ namespace ItemBrowser.Entries.Defaults {
 			return entries
 				// Normal -> dungeon -> scene
 				.OrderByDescending(entry => entry.FoundInDungeons.Count > 0 ? 0 : (entry.FoundInScenes.Count > 0 ? 1 : 2))
-				.ThenBy(entry => ObjectUtils.GetLocalizedDisplayName(entry.Entity, entry.EntityVariation))
+				.ThenBy(entry => ObjectUtils.GetLocalizedDisplayName(entry.Entity.Id, entry.Entity.Variation))
 				.ThenByDescending(entry => entry.IsFromGuaranteedPool ? 1 : 0);
 		}
 		
@@ -46,12 +45,12 @@ namespace ItemBrowser.Entries.Defaults {
 
 		private void RenderBody() {
 			resultSlot.DisplayedObject = new DisplayedObject.Static(new ObjectDataCD {
-				objectID = ObjectData.objectID,
-				variation = ObjectData.variation
+				objectID = Entry.Result.Id,
+				variation = Entry.Result.Variation
 			}, Entry.Amount());
 			sourceSlot.DisplayedObject = new DisplayedObject.Static(new ObjectDataCD {
-				objectID = Entry.Entity,
-				variation = Entry.EntityVariation
+				objectID = Entry.Entity.Id,
+				variation = Entry.Entity.Variation
 			});
 			
 			var showPoolTypeText = Entry.IsFromTableWithGuaranteedPool;
@@ -77,7 +76,7 @@ namespace ItemBrowser.Entries.Defaults {
 			MoreInfo.AddLine(new TextAndFormatFields {
 				text = showPoolTypeText ? (Entry.IsFromGuaranteedPool ? "ItemBrowser:MoreInfo/Loot_0_GuaranteedPool" : "ItemBrowser:MoreInfo/Loot_0_RandomPool") : "ItemBrowser:MoreInfo/Loot_0",
 				formatFields = new[] {
-					ObjectUtils.GetUnlocalizedDisplayName(Entry.Entity, Entry.EntityVariation)
+					ObjectUtils.GetUnlocalizedDisplayName(Entry.Entity.Id, Entry.Entity.Variation)
 				},
 				color = TextUtils.DescriptionColor
 			});

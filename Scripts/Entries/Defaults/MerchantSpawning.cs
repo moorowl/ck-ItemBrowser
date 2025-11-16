@@ -26,8 +26,8 @@ namespace ItemBrowser.Entries.Defaults {
 						Merchant = objectData.objectID,
 						Idol = summoningItem
 					};
-					registry.Register(ObjectEntryType.Source, objectData, entry);
-					registry.Register(ObjectEntryType.Usage, summoningItem, 0, entry);
+					registry.Register(ObjectEntryType.Source, entry.Merchant, 0, entry);
+					registry.Register(ObjectEntryType.Usage, entry.Idol, 0, entry);
 				}
 			}
 		}

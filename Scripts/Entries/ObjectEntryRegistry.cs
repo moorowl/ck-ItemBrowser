@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using ItemBrowser.Utilities;
 using PugMod;
 using UnityEngine;
 
@@ -14,7 +15,7 @@ namespace ItemBrowser.Entries {
 		public IEnumerable<ObjectEntry> GetAllEntries(ObjectEntryType type, ObjectID id, int variation) {
 			var objectData = new ObjectDataCD {
 				objectID = id,
-				variation = variation,
+				variation = ObjectUtils.GetPrimaryVariation(id, variation),
 			};
 			return !_entries[(int) type].TryGetValue(objectData, out var entries) ? Array.Empty<ObjectEntry>() : entries.GetEntries();
 		}
@@ -26,7 +27,7 @@ namespace ItemBrowser.Entries {
 		public IEnumerable<T> GetEntries<T>(ObjectEntryType type, ObjectID id, int variation) where T : ObjectEntry {
 			var objectData = new ObjectDataCD {
 				objectID = id,
-				variation = variation,
+				variation = ObjectUtils.GetPrimaryVariation(id, variation),
 			};
 			return !_entries[(int) type].TryGetValue(objectData, out var entries) ? Array.Empty<T>() : entries.GetEntriesOfType<T>();
 		}
@@ -36,8 +37,12 @@ namespace ItemBrowser.Entries {
 		}
 		
 		public void Register(ObjectEntryType type, ObjectID id, int variation, ObjectEntry entry) {
+			id = TryReplaceObjectID(id);
+			if (id == ObjectID.None || !ObjectUtils.IsPrimaryVariation(id, variation) || (type == ObjectEntryType.Source && ObjectUtils.UnimplementedObjects.Contains(id)))
+				return;
+			
 			var objectData = new ObjectDataCD {
-				objectID = TryReplaceObjectID(id),
+				objectID = id,
 				variation = variation,
 			};
 			if (!_entries[(int) type].ContainsKey(objectData))

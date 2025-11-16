@@ -8,7 +8,7 @@ using UnityEngine;
 namespace ItemBrowser.Entries {
 	public abstract class ObjectEntryDisplay<T> : ObjectEntryDisplayBase where T : ObjectEntry {
 		protected T Entry { get; private set; }
-		protected ObjectDataCD ObjectData { get; private set; }
+		protected ObjectDataCD RegisteredTo { get; private set; }
 		protected MoreInfoButton MoreInfo => moreInfoButton;
 		
 		[SerializeField]
@@ -18,7 +18,7 @@ namespace ItemBrowser.Entries {
 
 		public override void SetEntry(ObjectEntry entry, ObjectData objectData) {
 			Entry = (T) entry;
-			ObjectData = objectData;
+			RegisteredTo = objectData;
 		}
 
 		public override IEnumerable<ObjectEntry> SortEntries(IEnumerable<ObjectEntry> entries) {
@@ -29,7 +29,7 @@ namespace ItemBrowser.Entries {
 			if (moreInfoButton != null) {
 				moreInfoButton.Clear();
 				moreInfoButton.AddLine(new TextAndFormatFields {
-					text = Entry.Category.GetTitle(ObjectUtils.IsNonObtainable(ObjectData.objectID, ObjectData.variation))
+					text = Entry.Category.GetTitle(ObjectUtils.IsNonObtainable(RegisteredTo.objectID, RegisteredTo.variation))
 				});
 			}
 			
