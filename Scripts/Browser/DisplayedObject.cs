@@ -94,7 +94,7 @@ namespace ItemBrowser.Browser {
 					if (PugDatabase.TryGetComponent<TileCD>(_objectData, out var tileCD)) {
 						var isBlock = TileUtils.IsBlock(tileCD.tileType, (Tileset) tileCD.tileset);
 						lines.Add(new TextAndFormatFields {
-							text = isBlock ? $"{tileCD.tileset} ({TileType.wall} / {TileType.ground})" : $"{tileCD.tileset} ({tileCD.tileType})",
+							text = isBlock ? $"{(Tileset) tileCD.tileset} ({TileType.wall} / {TileType.ground})" : $"{(Tileset) tileCD.tileset} ({tileCD.tileType})",
 							dontLocalize = true
 						});
 					}
