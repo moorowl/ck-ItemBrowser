@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using ItemBrowser.Browser.ObjectList;
+using ItemBrowser.Config;
 using ItemBrowser.Utilities;
 using ItemBrowser.Utilities.DataStructures.SortingAndFiltering;
 using PugMod;
@@ -17,7 +18,7 @@ namespace ItemBrowser.Browser {
 		[SerializeField]
 		private SpriteMask searchInputMask;
 		[SerializeField]
-		private FiltersPanel filtersPanel;
+		private FiltersPanel[] filtersPanels;
 		public Transform tabButtonsAnchor;
 		
 		private bool _refreshItemList;
@@ -41,13 +42,15 @@ namespace ItemBrowser.Browser {
 				names.Add(objectData.objectID.ToString());
 			names.Add(((int) objectData.objectID).ToString());
 		});
+
+		private FiltersPanel PrimaryFiltersPanel => filtersPanels[0];
 		
 		protected override void OnShow(bool isFirstTimeShowing) {
 			objectList.ShowContainerUI();
 			if (isFirstTimeShowing) {
 				SetupFiltersAndSorting();
 				RefreshItemList();
-				filtersPanel.IsShowing = false;
+				PrimaryFiltersPanel.IsShowing = false;
 			}
 			
 			AdjustWindowPosition();
@@ -68,7 +71,7 @@ namespace ItemBrowser.Browser {
 				_lastSearchTerm = currentSearchTerm;
 			}
 			
-			if (filtersPanel.HasDynamicFiltersEnabled && Time.time >= _refreshedItemListTime + 1f)
+			if (PrimaryFiltersPanel.HasDynamicFiltersEnabled && Time.time >= _refreshedItemListTime + 1f)
 				RequestItemListRefresh();
 			
 			if (_refreshItemList) {
@@ -84,14 +87,14 @@ namespace ItemBrowser.Browser {
 			UseReverseSorting = true;
 			
 			// Setup filters
-			filtersPanel.Clear();
+			PrimaryFiltersPanel.Clear();
 			var filterGroups = GetFilters().GroupBy(x => x.Group)
 				.ToDictionary(group => group.Key, group => group.Select(x => x.Filter).ToList());
 
 			foreach (var group in filterGroups) {
-				filtersPanel.AddHeader(group.Key);
+				PrimaryFiltersPanel.AddHeader(group.Key);
 				foreach (var filter in group.Value)
-					filtersPanel.AddFilter(filter);
+					PrimaryFiltersPanel.AddFilter(filter);
 			}
 		}
 		
@@ -102,7 +105,10 @@ namespace ItemBrowser.Browser {
 		protected abstract List<ObjectDataCD> GetIncludedObjects();
 		
 		public void ToggleFiltersPanel() {
-			filtersPanel.IsShowing = !filtersPanel.IsShowing;
+			var shouldShow = !PrimaryFiltersPanel.IsShowing;
+			foreach (var panel in filtersPanels)
+				panel.IsShowing = shouldShow;
+			
 			Manager.ui.DeselectAnySelectedUIElement();
 			Manager.ui.mouse.UpdateMouseUIInput(out _, out _);
 			AdjustWindowPosition();
@@ -136,7 +142,7 @@ namespace ItemBrowser.Browser {
 		}
 		
 		private void AdjustWindowPosition() {
-			transform.localPosition = new Vector3(filtersPanel.IsShowing ? -((filtersPanel.WindowWidth / 2f) + (1f / 16f)) : 0f, transform.localPosition.y, transform.localPosition.z);
+			transform.localPosition = new Vector3(PrimaryFiltersPanel.IsShowing ? -((PrimaryFiltersPanel.WindowWidth / 2f) + (1f / 16f)) : 0f, transform.localPosition.y, transform.localPosition.z);
 		}
 		
 		private void AdjustSearchFieldPosition() {
@@ -160,7 +166,8 @@ namespace ItemBrowser.Browser {
 			var allItems = GetIncludedObjects();
 			var filteredItems = allItems
 				.Where(MatchesFilters)
-				.OrderBy(item => CurrentSorter.Function(item))
+				.OrderBy(item => ConfigFile.FavoritedObjects.Contains(item) ? 1 : 0)
+				.ThenBy(item => CurrentSorter.Function(item))
 				.ThenBy(item => _sorters[0].Function(item))
 				.ToList();
 			
@@ -176,8 +183,8 @@ namespace ItemBrowser.Browser {
 
 		private bool MatchesFilters(ObjectDataCD objectData) {
 			return _searchFilter.Function(objectData)
-			       && filtersPanel.FiltersToInclude.All(filter => filter.Function(objectData))
-			       && !filtersPanel.FiltersToExclude.Any(filter => filter.Function(objectData));
+			       && PrimaryFiltersPanel.FiltersToInclude.All(filter => filter.Function(objectData))
+			       && !PrimaryFiltersPanel.FiltersToExclude.Any(filter => filter.Function(objectData));
 		}
 	}
 }

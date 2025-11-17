@@ -19,8 +19,6 @@ namespace ItemBrowser.Browser {
 		private float headerPaddingBottom = 0.4375f;
 		[SerializeField]
 		private float filterSpread = 0.625f;
-		[SerializeField]
-		private FiltersPanel[] filterPanelsToSync;
 
 		private readonly List<FilterButton> _filterButtons = new();
 		private float _top;
@@ -45,14 +43,7 @@ namespace ItemBrowser.Browser {
 		private void Awake() {
 			Clear();
 		}
-
-		protected override void LateUpdate() {
-			base.LateUpdate();
-			
-			foreach (var panel in filterPanelsToSync)
-				panel.IsShowing = IsShowing;
-		}
-
+		
 		public void AddHeader(string term) {
 			_left = 0f;
 			_top -= headerPaddingTop;

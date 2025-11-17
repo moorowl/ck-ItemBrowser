@@ -8664,7 +8664,9 @@ MonoBehaviour:
   otherSearchInputsToSync:
   - {fileID: 1833067378169538758}
   searchInputMask: {fileID: 5141156688624412407}
-  filtersPanel: {fileID: 1254606159830434543}
+  filtersPanels:
+  - {fileID: 1254606159830434543}
+  - {fileID: 1671546495232284839}
   tabButtonsAnchor: {fileID: 259260654703318175}
 --- !u!1 &3462974892640619313
 GameObject:
@@ -17060,7 +17062,9 @@ MonoBehaviour:
   otherSearchInputsToSync:
   - {fileID: 3770063469521743511}
   searchInputMask: {fileID: 7233674349380088196}
-  filtersPanel: {fileID: 1671546495232284839}
+  filtersPanels:
+  - {fileID: 1671546495232284839}
+  - {fileID: 1254606159830434543}
   tabButtonsAnchor: {fileID: 3271357293309519688}
 --- !u!1 &7666656637410598743
 GameObject:
