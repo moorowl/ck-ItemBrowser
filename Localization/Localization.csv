@@ -33,7 +33,7 @@ ItemBrowser:Sorters/Value	Text		By value
 ItemBrowser:SortingOrder	Text		Sort order												
 ItemBrowser:SortingOrder/Ascending	Text		Ascending												
 ItemBrowser:SortingOrder/Descending	Text		Descending												
-ItemBrowser:ClearSearch	Text		Clear search												
+ItemBrowser:Favorited	Text		Favorited												
 ItemBrowser:ShowFilters	Text		Show filters												
 ItemBrowser:HideFilters	Text		Hide filters												
 ItemBrowser:FilteredResults	Text		{0}/{1} results												

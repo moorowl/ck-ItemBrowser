@@ -82,6 +82,13 @@ namespace ItemBrowser.Browser {
 					}
 				};
 
+				if (slot is BasicItemSlot basicItemSlot && basicItemSlot.IsFavorited) {
+					lines.Add(new TextAndFormatFields {
+						text = "ItemBrowser:Favorited",
+						color = Color.yellow
+					});
+				}
+
 				if (ConfigFile.ShowTechnicalInfo) {
 					lines.Add(new TextAndFormatFields {
 						text = $"{(int) _objectData.objectID}:{_objectData.variation}",
