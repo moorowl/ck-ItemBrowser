@@ -19,9 +19,7 @@ namespace ItemBrowser.Browser {
 		private float headerPaddingBottom = 0.4375f;
 		[SerializeField]
 		private float filterSpread = 0.625f;
-		[SerializeField]
-		private float filterLeft = 0.125f;
-		
+
 		private readonly List<FilterButton> _filterButtons = new();
 		private float _top;
 		private float _left;
@@ -55,13 +53,13 @@ namespace ItemBrowser.Browser {
 			header.gameObject.SetActive(true);
 			header.SetTerm(term);
 
-			_left = filterLeft;
+			_left = 0f;
 			_top -= headerPaddingBottom;
 		}
 		
 		public void AddFilter(Filter<ObjectDataCD> filter) {
 			if (_left >= 32f / 10f) {
-				_left = filterLeft;
+				_left = 0f;
 				_top -= filterSpread;
 			}
 			
