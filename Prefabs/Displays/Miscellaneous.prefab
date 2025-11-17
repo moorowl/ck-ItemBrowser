@@ -60,7 +60,7 @@ MonoBehaviour:
   localizePlaceholders: 1
   dontResetEffectsOnRender: 0
   hideInStreamerMode: 0
-  maxWidth: 10
+  maxWidth: 8
   textString: 
   textSuffix: 
   formatFields: []
