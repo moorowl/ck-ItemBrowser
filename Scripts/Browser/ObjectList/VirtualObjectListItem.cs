@@ -2,6 +2,7 @@
 using System.Linq;
 using ItemBrowser.Entries;
 using ItemBrowser.Entries.Defaults;
+using ItemBrowser.Utilities;
 using UnityEngine;
 
 namespace ItemBrowser.Browser.ObjectList {
@@ -62,20 +63,16 @@ namespace ItemBrowser.Browser.ObjectList {
 			if (filtersPanel.DisplayItemCraftingRequirements) {
 				var craftingSources = ItemBrowserAPI.ObjectEntries.GetEntries<Crafting>(ObjectEntryType.Source, slotObject.objectID, slotObject.variation).ToList();
 				if (craftingSources.Count > 0) {
-					// TODO support multiple stations!
-					var firstCraftingSource = craftingSources[0];
-					var stationContainedObject = new ContainedObjectsBuffer {
-						objectData = new ObjectDataCD {
-							objectID = firstCraftingSource.UsesStation ? firstCraftingSource.Station : firstCraftingSource.Recipe
-						}
-					};
-					
 					lines[^1].paddingBeneath = 0.125f;
-					lines.Add(new TextAndFormatFields {
-						text = "Crafted at " + PlayerController.GetObjectName(stationContainedObject, true).text,
-						dontLocalize = true,
-						color = Color.white * 0.95f
-					});
+					foreach (var craftingSource in craftingSources) {
+						lines.Add(new TextAndFormatFields {
+							text = craftingSource.UsesStation ? "ItemBrowser:MoreInfo/Crafting_0_Station" : "ItemBrowser:MoreInfo/Crafting_0_Recipe",
+							formatFields = new[] {
+								ObjectUtils.GetUnlocalizedDisplayName(craftingSource.UsesStation ? craftingSource.Station : craftingSource.Recipe)
+							},
+							color = Color.white * 0.95f
+						});
+					}
 				}
 			}
 			
