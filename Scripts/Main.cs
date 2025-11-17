@@ -28,13 +28,15 @@ public class Main : IMod {
 
 		var modInfo = API.ModLoader.LoadedMods.FirstOrDefault(modInfo => modInfo.Handlers.Contains(this));
 		AssetBundle = modInfo!.AssetBundles[0];
-
-		ConfigFile.Init();
+		
+		ConfigFile.EarlyInit();
 		
 		ItemBrowserAPI.OnInit += BuiltinContent.Register;
 	}
 
 	public void Init() {
+		ConfigFile.Init();
+		
 		ModUtils.InitOnModLoad();
 	}
 

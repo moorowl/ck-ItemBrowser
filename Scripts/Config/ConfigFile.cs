@@ -19,9 +19,7 @@ namespace ItemBrowser.Config {
 		public static bool DefaultTechnicalFilter { get; set; }
 		public static HashSet<ObjectDataCD> FavoritedObjects { get; set; }
 
-		public static void Init() {
-			Load();
-			
+		public static void EarlyInit() {
 			MenuHandler.OnInit += () => {
 				_settingsMenu = MenuHandler.AddMenu(19900, "ItemBrowser:Config");
 				MenuHandler.AddMenuOption(_settingsMenu, Main.AssetBundle, "Assets/ItemBrowser/Prefabs/MenuOptions.prefab");
@@ -32,14 +30,23 @@ namespace ItemBrowser.Config {
 			};
 		}
 		
+		public static void Init() {
+			Load();
+		}
+		
 		public static void ResetToDefault() {
 			CheatMode = true;
 			ShowTechnicalInfo = false;
 			ShowSourceMod = true;
 			DefaultDiscoveredFilter = false;
 			DefaultTechnicalFilter = true;
-			FavoritedObjects = new HashSet<ObjectDataCD>();
+			FavoritedObjects = new HashSet<ObjectDataCD> {
+				new() {
+					objectID = ObjectID.LegendarySword
+				}
+			};
 
+			Main.Log(nameof(ConfigFile), "Reset to defaults");
 			Save();
 		}
 		
