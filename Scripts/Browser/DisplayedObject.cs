@@ -109,7 +109,7 @@ namespace ItemBrowser.Browser {
 					}
 				}
 
-				if (_objectData.objectID != ObjectID.None) {
+				if (_objectData.objectID != ObjectID.None && ConfigFile.ShowSourceMod) {
 					var associatedMod = ModUtils.GetAssociatedMod(_objectData.objectID);
 					lines.Add(new TextAndFormatFields {
 						text = ModUtils.GetDisplayName(associatedMod),
