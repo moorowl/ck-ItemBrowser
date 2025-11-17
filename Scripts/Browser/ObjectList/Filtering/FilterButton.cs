@@ -31,7 +31,11 @@ namespace ItemBrowser.Browser {
 		
 		public void SetFilter(Filter<ObjectDataCD> filter) {
 			Filter = filter;
-			_currentState = filter.DefaultState;
+			ResetState();
+		}
+
+		public void ResetState() {
+			_currentState = Filter.DefaultState();
 			UpdateVisuals();
 		}
 

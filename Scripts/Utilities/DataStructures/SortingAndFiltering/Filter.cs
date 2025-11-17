@@ -1,4 +1,6 @@
-﻿namespace ItemBrowser.Utilities.DataStructures.SortingAndFiltering {
+﻿using System;
+
+namespace ItemBrowser.Utilities.DataStructures.SortingAndFiltering {
 	public class Filter<T> {
 		public delegate bool FilterDelegate(T item);
 
@@ -10,7 +12,7 @@
 		public string[] DescriptionFormatFields { get; set; }
 		public bool LocalizeDescriptionFormatFields { get; set; } = true;
 		public string Group { get; set; }
-		public FilterState DefaultState { get; set; } = FilterState.None;
+		public Func<FilterState> DefaultState { get; set; } = () => FilterState.None;
 		public FilterDelegate Function { get; set; }
 		// Causes the item list to constantly refresh. Should be used if the function checks something that can change during gameplay
 		public bool FunctionIsDynamic { get; set; }

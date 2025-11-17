@@ -355,7 +355,8 @@ public class Main : IMod {
 			});
 			ItemBrowserAPI.RegisterItemFilter(utilityGroup, new($"{utilityGroup}_Discovered") {
 				Function = objectData => Manager.saves.HasDiscoveredObject(objectData.objectID, objectData.variation),
-				FunctionIsDynamic = true
+				FunctionIsDynamic = true,
+				DefaultState = () => ConfigFile.DefaultDiscoveredFilter ? FilterState.Include : FilterState.None
 			});
 			ItemBrowserAPI.RegisterItemFilter(utilityGroup, new($"{utilityGroup}_Technical_Item") {
 				Function = objectData => {
@@ -375,7 +376,7 @@ public class Main : IMod {
 					
 					return false;
 				},
-				DefaultState = FilterState.Exclude
+				DefaultState = () => ConfigFile.DefaultTechnicalFilter ? FilterState.Exclude : FilterState.None
 			});
 			ItemBrowserAPI.RegisterCreatureFilter(utilityGroup, new($"{utilityGroup}_Technical_Creature") {
 				Function = objectData => {
@@ -387,7 +388,7 @@ public class Main : IMod {
 					
 					return false;
 				},
-				DefaultState = FilterState.Exclude
+				DefaultState = () => ConfigFile.DefaultTechnicalFilter ? FilterState.Exclude : FilterState.None
 			});
 			/* For testing
 			ItemBrowserAPI.RegisterItemFilter(utilityGroup, new($"{utilityGroup}_NoSources") {

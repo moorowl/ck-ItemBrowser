@@ -19,6 +19,8 @@ namespace ItemBrowser.Browser {
 		private float headerPaddingBottom = 0.4375f;
 		[SerializeField]
 		private float filterSpread = 0.625f;
+		[SerializeField]
+		private float filterLeft = 0.125f;
 		
 		private readonly List<FilterButton> _filterButtons = new();
 		private float _top;
@@ -29,7 +31,7 @@ namespace ItemBrowser.Browser {
 			set => gameObject.SetActive(value);
 		}
 		public float WindowWidth => background.size.x;
-		public bool HasBeenModified => _filterButtons.Any(button => button.CurrentState != button.Filter.DefaultState);
+		public bool HasBeenModified => _filterButtons.Any(button => button.CurrentState != button.Filter.DefaultState());
 		public bool HasDynamicFiltersEnabled => _filterButtons.Any(button => button.Filter.FunctionIsDynamic && button.CurrentState != FilterState.None);
 		public bool DisplayItemCraftingRequirements => _filterButtons.Any(button => button.Filter.CausesItemCraftingRequirementsToDisplay && button.CurrentState != FilterState.None);
 		
@@ -53,12 +55,13 @@ namespace ItemBrowser.Browser {
 			header.gameObject.SetActive(true);
 			header.SetTerm(term);
 
+			_left = filterLeft;
 			_top -= headerPaddingBottom;
 		}
 		
 		public void AddFilter(Filter<ObjectDataCD> filter) {
 			if (_left >= 32f / 10f) {
-				_left = 0f;
+				_left = filterLeft;
 				_top -= filterSpread;
 			}
 			
@@ -74,7 +77,7 @@ namespace ItemBrowser.Browser {
 
 		public void ResetToDefaults() {
 			foreach (var button in _filterButtons)
-				button.CurrentState = button.Filter.DefaultState;
+				button.ResetState();
 		}
 
 		public void Clear() {
