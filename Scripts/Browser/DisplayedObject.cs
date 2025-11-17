@@ -84,26 +84,30 @@ namespace ItemBrowser.Browser {
 
 				if (ConfigFile.ShowTechnicalInfo) {
 					lines.Add(new TextAndFormatFields {
-						text = $"I: {(int) _objectData.objectID}:{_objectData.variation} ({_objectData.objectID})",
+						text = $"{(int) _objectData.objectID}:{_objectData.variation}",
+						dontLocalize = true
+					});
+					lines.Add(new TextAndFormatFields {
+						text = API.Authoring.ObjectProperties.GetPropertyString(_objectData.objectID, "name"),
 						dontLocalize = true
 					});
 					if (PugDatabase.TryGetComponent<TileCD>(_objectData, out var tileCD)) {
 						var isBlock = TileUtils.IsBlock(tileCD.tileType, (Tileset) tileCD.tileset);
 						lines.Add(new TextAndFormatFields {
-							text = isBlock ? $"T: {tileCD.tileset} ({TileType.wall} / {TileType.ground})" : $"T: {tileCD.tileset} ({tileCD.tileType})",
+							text = isBlock ? $"{tileCD.tileset} ({TileType.wall} / {TileType.ground})" : $"{tileCD.tileset} ({tileCD.tileType})",
 							dontLocalize = true
 						});
 					}
 					var prefabInfo = PugDatabase.GetObjectInfo(_objectData.objectID, _objectData.variation).prefabInfos[0];
 					if (prefabInfo.ecsPrefab != null) {
 						lines.Add(new TextAndFormatFields {
-							text = $"E: {prefabInfo.ecsPrefab.gameObject.name}",
+							text = $"{prefabInfo.ecsPrefab.gameObject.name}",
 							dontLocalize = true
 						});
 					}
 					if (prefabInfo.prefab != null) {
 						lines.Add(new TextAndFormatFields {
-							text = $"G: {prefabInfo.prefab.gameObject.name}",
+							text = $"{prefabInfo.prefab.gameObject.name}",
 							dontLocalize = true
 						});
 					}
