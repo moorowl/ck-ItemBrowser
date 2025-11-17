@@ -40,11 +40,7 @@ namespace ItemBrowser.Config {
 			ShowSourceMod = true;
 			DefaultDiscoveredFilter = false;
 			DefaultTechnicalFilter = true;
-			FavoritedObjects = new HashSet<ObjectDataCD> {
-				new() {
-					objectID = ObjectID.LegendarySword
-				}
-			};
+			FavoritedObjects = new HashSet<ObjectDataCD>();
 
 			Main.Log(nameof(ConfigFile), "Reset to defaults");
 			Save();
