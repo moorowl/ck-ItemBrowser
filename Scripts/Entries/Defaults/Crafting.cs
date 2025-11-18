@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using ItemBrowser.Utilities;
+using ItemBrowser.Utilities.Extensions;
+using PugMod;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace ItemBrowser.Entries.Defaults {
@@ -21,11 +25,11 @@ namespace ItemBrowser.Entries.Defaults {
 				foreach (var (objectData, _) in allObjects) {
 					if (!PugDatabase.TryGetComponent<CraftingCD>(objectData, out var craftingCD) || !PugDatabase.HasComponent<CanCraftObjectsBuffer>(objectData))
 						continue;
-
-					if (ObjectUtils.GetLocalizedDisplayName(objectData.objectID, objectData.variation) == null)
+					
+					if (craftingCD.craftingType != CraftingType.Simple && craftingCD.craftingType != CraftingType.ProcessResources && craftingCD.craftingType != CraftingType.BossStatue)
 						continue;
 
-					if (craftingCD.craftingType != CraftingType.Simple && craftingCD.craftingType != CraftingType.ProcessResources && craftingCD.craftingType != CraftingType.BossStatue)
+					if (ObjectUtils.GetLocalizedDisplayName(objectData.objectID, objectData.variation) == null)
 						continue;
 
 					var objectInfo = PugDatabase.GetObjectInfo(objectData.objectID, objectData.variation);
@@ -46,9 +50,16 @@ namespace ItemBrowser.Entries.Defaults {
 
 						if (includedCraftingBuildings.Length > 0)
 							endCanCraftObjectsIndex = includedCraftingBuildings[0].amountOfCraftingOptions - 1;
+
+						if (includedCraftingBuildings.Length > 1) {
+							foreach (var includedCraftingBuilding in includedCraftingBuildings.ConvertToList().Skip(1)) {
+								if (ObjectUtils.GetLocalizedDisplayName(includedCraftingBuilding.objectID) == null)
+									endCanCraftObjectsIndex = math.max(endCanCraftObjectsIndex, includedCraftingBuilding.amountOfCraftingOptions - 1);
+							}
+						}
 					}
 
-					Main.Log(nameof(Crafting), $"{objectData.objectID} can craft {startCanCraftObjectsIndex}-{endCanCraftObjectsIndex}");
+					Main.Log(nameof(Crafting), $"{API.Authoring.ObjectProperties.GetPropertyString(objectData.objectID, "name")} can craft {startCanCraftObjectsIndex}-{endCanCraftObjectsIndex}");
 					
 					for (var i = startCanCraftObjectsIndex; i <= endCanCraftObjectsIndex; i++) {
 						var canCraftObject = canCraftObjects[i];
