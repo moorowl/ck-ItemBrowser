@@ -35,8 +35,7 @@ namespace ItemBrowser.Browser {
 		}
 
 		public void ResetState() {
-			_currentState = Filter.DefaultState();
-			UpdateVisuals();
+			CurrentState = Filter.DefaultState();
 		}
 
 		public override void OnLeftClicked(bool mod1, bool mod2) {
