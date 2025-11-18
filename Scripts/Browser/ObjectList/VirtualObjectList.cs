@@ -19,22 +19,17 @@ namespace ItemBrowser.Browser.ObjectList {
 
 		private List<ObjectDataCD> _objects = new();
 		private readonly Dictionary<int, int> _slotToObjectIndex = new();
-
-		protected override void Awake() {
-			base.Awake();
-			
-			ShowContainerUI();
-			HideContainerUI();
-		}
 		
-		public void SetObjects(List<ObjectDataCD> objects) {
+		public void SetObjects(List<ObjectDataCD> objects, bool preserveScrollPosition) {
 			if (_objects.SequenceEqual(objects))
 				return;
 			
 			_objects = objects;
 			_prevSelectedIndex = 0;
 			_prevStartIndex = 0;
-			uiScrollWindow.ResetScroll();
+			
+			if (!preserveScrollPosition)
+				uiScrollWindow.ResetScroll();
 			
 			UpdateList();
 		}

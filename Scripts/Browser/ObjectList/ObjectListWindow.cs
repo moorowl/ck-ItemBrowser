@@ -49,7 +49,7 @@ namespace ItemBrowser.Browser {
 			objectList.ShowContainerUI();
 			if (isFirstTimeShowing) {
 				SetupFiltersAndSorting();
-				RefreshItemList();
+				RefreshItemList(false);
 				PrimaryFiltersPanel.IsShowing = false;
 			}
 			
@@ -75,7 +75,7 @@ namespace ItemBrowser.Browser {
 				RequestItemListRefresh();
 			
 			if (_refreshItemList) {
-				RefreshItemList();
+				RefreshItemList(true);
 				_refreshItemList = false;
 			}
 		}
@@ -159,7 +159,7 @@ namespace ItemBrowser.Browser {
 			_refreshItemList = true;
 		}
 
-		private void RefreshItemList() {
+		private void RefreshItemList(bool preserveScrollPosition) {
 			_searchFilter.Term = SearchTerm;
 			
 			// Filtering
@@ -174,7 +174,7 @@ namespace ItemBrowser.Browser {
 			if (UseReverseSorting)
 				filteredItems.Reverse();
 				
-			objectList.SetObjects(filteredItems);
+			objectList.SetObjects(filteredItems, preserveScrollPosition);
 			_refreshedItemListTime = Time.time;
 			
 			IncludedObjects = filteredItems.Count;
