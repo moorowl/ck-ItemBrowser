@@ -23,8 +23,9 @@ namespace ItemBrowser.Entries.Defaults {
 			MoreInfo.AddLine(new TextAndFormatFields {
 				text = "ItemBrowser:MoreInfo/JewelryCrafter_0",
 				formatFields = new[] {
-					ObjectUtils.GetUnlocalizedDisplayName(Entry.UnpolishedVersion)
+					ObjectUtils.GetLocalizedDisplayName(Entry.UnpolishedVersion)
 				},
+				dontLocalizeFormatFields = true,
 				color = TextUtils.DescriptionColor
 			});
 			var chanceAtMin = Manager.mod.SkillTalentsTable.skillTalentTrees.SelectMany(tree => tree.skillTalents)

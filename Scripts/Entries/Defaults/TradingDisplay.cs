@@ -54,8 +54,9 @@ namespace ItemBrowser.Entries.Defaults {
 			MoreInfo.AddLine(new TextAndFormatFields {
 				text = "ItemBrowser:MoreInfo/Trading_0",
 				formatFields = new[] {
-					ObjectUtils.GetUnlocalizedDisplayName(Entry.Vendor.Id, Entry.Vendor.Variation)
+					ObjectUtils.GetLocalizedDisplayName(Entry.Vendor.Id, Entry.Vendor.Variation)
 				},
+				dontLocalizeFormatFields = true,
 				color = TextUtils.DescriptionColor
 			});
 			MoreInfo.AddPadding();

@@ -28,8 +28,9 @@ namespace ItemBrowser.Entries.Defaults {
 			MoreInfo.AddLine(new TextAndFormatFields {
 				text = "ItemBrowser:MoreInfo/Salvaging_0",
 				formatFields = new[] {
-					ObjectUtils.GetUnlocalizedDisplayName(Entry.ItemSalvaged)
+					ObjectUtils.GetLocalizedDisplayName(Entry.ItemSalvaged)
 				},
+				dontLocalizeFormatFields = true,
 				color = TextUtils.DescriptionColor
 			});
 			if (Entry.ResultAmount.Min != Entry.ResultAmount.Max) {

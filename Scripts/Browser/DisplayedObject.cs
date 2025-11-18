@@ -58,7 +58,8 @@ namespace ItemBrowser.Browser {
 
 			public override TextAndFormatFields GetHoverTitle(SlotUIBase slot) {
 				var objectName = new TextAndFormatFields {
-					text = ObjectUtils.GetUnlocalizedDisplayName(_objectData.objectID, _objectData.variation)
+					text = ObjectUtils.GetLocalizedDisplayName(_objectData.objectID, _objectData.variation),
+					dontLocalize = true
 				};
 
 				var objectInfo = PugDatabase.GetObjectInfo(_objectData.objectID);

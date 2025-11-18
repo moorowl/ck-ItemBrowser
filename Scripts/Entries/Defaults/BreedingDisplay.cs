@@ -27,9 +27,10 @@ namespace ItemBrowser.Entries.Defaults {
 			MoreInfo.AddLine(new TextAndFormatFields {
 				text = "ItemBrowser:MoreInfo/Breeding_0",
 				formatFields = new[] {
-					ObjectUtils.GetUnlocalizedDisplayName(Entry.ChildType),
-					ObjectUtils.GetUnlocalizedDisplayName(Entry.ParentType)
+					ObjectUtils.GetLocalizedDisplayName(Entry.ChildType),
+					ObjectUtils.GetLocalizedDisplayName(Entry.ParentType)
 				},
+				dontLocalizeFormatFields = true,
 				color = TextUtils.DescriptionColor
 			});
 			MoreInfo.AddPadding();

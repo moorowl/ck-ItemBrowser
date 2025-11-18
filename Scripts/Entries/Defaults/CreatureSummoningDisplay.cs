@@ -59,19 +59,21 @@ namespace ItemBrowser.Entries.Defaults {
 				MoreInfo.AddLine(new TextAndFormatFields {
 					text = $"ItemBrowser:MoreInfo/CreatureSummoning_0_{Entry.SummoningMethod}",
 					formatFields = new[] {
-						ObjectUtils.GetUnlocalizedDisplayName(Entry.SummoningItem.Id, Entry.SummoningItem.Variation),
-						ObjectUtils.GetUnlocalizedDisplayName(Entry.SummoningArea.Id, Entry.SummoningArea.Variation),
-						ObjectUtils.GetUnlocalizedDisplayName(Entry.Creature.Id, Entry.Creature.Variation)
+						ObjectUtils.GetLocalizedDisplayName(Entry.SummoningItem.Id, Entry.SummoningItem.Variation),
+						ObjectUtils.GetLocalizedDisplayName(Entry.SummoningArea.Id, Entry.SummoningArea.Variation),
+						ObjectUtils.GetLocalizedDisplayName(Entry.Creature.Id, Entry.Creature.Variation)
 					},
+					dontLocalizeFormatFields = true,
 					color = TextUtils.DescriptionColor
 				});
 			} else {
 				MoreInfo.AddLine(new TextAndFormatFields {
 					text = $"ItemBrowser:MoreInfo/CreatureSummoning_0_{Entry.SummoningMethod}",
 					formatFields = new[] {
-						ObjectUtils.GetUnlocalizedDisplayName(Entry.SummoningItem.Id, Entry.SummoningItem.Variation),
-						ObjectUtils.GetUnlocalizedDisplayName(Entry.Creature.Id, Entry.Creature.Variation)
+						ObjectUtils.GetLocalizedDisplayName(Entry.SummoningItem.Id, Entry.SummoningItem.Variation),
+						ObjectUtils.GetLocalizedDisplayName(Entry.Creature.Id, Entry.Creature.Variation)
 					},
+					dontLocalizeFormatFields = true,
 					color = TextUtils.DescriptionColor
 				});
 			}

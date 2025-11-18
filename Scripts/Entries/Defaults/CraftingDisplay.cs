@@ -71,8 +71,9 @@ namespace ItemBrowser.Entries.Defaults {
 			MoreInfo.AddLine(new TextAndFormatFields {
 				text = "ItemBrowser:MoreInfo/Crafting_0_" + (Entry.Station == ObjectID.None ? "Recipe" : "Station"),
 				formatFields = new[] {
-					ObjectUtils.GetUnlocalizedDisplayName( Entry.UsesStation ? Entry.Station : Entry.Recipe)
+					ObjectUtils.GetLocalizedDisplayName( Entry.UsesStation ? Entry.Station : Entry.Recipe)
 				},
+				dontLocalizeFormatFields = true,
 				color = TextUtils.DescriptionColor
 			});
 			
@@ -129,8 +130,9 @@ namespace ItemBrowser.Entries.Defaults {
 					MoreInfo.AddLine(new TextAndFormatFields {
 						text = "ItemBrowser:MoreInfo/Crafting_4",
 						formatFields = new[] {
-							ObjectUtils.GetUnlocalizedDisplayName(Entry.RequiresObjectNearby)
+							ObjectUtils.GetLocalizedDisplayName(Entry.RequiresObjectNearby)
 						},
+						dontLocalizeFormatFields = true,
 						color = TextUtils.DescriptionColor
 					});
 				}

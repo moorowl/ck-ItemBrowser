@@ -1,5 +1,6 @@
 ﻿using ItemBrowser.Utilities;
 using ItemBrowser.Browser;
+using PugMod;
 using PugTilemap;
 using UnityEngine;
 
@@ -33,9 +34,10 @@ namespace ItemBrowser.Entries.Defaults {
 			MoreInfo.AddLine(new TextAndFormatFields {
 				text = "ItemBrowser:MoreInfo/LockedChestDrops_0",
 				formatFields = new[] {
-					ObjectUtils.GetUnlocalizedDisplayName(PugDatabase.TryGetTileItemInfo(TileType.wall, (int) Entry.RequiredTileset).objectID),
-					$"BiomeNames/{Entry.RequiredBiome}"
+					ObjectUtils.GetLocalizedDisplayName(PugDatabase.TryGetTileItemInfo(TileType.wall, (int) Entry.RequiredTileset).objectID),
+					API.Localization.GetLocalizedTerm($"BiomeNames/{Entry.RequiredBiome}") ?? "???"
 				},
+				dontLocalizeFormatFields = true,
 				color = TextUtils.DescriptionColor
 			});
 			MoreInfo.AddLine(new TextAndFormatFields {

@@ -68,8 +68,9 @@ namespace ItemBrowser.Browser.ObjectList {
 						lines.Add(new TextAndFormatFields {
 							text = craftingSource.UsesStation ? "ItemBrowser:MoreInfo/Crafting_0_Station" : "ItemBrowser:MoreInfo/Crafting_0_Recipe",
 							formatFields = new[] {
-								ObjectUtils.GetUnlocalizedDisplayName(craftingSource.UsesStation ? craftingSource.Station : craftingSource.Recipe)
+								ObjectUtils.GetLocalizedDisplayName(craftingSource.UsesStation ? craftingSource.Station : craftingSource.Recipe)
 							},
+							dontLocalizeFormatFields = true,
 							color = Color.white * 0.95f
 						});
 					}

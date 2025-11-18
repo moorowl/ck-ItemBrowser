@@ -29,8 +29,9 @@ namespace ItemBrowser.Entries.Defaults {
 			MoreInfo.AddLine(new TextAndFormatFields {
 				text = Entry.HasGoldSeed ? "ItemBrowser:MoreInfo/Farming_0_" + (Entry.RequiresGoldSeed ? "Golden" : "Normal") : "ItemBrowser:MoreInfo/Farming_0",
 				formatFields = new[] {
-					ObjectUtils.GetUnlocalizedDisplayName(Entry.Seed)
+					ObjectUtils.GetLocalizedDisplayName(Entry.Seed)
 				},
+				dontLocalizeFormatFields = true,
 				color = TextUtils.DescriptionColor
 			});
 			if (Entry.RequiresGoldSeed) {

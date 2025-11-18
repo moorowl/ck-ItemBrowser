@@ -76,8 +76,9 @@ namespace ItemBrowser.Entries.Defaults {
 			MoreInfo.AddLine(new TextAndFormatFields {
 				text = showPoolTypeText ? (Entry.IsFromGuaranteedPool ? "ItemBrowser:MoreInfo/Loot_0_GuaranteedPool" : "ItemBrowser:MoreInfo/Loot_0_RandomPool") : "ItemBrowser:MoreInfo/Loot_0",
 				formatFields = new[] {
-					ObjectUtils.GetUnlocalizedDisplayName(Entry.Entity.Id, Entry.Entity.Variation)
+					ObjectUtils.GetLocalizedDisplayName(Entry.Entity.Id, Entry.Entity.Variation)
 				},
+				dontLocalizeFormatFields = true,
 				color = TextUtils.DescriptionColor
 			});
 			MoreInfo.AddPadding();
