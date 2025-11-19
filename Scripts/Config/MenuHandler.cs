@@ -42,7 +42,7 @@ namespace ItemBrowser.Config {
 			return modMenu;
 		}
 
-		public static void AddMenuOption(RadicalMenu menu, AssetBundle assetBundle, string prefabPath) {
+		public static void AddOptionFromPath(this RadicalMenu menu, AssetBundle assetBundle, string prefabPath) {
 			var scroll = menu.transform.Find("Options/Scroll");
 			var prefab = assetBundle.LoadAsset<GameObject>(prefabPath);
 			

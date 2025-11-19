@@ -22,7 +22,7 @@ namespace ItemBrowser.Config {
 		public static void EarlyInit() {
 			MenuHandler.OnInit += () => {
 				_settingsMenu = MenuHandler.AddMenu(19900, "ItemBrowser:Config");
-				MenuHandler.AddMenuOption(_settingsMenu, Main.AssetBundle, "Assets/ItemBrowser/Prefabs/MenuOptions.prefab");
+				_settingsMenu.AddOptionFromPath(Main.AssetBundle, "Assets/ItemBrowser/Prefabs/MenuOptions.prefab");
 			};
 			MenuHandler.OnMenuClosed += (menu) => {
 				if (menu == _settingsMenu)
@@ -46,7 +46,7 @@ namespace ItemBrowser.Config {
 			Save();
 		}
 		
-		private static void Save() {
+		public static void Save() {
 			Main.Log(nameof(ConfigFile), "Saving file...");
 			
 			if (!API.ConfigFilesystem.DirectoryExists(Main.InternalName))
