@@ -157,10 +157,10 @@ public class Main : IMod {
 				
 				var objectIds = ModUtils.GetAssociatedObjects(mod.ModId);
 				var itemIds = objectIds
-					.Where(id => ItemBrowserAPI.ShouldItemBeIncluded(new ObjectDataCD { objectID = id }))
+					.Where(ItemBrowserAPI.ShouldItemBeIncluded)
 					.ToList();
 				var creatureIds = objectIds
-					.Where(id => ItemBrowserAPI.ShouldCreatureBeIncluded(new ObjectDataCD { objectID = id }))
+					.Where(ItemBrowserAPI.ShouldItemBeIncluded)
 					.ToList();
 
 				if (itemIds.Count > 0) {
@@ -169,8 +169,8 @@ public class Main : IMod {
 						LocalizeNameFormatFields = false,
 						DescriptionFormatFields = new[] { displayName },
 						LocalizeDescriptionFormatFields = false,
-						Function = objectData => itemIds.Contains(objectData.objectID)
-					});	
+						Function = objectData => itemIds.Contains(objectData)
+					});
 				}
 				
 				if (creatureIds.Count > 0) {
@@ -179,7 +179,7 @@ public class Main : IMod {
 						LocalizeNameFormatFields = false,
 						DescriptionFormatFields = new[] { displayName },
 						LocalizeDescriptionFormatFields = false,
-						Function = objectData => creatureIds.Contains(objectData.objectID)
+						Function = objectData => creatureIds.Contains(objectData)
 					});	
 				}
 			}
@@ -392,14 +392,14 @@ public class Main : IMod {
 				},
 				DefaultState = () => ConfigFile.DefaultTechnicalFilter ? FilterState.Exclude : FilterState.None
 			});
-			/* For testing
+			// For testing
 			ItemBrowserAPI.RegisterItemFilter(utilityGroup, new($"{utilityGroup}_NoSources") {
 				Function = objectData => !ItemBrowserAPI.ObjectEntries.GetAllEntries(ObjectEntryType.Source, objectData).Any()
 			});
 			ItemBrowserAPI.RegisterCreatureFilter(utilityGroup, new($"{utilityGroup}_NoSources") {
 				Function = objectData => !ItemBrowserAPI.ObjectEntries.GetAllEntries(ObjectEntryType.Source, objectData).Any()
 			});
-			ItemBrowserAPI.RegisterItemFilter(utilityGroup, new($"{utilityGroup}_IsNonObtainable") {
+			/*ItemBrowserAPI.RegisterItemFilter(utilityGroup, new($"{utilityGroup}_IsNonObtainable") {
 				Function = objectData => ObjectUtils.IsNonObtainable(objectData.objectID, objectData.variation)
 			});*/
 

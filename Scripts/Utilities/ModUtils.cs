@@ -6,8 +6,8 @@ using PugMod;
 namespace ItemBrowser.Utilities {
 	public static class ModUtils {
 		private static readonly Dictionary<long, string> DisplayNames = new();
-		private static readonly Dictionary<long, HashSet<ObjectID>> AssociatedObjects = new();
-		private static readonly Dictionary<ObjectID, long> AssociatedMod = new();
+		private static readonly Dictionary<long, HashSet<ObjectDataCD>> AssociatedObjects = new();
+		private static readonly Dictionary<ObjectDataCD, long> AssociatedMod = new();
 
 		private const long UnknownModId = -1;
 		private const string UnknownModName = "(Unknown Mod)";
@@ -27,12 +27,12 @@ namespace ItemBrowser.Utilities {
 			};
 		}
 		
-		public static HashSet<ObjectID> GetAssociatedObjects(long mod) {
-			return AssociatedObjects.TryGetValue(mod, out var value) ? value : new HashSet<ObjectID>();
+		public static HashSet<ObjectDataCD> GetAssociatedObjects(long mod) {
+			return AssociatedObjects.TryGetValue(mod, out var value) ? value : new HashSet<ObjectDataCD>();
 		}
 		
-		public static long GetAssociatedMod(ObjectID id) {
-			return AssociatedMod.GetValueOrDefault(id, CoreKeeperModId);
+		public static long GetAssociatedMod(ObjectDataCD objectData) {
+			return AssociatedMod.GetValueOrDefault(objectData, CoreKeeperModId);
 		}
 		
 		private static void SetupDisplayNames() {
@@ -59,25 +59,33 @@ namespace ItemBrowser.Utilities {
 				var gameObject = authoring.gameObject;
 
 				var associatedModId = UnknownModId;
-				var objectId = ObjectID.None;
+				var objectData = default(ObjectDataCD);
 				
 				if (gameObject.TryGetComponent<ObjectAuthoring>(out var objectAuthoring)) {
 					var internalName = objectAuthoring.objectName;
 					if (internalName.Contains(":")) {
 						var sourceMod = ProcessModInternalName(internalName.Split(':')[0]);
 						associatedModId = API.ModLoader.LoadedMods.FirstOrDefault(mod => ProcessModInternalName(mod.Metadata.name) == sourceMod)?.ModId ?? UnknownModId;
-						objectId = API.Authoring.GetObjectID(internalName);
+						objectData = new ObjectDataCD {
+							objectID = API.Authoring.GetObjectID(internalName),
+							variation = objectAuthoring.variation
+						};
 					}
+				} else if (gameObject.TryGetComponent<EntityMonoBehaviourData>(out var entityMonoBehaviourData)) {
+					objectData = new ObjectDataCD {
+						objectID = entityMonoBehaviourData.objectInfo.objectID,
+						variation = entityMonoBehaviourData.objectInfo.variation
+					};
 				}
 
-				if (objectId == ObjectID.None)
+				if (objectData.objectID == ObjectID.None)
 					continue;
 				
 				if (!AssociatedObjects.ContainsKey(associatedModId))
-					AssociatedObjects[associatedModId] = new HashSet<ObjectID>();
+					AssociatedObjects[associatedModId] = new HashSet<ObjectDataCD>();
 				
-				AssociatedObjects[associatedModId].Add(objectId);
-				AssociatedMod.TryAdd(objectId, associatedModId);
+				AssociatedObjects[associatedModId].Add(objectData);
+				AssociatedMod.TryAdd(objectData, associatedModId);
 			}
 
 			return;

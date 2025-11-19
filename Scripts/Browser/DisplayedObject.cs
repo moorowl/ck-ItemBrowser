@@ -115,7 +115,7 @@ namespace ItemBrowser.Browser {
 				}
 
 				if (_objectData.objectID != ObjectID.None && ConfigFile.ShowSourceMod) {
-					var associatedMod = ModUtils.GetAssociatedMod(_objectData.objectID);
+					var associatedMod = ModUtils.GetAssociatedMod(_objectData);
 					lines.Add(new TextAndFormatFields {
 						text = ModUtils.GetDisplayName(associatedMod),
 						dontLocalize = true,
