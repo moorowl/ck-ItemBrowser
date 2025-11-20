@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ItemBrowser.Utilities;
 using UnityEngine;
 
 namespace ItemBrowser.Entries.Defaults {
@@ -35,6 +36,10 @@ namespace ItemBrowser.Entries.Defaults {
 						};
 						registry.Register(ObjectEntryType.Source, entry.Result.Id, entry.Result.Variation, entry);
 						registry.Register(ObjectEntryType.Usage, entry.Vendor.Id, entry.Vendor.Variation, entry);
+						foreach (var ingredient in ObjectUtils.GroupAndSumObjects(objectInfo.requiredObjectsToCraft))
+							registry.Register(ObjectEntryType.Usage, ingredient.objectID, 0, entry);
+						foreach (var ingredient in ObjectUtils.GetAllObjectsWithTag(objectInfo.craftingSettings.canOnlyUseAnyMaterialsWithTag))
+							registry.Register(ObjectEntryType.Usage, ingredient.objectID, 0, entry);
 					}
 				}
 			}
