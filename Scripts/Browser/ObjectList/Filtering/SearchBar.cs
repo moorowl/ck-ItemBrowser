@@ -16,9 +16,9 @@ namespace ItemBrowser.Browser {
 			if (Time.time <= _lastLeftClicked + DoubleClickThreshold) {
 				ResetText();
 				_lastLeftClicked = 0f;
+			} else {
+				_lastLeftClicked = Time.time;
 			}
-			
-			_lastLeftClicked = Time.time;
 		}
 	}
 }
