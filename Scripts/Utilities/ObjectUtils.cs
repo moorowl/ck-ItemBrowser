@@ -93,20 +93,25 @@ namespace ItemBrowser.Utilities {
 				string localizedName;
 				string unlocalizedName;
 				if (ItemBrowserAPI.ObjectNameOverrides.TryGetValue(objectData, out var term)) {
-					localizedName = LocalizationManager.GetTranslation(term);
+					localizedName = API.Localization.GetLocalizedTerm(term);
 					unlocalizedName = term;
 				} else {
-					localizedName = PlayerController.GetObjectName(new ContainedObjectsBuffer {
+					var localizedNameFormatFields = PlayerController.GetObjectName(new ContainedObjectsBuffer {
 						objectData = objectData
-					}, true).text;
-					unlocalizedName = PlayerController.GetObjectName(new ContainedObjectsBuffer {
+					}, true);
+					var unlocalizedNameFormatFields = PlayerController.GetObjectName(new ContainedObjectsBuffer {
 						objectData = objectData
-					}, false).text;
+					}, false);
+
+					localizedName = localizedNameFormatFields.text;
+					unlocalizedName = unlocalizedNameFormatFields.text;
+					
+					if (localizedNameFormatFields.dontLocalize)
+						localizedName = unlocalizedNameFormatFields.text;
 				}
 
 				if (localizedName != null)
-					DisplayNames.TryAdd(objectData, localizedName);
-				DisplayNameTerms.TryAdd(objectData, unlocalizedName);
+					DisplayNames.TryAdd(objectData, localizedName.Replace("\n", ""));
 			}
 			
 			DisplayNameSortOrders.Clear();
@@ -123,7 +128,7 @@ namespace ItemBrowser.Utilities {
 					variation = objectInfo.variation
 				};
 				var objectName = DisplayNames.GetValueOrDefault(objectData);
-				objectName ??= $"ZZZ+{objectData.objectID}+{objectData.variation}";
+				objectName ??= $"ZZZ+{GetInternalName(objectData.objectID)}+{objectData.variation}";
 				objectName += $"+{objectData.variation}";
 
 				objectNames.Add((objectData, objectName));
@@ -169,18 +174,15 @@ namespace ItemBrowser.Utilities {
 			});
 		}
 		
-		public static string GetUnlocalizedDisplayName(ObjectID id, int variation = 0) {
-			return DisplayNameTerms.GetValueOrDefault(new ObjectDataCD {
-				objectID = id,
-				variation = variation
-			});
-		}
-		
 		public static int GetDisplayNameSortOrder(ObjectID id, int variation = 0) {
 			return DisplayNameSortOrders.GetValueOrDefault(new ObjectDataCD {
 				objectID = id,
 				variation = variation
 			});
+		}
+
+		public static string GetInternalName(ObjectID id) {
+			return API.Authoring.ObjectProperties.TryGetPropertyString(id, "name", out var internalName) ? internalName : id.ToString();
 		}
 		
 		public static HashSet<string> GetCategories(ObjectID id) {

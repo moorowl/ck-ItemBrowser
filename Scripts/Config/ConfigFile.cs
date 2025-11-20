@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using ItemBrowser.Utilities;
 using Newtonsoft.Json;
 using PugMod;
 
@@ -88,7 +89,7 @@ namespace ItemBrowser.Config {
 				DefaultDiscoveredFilter = DefaultDiscoveredFilter,
 				DefaultTechnicalFilter = DefaultTechnicalFilter,
 				FavoritedObjects = FavoritedObjects.Select(x => new SerializedData.FavoritedObject {
-					InternalName = API.Authoring.ObjectProperties.GetPropertyString(x.objectID, "name"),
+					InternalName = ObjectUtils.GetInternalName(x.objectID),
 					Variation = x.variation,
 				}).ToList()
 			};

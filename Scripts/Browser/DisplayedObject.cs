@@ -70,8 +70,7 @@ namespace ItemBrowser.Browser {
 			}
 
 			public override List<TextAndFormatFields> GetHoverDescription(SlotUIBase slot) {
-				if (!API.Authoring.ObjectProperties.TryGetPropertyString(_objectData.objectID, "name", out var term))
-					term = _objectData.objectID.ToString();
+				var term = ObjectUtils.GetInternalName(_objectData.objectID);
 
 				var nameTermOverride = Manager.ui.itemOverridesTable.GetNameTermOverride(_objectData);
 				if (nameTermOverride != null)
@@ -89,7 +88,7 @@ namespace ItemBrowser.Browser {
 						dontLocalize = true
 					});
 					lines.Add(new TextAndFormatFields {
-						text = API.Authoring.ObjectProperties.GetPropertyString(_objectData.objectID, "name"),
+						text = ObjectUtils.GetInternalName(_objectData.objectID),
 						dontLocalize = true
 					});
 					if (PugDatabase.TryGetComponent<TileCD>(_objectData, out var tileCD)) {
