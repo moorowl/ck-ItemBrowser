@@ -5,12 +5,18 @@ namespace ItemBrowser.Browser {
 		private const float DoubleClickThreshold = 0.5f;
 		
 		private float _lastLeftClicked;
-		
-		public override void OnLeftClicked(bool mod1, bool mod2) {
-			base.OnLeftClicked(mod1, mod2);
 
-			if (Time.time < _lastLeftClicked + DoubleClickThreshold)
+		protected override void LateUpdate() {
+			base.LateUpdate();
+
+			var input = Manager.input.singleplayerInputModule;
+			if (!selectedMarker.activeSelf || !input.WasButtonPressedDownThisFrame(PlayerInput.InputType.UI_INTERACT, true))
+				return;
+
+			if (Time.time <= _lastLeftClicked + DoubleClickThreshold) {
 				ResetText();
+				_lastLeftClicked = 0f;
+			}
 			
 			_lastLeftClicked = Time.time;
 		}
