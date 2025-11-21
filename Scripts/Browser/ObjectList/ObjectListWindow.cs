@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using ItemBrowser.Browser.ObjectList;
 using ItemBrowser.Config;
@@ -22,6 +23,7 @@ namespace ItemBrowser.Browser {
 		public Transform tabButtonsAnchor;
 		
 		private bool _refreshItemList;
+		private bool _preserveScrollOnRefresh;
 		private float _refreshedItemListTime;
 
 		public int IncludedObjects { get; private set; }
@@ -44,13 +46,16 @@ namespace ItemBrowser.Browser {
 		});
 
 		private FiltersPanel PrimaryFiltersPanel => filtersPanels[0];
-		
+
+		private void Awake() {
+			PrimaryFiltersPanel.IsShowing = false;
+		}
+
 		protected override void OnShow(bool isFirstTimeShowing) {
 			objectList.ShowContainerUI();
 			if (isFirstTimeShowing) {
 				SetupFiltersAndSorting();
 				RefreshItemList(false);
-				PrimaryFiltersPanel.IsShowing = false;
 			}
 			
 			AdjustWindowPosition();
@@ -67,15 +72,16 @@ namespace ItemBrowser.Browser {
 					otherSearchInput.SetInputText(currentSearchTerm);
 				
 				AdjustSearchFieldPosition();
-				RequestItemListRefresh();
+				RequestItemListRefresh(false);
 				_lastSearchTerm = currentSearchTerm;
 			}
 			
 			if (PrimaryFiltersPanel.HasDynamicFiltersEnabled && Time.time >= _refreshedItemListTime + 1f)
-				RequestItemListRefresh();
+				RequestItemListRefresh(true);
 			
 			if (_refreshItemList) {
-				RefreshItemList(true);
+				RefreshItemList(_preserveScrollOnRefresh);
+				_preserveScrollOnRefresh = true;
 				_refreshItemList = false;
 			}
 		}
@@ -119,7 +125,7 @@ namespace ItemBrowser.Browser {
 			if (_currentSorterIndex >= _sorters.Count)
 				_currentSorterIndex = 0;
 			
-			RequestItemListRefresh();
+			RequestItemListRefresh(false);
 		}
 		
 		public void PrevSort() {
@@ -127,12 +133,12 @@ namespace ItemBrowser.Browser {
 			if (_currentSorterIndex < 0)
 				_currentSorterIndex = _sorters.Count - 1;
 			
-			RequestItemListRefresh();
+			RequestItemListRefresh(false);
 		}
 
 		public void CycleSortOrder() {
 			UseReverseSorting = !UseReverseSorting;
-			RequestItemListRefresh();
+			RequestItemListRefresh(false);
 		}
 
 		public void ClearSearch() {
@@ -155,8 +161,10 @@ namespace ItemBrowser.Browser {
 			API.Reflection.Invoke(member, searchInput);
 		}
 
-		public void RequestItemListRefresh() {
+		public void RequestItemListRefresh(bool preserveScroll) {
 			_refreshItemList = true;
+			if (!preserveScroll)
+				_preserveScrollOnRefresh = false;
 		}
 
 		private void RefreshItemList(bool preserveScrollPosition) {
