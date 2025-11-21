@@ -17,8 +17,7 @@ namespace ItemBrowser.Browser {
 				
 				_currentState = value;
 				UpdateVisuals();
-				//filtersPanel.OnFilterStateChanged(Filter);
-				objectListWindow.RequestItemListRefresh();
+				objectListWindow.RequestItemListRefresh(false);
 			}
 		}
 		
