@@ -25,7 +25,7 @@ namespace ItemBrowser.Browser {
 					},
 					dontLocalizeFormatFields = true,
 					color = TextUtils.DescriptionColor,
-					paddingBeneath = filtersPanel.HasBeenModified ? 0f : 0.125f
+					paddingBeneath = filtersPanel.HasBeenModified ? 0.125f : 0f
 				}
 			};
 			if (filtersPanel.HasBeenModified) {
