@@ -53,6 +53,8 @@ namespace ItemBrowser.Browser {
 			if (isFirstTimeShowing) {
 				SetupFiltersAndSorting();
 				RefreshList(false);
+			} else {
+				RefreshList(true);
 			}
 
 			if (!UserInterfaceUtils.IsUsingMouseAndKeyboard)
