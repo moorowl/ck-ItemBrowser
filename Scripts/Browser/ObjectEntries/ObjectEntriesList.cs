@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ItemBrowser.Entries;
+using ItemBrowser.Utilities;
 using UnityEngine;
 
 namespace ItemBrowser.Browser {
@@ -54,6 +55,10 @@ namespace ItemBrowser.Browser {
 			_activeDisplayComponent = component;
 
 			RenderList();
+
+			var firstElement = GetComponentInChildren<UIelement>(scrollWindow.scrollingContent);
+			if (firstElement != null && !UserInterfaceUtils.IsUsingMouseAndKeyboard)
+				UserInterfaceUtils.SelectAndMoveMouseTo(firstElement);
 			
 			scrollWindow.SetScrollValue(scrollProgress);
 		}

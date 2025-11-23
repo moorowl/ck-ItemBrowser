@@ -30,10 +30,28 @@ namespace ItemBrowser.Browser {
 			}
 		}
 
+		public bool IsHovered => hoverBorder.gameObject.activeSelf;
+		public bool IsFavorited => ConfigFile.FavoritedObjects.Contains(FavoritedKey);
+		private ObjectDataCD FavoritedKey => new() {
+			objectID = DisplayedObject.ContainedObject.objectID,
+			variation = DisplayedObject.ContainedObject.variation
+		};
+
+		private BoxCollider _boxCollider;
+		private UIScrollWindow _scrollWindow;
+		
+		public override float localScrollPosition => transform.localPosition.y - 0.625f;
+		private bool ShowHoverWindow => _scrollWindow == null || _scrollWindow.IsShowingPosition(localScrollPosition);
+		public override bool isVisibleOnScreen => ShowHoverWindow && base.isVisibleOnScreen;
+		public override UIScrollWindow uiScrollWindow => _scrollWindow;
+		
 		private static bool CanCheatInObjects => ConfigFile.CheatMode && (Manager.saves.IsCreativeModeCharacter() || Manager.main.player.adminPrivileges >= 1);
 		
 		protected override void Awake() {
 			base.Awake();
+			
+			_boxCollider = GetComponent<BoxCollider>();
+			_scrollWindow = GetComponentInParent<UIScrollWindow>();
 			
 			icon.material = new Material(Shader.Find("Amplify/UISpriteColorReplace"));
 			UpdateVisuals();
@@ -43,9 +61,28 @@ namespace ItemBrowser.Browser {
 			base.LateUpdate();
 
 			_displayedObject.Update(this);
+			if (highlightBorder != null) {
+				if (IsHovered) {
+					var input = Manager.input.singleplayerInputModule;
+					if (input.WasButtonPressedDownThisFrame(PlayerInput.InputType.LOCKING_TOGGLE)) {
+						if (IsFavorited) {
+							AudioManager.Sfx(SfxTableID.inventorySFXSlotLock, transform.position);
+							ConfigFile.FavoritedObjects.Remove(FavoritedKey);
+						} else {
+							AudioManager.Sfx(SfxTableID.inventorySFXSlotUnlock, transform.position);
+							ConfigFile.FavoritedObjects.Add(FavoritedKey);
+						}
+
+						ConfigFile.Save();
+					}		
+				}
+				
+				highlightBorder.gameObject.SetActive(IsFavorited);
+			}
 		}
 
 		public override void OnSelected() {
+			_scrollWindow?.MoveScrollToIncludePosition(localScrollPosition, _boxCollider != null ? _boxCollider.size.sqrMagnitude : 0f);
 			OnSelectSlot();
 		}
 
@@ -89,9 +126,10 @@ namespace ItemBrowser.Browser {
 				return new TextAndFormatFields {
 					text = "ItemBrowser:NameAndAmountFormat",
 					formatFields = new[] {
-						PlayerController.GetObjectName(GetSlotObject(), true).text,
+						title.text,
 						amount.Min != amount.Max ? $"{amount.Min}-{amount.Max}" : amount.Min.ToString()
 					},
+					dontLocalizeFormatFields = true,
 					color = Manager.text.GetRarityColor(PugDatabase.GetObjectInfo(visualObject.objectID).rarity)
 				};
 			}

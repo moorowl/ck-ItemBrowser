@@ -14,7 +14,7 @@ namespace ItemBrowser.Entries.Defaults {
 				objectID = Entry.Result
 			});
 			
-			chanceText.Render(TextUtils.FormatChance(Entry.Chance) + "%");
+			chanceText.Render(UserInterfaceUtils.FormatChance(Entry.Chance) + "%");
 		}
 	}
 }

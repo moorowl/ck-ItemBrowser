@@ -90,7 +90,7 @@ namespace ItemBrowser.Browser {
 					text = Filter.Description,
 					formatFields = Filter.DescriptionFormatFields,
 					dontLocalizeFormatFields = !Filter.LocalizeDescriptionFormatFields,
-					color = TextUtils.DescriptionColor
+					color = UserInterfaceUtils.DescriptionColor
 				},
 				new() {
 					text = $"ItemBrowser:FilterState/{CurrentState}",

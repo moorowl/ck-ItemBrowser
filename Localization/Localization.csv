@@ -19,7 +19,7 @@ ItemBrowser:ShowType/Source	Text		Show obtaining
 ItemBrowser:ShowType/Usage	Text		Show usage												
 ItemBrowser:ShowType_NonObtainable/Source	Text		Show spawning												
 ItemBrowser:ShowType_NonObtainable/Usage	Text		Show usage												
-ItemBrowser:ButtonHint/Clear	Text		Clear: {0}												
+ItemBrowser:ButtonHint/GoBack	Text		Go back: {0}												
 ItemBrowser:ButtonHint/ViewUsage	Text		View usages: {0}												
 ItemBrowser:ButtonHint/ViewSource	Text		View sources: {0}												
 ItemBrowser:ButtonHint/RestoreDefaults	Text		Restore defaults: {0}												
@@ -262,12 +262,12 @@ ItemBrowser:MoreInfo/ChallengeArenaReward_2	Text		Can only drop when {0} is the 
 ItemBrowser:MoreInfo/MerchantSpawning_0	Text		Placing a {0} inside a habitable room causes the {1} to move in												
 ItemBrowser:MoreInfo/Breeding_0	Text		A {0} may be produced by two {1}s after they have both eaten enough and are next to each other												
 ItemBrowser:MoreInfo/Breeding_1	Text		{0} meals required												
-ItemBrowser:MoreInfo/CreatureSummoning_0_SummonArea	Text		Placing a {0} on or near the {1} summons {2}												
-ItemBrowser:MoreInfo/CreatureSummoning_0_LureWithBait	Text		Placing a {0} near {1} will lure it into battle												
-ItemBrowser:MoreInfo/CreatureSummoning_0_CastItem	Text		Using the {0} summons {1}												
-ItemBrowser:MoreInfo/CreatureSummoning_0_Azeos	Text		Placing a {0} inside Azeos' Arena summons {1}												
-ItemBrowser:MoreInfo/CreatureSummoning_0_Omoroth	Text		Fishing in a whirlpool in Omoroth's Arena with the {0} equipped summons {1}												
-ItemBrowser:MoreInfo/CreatureSummoning_0_RaAkar	Text		Placing a {0} inside Ra-Akar's Arena summons {1}												
+ItemBrowser:MoreInfo/CreatureSummoning_0_SummonArea	Text		Summoned by placing a {0} on (or near) the {1}												
+ItemBrowser:MoreInfo/CreatureSummoning_0_LureWithBait	Text		Summoned by placing a {0} nearby												
+ItemBrowser:MoreInfo/CreatureSummoning_0_CastItem	Text		Summoned by using a {0}												
+ItemBrowser:MoreInfo/CreatureSummoning_0_Azeos	Text		Summoned by placing a {0} inside Azeos' Arena												
+ItemBrowser:MoreInfo/CreatureSummoning_0_Omoroth	Text		Summoned by fishing in a whirlpool in Omoroth's Arena with the {0} equipped												
+ItemBrowser:MoreInfo/CreatureSummoning_0_RaAkar	Text		Summoned by placing a {0} inside Ra-Akar's Arena												
 ItemBrowser:MoreInfo/UpgradeMaterial_0	Text		Used to upgrade items from level {0} to {1}												
 ItemBrowser:MoreInfo/UpgradeMaterial_1	Text		Materials:												
 ItemBrowser:MoreInfo/UpgradeMaterial_2	Text		- {0} x{1}												

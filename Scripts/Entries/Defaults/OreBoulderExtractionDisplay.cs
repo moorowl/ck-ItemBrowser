@@ -31,7 +31,7 @@ namespace ItemBrowser.Entries.Defaults {
 					ObjectUtils.GetLocalizedDisplayName(Entry.OreBoulder)
 				},
 				dontLocalizeFormatFields = true,
-				color = TextUtils.DescriptionColor
+				color = UserInterfaceUtils.DescriptionColor
 			});
 			MoreInfo.AddPadding();
 			// x ore total
@@ -41,7 +41,7 @@ namespace ItemBrowser.Entries.Defaults {
 					Entry.TotalOre.ToString()
 				},
 				dontLocalizeFormatFields = true,
-				color = TextUtils.DescriptionColor
+				color = UserInterfaceUtils.DescriptionColor
 			});
 		}
 	}

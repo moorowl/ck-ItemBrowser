@@ -74,14 +74,14 @@ namespace ItemBrowser.Entries.Defaults {
 					ObjectUtils.GetLocalizedDisplayName( Entry.UsesStation ? Entry.Station : Entry.Recipe)
 				},
 				dontLocalizeFormatFields = true,
-				color = TextUtils.DescriptionColor
+				color = UserInterfaceUtils.DescriptionColor
 			});
 			
 			// "Materials" header
 			MoreInfo.AddPadding();
 			MoreInfo.AddLine(new TextAndFormatFields {
 				text = "ItemBrowser:MoreInfo/Crafting_1",
-				color = TextUtils.DescriptionColor
+				color = UserInterfaceUtils.DescriptionColor
 			});
 			
 			// Materials list
@@ -93,7 +93,7 @@ namespace ItemBrowser.Entries.Defaults {
 						"1"
 					},
 					dontLocalizeFormatFields = true,
-					color = TextUtils.DescriptionColor
+					color = UserInterfaceUtils.DescriptionColor
 				});
 			} else {
 				foreach (var craftingObject in requiredObjectsToCraft) {
@@ -104,7 +104,7 @@ namespace ItemBrowser.Entries.Defaults {
 							craftingObject.amount.ToString()
 						},
 						dontLocalizeFormatFields = true,
-						color = TextUtils.DescriptionColor
+						color = UserInterfaceUtils.DescriptionColor
 					});
 				}	
 			}
@@ -121,7 +121,7 @@ namespace ItemBrowser.Entries.Defaults {
 							Entry.CraftingTime.ToString(CultureInfo.InvariantCulture)
 						},
 						dontLocalizeFormatFields = true,
-						color = TextUtils.DescriptionColor
+						color = UserInterfaceUtils.DescriptionColor
 					});		
 				}
 				
@@ -133,7 +133,7 @@ namespace ItemBrowser.Entries.Defaults {
 							ObjectUtils.GetLocalizedDisplayName(Entry.RequiresObjectNearby)
 						},
 						dontLocalizeFormatFields = true,
-						color = TextUtils.DescriptionColor
+						color = UserInterfaceUtils.DescriptionColor
 					});
 				}
 			}

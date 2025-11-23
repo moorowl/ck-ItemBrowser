@@ -36,7 +36,7 @@ namespace ItemBrowser.Entries.Defaults {
 					ObjectUtils.GetLocalizedDisplayName(Entry.Entity.Id, Entry.Entity.Variation)
 				},
 				dontLocalizeFormatFields = true,
-				color = TextUtils.DescriptionColor
+				color = UserInterfaceUtils.DescriptionColor
 			});
 			MoreInfo.AddPadding();
 			MoreInfo.AddLine(new TextAndFormatFields {
@@ -45,7 +45,7 @@ namespace ItemBrowser.Entries.Defaults {
 					Entry.DamageRequiredToDrop.ToString()
 				},
 				dontLocalizeFormatFields = true,
-				color = TextUtils.DescriptionColor
+				color = UserInterfaceUtils.DescriptionColor
 			});
 
 			if (Entry.HealthRequiredToDrop > 0) {
@@ -59,7 +59,7 @@ namespace ItemBrowser.Entries.Defaults {
 						maxHealth.ToString()
 					},
 					dontLocalizeFormatFields = true,
-					color = TextUtils.DescriptionColor
+					color = UserInterfaceUtils.DescriptionColor
 				});
 			}
 		}

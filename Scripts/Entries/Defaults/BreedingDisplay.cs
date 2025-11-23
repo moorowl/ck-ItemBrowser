@@ -31,7 +31,7 @@ namespace ItemBrowser.Entries.Defaults {
 					ObjectUtils.GetLocalizedDisplayName(Entry.ParentType)
 				},
 				dontLocalizeFormatFields = true,
-				color = TextUtils.DescriptionColor
+				color = UserInterfaceUtils.DescriptionColor
 			});
 			MoreInfo.AddPadding();
 			MoreInfo.AddLine(new TextAndFormatFields {
@@ -40,7 +40,7 @@ namespace ItemBrowser.Entries.Defaults {
 					Entry.MealsRequired.ToString()
 				},
 				dontLocalizeFormatFields = true,
-				color = TextUtils.DescriptionColor
+				color = UserInterfaceUtils.DescriptionColor
 			});
 		}
 	}

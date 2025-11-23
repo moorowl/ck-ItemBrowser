@@ -1,6 +1,5 @@
 ﻿using System;
 using HarmonyLib;
-using ItemBrowser.Browser.ObjectList;
 using ItemBrowser.Entries;
 using ItemBrowser.Utilities;
 using UnityEngine;
@@ -70,6 +69,18 @@ namespace ItemBrowser.Browser {
 			objectEntriesWindow.Clear();
 			_entriesOpenedOutsideOfBrowser = false;
 		}
+
+		public void GoBack() {
+			if (objectEntriesWindow.HasAnyHistory) {
+				objectEntriesWindow.PopObjectData();
+				UserInterfaceUtils.PlayMenuCloseSound();
+			} else if (objectEntriesWindow.IsShowing && !_entriesOpenedOutsideOfBrowser) {
+				ShowObjectList();
+				UserInterfaceUtils.PlayMenuCloseSound();
+			} else {
+				IsShowing = false;
+			}
+		}
 		
 		private void LateUpdate() {
 			UpdateScale();
@@ -86,15 +97,7 @@ namespace ItemBrowser.Browser {
 			if (Manager.menu.IsAnyMenuActive() || Manager.input.activeInputField != null || !Manager.input.IsMenuStartButtonDown())
 				return;
 
-			if (objectEntriesWindow.HasAnyHistory) {
-				objectEntriesWindow.PopObjectData();
-				UserInterfaceUtils.PlayMenuCloseSound();
-			} else if (objectEntriesWindow.IsShowing && !_entriesOpenedOutsideOfBrowser) {
-				ShowObjectList();
-				UserInterfaceUtils.PlayMenuCloseSound();
-			} else {
-				IsShowing = false;
-			}
+			GoBack();
 		}
 
 		private void UpdateSwapToInventory() {

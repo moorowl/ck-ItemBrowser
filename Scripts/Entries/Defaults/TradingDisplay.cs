@@ -57,13 +57,13 @@ namespace ItemBrowser.Entries.Defaults {
 					ObjectUtils.GetLocalizedDisplayName(Entry.Vendor.Id, Entry.Vendor.Variation)
 				},
 				dontLocalizeFormatFields = true,
-				color = TextUtils.DescriptionColor
+				color = UserInterfaceUtils.DescriptionColor
 			});
 			MoreInfo.AddPadding();
 			// Materials header
 			MoreInfo.AddLine(new TextAndFormatFields {
 				text = "ItemBrowser:MoreInfo/Trading_1",
-				color = TextUtils.DescriptionColor
+				color = UserInterfaceUtils.DescriptionColor
 			});
 			foreach (var craftingObject in requiredObjectsToCraft) {
 				MoreInfo.AddLine(new TextAndFormatFields {
@@ -73,7 +73,7 @@ namespace ItemBrowser.Entries.Defaults {
 						craftingObject.amount.ToString()
 					},
 					dontLocalizeFormatFields = true,
-					color = TextUtils.DescriptionColor
+					color = UserInterfaceUtils.DescriptionColor
 				});
 			}
 		}

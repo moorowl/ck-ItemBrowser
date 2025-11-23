@@ -58,7 +58,7 @@ namespace ItemBrowser.Browser {
 
 			public override TextAndFormatFields GetHoverTitle(SlotUIBase slot) {
 				var objectName = new TextAndFormatFields {
-					text = ObjectUtils.GetLocalizedDisplayName(_objectData.objectID, _objectData.variation),
+					text = ObjectUtils.GetLocalizedDisplayName(_objectData.objectID, _objectData.variation) ?? $"Items/{ObjectUtils.GetInternalName(_objectData.objectID)}",
 					dontLocalize = true
 				};
 
@@ -118,7 +118,7 @@ namespace ItemBrowser.Browser {
 					lines.Add(new TextAndFormatFields {
 						text = ModUtils.GetDisplayName(associatedMod),
 						dontLocalize = true,
-						color = TextUtils.DescriptionColor
+						color = UserInterfaceUtils.DescriptionColor
 					});
 				}
 				

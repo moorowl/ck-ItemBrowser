@@ -27,7 +27,7 @@ namespace ItemBrowser.Entries.Defaults {
 			biomeSlot.DisplayedObject = new DisplayedObject.BiomeIcon(Entry.RequiredBiome);
 			blockSlot.DisplayedObject = new DisplayedObject.Tile(TileType.wall, Entry.RequiredTileset);
 			
-			chanceText.Render(TextUtils.FormatChance(Entry.Chance) + "%");
+			chanceText.Render(UserInterfaceUtils.FormatChance(Entry.Chance) + "%");
 		}
 
 		private void RenderMoreInfo() {
@@ -38,15 +38,15 @@ namespace ItemBrowser.Entries.Defaults {
 					API.Localization.GetLocalizedTerm($"BiomeNames/{Entry.RequiredBiome}") ?? "???"
 				},
 				dontLocalizeFormatFields = true,
-				color = TextUtils.DescriptionColor
+				color = UserInterfaceUtils.DescriptionColor
 			});
 			MoreInfo.AddLine(new TextAndFormatFields {
 				text = $"ItemBrowser:MoreInfo/LockedChestDrops_1",
 				formatFields = new[] {
-					TextUtils.FormatChance(Entry.Chance) + "%"
+					UserInterfaceUtils.FormatChance(Entry.Chance) + "%"
 				},
 				dontLocalizeFormatFields = true,
-				color = TextUtils.DescriptionColor
+				color = UserInterfaceUtils.DescriptionColor
 			});
 		}
 	}

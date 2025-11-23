@@ -24,20 +24,12 @@ namespace ItemBrowser.Browser {
 						(objectListWindow.IncludedObjects + objectListWindow.ExcludedObjects).ToString()
 					},
 					dontLocalizeFormatFields = true,
-					color = TextUtils.DescriptionColor,
+					color = UserInterfaceUtils.DescriptionColor,
 					paddingBeneath = filtersPanel.HasBeenModified ? 0.125f : 0f
 				}
 			};
-			if (filtersPanel.HasBeenModified) {
-				lines.Add(new TextAndFormatFields {
-					text = "ItemBrowser:ButtonHint/RestoreDefaults",
-					formatFields = new[] {
-						TextUtils.GetInputGlyph("UISecondInteract")
-					},
-					dontLocalizeFormatFields = true,
-					color = Color.white * 0.95f
-				});
-			}
+			if (filtersPanel.HasBeenModified)
+				UserInterfaceUtils.AppendButtonHint(lines, "ItemBrowser:ButtonHint/RestoreDefaults", "UISecondInteract");
 			
 			return lines;
 		}

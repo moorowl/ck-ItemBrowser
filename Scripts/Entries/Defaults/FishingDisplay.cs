@@ -55,7 +55,7 @@ namespace ItemBrowser.Entries.Defaults {
 				formatFields = new[] {
 					isFromBiome ? $"BiomeNames/{Entry.Biome}" : $"ItemBrowser:LiquidNames/{Entry.Tileset}"
 				},
-				color = TextUtils.DescriptionColor
+				color = UserInterfaceUtils.DescriptionColor
 			});
 			MoreInfo.AddLine(new TextAndFormatFields {
 				text = $"ItemBrowser:MoreInfo/Fishing_1_{Entry.Type}",
@@ -63,7 +63,7 @@ namespace ItemBrowser.Entries.Defaults {
 					baseCatchChance
 				},
 				dontLocalizeFormatFields = true,
-				color = TextUtils.DescriptionColor
+				color = UserInterfaceUtils.DescriptionColor
 			});
 		}
 	}

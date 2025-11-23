@@ -10,14 +10,14 @@ namespace ItemBrowser.Browser {
 				gameObject.SetActive(value);
 
 				if (_wasShowing != value) {
-					if (value)
+					if (value) {
 						OnShow(!_hasBeenShownBefore);
-					else
+						_hasBeenShownBefore = true;
+					} else {
 						OnHide();
+					}
 
 					_wasShowing = value;
-					if (value)
-						_hasBeenShownBefore = true;
 				}
 			}
 		}

@@ -32,7 +32,7 @@ namespace ItemBrowser.Browser {
 			return new() {
 				new() {
 					text = objectListWindow.UseReverseSorting ? "ItemBrowser:SortingOrder/Descending" : "ItemBrowser:SortingOrder/Ascending",
-					color = TextUtils.DescriptionColor
+					color = UserInterfaceUtils.DescriptionColor
 				}
 			};
 		}

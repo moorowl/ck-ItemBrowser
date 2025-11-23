@@ -10,17 +10,19 @@ namespace ItemBrowser.Browser {
 
 		[SerializeField]
 		private GameObject optionalToggledMarker;
-
+		
+		private BoxCollider _boxCollider;
 		private UIScrollWindow _scrollWindow;
 		
-		public override float localScrollPosition =>  transform.localPosition.y + (_scrollWindow == null ? 0f : _scrollWindow.scrollingContent.localPosition.y);
+		public override float localScrollPosition => transform.localPosition.y - 0.625f;
 		private bool ShowHoverWindow => _scrollWindow == null || _scrollWindow.IsShowingPosition(localScrollPosition);
 		public override bool isVisibleOnScreen => ShowHoverWindow && base.isVisibleOnScreen;
-		public override bool isShowing => gameObject.activeInHierarchy && isVisibleOnScreen && canBeClicked;
+		public override UIScrollWindow uiScrollWindow => _scrollWindow;
 
 		protected override void Awake() {
 			base.Awake();
 			
+			_boxCollider = GetComponent<BoxCollider>();
 			_scrollWindow = GetComponentInParent<UIScrollWindow>();
 		}
 
@@ -39,6 +41,12 @@ namespace ItemBrowser.Browser {
 			
 			if (optionalToggledMarker != null)
 				optionalToggledMarker.SetActive(canBeClicked && (IsToggled || leftClickIsHeldDown || (onRightClick != null && onRightClick.GetPersistentEventCount() > 0 && rightClickIsHeldDown)));
+		}
+		
+		public override void OnSelected() {
+			base.OnSelected();
+			
+			_scrollWindow?.MoveScrollToIncludePosition(localScrollPosition, _boxCollider != null ? _boxCollider.size.sqrMagnitude : 0f);
 		}
 
 		public override TextAndFormatFields GetHoverTitle() {

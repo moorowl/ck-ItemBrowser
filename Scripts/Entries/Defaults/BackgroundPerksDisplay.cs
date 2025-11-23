@@ -35,7 +35,7 @@ namespace ItemBrowser.Entries.Defaults {
 				formatFields = new[] {
 					background.optionalTitle.mTerm
 				},
-				color = TextUtils.DescriptionColor
+				color = UserInterfaceUtils.DescriptionColor
 			});
 			MoreInfo.AddPadding();
 			MoreInfo.AddLine(new TextAndFormatFields {
@@ -44,7 +44,7 @@ namespace ItemBrowser.Entries.Defaults {
 					Entry.Result.Amount.ToString()
 				},
 				dontLocalizeFormatFields = true,
-				color = TextUtils.DescriptionColor
+				color = UserInterfaceUtils.DescriptionColor
 			});
 		}
 	}

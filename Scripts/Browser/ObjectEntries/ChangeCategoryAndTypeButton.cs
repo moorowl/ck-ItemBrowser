@@ -12,6 +12,8 @@ namespace ItemBrowser.Browser {
 		private SpriteRenderer[] icons;
 		[SerializeField]
 		private ButtonStyle style;
+		[SerializeField]
+		private bool cyclesForwards;
 
 		private int _categoryIndex;
 		private int _entriesInCategory;
@@ -82,13 +84,15 @@ namespace ItemBrowser.Browser {
 						_entriesInCategory.ToString()
 					},
 					dontLocalizeFormatFields = true,
-					color = TextUtils.DescriptionColor
+					color = UserInterfaceUtils.DescriptionColor
 				});
 			} else if (style == ButtonStyle.CycleCategory) {
 				lines.Add(new TextAndFormatFields {
 					text = _category.GetTitle(objectEntriesWindow.IsSelectedObjectNonObtainable),
-					color = TextUtils.DescriptionColor
+					color = UserInterfaceUtils.DescriptionColor
 				});
+				if (!UserInterfaceUtils.IsUsingMouseAndKeyboard)
+					UserInterfaceUtils.AppendButtonHint(lines, "ShortCutPC", cyclesForwards ? "ZoomInMap" : "ZoomOutMap");
 			} else if (style == ButtonStyle.CycleType) {
 				lines.Add(new() {
 					text = _entriesInType == 1 ? $"ItemBrowser:EntriesAmount/{_type}" : $"ItemBrowser:EntriesAmountPlural/{_type}",
@@ -96,8 +100,10 @@ namespace ItemBrowser.Browser {
 						_entriesInType.ToString()
 					},
 					dontLocalizeFormatFields = true,
-					color = TextUtils.DescriptionColor
+					color = UserInterfaceUtils.DescriptionColor
 				});
+				if (!UserInterfaceUtils.IsUsingMouseAndKeyboard)
+					UserInterfaceUtils.AppendButtonHint(lines, "ShortCutPC", cyclesForwards ? "MapNextMarker" : "MapPreviousMarker");
 			}
 
 			return lines;

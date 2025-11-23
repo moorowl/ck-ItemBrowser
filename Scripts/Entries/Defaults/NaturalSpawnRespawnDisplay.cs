@@ -57,27 +57,27 @@ namespace ItemBrowser.Entries.Defaults {
 					formatFields = new[] {
 						$"BiomeNames/{Entry.SpawnCheck.biome}"
 					},
-					color = TextUtils.DescriptionColor
+					color = UserInterfaceUtils.DescriptionColor
 				});
 			} else {
 				MoreInfo.AddLine(new TextAndFormatFields {
 					text = "ItemBrowser:MoreInfo/NaturalSpawnRespawn_0_AnyBiome",
-					color = TextUtils.DescriptionColor
+					color = UserInterfaceUtils.DescriptionColor
 				});
 			}
 			MoreInfo.AddPadding();
 			MoreInfo.AddLine(new TextAndFormatFields {
 				text = "ItemBrowser:MoreInfo/NaturalSpawnRespawn_1",
 				formatFields = new[] {
-					TextUtils.FormatChance(spawnChance)	
+					UserInterfaceUtils.FormatChance(spawnChance)	
 				},
 				dontLocalizeFormatFields = true,
-				color = TextUtils.DescriptionColor
+				color = UserInterfaceUtils.DescriptionColor
 			});
 			MoreInfo.AddPadding();
 			MoreInfo.AddLine(new TextAndFormatFields {
 				text = "ItemBrowser:MoreInfo/NaturalSpawnRespawn_2",
-				color = TextUtils.DescriptionColor
+				color = UserInterfaceUtils.DescriptionColor
 			});
 			MoreInfo.AddLine(new TextAndFormatFields {
 				text = "ItemBrowser:MoreInfo/NaturalSpawnRespawn_3",
@@ -85,7 +85,7 @@ namespace ItemBrowser.Entries.Defaults {
 					TileUtils.GetLocalizedDisplayName(Entry.SpawnCheck.tileType, Entry.TilesetToSpawnOn)
 				},
 				dontLocalizeFormatFields = true,
-				color = TextUtils.DescriptionColor
+				color = UserInterfaceUtils.DescriptionColor
 			});
 
 			var adjacentTiles = Entry.SpawnCheck.adjacentTiles.list;
@@ -93,7 +93,7 @@ namespace ItemBrowser.Entries.Defaults {
 				MoreInfo.AddPadding();
 				MoreInfo.AddLine(new TextAndFormatFields {
 					text = "ItemBrowser:MoreInfo/NaturalSpawnRespawn_4",
-					color = TextUtils.DescriptionColor
+					color = UserInterfaceUtils.DescriptionColor
 				});
 				
 				foreach (var adjacentTile in adjacentTiles) {
@@ -103,7 +103,7 @@ namespace ItemBrowser.Entries.Defaults {
 							TileUtils.GetLocalizedDisplayName(adjacentTile.tileType, adjacentTile.mustAlsoMatchTileset ? adjacentTile.tileset : null)
 						},
 						dontLocalizeFormatFields = true,
-						color = TextUtils.DescriptionColor
+						color = UserInterfaceUtils.DescriptionColor
 					});
 				}
 			}

@@ -42,26 +42,34 @@ namespace ItemBrowser.Entries.Defaults {
 						continue;
 					
 					var canCraftObjects = PugDatabase.GetBuffer<CanCraftObjectsBuffer>(objectData);
-					var startCanCraftObjectsIndex = 0;
-					var endCanCraftObjectsIndex = canCraftObjects.Length - 1;
+					var canCraftObjectsIndexesToInclude = new HashSet<int>();
 					
 					if (PugDatabase.HasComponent<IncludedCraftingBuildingsBuffer>(objectData)) {
-						var includedCraftingBuildings = PugDatabase.GetBuffer<IncludedCraftingBuildingsBuffer>(objectData);
+						var includedCraftingBuildings = PugDatabase.GetBuffer<IncludedCraftingBuildingsBuffer>(objectData).ConvertToList();
+						var endIndex = 0;
 
-						if (includedCraftingBuildings.Length > 0)
-							endCanCraftObjectsIndex = includedCraftingBuildings[0].amountOfCraftingOptions - 1;
+						if (includedCraftingBuildings.Count > 0) {
+							endIndex = includedCraftingBuildings[0].amountOfCraftingOptions - 1;
+							for (var i = 0; i <= endIndex; i++)
+								canCraftObjectsIndexesToInclude.Add(i);
+						}
 
-						if (includedCraftingBuildings.Length > 1) {
-							foreach (var includedCraftingBuilding in includedCraftingBuildings.ConvertToList().Skip(1)) {
-								if (ObjectUtils.GetLocalizedDisplayName(includedCraftingBuilding.objectID) == null)
-									endCanCraftObjectsIndex = math.max(endCanCraftObjectsIndex, includedCraftingBuilding.amountOfCraftingOptions - 1);
+						if (includedCraftingBuildings.Count > 1) {
+							foreach (var includedCraftingBuilding in includedCraftingBuildings.Skip(1)) {
+								if (ObjectUtils.GetLocalizedDisplayName(includedCraftingBuilding.objectID) == null) {
+									Main.Log(nameof(Crafting), $"{ObjectUtils.GetInternalName(objectData.objectID)} can craft {string.Join(',', Enumerable.Range(endIndex + 1, endIndex + includedCraftingBuilding.amountOfCraftingOptions - 1))} from {ObjectUtils.GetInternalName(includedCraftingBuilding.objectID)}");
+									for (var i = endIndex + 1; i < endIndex + includedCraftingBuilding.amountOfCraftingOptions; i++)
+										canCraftObjectsIndexesToInclude.Add(i);	
+								}
+								endIndex = math.max(endIndex, includedCraftingBuilding.amountOfCraftingOptions - 1);
 							}
 						}
+					} else {
+						for (var i = 0; i < canCraftObjects.Length; i++)
+							canCraftObjectsIndexesToInclude.Add(i);
 					}
-
-					Main.Log(nameof(Crafting), $"{API.Authoring.ObjectProperties.GetPropertyString(objectData.objectID, "name")} can craft {startCanCraftObjectsIndex}-{endCanCraftObjectsIndex}");
 					
-					for (var i = startCanCraftObjectsIndex; i <= endCanCraftObjectsIndex; i++) {
+					foreach (var i in canCraftObjectsIndexesToInclude) {
 						var canCraftObject = canCraftObjects[i];
 						var canCraftObjectInfo = PugDatabase.GetObjectInfo(canCraftObject.objectID);
 						if (canCraftObjectInfo == null)

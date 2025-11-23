@@ -356,7 +356,7 @@ public class Main : IMod {
 				Function = objectData => PugDatabase.HasComponent<PaintableObjectCD>(objectData)
 			});
 			ItemBrowserAPI.RegisterItemFilter(utilityGroup, new($"{utilityGroup}_Discovered") {
-				Function = objectData => Manager.saves.HasDiscoveredObject(objectData.objectID, objectData.variation),
+				Function = objectData => ObjectUtils.HasBeenDiscovered(objectData.objectID, objectData.variation),
 				FunctionIsDynamic = true,
 				DefaultState = () => ConfigFile.DefaultDiscoveredFilter ? FilterState.Include : FilterState.None
 			});
@@ -392,14 +392,14 @@ public class Main : IMod {
 				},
 				DefaultState = () => ConfigFile.DefaultTechnicalFilter ? FilterState.Exclude : FilterState.None
 			});
-			// For testing
+			/* For testing
 			ItemBrowserAPI.RegisterItemFilter(utilityGroup, new($"{utilityGroup}_NoSources") {
 				Function = objectData => !ItemBrowserAPI.ObjectEntries.GetAllEntries(ObjectEntryType.Source, objectData).Any()
 			});
 			ItemBrowserAPI.RegisterCreatureFilter(utilityGroup, new($"{utilityGroup}_NoSources") {
 				Function = objectData => !ItemBrowserAPI.ObjectEntries.GetAllEntries(ObjectEntryType.Source, objectData).Any()
 			});
-			/*ItemBrowserAPI.RegisterItemFilter(utilityGroup, new($"{utilityGroup}_IsNonObtainable") {
+			ItemBrowserAPI.RegisterItemFilter(utilityGroup, new($"{utilityGroup}_IsNonObtainable") {
 				Function = objectData => ObjectUtils.IsNonObtainable(objectData.objectID, objectData.variation)
 			});*/
 
@@ -409,7 +409,7 @@ public class Main : IMod {
 				if (UnusedCreatureFactions.Contains(faction))
 					continue;
 				
-				ItemBrowserAPI.RegisterCreatureFilter(factionGroup, new($"CheatTools:FactionNames/{faction}", $"{factionGroup}_FactionDesc") {
+				ItemBrowserAPI.RegisterCreatureFilter(factionGroup, new($"ItemBrowser:FactionNames/{faction}", $"{factionGroup}_FactionDesc") {
 					DescriptionFormatFields = new[] { faction.ToString() },
 					Function = objectData => PugDatabase.TryGetComponent<FactionCD>(objectData, out var factionCD) && factionCD.faction == faction
 				});

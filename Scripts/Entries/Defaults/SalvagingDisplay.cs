@@ -31,7 +31,7 @@ namespace ItemBrowser.Entries.Defaults {
 					ObjectUtils.GetLocalizedDisplayName(Entry.ItemSalvaged)
 				},
 				dontLocalizeFormatFields = true,
-				color = TextUtils.DescriptionColor
+				color = UserInterfaceUtils.DescriptionColor
 			});
 			if (Entry.ResultAmount.Min != Entry.ResultAmount.Max) {
 				// Drops x-x
@@ -42,7 +42,7 @@ namespace ItemBrowser.Entries.Defaults {
 						Entry.ResultAmount.Max.ToString()
 					},
 					dontLocalizeFormatFields = true,
-					color = TextUtils.DescriptionColor
+					color = UserInterfaceUtils.DescriptionColor
 				});
 			} else {
 				// Always drops x
@@ -52,7 +52,7 @@ namespace ItemBrowser.Entries.Defaults {
 						Entry.ResultAmount.Max.ToString()
 					},
 					dontLocalizeFormatFields = true,
-					color = TextUtils.DescriptionColor
+					color = UserInterfaceUtils.DescriptionColor
 				});
 			}
 		}

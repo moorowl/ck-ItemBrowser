@@ -200,6 +200,10 @@ namespace ItemBrowser.Utilities {
 			return GetPrimaryVariation(id, variation) == variation;
 		}
 
+		public static bool HasBeenDiscovered(ObjectID id, int variation = 0) {
+			return Manager.saves.HasDiscoveredObject(id, variation);
+		}
+
 		public static Sprite GetIcon(ObjectID id, int variation = 0, bool preferSmallIcons = false) {
 			var objectInfo = PugDatabase.GetObjectInfo(id, variation);
 			if (objectInfo == null)

@@ -60,21 +60,19 @@ namespace ItemBrowser.Entries.Defaults {
 					text = $"ItemBrowser:MoreInfo/CreatureSummoning_0_{Entry.SummoningMethod}",
 					formatFields = new[] {
 						ObjectUtils.GetLocalizedDisplayName(Entry.SummoningItem.Id, Entry.SummoningItem.Variation),
-						ObjectUtils.GetLocalizedDisplayName(Entry.SummoningArea.Id, Entry.SummoningArea.Variation),
-						ObjectUtils.GetLocalizedDisplayName(Entry.Creature.Id, Entry.Creature.Variation)
+						ObjectUtils.GetLocalizedDisplayName(Entry.SummoningArea.Id, Entry.SummoningArea.Variation)
 					},
 					dontLocalizeFormatFields = true,
-					color = TextUtils.DescriptionColor
+					color = UserInterfaceUtils.DescriptionColor
 				});
 			} else {
 				MoreInfo.AddLine(new TextAndFormatFields {
 					text = $"ItemBrowser:MoreInfo/CreatureSummoning_0_{Entry.SummoningMethod}",
 					formatFields = new[] {
-						ObjectUtils.GetLocalizedDisplayName(Entry.SummoningItem.Id, Entry.SummoningItem.Variation),
-						ObjectUtils.GetLocalizedDisplayName(Entry.Creature.Id, Entry.Creature.Variation)
+						ObjectUtils.GetLocalizedDisplayName(Entry.SummoningItem.Id, Entry.SummoningItem.Variation)
 					},
 					dontLocalizeFormatFields = true,
-					color = TextUtils.DescriptionColor
+					color = UserInterfaceUtils.DescriptionColor
 				});
 			}
 		}

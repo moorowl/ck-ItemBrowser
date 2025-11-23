@@ -1,24 +1,24 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using ItemBrowser.Utilities;
 using Unity.Mathematics;
 using UnityEngine;
 
-namespace ItemBrowser.Browser.ObjectList {
+namespace ItemBrowser.Browser {
 	public class VirtualObjectList : ItemSlotsUIContainer, IScrollable {
 		public Vector2Int size = Vector2Int.one;
 		
 		private float _currentScroll;
 		private int _prevStartIndex;
 		private int _prevSelectedIndex;
+		private List<ObjectDataCD> _objects = new();
+		private readonly Dictionary<int, int> _slotToObjectIndex = new();
 
 		public override bool isShowing => gameObject.activeInHierarchy;
 		public override int MAX_ROWS => size.y;
 		public override int MAX_COLUMNS => size.x;
 
 		public override UIScrollWindow uiScrollWindow => GetComponent<UIScrollWindow>();
-
-		private List<ObjectDataCD> _objects = new();
-		private readonly Dictionary<int, int> _slotToObjectIndex = new();
 		
 		public void SetObjects(List<ObjectDataCD> objects, bool preserveScrollPosition) {
 			if (_objects.SequenceEqual(objects))
@@ -33,11 +33,16 @@ namespace ItemBrowser.Browser.ObjectList {
 			
 			UpdateList();
 		}
+
+		public void SelectPreviousSlot() {
+			if (_prevSelectedIndex >= 0 && _prevSelectedIndex < itemSlots.Count)
+				UserInterfaceUtils.SelectAndMoveMouseTo(itemSlots[_prevSelectedIndex]);
+		}
 		
 		protected override void LateUpdate() {
 			base.LateUpdate();
 
-			if ((Manager.ui.currentSelectedUIElement == null || Manager.ui.currentSelectedUIElement is BlockingUIElement) && _objects.Count > 0 && !Manager.input.singleplayerInputModule.PrefersKeyboardAndMouse()) {
+			if ((Manager.ui.currentSelectedUIElement == null || Manager.ui.currentSelectedUIElement is BlockingUIElement) && _objects.Count > 0 && !UserInterfaceUtils.IsUsingMouseAndKeyboard) {
 				foreach (var slot in itemSlots) {
 					if (slot.visibleSlotIndex == 0) {
 						slot.Select();
@@ -97,7 +102,7 @@ namespace ItemBrowser.Browser.ObjectList {
 
 		public float GetCurrentWindowHeight() {
 			if (itemSlots.Count > MAX_COLUMNS)
-				return (math.abs(itemSlots[0].transform.localPosition.y - itemSlots[MAX_COLUMNS].transform.localPosition.y) * ((_objects.Count - 1f) / MAX_COLUMNS + 1f)) - 1.25f;
+				return (math.abs(itemSlots[0].transform.localPosition.y - itemSlots[MAX_COLUMNS].transform.localPosition.y) * ((_objects.Count - 1f) / MAX_COLUMNS + 1f));
 
 			return 0f;
 		}
@@ -134,12 +139,13 @@ namespace ItemBrowser.Browser.ObjectList {
 
 			if (_prevStartIndex != num) {
 				_prevStartIndex = num;
-				if (Manager.ui.currentSelectedUIElement is VirtualObjectListItem && (!Manager.input.SystemPrefersKeyboardAndMouse() || !Manager.input.SystemIsUsingMouse())) {
+				if (Manager.ui.currentSelectedUIElement is VirtualObjectListItem && !UserInterfaceUtils.IsUsingMouseAndKeyboard) {
 					for (var j = 0; j < itemSlots.Count; j++) {
 						if (itemSlots[j].visibleSlotIndex == _prevSelectedIndex) {
-							Manager.ui.DeselectAnySelectedUIElement();
-							itemSlots[j].Select();
-							Manager.ui.mouse.PlaceMousePositionOnSelectedUIElementWhenControlledByJoystick();
+							foreach (var slot in itemSlots)
+								slot.OnDeselectSlot();
+							
+							UserInterfaceUtils.SelectAndMoveMouseTo(itemSlots[j]);
 						}
 					}
 				}

@@ -58,14 +58,14 @@ namespace ItemBrowser.Entries.Defaults {
 					Entry.Level.To.ToString()
 				},
 				dontLocalizeFormatFields = true,
-				color = TextUtils.DescriptionColor
+				color = UserInterfaceUtils.DescriptionColor
 			});
 			
 			// "Materials" header
 			MoreInfo.AddPadding();
 			MoreInfo.AddLine(new TextAndFormatFields {
 				text = "ItemBrowser:MoreInfo/UpgradeMaterial_1",
-				color = TextUtils.DescriptionColor
+				color = UserInterfaceUtils.DescriptionColor
 			});
 			
 			// Materials list
@@ -77,7 +77,7 @@ namespace ItemBrowser.Entries.Defaults {
 						material.Amount.ToString()
 					},
 					dontLocalizeFormatFields = true,
-					color = TextUtils.DescriptionColor
+					color = UserInterfaceUtils.DescriptionColor
 				});
 			}
 		}

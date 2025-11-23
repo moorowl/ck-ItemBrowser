@@ -47,17 +47,31 @@ namespace ItemBrowser.Browser {
 			_ => throw new ArgumentOutOfRangeException()
 		};
 		public bool IsSelectedObjectNonObtainable { get; private set; }
-		
-		private void LateUpdate() {
-			var inputModule = Manager.main.player.inputModule;
 
-			/*if (_entries.Count > 1) {
-				if (inputModule.WasButtonPressedDownThisFrame(PlayerInput.InputType.NEXT_SLOT))
-					CycleToNextCategory();
-				
-				if (inputModule.WasButtonPressedDownThisFrame(PlayerInput.InputType.PREVIOUS_SLOT))
-					CycleToPreviousCategory();
-			}*/
+		protected override void OnShow(bool isFirstTimeShowing) {
+			if (!UserInterfaceUtils.IsUsingMouseAndKeyboard)
+				UserInterfaceUtils.SelectAndMoveMouseTo(selectedItemSlot);
+		}
+
+		private void LateUpdate() {
+			UpdateControllerInput();
+		}
+
+		private void UpdateControllerInput() {
+			if (UserInterfaceUtils.IsUsingMouseAndKeyboard)
+				return;
+			
+			var inputModule = Manager.input.singleplayerInputModule;
+
+			if (nextCategoryButton.canBeClicked && inputModule.WasButtonPressedDownThisFrame(PlayerInput.InputType.ZOOM_IN_MAP))
+				CycleToNextCategory();
+			if (prevCategoryButton.canBeClicked && inputModule.WasButtonPressedDownThisFrame(PlayerInput.InputType.ZOOM_OUT_MAP))
+				CycleToPreviousCategory();
+
+			if (nextTypeButton.canBeClicked && inputModule.WasButtonPressedDownThisFrame(PlayerInput.InputType.SELECT_NEXT_MAP_MARKER))
+				CycleType();
+			if (prevTypeButton.canBeClicked && inputModule.WasButtonPressedDownThisFrame(PlayerInput.InputType.SELECT_PREVIOUS_MAP_MARKER))
+				CycleType();
 		}
 
 		private void TryInstantiateCategoryButtons() {
@@ -200,6 +214,10 @@ namespace ItemBrowser.Browser {
 				nextCategory = _entries.Count - 1;
 			
 			SetCategory(nextCategory);
+		}
+		
+		private void CycleType() {
+			SetTypeAndCategory(NextType, SelectedCategory);
 		}
 	}
 }

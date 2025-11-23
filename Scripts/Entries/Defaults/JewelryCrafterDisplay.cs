@@ -26,7 +26,7 @@ namespace ItemBrowser.Entries.Defaults {
 					ObjectUtils.GetLocalizedDisplayName(Entry.UnpolishedVersion)
 				},
 				dontLocalizeFormatFields = true,
-				color = TextUtils.DescriptionColor
+				color = UserInterfaceUtils.DescriptionColor
 			});
 			var chanceAtMin = Manager.mod.SkillTalentsTable.skillTalentTrees.SelectMany(tree => tree.skillTalents)
 				.FirstOrDefault(talent => talent.givesCondition == ConditionID.ChanceForPolishedJewelry).conditionValuePerPoint;
@@ -39,7 +39,7 @@ namespace ItemBrowser.Entries.Defaults {
 					chanceAtMax.ToString(),
 				},
 				dontLocalizeFormatFields = true,
-				color = TextUtils.DescriptionColor
+				color = UserInterfaceUtils.DescriptionColor
 			});	
 		}
 	}

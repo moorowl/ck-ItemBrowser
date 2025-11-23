@@ -32,7 +32,7 @@ namespace ItemBrowser.Entries.Defaults {
 					ObjectUtils.GetLocalizedDisplayName(Entry.Seed)
 				},
 				dontLocalizeFormatFields = true,
-				color = TextUtils.DescriptionColor
+				color = UserInterfaceUtils.DescriptionColor
 			});
 			if (Entry.RequiresGoldSeed) {
 				var chanceAtMin = Manager.mod.SkillTalentsTable.skillTalentTrees.SelectMany(tree => tree.skillTalents)
@@ -46,7 +46,7 @@ namespace ItemBrowser.Entries.Defaults {
 						chanceAtMax.ToString(),
 					},
 					dontLocalizeFormatFields = true,
-					color = TextUtils.DescriptionColor
+					color = UserInterfaceUtils.DescriptionColor
 				});	
 			}
 			MoreInfo.AddPadding();
@@ -56,7 +56,7 @@ namespace ItemBrowser.Entries.Defaults {
 					(Entry.GrowthTime / 60f).ToString(CultureInfo.InvariantCulture)
 				},
 				dontLocalizeFormatFields = true,
-				color = TextUtils.DescriptionColor
+				color = UserInterfaceUtils.DescriptionColor
 			});
 		}
 	}

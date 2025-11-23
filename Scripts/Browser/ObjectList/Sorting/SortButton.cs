@@ -11,7 +11,7 @@ namespace ItemBrowser.Browser {
 			return new List<TextAndFormatFields> {
 				new() {
 					text = objectListWindow.CurrentSorter.Name,
-					color = TextUtils.DescriptionColor
+					color = UserInterfaceUtils.DescriptionColor
 				}
 			};
 		}

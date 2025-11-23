@@ -45,12 +45,12 @@ namespace ItemBrowser.Entries.Defaults {
 					Entry.SuitableFeedRequired.ToString()
 				},
 				dontLocalizeFormatFields = true,
-				color = TextUtils.DescriptionColor
+				color = UserInterfaceUtils.DescriptionColor
 			});
 			MoreInfo.AddPadding();
 			MoreInfo.AddLine(new TextAndFormatFields {
 				text = "ItemBrowser:MoreInfo/CattleProduce_1",
-				color = TextUtils.DescriptionColor
+				color = UserInterfaceUtils.DescriptionColor
 			});
 			foreach (var feed in Entry.SuitableFeed) {
 				MoreInfo.AddLine(new TextAndFormatFields {
@@ -58,7 +58,7 @@ namespace ItemBrowser.Entries.Defaults {
 					formatFields = new[] {
 						$"ItemBrowser:ObjectCategoryNames/{feed}"
 					},
-					color = TextUtils.DescriptionColor
+					color = UserInterfaceUtils.DescriptionColor
 				});
 			}
 		}

@@ -55,7 +55,7 @@ namespace ItemBrowser.Entries.Defaults {
 			
 			var showPoolTypeText = Entry.IsFromTableWithGuaranteedPool;
 
-			chanceForOneText.Render(TextUtils.FormatChance(Entry.ChanceForOne()) + "%");
+			chanceForOneText.Render(UserInterfaceUtils.FormatChance(Entry.ChanceForOne()) + "%");
 			chanceForOneText.transform.localPosition = new Vector3(
 				chanceForOneText.transform.localPosition.x,
 				showPoolTypeText ? textOffsetWhenShowingBoth : 0f,
@@ -69,9 +69,9 @@ namespace ItemBrowser.Entries.Defaults {
 
 		private void RenderMoreInfo() {
 			var showPoolTypeText = Entry.IsFromTableWithGuaranteedPool;
-			var rolls = TextUtils.FormatAmountOrRollsRange(Entry.Rolls());
-			var chanceForOne = TextUtils.FormatChance(Entry.ChanceForOne());
-			var chancePerRoll = TextUtils.FormatChance(Entry.Chance);
+			var rolls = UserInterfaceUtils.FormatAmountOrRollsRange(Entry.Rolls());
+			var chanceForOne = UserInterfaceUtils.FormatChance(Entry.ChanceForOne());
+			var chancePerRoll = UserInterfaceUtils.FormatChance(Entry.Chance);
 
 			MoreInfo.AddLine(new TextAndFormatFields {
 				text = showPoolTypeText ? (Entry.IsFromGuaranteedPool ? "ItemBrowser:MoreInfo/Loot_0_GuaranteedPool" : "ItemBrowser:MoreInfo/Loot_0_RandomPool") : "ItemBrowser:MoreInfo/Loot_0",
@@ -79,7 +79,7 @@ namespace ItemBrowser.Entries.Defaults {
 					ObjectUtils.GetLocalizedDisplayName(Entry.Entity.Id, Entry.Entity.Variation)
 				},
 				dontLocalizeFormatFields = true,
-				color = TextUtils.DescriptionColor
+				color = UserInterfaceUtils.DescriptionColor
 			});
 			MoreInfo.AddPadding();
 			if (chanceForOne != chancePerRoll) {
@@ -89,7 +89,7 @@ namespace ItemBrowser.Entries.Defaults {
 						chanceForOne
 					},
 					dontLocalizeFormatFields = true,
-					color = TextUtils.DescriptionColor
+					color = UserInterfaceUtils.DescriptionColor
 				});
 				MoreInfo.AddLine(new TextAndFormatFields {
 					text = "ItemBrowser:MoreInfo/Loot_1_PerRoll",
@@ -98,7 +98,7 @@ namespace ItemBrowser.Entries.Defaults {
 						rolls
 					},
 					dontLocalizeFormatFields = true,
-					color = TextUtils.DescriptionColor
+					color = UserInterfaceUtils.DescriptionColor
 				});
 			} else {
 				MoreInfo.AddLine(new TextAndFormatFields {
@@ -107,7 +107,7 @@ namespace ItemBrowser.Entries.Defaults {
 						chanceForOne
 					},
 					dontLocalizeFormatFields = true,
-					color = TextUtils.DescriptionColor
+					color = UserInterfaceUtils.DescriptionColor
 				});
 			}
 			
@@ -120,7 +120,7 @@ namespace ItemBrowser.Entries.Defaults {
 						formatFields = new[] {
 							$"BiomeNames/{Entry.OnlyDropsInBiome}"
 						},
-						color = TextUtils.DescriptionColor
+						color = UserInterfaceUtils.DescriptionColor
 					});	
 				}
 			}
@@ -139,7 +139,7 @@ namespace ItemBrowser.Entries.Defaults {
 			if (Entry.FoundInScenes.Count > 0) {
 				structureInfo.AddLine(new TextAndFormatFields {
 					text = "ItemBrowser:MoreInfo/Loot_3",
-					color = TextUtils.DescriptionColor
+					color = UserInterfaceUtils.DescriptionColor
 				});
 
 				foreach (var scene in Entry.FoundInScenes) {
@@ -149,7 +149,7 @@ namespace ItemBrowser.Entries.Defaults {
 							StructureUtils.GetPersistentSceneName(scene.Name)
 						},
 						dontLocalizeFormatFields = true,
-						color = TextUtils.DescriptionColor
+						color = UserInterfaceUtils.DescriptionColor
 					});	
 				}
 			}

@@ -29,12 +29,12 @@ namespace ItemBrowser.Entries.Defaults {
 					buyCost.ToString()
 				},
 				dontLocalizeFormatFields = true,
-				color = TextUtils.DescriptionColor
+				color = UserInterfaceUtils.DescriptionColor
 			});
 			if (Entry.Requirement != MerchantItemRequirement.None) {
 				MoreInfo.AddLine(new TextAndFormatFields {
 					text = $"ItemBrowser:MoreInfo/Merchant_2_{Entry.Requirement}",
-					color = TextUtils.DescriptionColor
+					color = UserInterfaceUtils.DescriptionColor
 				});
 			}
 			MoreInfo.AddLine(new TextAndFormatFields {
@@ -43,7 +43,7 @@ namespace ItemBrowser.Entries.Defaults {
 					Entry.Stock.ToString()
 				},
 				dontLocalizeFormatFields = true,
-				color = TextUtils.DescriptionColor
+				color = UserInterfaceUtils.DescriptionColor
 			});
 		}
 	}

@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using ItemBrowser.Utilities;
+using UnityEngine;
 
 namespace ItemBrowser.Browser {
 	public class SelectedItemSlot : BasicItemSlot {
@@ -9,9 +11,22 @@ namespace ItemBrowser.Browser {
 			DisplayedObject = new DisplayedObject.Static(objectData);
 		}
 
-		/*public override void OnLeftClicked(bool mod1, bool mod2) {
-			AudioManager.SfxUI(Manager.audio.InspectorFriendlySfxIDToSfxID(SfxUnityInspectorFriendlyID.FIXME_menu_select), 0.6f, false, 1f, 0f);
-			itemBrowserUI.ShowItemList();
-		}*/
+		protected override void LateUpdate() {
+			base.LateUpdate();
+
+			if ((Manager.ui.currentSelectedUIElement == null || Manager.ui.currentSelectedUIElement is BlockingUIElement) && !UserInterfaceUtils.IsUsingMouseAndKeyboard)
+				UserInterfaceUtils.SelectAndMoveMouseTo(this);
+		}
+
+		public override void OnLeftClicked(bool mod1, bool mod2) {
+			itemBrowserUI.GoBack();
+		}
+
+		public override List<TextAndFormatFields> GetHoverDescription() {
+			var lines = base.GetHoverDescription() ?? new List<TextAndFormatFields>();
+			UserInterfaceUtils.AppendButtonHint(lines, "ItemBrowser:ButtonHint/GoBack", "UIInteract");
+
+			return lines;
+		}
 	}
 }

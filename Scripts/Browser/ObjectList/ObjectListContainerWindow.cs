@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace ItemBrowser.Browser.ObjectList {
+namespace ItemBrowser.Browser {
 	public class ObjectListContainerWindow : ItemBrowserWindow {
 		[SerializeField]
 		private ItemListWindow itemListWindow;

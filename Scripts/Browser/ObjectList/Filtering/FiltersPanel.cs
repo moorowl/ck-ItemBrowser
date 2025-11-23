@@ -39,10 +39,6 @@ namespace ItemBrowser.Browser {
 		public IEnumerable<Filter<ObjectDataCD>> FiltersToExclude => _filterButtons
 			.Where(filterButton => filterButton.CurrentState == FilterState.Exclude)
 			.Select(filterButton => filterButton.Filter);
-
-		private void Awake() {
-			Clear();
-		}
 		
 		public void AddHeader(string term) {
 			_left = 0f;
@@ -69,6 +65,7 @@ namespace ItemBrowser.Browser {
 			button.SetFilter(filter);
 			
 			_filterButtons.Add(button);
+			childElements.Add(button);
 
 			_left += filterSpread;
 		}
@@ -81,6 +78,7 @@ namespace ItemBrowser.Browser {
 		public void Clear() {
 			_top = headerPaddingTop;
 			_filterButtons.Clear();
+			childElements.Clear();
 			scrollWindow.ResetScroll();	
 			
 			for (var i = 0; i < scrollWindow.scrollingContent.childCount; i++)

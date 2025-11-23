@@ -35,9 +35,9 @@ namespace ItemBrowser.Entries.Defaults {
 			});
 			
 			var showPoolTypeText = Entry.IsFromTableWithGuaranteedPool;
-			var chanceText = $"{TextUtils.FormatChance(Entry.ChanceForOne)}%";
+			var chanceText = $"{UserInterfaceUtils.FormatChance(Entry.ChanceForOne)}%";
 			if (Entry.ChanceWhenBraveMerchantAlive != null)
-				chanceText = $"{chanceText} / {TextUtils.FormatChance(Entry.ChanceWhenBraveMerchantAlive.Value)}%";
+				chanceText = $"{chanceText} / {UserInterfaceUtils.FormatChance(Entry.ChanceWhenBraveMerchantAlive.Value)}%";
 
 			chanceForOneText.Render(chanceText);
 			chanceForOneText.transform.localPosition = new Vector3(
@@ -54,12 +54,12 @@ namespace ItemBrowser.Entries.Defaults {
 		private void RenderMoreInfo() {
 			var showPoolTypeText = Entry.IsFromTableWithGuaranteedPool;
 			var rolls = Entry.Rolls;
-			var chanceForOne = TextUtils.FormatChance(Entry.ChanceForOne);
-			var chancePerRoll = TextUtils.FormatChance(Entry.Chance);
+			var chanceForOne = UserInterfaceUtils.FormatChance(Entry.ChanceForOne);
+			var chancePerRoll = UserInterfaceUtils.FormatChance(Entry.Chance);
 			
 			MoreInfo.AddLine(new TextAndFormatFields {
 				text = showPoolTypeText ? (Entry.IsFromGuaranteedPool ? "ItemBrowser:MoreInfo/ChallengeArenaReward_0_GuaranteedPool" : "ItemBrowser:MoreInfo/ChallengeArenaReward_0_RandomPool") : "ItemBrowser:MoreInfo/ChallengeArenaReward_0",
-				color = TextUtils.DescriptionColor
+				color = UserInterfaceUtils.DescriptionColor
 			});
 			MoreInfo.AddPadding();
 			if (chanceForOne != chancePerRoll) {
@@ -69,7 +69,7 @@ namespace ItemBrowser.Entries.Defaults {
 						chanceForOne
 					},
 					dontLocalizeFormatFields = true,
-					color = TextUtils.DescriptionColor
+					color = UserInterfaceUtils.DescriptionColor
 				});
 				MoreInfo.AddLine(new TextAndFormatFields {
 					text = "ItemBrowser:MoreInfo/ChallengeArenaReward_1_PerRoll",
@@ -78,7 +78,7 @@ namespace ItemBrowser.Entries.Defaults {
 						rolls.Min != rolls.Max ? $"{rolls.Min}-{rolls.Max}" : $"{rolls.Max}"
 					},
 					dontLocalizeFormatFields = true,
-					color = TextUtils.DescriptionColor
+					color = UserInterfaceUtils.DescriptionColor
 				});
 			} else {
 				MoreInfo.AddLine(new TextAndFormatFields {
@@ -87,7 +87,7 @@ namespace ItemBrowser.Entries.Defaults {
 						chanceForOne
 					},
 					dontLocalizeFormatFields = true,
-					color = TextUtils.DescriptionColor
+					color = UserInterfaceUtils.DescriptionColor
 				});
 			}
 
@@ -95,10 +95,10 @@ namespace ItemBrowser.Entries.Defaults {
 				MoreInfo.AddLine(new TextAndFormatFields {
 					text = "ItemBrowser:MoreInfo/ChallengeArenaReward_1_BraveMerchant",
 					formatFields = new[] {
-						TextUtils.FormatChance(Entry.ChanceWhenBraveMerchantAlive.Value)
+						UserInterfaceUtils.FormatChance(Entry.ChanceWhenBraveMerchantAlive.Value)
 					},
 					dontLocalizeFormatFields = true,
-					color = TextUtils.DescriptionColor
+					color = UserInterfaceUtils.DescriptionColor
 				});
 			}
 			
@@ -111,7 +111,7 @@ namespace ItemBrowser.Entries.Defaults {
 						formatFields = new[] {
 							$"BiomeNames/{Entry.OnlyDropsInBiome}"
 						},
-						color = TextUtils.DescriptionColor
+						color = UserInterfaceUtils.DescriptionColor
 					});	
 				}
 			}

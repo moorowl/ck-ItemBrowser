@@ -31,7 +31,7 @@ namespace ItemBrowser.Entries.Defaults {
 			if (Entry.Source.Id == ObjectID.None) {
 				MoreInfo.AddLine(new TextAndFormatFields {
 					text = Entry.Term,
-					color = TextUtils.DescriptionColor
+					color = UserInterfaceUtils.DescriptionColor
 				});
 			} else {
 				MoreInfo.AddLine(new TextAndFormatFields {
@@ -40,7 +40,7 @@ namespace ItemBrowser.Entries.Defaults {
 						ObjectUtils.GetLocalizedDisplayName(Entry.Source.Id, Entry.Source.Variation)
 					},
 					dontLocalizeFormatFields = true,
-					color = TextUtils.DescriptionColor
+					color = UserInterfaceUtils.DescriptionColor
 				});
 			}
 		}

@@ -37,7 +37,7 @@ namespace ItemBrowser.Entries.Defaults {
 					buyCost.ToString()
 				},
 				dontLocalizeFormatFields = true,
-				color = TextUtils.DescriptionColor
+				color = UserInterfaceUtils.DescriptionColor
 			});
 		}
 	}

@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using ItemBrowser.Browser.ObjectList;
+using System.Threading.Tasks;
 using ItemBrowser.Config;
 using ItemBrowser.Utilities;
 using ItemBrowser.Utilities.DataStructures.SortingAndFiltering;
@@ -10,6 +9,8 @@ using UnityEngine;
 
 namespace ItemBrowser.Browser {
 	public abstract class ObjectListWindow : ItemBrowserWindow {
+		private const float DynamicFiltersRefreshInterval = 0.5f;
+		
 		[SerializeField]
 		private VirtualObjectList objectList;
 		[SerializeField]
@@ -22,9 +23,9 @@ namespace ItemBrowser.Browser {
 		private FiltersPanel[] filtersPanels;
 		public Transform tabButtonsAnchor;
 		
-		private bool _refreshItemList;
+		private bool _refreshList;
 		private bool _preserveScrollOnRefresh;
-		private float _refreshedItemListTime;
+		private float _refreshedListTime;
 
 		public int IncludedObjects { get; private set; }
 		public int ExcludedObjects { get; private set; }
@@ -46,17 +47,16 @@ namespace ItemBrowser.Browser {
 		});
 
 		private FiltersPanel PrimaryFiltersPanel => filtersPanels[0];
-
-		private void Awake() {
-			PrimaryFiltersPanel.IsShowing = false;
-		}
-
+		
 		protected override void OnShow(bool isFirstTimeShowing) {
 			objectList.ShowContainerUI();
 			if (isFirstTimeShowing) {
 				SetupFiltersAndSorting();
-				RefreshItemList(false);
+				RefreshList(false);
 			}
+
+			if (!UserInterfaceUtils.IsUsingMouseAndKeyboard)
+				objectList.SelectPreviousSlot();
 			
 			AdjustWindowPosition();
 		}
@@ -72,17 +72,17 @@ namespace ItemBrowser.Browser {
 					otherSearchInput.SetInputText(currentSearchTerm);
 				
 				AdjustSearchFieldPosition();
-				RequestItemListRefresh(false);
+				RequestListRefresh(false);
 				_lastSearchTerm = currentSearchTerm;
 			}
+
+			if (PrimaryFiltersPanel.HasDynamicFiltersEnabled && Time.time >= _refreshedListTime + DynamicFiltersRefreshInterval)
+				RequestListRefresh(true);
 			
-			if (PrimaryFiltersPanel.HasDynamicFiltersEnabled && Time.time >= _refreshedItemListTime + 1f)
-				RequestItemListRefresh(true);
-			
-			if (_refreshItemList) {
-				RefreshItemList(_preserveScrollOnRefresh);
+			if (_refreshList) {
+				RefreshList(_preserveScrollOnRefresh);
 				_preserveScrollOnRefresh = true;
-				_refreshItemList = false;
+				_refreshList = false;
 			}
 		}
 		
@@ -114,9 +114,12 @@ namespace ItemBrowser.Browser {
 			var shouldShow = !PrimaryFiltersPanel.IsShowing;
 			foreach (var panel in filtersPanels)
 				panel.IsShowing = shouldShow;
-			
-			Manager.ui.DeselectAnySelectedUIElement();
-			Manager.ui.mouse.UpdateMouseUIInput(out _, out _);
+
+			if (UserInterfaceUtils.IsUsingMouse) {
+				Manager.ui.DeselectAnySelectedUIElement();
+				Manager.ui.mouse.UpdateMouseUIInput(out _, out _);				
+			}
+
 			AdjustWindowPosition();
 		}
 
@@ -125,7 +128,7 @@ namespace ItemBrowser.Browser {
 			if (_currentSorterIndex >= _sorters.Count)
 				_currentSorterIndex = 0;
 			
-			RequestItemListRefresh(false);
+			RequestListRefresh(false);
 		}
 		
 		public void PrevSort() {
@@ -133,12 +136,12 @@ namespace ItemBrowser.Browser {
 			if (_currentSorterIndex < 0)
 				_currentSorterIndex = _sorters.Count - 1;
 			
-			RequestItemListRefresh(false);
+			RequestListRefresh(false);
 		}
 
 		public void CycleSortOrder() {
 			UseReverseSorting = !UseReverseSorting;
-			RequestItemListRefresh(false);
+			RequestListRefresh(false);
 		}
 
 		public void ClearSearch() {
@@ -148,7 +151,7 @@ namespace ItemBrowser.Browser {
 		}
 		
 		private void AdjustWindowPosition() {
-			transform.localPosition = new Vector3(PrimaryFiltersPanel.IsShowing ? -((PrimaryFiltersPanel.WindowWidth / 2f) + (1f / 16f)) : 0f, transform.localPosition.y, transform.localPosition.z);
+			transform.localPosition = new Vector3(Mathf.Round(PrimaryFiltersPanel.IsShowing ? -((PrimaryFiltersPanel.WindowWidth / 2f) + (1f / 16f)) : 0f), transform.localPosition.y, transform.localPosition.z);
 		}
 		
 		private void AdjustSearchFieldPosition() {
@@ -161,32 +164,32 @@ namespace ItemBrowser.Browser {
 			API.Reflection.Invoke(member, searchInput);
 		}
 
-		public void RequestItemListRefresh(bool preserveScroll) {
-			_refreshItemList = true;
-			if (!preserveScroll)
+		public void RequestListRefresh(bool preserveScrollPosition) {
+			_refreshList = true;
+			if (!preserveScrollPosition)
 				_preserveScrollOnRefresh = false;
 		}
-
-		private void RefreshItemList(bool preserveScrollPosition) {
+		
+		private void RefreshList(bool preserveScrollPosition) {
 			_searchFilter.Term = SearchTerm;
 			
 			// Filtering
-			var allItems = GetIncludedObjects();
-			var filteredItems = allItems
+			var allObjects = GetIncludedObjects();
+			var filteredObjects = allObjects
 				.Where(MatchesFilters)
-				.OrderBy(item => ConfigFile.FavoritedObjects.Contains(item) ? 1 : 0)
-				.ThenBy(item => CurrentSorter.Function(item))
-				.ThenBy(item => _sorters[0].Function(item))
+				.OrderBy(objectData => ConfigFile.FavoritedObjects.Contains(objectData) ? 1 : 0)
+				.ThenBy(objectData => CurrentSorter.Function(objectData))
+				.ThenBy(objectData => _sorters[0].Function(objectData))
 				.ToList();
-			
+
 			if (UseReverseSorting)
-				filteredItems.Reverse();
-				
-			objectList.SetObjects(filteredItems, preserveScrollPosition);
-			_refreshedItemListTime = Time.time;
+				filteredObjects.Reverse();
 			
-			IncludedObjects = filteredItems.Count;
-			ExcludedObjects = allItems.Count - IncludedObjects;
+			IncludedObjects = filteredObjects.Count;
+			ExcludedObjects = allObjects.Count - IncludedObjects;
+			
+			objectList.SetObjects(filteredObjects, preserveScrollPosition);
+			_refreshedListTime = Time.time;
 		}
 
 		private bool MatchesFilters(ObjectDataCD objectData) {

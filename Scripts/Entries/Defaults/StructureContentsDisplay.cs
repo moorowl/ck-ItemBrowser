@@ -45,7 +45,7 @@ namespace ItemBrowser.Entries.Defaults {
 						StructureUtils.GetPersistentSceneName(Entry.Scene)
 					},
 					dontLocalizeFormatFields = true,
-					color = TextUtils.DescriptionColor
+					color = UserInterfaceUtils.DescriptionColor
 				});
 				MoreInfo.AddPadding();
 				MoreInfo.AddLine(new TextAndFormatFields {
@@ -54,7 +54,7 @@ namespace ItemBrowser.Entries.Defaults {
 						Entry.Result.Amount.ToString()
 					},
 					dontLocalizeFormatFields = true,
-					color = TextUtils.DescriptionColor
+					color = UserInterfaceUtils.DescriptionColor
 				});
 			} else if (Entry.Dungeon != null) {
 				MoreInfo.AddLine(new TextAndFormatFields {
@@ -63,12 +63,12 @@ namespace ItemBrowser.Entries.Defaults {
 						Entry.Dungeon
 					},
 					dontLocalizeFormatFields = true,
-					color = TextUtils.DescriptionColor
+					color = UserInterfaceUtils.DescriptionColor
 				});
 				MoreInfo.AddPadding();
 				MoreInfo.AddLine(new TextAndFormatFields {
 					text = "ItemBrowser:MoreInfo/StructureContents_2_Dungeon",
-					color = TextUtils.DescriptionColor
+					color = UserInterfaceUtils.DescriptionColor
 				});
 			}
 		}
