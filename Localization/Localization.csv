@@ -107,6 +107,10 @@ ItemBrowser:Filters/Utility_CookingIngredient	Text		Cooking ingredient
 ItemBrowser:Filters/Utility_CookingIngredientDesc	Text		Items that are cooking ingredients												
 ItemBrowser:Filters/Utility_Paintable	Text		Paintable												
 ItemBrowser:Filters/Utility_PaintableDesc	Text		Items that are paintable												
+ItemBrowser:Filters/Utility_NoSources_Item	Text		No sources												
+ItemBrowser:Filters/Utility_NoSources_ItemDesc	Text		Items that don't have any sources												
+ItemBrowser:Filters/Utility_NoSources_Creature	Text		No sources												
+ItemBrowser:Filters/Utility_NoSources_CreatureDesc	Text		Creatures that don't have any sources												
 ItemBrowser:Filters/Rarity	Text		Rarity												
 ItemBrowser:Filters/Rarity_Poor	Text		Poor												
 ItemBrowser:Filters/Rarity_PoorDesc	Text		Items of rarity poor												

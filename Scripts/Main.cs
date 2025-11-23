@@ -392,14 +392,15 @@ public class Main : IMod {
 				},
 				DefaultState = () => ConfigFile.DefaultTechnicalFilter ? FilterState.Exclude : FilterState.None
 			});
-			/* For testing
-			ItemBrowserAPI.RegisterItemFilter(utilityGroup, new($"{utilityGroup}_NoSources") {
-				Function = objectData => !ItemBrowserAPI.ObjectEntries.GetAllEntries(ObjectEntryType.Source, objectData).Any()
+			ItemBrowserAPI.RegisterItemFilter(utilityGroup, new($"{utilityGroup}_NoSources_Item") {
+				Function = objectData => !ItemBrowserAPI.ObjectEntries.GetAllEntries(ObjectEntryType.Source, objectData).Any(),
+				DefaultState = () => ConfigFile.CheatMode ? FilterState.None : FilterState.Exclude
 			});
-			ItemBrowserAPI.RegisterCreatureFilter(utilityGroup, new($"{utilityGroup}_NoSources") {
-				Function = objectData => !ItemBrowserAPI.ObjectEntries.GetAllEntries(ObjectEntryType.Source, objectData).Any()
+			ItemBrowserAPI.RegisterCreatureFilter(utilityGroup, new($"{utilityGroup}_NoSources_Creature") {
+				Function = objectData => !ItemBrowserAPI.ObjectEntries.GetAllEntries(ObjectEntryType.Source, objectData).Any(),
+				DefaultState = () => ConfigFile.CheatMode ? FilterState.None : FilterState.Exclude
 			});
-			ItemBrowserAPI.RegisterItemFilter(utilityGroup, new($"{utilityGroup}_IsNonObtainable") {
+			/*ItemBrowserAPI.RegisterItemFilter(utilityGroup, new($"{utilityGroup}_IsNonObtainable") {
 				Function = objectData => ObjectUtils.IsNonObtainable(objectData.objectID, objectData.variation)
 			});*/
 
