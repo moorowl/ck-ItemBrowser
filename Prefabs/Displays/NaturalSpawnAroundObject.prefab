@@ -293,7 +293,7 @@ MonoBehaviour:
   entitySlot: {fileID: 9122015134071768588}
   plusTextRight: {fileID: 5028056675760490915}
   plusTextLeft: {fileID: 5081220125647391253}
-  moreInfoOffsetFromSlot: 0.9875
+  moreInfoOffsetFromSlot: 1.1125
 --- !u!1001 &2795889677246832141
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -522,7 +522,7 @@ PrefabInstance:
     - target: {fileID: 8756679517012009632, guid: 5fa33eba93a8b0147bd395bc55fc2fbb,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.175
+      value: -0.05
       objectReference: {fileID: 0}
     - target: {fileID: 8756679517012009632, guid: 5fa33eba93a8b0147bd395bc55fc2fbb,
         type: 3}

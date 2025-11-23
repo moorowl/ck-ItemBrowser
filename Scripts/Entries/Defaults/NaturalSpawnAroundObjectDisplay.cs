@@ -1,4 +1,8 @@
-﻿using ItemBrowser.Browser;
+﻿using I2.Loc;
+using ItemBrowser.Browser;
+using ItemBrowser.Config;
+using ItemBrowser.Utilities;
+using PugMod;
 using PugTilemap;
 using UnityEngine;
 
@@ -20,6 +24,11 @@ namespace ItemBrowser.Entries.Defaults {
 		private float moreInfoOffsetFromSlot;
 
 		public override void RenderSelf() {
+			RenderBody();
+			RenderMoreInfo();
+		}
+
+		private void RenderBody() {
 			resultSlot.DisplayedObject = new DisplayedObject.Static(new ObjectDataCD {
 				objectID = Entry.Result.Id,
 				variation = Entry.Result.Variation
@@ -33,86 +42,144 @@ namespace ItemBrowser.Entries.Defaults {
 			seasonSlot.gameObject.SetActive(false);
 			plusTextRight.gameObject.SetActive(false);
 			plusTextLeft.gameObject.SetActive(false);
+
+			var leftMostSlot = entitySlot.transform;
 			
 			if (Entry.SpawnsInBiome != null) {
 				biomeOrTilesetSlot.gameObject.SetActive(true);
 				biomeOrTilesetSlot.DisplayedObject = new DisplayedObject.BiomeIcon(Entry.SpawnsInBiome.Value);
 				plusTextRight.gameObject.SetActive(true);
+				leftMostSlot = biomeOrTilesetSlot.transform;
 			}
 			if (Entry.SpawnsInTileset != null) {
 				biomeOrTilesetSlot.gameObject.SetActive(true);
 				biomeOrTilesetSlot.DisplayedObject = new DisplayedObject.Tile(TileType.ground, Entry.SpawnsInTileset.Value);
 				plusTextRight.gameObject.SetActive(true);
+				leftMostSlot = biomeOrTilesetSlot.transform;
 			}
 			if (Entry.SpawnsInSeason != null) {
-				seasonSlot.gameObject.SetActive(true);
-				seasonSlot.DisplayedObject = new DisplayedObject.SeasonIcon(Entry.SpawnsInSeason.Value);
-				plusTextLeft.gameObject.SetActive(true);
+				if (Entry.SpawnsInBiome == null && Entry.SpawnsInBiome == null) {
+					biomeOrTilesetSlot.gameObject.SetActive(true);
+					biomeOrTilesetSlot.DisplayedObject = new DisplayedObject.SeasonIcon(Entry.SpawnsInSeason.Value);
+					plusTextRight.gameObject.SetActive(true);
+					leftMostSlot = biomeOrTilesetSlot.transform;
+				} else {
+					seasonSlot.gameObject.SetActive(true);
+					seasonSlot.DisplayedObject = new DisplayedObject.SeasonIcon(Entry.SpawnsInSeason.Value);
+					plusTextLeft.gameObject.SetActive(true);
+					leftMostSlot = seasonSlot.transform;	
+				}
 			}
-
-			var leftMostSlot = seasonSlot.gameObject.activeSelf ? seasonSlot.transform : biomeOrTilesetSlot.transform;
-			MoreInfo.transform.position = new Vector3(leftMostSlot.position.x - moreInfoOffsetFromSlot, MoreInfo.transform.position.y, MoreInfo.transform.position.z);
 			
-			//RenderMoreInfo(isFromBiome, chance);
+			MoreInfo.transform.position = new Vector3(leftMostSlot.position.x - moreInfoOffsetFromSlot, MoreInfo.transform.position.y, MoreInfo.transform.position.z);
 		}
 
-		private void RenderMoreInfo(bool isFromBiome, float spawnChance) {
-			/*if (isFromBiome) {
+		private void RenderMoreInfo() {
+			if (Entry.SpawnsInBiome != null) {
 				MoreInfo.AddLine(new TextAndFormatFields {
-					text = "ItemBrowser:MoreInfo/NaturalSpawnInitial_0_SpecificBiome",
+					text = "ItemBrowser:MoreInfo/NaturalSpawnAroundObject_0_SpecificBiome",
 					formatFields = new[] {
-						$"BiomeNames/{Entry.SpawnCheck.biome}"
+						ObjectUtils.GetLocalizedDisplayNameOrDefault(Entry.Entity.Id, Entry.Entity.Variation),
+						API.Localization.GetLocalizedTerm($"BiomeNames/{Entry.SpawnsInBiome}")
 					},
+					dontLocalizeFormatFields = true,
+					color = UserInterfaceUtils.DescriptionColor
+				});
+			} else if (Entry.SpawnsInTileset != null) {
+				MoreInfo.AddLine(new TextAndFormatFields {
+					text = "ItemBrowser:MoreInfo/NaturalSpawnAroundObject_0_SpecificTile",
+					formatFields = new[] {
+						TileUtils.GetLocalizedDisplayName(TileType.ground, Entry.SpawnsInTileset.Value)
+					},
+					dontLocalizeFormatFields = true,
 					color = UserInterfaceUtils.DescriptionColor
 				});
 			} else {
 				MoreInfo.AddLine(new TextAndFormatFields {
-					text = "ItemBrowser:MoreInfo/NaturalSpawnInitial_0_AnyBiome",
+					text = "ItemBrowser:MoreInfo/NaturalSpawnAroundObject_0_AnyBiome",
+					formatFields = new[] {
+						ObjectUtils.GetLocalizedDisplayNameOrDefault(Entry.Entity.Id, Entry.Entity.Variation)
+					},
+					dontLocalizeFormatFields = true,
 					color = UserInterfaceUtils.DescriptionColor
 				});
 			}
-			MoreInfo.AddPadding();
-			MoreInfo.AddLine(new TextAndFormatFields {
-				text = "ItemBrowser:MoreInfo/NaturalSpawnInitial_1",
-				formatFields = new[] {
-					UserInterfaceUtils.FormatChance(spawnChance)	
-				},
-				dontLocalizeFormatFields = true,
-				color = UserInterfaceUtils.DescriptionColor
-			});
-			MoreInfo.AddPadding();
-			MoreInfo.AddLine(new TextAndFormatFields {
-				text = "ItemBrowser:MoreInfo/NaturalSpawnInitial_2",
-				color = UserInterfaceUtils.DescriptionColor
-			});
-			MoreInfo.AddLine(new TextAndFormatFields {
-				text = "ItemBrowser:MoreInfo/NaturalSpawnInitial_3",
-				formatFields = new[] {
-					TileUtils.GetLocalizedDisplayName(Entry.SpawnCheck.tileType, Entry.TilesetToSpawnOn)
-				},
-				dontLocalizeFormatFields = true,
-				color = UserInterfaceUtils.DescriptionColor
-			});
 
-			var adjacentTiles = Entry.SpawnCheck.adjacentTiles.list;
-			if (adjacentTiles.Count > 0) {
+			if (Entry.NeedToBeInsideBiome) {
 				MoreInfo.AddPadding();
 				MoreInfo.AddLine(new TextAndFormatFields {
-					text = "ItemBrowser:MoreInfo/NaturalSpawnInitial_4",
+					text = "ItemBrowser:MoreInfo/NaturalSpawnAroundObject_1",
+					color = UserInterfaceUtils.DescriptionColor
+				});	
+			}
+
+			if (Entry.SpawnsInSeason != null) {
+				MoreInfo.AddPadding();
+				MoreInfo.AddLine(new TextAndFormatFields {
+					text = "ItemBrowser:MoreInfo/NaturalSpawnAroundObject_2",
+					formatFields = new[] {
+						$"Seasons/{Entry.SpawnsInSeason}"
+					},
+					color = UserInterfaceUtils.DescriptionColor
+				});
+			}
+
+			if (ConfigFile.ShowTechnicalInfo) {
+				MoreInfo.AddPadding();
+				MoreInfo.AddLine(new TextAndFormatFields {
+					text = "ItemBrowser:MoreInfo/NaturalSpawnAroundObject_3",
 					color = UserInterfaceUtils.DescriptionColor
 				});
 				
-				foreach (var adjacentTile in adjacentTiles) {
+				MoreInfo.AddLine(new TextAndFormatFields {
+					text = "ItemBrowser:MoreInfo/NaturalSpawnAroundObject_4",
+					formatFields = new[] {
+						Entry.SpawnRadius.ToString(LocalizationManager.CurrentCulture)
+					},
+					dontLocalizeFormatFields = true,
+					color = UserInterfaceUtils.DescriptionColor
+				});
+				if (Entry.DespawnRadius > 0f) {
 					MoreInfo.AddLine(new TextAndFormatFields {
-						text = "ItemBrowser:MoreInfo/NaturalSpawnInitial_3",
+						text = "ItemBrowser:MoreInfo/NaturalSpawnAroundObject_5",
 						formatFields = new[] {
-							TileUtils.GetLocalizedDisplayName(adjacentTile.tileType, adjacentTile.mustAlsoMatchTileset ? adjacentTile.tileset : null)
+							Entry.DespawnRadius.ToString(LocalizationManager.CurrentCulture)
+						},
+						dontLocalizeFormatFields = true,
+						color = UserInterfaceUtils.DescriptionColor
+					});	
+				}
+				if (Entry.SpawnLimit > 0) {
+					MoreInfo.AddLine(new TextAndFormatFields {
+						text = "ItemBrowser:MoreInfo/NaturalSpawnAroundObject_6",
+						formatFields = new[] {
+							Entry.SpawnLimit.ToString()
+						},
+						dontLocalizeFormatFields = true,
+						color = UserInterfaceUtils.DescriptionColor
+					});	
+				}
+				MoreInfo.AddLine(new TextAndFormatFields {
+					text = "ItemBrowser:MoreInfo/NaturalSpawnAroundObject_7",
+					formatFields = new[] {
+						Entry.SpawnCooldown.Min.ToString(LocalizationManager.CurrentCulture),
+						Entry.SpawnCooldown.Max.ToString(LocalizationManager.CurrentCulture)
+					},
+					dontLocalizeFormatFields = true,
+					color = UserInterfaceUtils.DescriptionColor
+				});
+				if (Entry.SpawnLimit > 0 && Entry.SpawnLimitReachedCooldown.Max > 0f) {
+					MoreInfo.AddLine(new TextAndFormatFields {
+						text = "ItemBrowser:MoreInfo/NaturalSpawnAroundObject_8",
+						formatFields = new[] {
+							Entry.SpawnLimitReachedCooldown.Min.ToString(LocalizationManager.CurrentCulture),
+							Entry.SpawnLimitReachedCooldown.Max.ToString(LocalizationManager.CurrentCulture)
 						},
 						dontLocalizeFormatFields = true,
 						color = UserInterfaceUtils.DescriptionColor
 					});
 				}
-			}*/
+			}
 		}
 	}
 }
