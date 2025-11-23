@@ -1,6 +1,7 @@
 ﻿using System;
 using ItemBrowser.Browser;
 using ItemBrowser.Utilities;
+using PugMod;
 using UnityEngine;
 
 namespace ItemBrowser.Entries.Defaults {
@@ -21,14 +22,18 @@ namespace ItemBrowser.Entries.Defaults {
 				variation = Entry.Result.Variation
 			}, Entry.Result.Amount);
 
-			descriptionText.formatFields = Entry.Source.Id == ObjectID.None ? Array.Empty<string>() : new[] {
-				ObjectUtils.GetLocalizedDisplayName(Entry.Source.Id, Entry.Source.Variation)
-			};
-			descriptionText.Render(Entry.Term);
+			if (!Entry.HasSource) {
+				descriptionText.Render(API.Localization.GetLocalizedTerm(Entry.Term));
+			} else {
+				descriptionText.Render(string.Format(
+					API.Localization.GetLocalizedTerm(Entry.Term),
+					ObjectUtils.GetLocalizedDisplayName(Entry.Source.Id, Entry.Source.Variation) ?? $"Items/{ObjectUtils.GetInternalName(Entry.Source.Id)}"
+				));	
+			}
 		}
 
 		private void RenderMoreInfo() {
-			if (Entry.Source.Id == ObjectID.None) {
+			if (!Entry.HasSource) {
 				MoreInfo.AddLine(new TextAndFormatFields {
 					text = Entry.Term,
 					color = UserInterfaceUtils.DescriptionColor

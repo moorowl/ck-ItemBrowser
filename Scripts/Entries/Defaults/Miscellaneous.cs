@@ -9,6 +9,8 @@ namespace ItemBrowser.Entries.Defaults {
 		public (ObjectID Id, int Variation) Source { get; protected set; }
 		public string Term { get; protected set; }
 
+		public bool HasSource => Source.Id != ObjectID.None;
+
 		public class Provider : ObjectEntryProvider {
 			public override void Register(ObjectEntryRegistry registry, List<(ObjectData ObjectData, GameObject Authoring)> allObjects) {
 				// Creating a character with name Greggy
