@@ -248,6 +248,8 @@ ItemBrowser:MoreInfo/NaturalSpawnAroundObject_5	Text		- Despawn radius: {0}
 ItemBrowser:MoreInfo/NaturalSpawnAroundObject_6	Text		- Spawn limit (within radius): {0}												
 ItemBrowser:MoreInfo/NaturalSpawnAroundObject_7	Text		- Spawn cooldown: {0}-{1} sec												
 ItemBrowser:MoreInfo/NaturalSpawnAroundObject_8	Text		- Spawn cooldown after reaching limit: {0}-{1} sec												
+ItemBrowser:MoreInfo/TerrainGeneration_0	Text		Generates in {0}												
+ItemBrowser:MoreInfo/TerrainGeneration_1	Text		Found embedded within {0}												
 ItemBrowser:MoreInfo/Drops_0	Text		Dropped by {0}												
 ItemBrowser:MoreInfo/Drops_0_RandomPool	Text		Dropped by {0} (random pool)												
 ItemBrowser:MoreInfo/Drops_0_GuaranteedPool	Text		Dropped by {0} (guaranteed pool)												

@@ -1,4 +1,5 @@
 ﻿using ItemBrowser.Browser;
+using ItemBrowser.Utilities;
 using PugTilemap;
 using UnityEngine;
 
@@ -19,6 +20,7 @@ namespace ItemBrowser.Entries.Defaults {
 
 		public override void RenderSelf() {
 			RenderBody();
+			RenderMoreInfo();
 		}
 
 		private void RenderBody() {
@@ -43,6 +45,28 @@ namespace ItemBrowser.Entries.Defaults {
 				plusText.gameObject.SetActive(false);
 				
 				rightSourceSlot.DisplayedObject = new DisplayedObject.BiomeIcon(Entry.GeneratesInBiome);
+			}
+		}
+
+		private void RenderMoreInfo() {
+			MoreInfo.AddLine(new TextAndFormatFields {
+				text = "ItemBrowser:MoreInfo/TerrainGeneration_0",
+				formatFields = new[] {
+					$"BiomeNames/{Entry.GeneratesInBiome}"
+				},
+				color = UserInterfaceUtils.DescriptionColor
+			});
+			
+			if (Entry.GeneratesInTileset != null) {
+				MoreInfo.AddPadding();
+				MoreInfo.AddLine(new TextAndFormatFields {
+					text = "ItemBrowser:MoreInfo/TerrainGeneration_1",
+					formatFields = new[] {
+						TileUtils.GetLocalizedDisplayName(TileType.wall, Entry.GeneratesInTileset.Value)
+					},
+					dontLocalizeFormatFields = true,
+					color = UserInterfaceUtils.DescriptionColor
+				});
 			}
 		}
 	}
