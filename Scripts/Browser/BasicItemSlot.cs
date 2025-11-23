@@ -88,7 +88,7 @@ namespace ItemBrowser.Browser {
 		protected virtual void OnFavoritedStateChanged() { }
 
 		public override void OnSelected() {
-			_scrollWindow?.MoveScrollToIncludePosition(localScrollPosition, _boxCollider != null ? _boxCollider.size.sqrMagnitude : 0f);
+			_scrollWindow?.MoveScrollToIncludePosition(localScrollPosition, _boxCollider != null ? Mathf.Max(_boxCollider.size.x, _boxCollider.size.y) / 2f : 0f);
 			OnSelectSlot();
 		}
 

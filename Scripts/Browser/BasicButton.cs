@@ -46,7 +46,7 @@ namespace ItemBrowser.Browser {
 		public override void OnSelected() {
 			base.OnSelected();
 			
-			_scrollWindow?.MoveScrollToIncludePosition(localScrollPosition, _boxCollider != null ? _boxCollider.size.sqrMagnitude : 0f);
+			_scrollWindow?.MoveScrollToIncludePosition(localScrollPosition, _boxCollider != null ? Mathf.Max(_boxCollider.size.x, _boxCollider.size.y) / 2f : 0f);
 		}
 
 		public override TextAndFormatFields GetHoverTitle() {
