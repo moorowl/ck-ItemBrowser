@@ -148,7 +148,7 @@ public class Main : IMod {
 			// Source
 			const string sourceGroup = "ItemBrowser:Filters/Source";
 			ItemBrowserAPI.RegisterItemFilter(sourceGroup, new($"{sourceGroup}_Item_FromMods") {
-				Function = objectData => (int) objectData.objectID > Constants.maxNonModdedObjectID
+				Function = ModUtils.IsModded
 			});
 			ItemBrowserAPI.RegisterCreatureFilter(sourceGroup, new($"{sourceGroup}_Creature_FromMods") {
 				Function = objectData => (int) objectData.objectID > Constants.maxNonModdedObjectID

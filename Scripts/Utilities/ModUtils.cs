@@ -34,6 +34,10 @@ namespace ItemBrowser.Utilities {
 		public static long GetAssociatedMod(ObjectDataCD objectData) {
 			return AssociatedMod.GetValueOrDefault(objectData, CoreKeeperModId);
 		}
+
+		public static bool IsModded(ObjectDataCD objectData) {
+			return GetAssociatedMod(objectData) != CoreKeeperModId;
+		}
 		
 		private static void SetupDisplayNames() {
 			DisplayNames.Clear();
