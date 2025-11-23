@@ -1,4 +1,5 @@
-﻿using ItemBrowser.Browser;
+﻿using I2.Loc;
+using ItemBrowser.Browser;
 using ItemBrowser.Config;
 using ItemBrowser.Utilities;
 using UnityEngine;
@@ -109,7 +110,7 @@ namespace ItemBrowser.Entries.Defaults {
 				}
 			}
 
-			if (ConfigFile.CheatMode) {
+			if (ConfigFile.ShowTechnicalInfo) {
 				MoreInfo.AddPadding();
 				MoreInfo.AddLine(new TextAndFormatFields {
 					text = "ItemBrowser:MoreInfo/NaturalSpawnRespawn_5",
@@ -118,7 +119,7 @@ namespace ItemBrowser.Entries.Defaults {
 				MoreInfo.AddLine(new TextAndFormatFields {
 					text = "ItemBrowser:MoreInfo/NaturalSpawnRespawn_6",
 					formatFields = new[] {
-						UserInterfaceUtils.FormatChance(Entry.SpawnCheck.spawnChanceDecay)
+						Entry.SpawnCheck.spawnChanceDecay.ToString(LocalizationManager.CurrentCulture)
 					},
 					dontLocalizeFormatFields = true,
 					color = UserInterfaceUtils.DescriptionColor
@@ -126,7 +127,7 @@ namespace ItemBrowser.Entries.Defaults {
 				MoreInfo.AddLine(new TextAndFormatFields {
 					text = "ItemBrowser:MoreInfo/NaturalSpawnRespawn_7",
 					formatFields = new[] {
-						UserInterfaceUtils.FormatChance(Entry.SpawnCheck.maxSpawnPerTile.GetValueForCurrentPlatform())
+						Entry.SpawnCheck.maxSpawnPerTile.GetValueForCurrentPlatform().ToString(LocalizationManager.CurrentCulture)
 					},
 					dontLocalizeFormatFields = true,
 					color = UserInterfaceUtils.DescriptionColor
@@ -142,7 +143,7 @@ namespace ItemBrowser.Entries.Defaults {
 				MoreInfo.AddLine(new TextAndFormatFields {
 					text = "ItemBrowser:MoreInfo/NaturalSpawnRespawn_9",
 					formatFields = new[] {
-						UserInterfaceUtils.FormatChance(Entry.SpawnCheck.minTilesRequired)
+						Entry.SpawnCheck.minTilesRequired.ToString(LocalizationManager.CurrentCulture)
 					},
 					dontLocalizeFormatFields = true,
 					color = UserInterfaceUtils.DescriptionColor
