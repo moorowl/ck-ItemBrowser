@@ -35,8 +35,8 @@ namespace ItemBrowser.Entries.Defaults {
 			MoreInfo.AddLine(new TextAndFormatFields {
 				text = "ItemBrowser:MoreInfo/Unlocking_0",
 				formatFields = new[] {
-					ObjectUtils.GetLocalizedDisplayName(Entry.Key.Id, Entry.Key.Variation),
-					ObjectUtils.GetLocalizedDisplayName(Entry.InputObject.Id, Entry.InputObject.Variation)
+					ObjectUtils.GetLocalizedDisplayNameOrDefault(Entry.Key.Id, Entry.Key.Variation),
+					ObjectUtils.GetLocalizedDisplayNameOrDefault(Entry.InputObject.Id, Entry.InputObject.Variation)
 				},
 				dontLocalizeFormatFields = true,
 				color = UserInterfaceUtils.DescriptionColor
@@ -45,7 +45,7 @@ namespace ItemBrowser.Entries.Defaults {
 			MoreInfo.AddLine(new TextAndFormatFields {
 				text = "ItemBrowser:MoreInfo/Unlocking_1",
 				formatFields = new[] {
-					ObjectUtils.GetLocalizedDisplayName(Entry.OutputObject.Id, Entry.OutputObject.Variation)
+					ObjectUtils.GetLocalizedDisplayNameOrDefault(Entry.OutputObject.Id, Entry.OutputObject.Variation)
 				},
 				dontLocalizeFormatFields = true,
 				color = UserInterfaceUtils.DescriptionColor

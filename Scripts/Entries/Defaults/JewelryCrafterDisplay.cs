@@ -23,7 +23,7 @@ namespace ItemBrowser.Entries.Defaults {
 			MoreInfo.AddLine(new TextAndFormatFields {
 				text = "ItemBrowser:MoreInfo/JewelryCrafter_0",
 				formatFields = new[] {
-					ObjectUtils.GetLocalizedDisplayName(Entry.UnpolishedVersion)
+					ObjectUtils.GetLocalizedDisplayNameOrDefault(Entry.UnpolishedVersion)
 				},
 				dontLocalizeFormatFields = true,
 				color = UserInterfaceUtils.DescriptionColor

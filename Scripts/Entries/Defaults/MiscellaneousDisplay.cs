@@ -27,7 +27,7 @@ namespace ItemBrowser.Entries.Defaults {
 			} else {
 				descriptionText.Render(string.Format(
 					API.Localization.GetLocalizedTerm(Entry.Term),
-					ObjectUtils.GetLocalizedDisplayName(Entry.Source.Id, Entry.Source.Variation) ?? $"Items/{ObjectUtils.GetInternalName(Entry.Source.Id)}"
+					ObjectUtils.GetLocalizedDisplayNameOrDefault(Entry.Source.Id, Entry.Source.Variation)
 				));	
 			}
 		}
@@ -42,7 +42,7 @@ namespace ItemBrowser.Entries.Defaults {
 				MoreInfo.AddLine(new TextAndFormatFields {
 					text = Entry.Term,
 					formatFields = new[] {
-						ObjectUtils.GetLocalizedDisplayName(Entry.Source.Id, Entry.Source.Variation)
+						ObjectUtils.GetLocalizedDisplayNameOrDefault(Entry.Source.Id, Entry.Source.Variation)
 					},
 					dontLocalizeFormatFields = true,
 					color = UserInterfaceUtils.DescriptionColor

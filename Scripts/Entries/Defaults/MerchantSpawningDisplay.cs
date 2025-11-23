@@ -27,8 +27,8 @@ namespace ItemBrowser.Entries.Defaults {
 			MoreInfo.AddLine(new TextAndFormatFields {
 				text = "ItemBrowser:MoreInfo/MerchantSpawning_0",
 				formatFields = new[] {
-					ObjectUtils.GetLocalizedDisplayName(Entry.Idol),
-					ObjectUtils.GetLocalizedDisplayName(Entry.Merchant)
+					ObjectUtils.GetLocalizedDisplayNameOrDefault(Entry.Idol),
+					ObjectUtils.GetLocalizedDisplayNameOrDefault(Entry.Merchant)
 				},
 				dontLocalizeFormatFields = true,
 				color = UserInterfaceUtils.DescriptionColor

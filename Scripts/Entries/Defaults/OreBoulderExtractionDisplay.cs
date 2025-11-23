@@ -28,7 +28,7 @@ namespace ItemBrowser.Entries.Defaults {
 			MoreInfo.AddLine(new TextAndFormatFields {
 				text = "ItemBrowser:MoreInfo/OreBoulderExtraction_0",
 				formatFields = new[] {
-					ObjectUtils.GetLocalizedDisplayName(Entry.OreBoulder)
+					ObjectUtils.GetLocalizedDisplayNameOrDefault(Entry.OreBoulder)
 				},
 				dontLocalizeFormatFields = true,
 				color = UserInterfaceUtils.DescriptionColor

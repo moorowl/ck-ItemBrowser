@@ -33,7 +33,7 @@ namespace ItemBrowser.Entries.Defaults {
 			MoreInfo.AddLine(new TextAndFormatFields {
 				text = "ItemBrowser:MoreInfo/VendingMachine_0",
 				formatFields = new[] {
-					ObjectUtils.GetLocalizedDisplayName(Entry.Vendor),
+					ObjectUtils.GetLocalizedDisplayNameOrDefault(Entry.Vendor),
 					buyCost.ToString()
 				},
 				dontLocalizeFormatFields = true,

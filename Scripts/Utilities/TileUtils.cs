@@ -1,4 +1,5 @@
 ﻿using I2.Loc;
+using PugMod;
 using PugTilemap;
 
 namespace ItemBrowser.Utilities {
@@ -26,18 +27,18 @@ namespace ItemBrowser.Utilities {
 		
 		public static string GetLocalizedDisplayName(TileType tileType, Tileset? tileset) {
 			if (tileset == null)
-				return LocalizationManager.GetTranslation($"ItemBrowser:AnyTileType/{tileType}");
+				return API.Localization.GetLocalizedTerm($"ItemBrowser:AnyTileType/{tileType}");
 
 			if (IsBlock(tileType, tileset.Value, out var wallObjectId, out _)) {
 				return string.Format(
-					LocalizationManager.GetTranslation(tileType == TileType.wall ? "ItemBrowser:WallBlockSuffix" : "ItemBrowser:GroundBlockSuffix"),
-					ObjectUtils.GetLocalizedDisplayName(wallObjectId)
+					API.Localization.GetLocalizedTerm(tileType == TileType.wall ? "ItemBrowser:WallBlockSuffix" : "ItemBrowser:GroundBlockSuffix"),
+					ObjectUtils.GetLocalizedDisplayNameOrDefault(wallObjectId)
 				);
 			}
 			
 			var objectInfo = PugDatabase.TryGetTileItemInfo(tileType, (int) tileset);
 			if (objectInfo != null)
-				return ObjectUtils.GetLocalizedDisplayName(objectInfo.objectID, objectInfo.variation);
+				return ObjectUtils.GetLocalizedDisplayNameOrDefault(objectInfo.objectID, objectInfo.variation);
 
 			return $"{tileType}/{tileset}";
 		}

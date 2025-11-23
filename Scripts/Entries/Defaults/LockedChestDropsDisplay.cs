@@ -34,7 +34,7 @@ namespace ItemBrowser.Entries.Defaults {
 			MoreInfo.AddLine(new TextAndFormatFields {
 				text = "ItemBrowser:MoreInfo/LockedChestDrops_0",
 				formatFields = new[] {
-					ObjectUtils.GetLocalizedDisplayName(PugDatabase.TryGetTileItemInfo(TileType.wall, (int) Entry.RequiredTileset).objectID),
+					ObjectUtils.GetLocalizedDisplayNameOrDefault(PugDatabase.TryGetTileItemInfo(TileType.wall, (int) Entry.RequiredTileset).objectID),
 					API.Localization.GetLocalizedTerm($"BiomeNames/{Entry.RequiredBiome}") ?? "???"
 				},
 				dontLocalizeFormatFields = true,

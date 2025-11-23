@@ -4,6 +4,7 @@ using System.Linq;
 using I2.Loc;
 using ItemBrowser.Browser;
 using ItemBrowser.Utilities;
+using PugMod;
 using UnityEngine;
 
 namespace ItemBrowser.Entries.Defaults {
@@ -71,7 +72,7 @@ namespace ItemBrowser.Entries.Defaults {
 			MoreInfo.AddLine(new TextAndFormatFields {
 				text = "ItemBrowser:MoreInfo/Crafting_0_" + (Entry.Station == ObjectID.None ? "Recipe" : "Station"),
 				formatFields = new[] {
-					ObjectUtils.GetLocalizedDisplayName( Entry.UsesStation ? Entry.Station : Entry.Recipe)
+					ObjectUtils.GetLocalizedDisplayNameOrDefault( Entry.UsesStation ? Entry.Station : Entry.Recipe)
 				},
 				dontLocalizeFormatFields = true,
 				color = UserInterfaceUtils.DescriptionColor
@@ -89,7 +90,7 @@ namespace ItemBrowser.Entries.Defaults {
 				MoreInfo.AddLine(new TextAndFormatFields {
 					text = "ItemBrowser:MoreInfo/Crafting_2",
 					formatFields = new[] {
-						LocalizationManager.GetTranslation($"ItemBrowser:ObjectCategoryNames/{useMaterialsWithTag}"),
+						API.Localization.GetLocalizedTerm($"ItemBrowser:ObjectCategoryNames/{useMaterialsWithTag}"),
 						"1"
 					},
 					dontLocalizeFormatFields = true,
@@ -100,7 +101,7 @@ namespace ItemBrowser.Entries.Defaults {
 					MoreInfo.AddLine(new TextAndFormatFields {
 						text = "ItemBrowser:MoreInfo/Crafting_2",
 						formatFields = new[] {
-							ObjectUtils.GetLocalizedDisplayName(craftingObject.objectID),
+							ObjectUtils.GetLocalizedDisplayNameOrDefault(craftingObject.objectID),
 							craftingObject.amount.ToString()
 						},
 						dontLocalizeFormatFields = true,
@@ -130,7 +131,7 @@ namespace ItemBrowser.Entries.Defaults {
 					MoreInfo.AddLine(new TextAndFormatFields {
 						text = "ItemBrowser:MoreInfo/Crafting_4",
 						formatFields = new[] {
-							ObjectUtils.GetLocalizedDisplayName(Entry.RequiresObjectNearby)
+							ObjectUtils.GetLocalizedDisplayNameOrDefault(Entry.RequiresObjectNearby)
 						},
 						dontLocalizeFormatFields = true,
 						color = UserInterfaceUtils.DescriptionColor

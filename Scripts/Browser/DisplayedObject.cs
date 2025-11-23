@@ -58,7 +58,7 @@ namespace ItemBrowser.Browser {
 
 			public override TextAndFormatFields GetHoverTitle(SlotUIBase slot) {
 				var objectName = new TextAndFormatFields {
-					text = ObjectUtils.GetLocalizedDisplayName(_objectData.objectID, _objectData.variation) ?? $"Items/{ObjectUtils.GetInternalName(_objectData.objectID)}",
+					text = ObjectUtils.GetLocalizedDisplayNameOrDefault(_objectData.objectID, _objectData.variation),
 					dontLocalize = true
 				};
 

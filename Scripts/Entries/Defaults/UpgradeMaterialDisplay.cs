@@ -73,7 +73,7 @@ namespace ItemBrowser.Entries.Defaults {
 				MoreInfo.AddLine(new TextAndFormatFields {
 					text = "ItemBrowser:MoreInfo/UpgradeMaterial_2",
 					formatFields = new[] {
-						ObjectUtils.GetLocalizedDisplayName(material.Id),
+						ObjectUtils.GetLocalizedDisplayNameOrDefault(material.Id),
 						material.Amount.ToString()
 					},
 					dontLocalizeFormatFields = true,

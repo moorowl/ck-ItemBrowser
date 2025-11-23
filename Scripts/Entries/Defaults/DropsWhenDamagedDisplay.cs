@@ -33,7 +33,7 @@ namespace ItemBrowser.Entries.Defaults {
 			MoreInfo.AddLine(new TextAndFormatFields {
 				text = "ItemBrowser:MoreInfo/DropsWhenDamaged_0",
 				formatFields = new[] {
-					ObjectUtils.GetLocalizedDisplayName(Entry.Entity.Id, Entry.Entity.Variation)
+					ObjectUtils.GetLocalizedDisplayNameOrDefault(Entry.Entity.Id, Entry.Entity.Variation)
 				},
 				dontLocalizeFormatFields = true,
 				color = UserInterfaceUtils.DescriptionColor

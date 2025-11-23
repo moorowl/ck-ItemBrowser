@@ -54,7 +54,7 @@ namespace ItemBrowser.Browser {
 						lines.Add(new TextAndFormatFields {
 							text = craftingSource.UsesStation ? "ItemBrowser:MoreInfo/Crafting_0_Station" : "ItemBrowser:MoreInfo/Crafting_0_Recipe",
 							formatFields = new[] {
-								ObjectUtils.GetLocalizedDisplayName(craftingSource.UsesStation ? craftingSource.Station : craftingSource.Recipe)
+								ObjectUtils.GetLocalizedDisplayNameOrDefault(craftingSource.UsesStation ? craftingSource.Station : craftingSource.Recipe)
 							},
 							dontLocalizeFormatFields = true,
 							color = Color.white * 0.95f

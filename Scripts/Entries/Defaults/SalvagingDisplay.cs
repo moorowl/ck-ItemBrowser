@@ -28,7 +28,7 @@ namespace ItemBrowser.Entries.Defaults {
 			MoreInfo.AddLine(new TextAndFormatFields {
 				text = "ItemBrowser:MoreInfo/Salvaging_0",
 				formatFields = new[] {
-					ObjectUtils.GetLocalizedDisplayName(Entry.ItemSalvaged)
+					ObjectUtils.GetLocalizedDisplayNameOrDefault(Entry.ItemSalvaged)
 				},
 				dontLocalizeFormatFields = true,
 				color = UserInterfaceUtils.DescriptionColor

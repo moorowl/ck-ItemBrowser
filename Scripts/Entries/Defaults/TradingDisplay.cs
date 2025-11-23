@@ -54,7 +54,7 @@ namespace ItemBrowser.Entries.Defaults {
 			MoreInfo.AddLine(new TextAndFormatFields {
 				text = "ItemBrowser:MoreInfo/Trading_0",
 				formatFields = new[] {
-					ObjectUtils.GetLocalizedDisplayName(Entry.Vendor.Id, Entry.Vendor.Variation)
+					ObjectUtils.GetLocalizedDisplayNameOrDefault(Entry.Vendor.Id, Entry.Vendor.Variation)
 				},
 				dontLocalizeFormatFields = true,
 				color = UserInterfaceUtils.DescriptionColor
@@ -69,7 +69,7 @@ namespace ItemBrowser.Entries.Defaults {
 				MoreInfo.AddLine(new TextAndFormatFields {
 					text = "ItemBrowser:MoreInfo/Trading_2",
 					formatFields = new[] {
-						ObjectUtils.GetLocalizedDisplayName(craftingObject.objectID),
+						ObjectUtils.GetLocalizedDisplayNameOrDefault(craftingObject.objectID),
 						craftingObject.amount.ToString()
 					},
 					dontLocalizeFormatFields = true,

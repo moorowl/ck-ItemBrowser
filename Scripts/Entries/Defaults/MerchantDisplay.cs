@@ -25,7 +25,7 @@ namespace ItemBrowser.Entries.Defaults {
 			MoreInfo.AddLine(new TextAndFormatFields {
 				text = "ItemBrowser:MoreInfo/Merchant_0",
 				formatFields = new[] {
-					ObjectUtils.GetLocalizedDisplayName(Entry.MerchantType),
+					ObjectUtils.GetLocalizedDisplayNameOrDefault(Entry.MerchantType),
 					buyCost.ToString()
 				},
 				dontLocalizeFormatFields = true,

@@ -24,7 +24,7 @@ namespace ItemBrowser.Entries.Defaults {
 		public override IEnumerable<Drops> SortEntries(IEnumerable<Drops> entries) {
 			return entries
 				.OrderByDescending(entry => entry.FoundInScenes.Count > 0 ? 0 : 1)
-				.ThenBy(entry => ObjectUtils.GetLocalizedDisplayName(entry.Entity.Id, entry.Entity.Variation))
+				.ThenBy(entry => ObjectUtils.GetLocalizedDisplayNameOrDefault(entry.Entity.Id, entry.Entity.Variation))
 				.ThenByDescending(entry => entry.IsFromGuaranteedPool ? 1 : 0);
 		}
 		
@@ -76,7 +76,7 @@ namespace ItemBrowser.Entries.Defaults {
 			MoreInfo.AddLine(new TextAndFormatFields {
 				text = showPoolTypeText ? (Entry.IsFromGuaranteedPool ? "ItemBrowser:MoreInfo/Drops_0_GuaranteedPool" : "ItemBrowser:MoreInfo/Drops_0_RandomPool") : "ItemBrowser:MoreInfo/Drops_0",
 				formatFields = new[] {
-					ObjectUtils.GetLocalizedDisplayName(Entry.Entity.Id, Entry.Entity.Variation)
+					ObjectUtils.GetLocalizedDisplayNameOrDefault(Entry.Entity.Id, Entry.Entity.Variation)
 				},
 				dontLocalizeFormatFields = true,
 				color = UserInterfaceUtils.DescriptionColor

@@ -174,6 +174,10 @@ namespace ItemBrowser.Utilities {
 			});
 		}
 		
+		public static string GetLocalizedDisplayNameOrDefault(ObjectID id, int variation = 0) {
+			return GetLocalizedDisplayName(id, variation) ?? $"{GetInternalName(id)} ({variation})";
+		}
+		
 		public static int GetDisplayNameSortOrder(ObjectID id, int variation = 0) {
 			return DisplayNameSortOrders.GetValueOrDefault(new ObjectDataCD {
 				objectID = id,

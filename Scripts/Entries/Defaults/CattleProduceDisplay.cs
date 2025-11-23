@@ -41,7 +41,7 @@ namespace ItemBrowser.Entries.Defaults {
 			MoreInfo.AddLine(new TextAndFormatFields {
 				text = Entry.SuitableFeedRequired != 1 ? "ItemBrowser:MoreInfo/CattleProduce_0_Plural" : "ItemBrowser:MoreInfo/CattleProduce_0",
 				formatFields = new[] {
-					ObjectUtils.GetLocalizedDisplayName(Entry.Cattle),
+					ObjectUtils.GetLocalizedDisplayNameOrDefault(Entry.Cattle),
 					Entry.SuitableFeedRequired.ToString()
 				},
 				dontLocalizeFormatFields = true,

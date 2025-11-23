@@ -29,7 +29,7 @@ namespace ItemBrowser.Entries.Defaults {
 			MoreInfo.AddLine(new TextAndFormatFields {
 				text = Entry.HasGoldSeed ? "ItemBrowser:MoreInfo/Farming_0_" + (Entry.RequiresGoldSeed ? "Golden" : "Normal") : "ItemBrowser:MoreInfo/Farming_0",
 				formatFields = new[] {
-					ObjectUtils.GetLocalizedDisplayName(Entry.Seed)
+					ObjectUtils.GetLocalizedDisplayNameOrDefault(Entry.Seed)
 				},
 				dontLocalizeFormatFields = true,
 				color = UserInterfaceUtils.DescriptionColor
