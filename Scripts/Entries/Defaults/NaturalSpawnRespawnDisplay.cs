@@ -1,4 +1,5 @@
 ﻿using ItemBrowser.Browser;
+using ItemBrowser.Config;
 using ItemBrowser.Utilities;
 using UnityEngine;
 
@@ -106,6 +107,46 @@ namespace ItemBrowser.Entries.Defaults {
 						color = UserInterfaceUtils.DescriptionColor
 					});
 				}
+			}
+
+			if (ConfigFile.CheatMode) {
+				MoreInfo.AddPadding();
+				MoreInfo.AddLine(new TextAndFormatFields {
+					text = "ItemBrowser:MoreInfo/NaturalSpawnRespawn_5",
+					color = UserInterfaceUtils.DescriptionColor
+				});
+				MoreInfo.AddLine(new TextAndFormatFields {
+					text = "ItemBrowser:MoreInfo/NaturalSpawnRespawn_6",
+					formatFields = new[] {
+						UserInterfaceUtils.FormatChance(Entry.SpawnCheck.spawnChanceDecay)
+					},
+					dontLocalizeFormatFields = true,
+					color = UserInterfaceUtils.DescriptionColor
+				});
+				MoreInfo.AddLine(new TextAndFormatFields {
+					text = "ItemBrowser:MoreInfo/NaturalSpawnRespawn_7",
+					formatFields = new[] {
+						UserInterfaceUtils.FormatChance(Entry.SpawnCheck.maxSpawnPerTile.GetValueForCurrentPlatform())
+					},
+					dontLocalizeFormatFields = true,
+					color = UserInterfaceUtils.DescriptionColor
+				});
+				MoreInfo.AddLine(new TextAndFormatFields {
+					text = "ItemBrowser:MoreInfo/NaturalSpawnRespawn_8",
+					formatFields = new[] {
+						Entry.SpawnCheck.maxSpawnsPerRespawn.ToString()
+					},
+					dontLocalizeFormatFields = true,
+					color = UserInterfaceUtils.DescriptionColor
+				});
+				MoreInfo.AddLine(new TextAndFormatFields {
+					text = "ItemBrowser:MoreInfo/NaturalSpawnRespawn_9",
+					formatFields = new[] {
+						UserInterfaceUtils.FormatChance(Entry.SpawnCheck.minTilesRequired)
+					},
+					dontLocalizeFormatFields = true,
+					color = UserInterfaceUtils.DescriptionColor
+				});
 			}
 		}
 	}

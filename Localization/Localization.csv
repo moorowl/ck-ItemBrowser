@@ -232,6 +232,11 @@ ItemBrowser:MoreInfo/NaturalSpawnRespawn_1	Text		{0}% chance (per suitable tile)
 ItemBrowser:MoreInfo/NaturalSpawnRespawn_2	Text		Suitable tiles:												
 ItemBrowser:MoreInfo/NaturalSpawnRespawn_3	Text		- {0}												
 ItemBrowser:MoreInfo/NaturalSpawnRespawn_4	Text		Must also be directly adjacent to one of the following:												
+ItemBrowser:MoreInfo/NaturalSpawnRespawn_5	Text		Technical details:												
+ItemBrowser:MoreInfo/NaturalSpawnRespawn_6	Text		- Chance decay: {0}												
+ItemBrowser:MoreInfo/NaturalSpawnRespawn_7	Text		- Max. spawns per tile: {0}												
+ItemBrowser:MoreInfo/NaturalSpawnRespawn_8	Text		- Max. spawns per event: {0}												
+ItemBrowser:MoreInfo/NaturalSpawnRespawn_9	Text		- Min. suitable tiles: {0}												
 ItemBrowser:MoreInfo/Drops_0	Text		Dropped by {0}												
 ItemBrowser:MoreInfo/Drops_0_RandomPool	Text		Dropped by {0} (random pool)												
 ItemBrowser:MoreInfo/Drops_0_GuaranteedPool	Text		Dropped by {0} (guaranteed pool)												
