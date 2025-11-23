@@ -110,33 +110,30 @@ namespace ItemBrowser.Entries.Defaults {
 				}	
 			}
 			
-			if (Entry.CraftingTime > 0 || Entry.RequiresObjectNearby != ObjectID.None) {
+			// Crafting time
+			if (Entry.CraftingTime > 0) {
 				MoreInfo.AddPadding();
-				
-				// Crafting time
-				if (Entry.CraftingTime > 0) {
-					MoreInfo.AddPadding();
-					MoreInfo.AddLine(new TextAndFormatFields {
-						text = "ItemBrowser:MoreInfo/Crafting_3",
-						formatFields = new[] {
-							Entry.CraftingTime.ToString(CultureInfo.InvariantCulture)
-						},
-						dontLocalizeFormatFields = true,
-						color = UserInterfaceUtils.DescriptionColor
-					});		
-				}
-				
-				// Crafted at nearby object
-				if (Entry.RequiresObjectNearby != ObjectID.None) {
-					MoreInfo.AddLine(new TextAndFormatFields {
-						text = "ItemBrowser:MoreInfo/Crafting_4",
-						formatFields = new[] {
-							ObjectUtils.GetLocalizedDisplayNameOrDefault(Entry.RequiresObjectNearby)
-						},
-						dontLocalizeFormatFields = true,
-						color = UserInterfaceUtils.DescriptionColor
-					});
-				}
+				MoreInfo.AddLine(new TextAndFormatFields {
+					text = "ItemBrowser:MoreInfo/Crafting_3",
+					formatFields = new[] {
+						Entry.CraftingTime.ToString(CultureInfo.InvariantCulture)
+					},
+					dontLocalizeFormatFields = true,
+					color = UserInterfaceUtils.DescriptionColor
+				});		
+			}
+			
+			// Crafted at nearby object
+			if (Entry.RequiresObjectNearby != ObjectID.None) {
+				MoreInfo.AddPadding();
+				MoreInfo.AddLine(new TextAndFormatFields {
+					text = "ItemBrowser:MoreInfo/Crafting_4",
+					formatFields = new[] {
+						ObjectUtils.GetLocalizedDisplayNameOrDefault(Entry.RequiresObjectNearby)
+					},
+					dontLocalizeFormatFields = true,
+					color = UserInterfaceUtils.DescriptionColor
+				});
 			}
 		}
 	}
