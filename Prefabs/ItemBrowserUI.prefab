@@ -4535,6 +4535,7 @@ MonoBehaviour:
   linksUsage: 1
   showAmountInTitle: 0
   filtersPanel: {fileID: 1501561423520032586}
+  objectListWindow: {fileID: 3471221732777619480}
 --- !u!95 &8590167870740206574
 Animator:
   serializedVersion: 7
@@ -19166,6 +19167,7 @@ MonoBehaviour:
   linksUsage: 1
   showAmountInTitle: 0
   filtersPanel: {fileID: 1671546495232284839}
+  objectListWindow: {fileID: 1088986253751835052}
 --- !u!95 &5282178514693971122
 Animator:
   serializedVersion: 7

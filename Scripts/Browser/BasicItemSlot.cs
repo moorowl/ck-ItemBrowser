@@ -61,25 +61,31 @@ namespace ItemBrowser.Browser {
 			base.LateUpdate();
 
 			_displayedObject.Update(this);
+			
 			if (highlightBorder != null) {
-				if (IsHovered) {
-					var input = Manager.input.singleplayerInputModule;
-					if (input.WasButtonPressedDownThisFrame(PlayerInput.InputType.LOCKING_TOGGLE)) {
-						if (IsFavorited) {
-							AudioManager.Sfx(SfxTableID.inventorySFXSlotLock, transform.position);
-							ConfigFile.FavoritedObjects.Remove(FavoritedKey);
-						} else {
-							AudioManager.Sfx(SfxTableID.inventorySFXSlotUnlock, transform.position);
-							ConfigFile.FavoritedObjects.Add(FavoritedKey);
-						}
-
-						ConfigFile.Save();
-					}		
-				}
-				
+				UpdateFavoriting();
 				highlightBorder.gameObject.SetActive(IsFavorited);
 			}
 		}
+
+		private void UpdateFavoriting() {
+			var input = Manager.input.singleplayerInputModule;
+			
+			if (IsHovered && input.WasButtonPressedDownThisFrame(PlayerInput.InputType.LOCKING_TOGGLE)) {
+				if (IsFavorited) {
+					AudioManager.Sfx(SfxTableID.inventorySFXSlotLock, transform.position);
+					ConfigFile.FavoritedObjects.Remove(FavoritedKey);
+				} else {
+					AudioManager.Sfx(SfxTableID.inventorySFXSlotUnlock, transform.position);
+					ConfigFile.FavoritedObjects.Add(FavoritedKey);
+				}
+
+				OnFavoritedStateChanged();
+				ConfigFile.Save();
+			}
+		}
+
+		protected virtual void OnFavoritedStateChanged() { }
 
 		public override void OnSelected() {
 			_scrollWindow?.MoveScrollToIncludePosition(localScrollPosition, _boxCollider != null ? _boxCollider.size.sqrMagnitude : 0f);

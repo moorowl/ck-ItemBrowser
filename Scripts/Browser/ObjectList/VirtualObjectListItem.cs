@@ -9,12 +9,18 @@ namespace ItemBrowser.Browser {
 	public class VirtualObjectListItem : BasicItemSlot {
 		[SerializeField]
 		private FiltersPanel filtersPanel;
+		[SerializeField]
+		private ObjectListWindow objectListWindow;
 		
 		public void SetObjectData(ObjectData objectData, VirtualObjectList craftingSelectorUI) {
 			DisplayedObject = new DisplayedObject.Static(objectData);
 			slotsUIContainer = craftingSelectorUI;
 		}
-		
+
+		protected override void OnFavoritedStateChanged() {
+			objectListWindow.RequestListRefresh(true);
+		}
+
 		public override List<PugDatabase.MaterialInfo> GetRequiredMaterials(bool isRepairing, bool isReinforcing) {
 			if (!filtersPanel.DisplayItemCraftingRequirements)
 				return null;
