@@ -106,6 +106,9 @@ namespace ItemBrowser.Entries.Defaults {
 					if (EntityUtility.TryGetComponentData<SnakeMovementStateCD>(entity, world, out var snakeMovementStateCD) && snakeMovementStateCD.tailObjectId == objectData.objectID)
 						return;
 					
+					if (EntityUtility.HasComponentData<ProjectileCD>(entity, world) || EntityUtility.HasComponentData<MortarProjectileCD>(entity, world))
+						return;
+					
 					// Spawns on death
 					if (EntityUtility.TryGetComponentData<SpawnEntityOnDeathCD>(entity, world, out var spawnEntityOnDeathCD)) {
 						var entry = new Drops {
