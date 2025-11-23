@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using ItemBrowser.Utilities;
 using ItemBrowser.Utilities.DataStructures.SortingAndFiltering;
 using Pug.UnityExtensions;
@@ -16,8 +17,7 @@ namespace ItemBrowser.Browser {
 					return;
 				
 				_currentState = value;
-				UpdateVisuals();
-				objectListWindow.RequestItemListRefresh(false);
+				objectListWindow.RequestListRefresh(false);
 			}
 		}
 		
@@ -27,6 +27,8 @@ namespace ItemBrowser.Browser {
 		private FiltersPanel filtersPanel;
 		[SerializeField]
 		private SpriteRenderer toggledBackground;
+		[SerializeField]
+		private BoxCollider boxCollider;
 		
 		public void SetFilter(Filter<ObjectDataCD> filter) {
 			Filter = filter;
@@ -59,17 +61,31 @@ namespace ItemBrowser.Browser {
 
 		protected override void LateUpdate() {
 			IsToggled = CurrentState != FilterState.None;
+			toggledBackground.color = GetStateColor(CurrentState).ColorWithNewAlpha(toggledBackground.color.a);
 			
 			base.LateUpdate();
 		}
 
-		private void UpdateVisuals() {
-			Title = new TextAndFormatFields {
+		public override UIelement GetAdjacentUIElement(Direction.Id direction, Vector3 currentPosition) {
+			return filtersPanel.GetClosestUIElement(currentPosition + direction switch {
+				Direction.Id.forward => new Vector3(0, boxCollider.size.y, 0f),
+				Direction.Id.left => new Vector3(-boxCollider.size.x, 0f, 0f),
+				Direction.Id.back => new Vector3(0, -boxCollider.size.y, 0f),
+				Direction.Id.right => new Vector3(boxCollider.size.x, 0f, 0f),
+				_ => Vector3.zero
+			});
+		}
+		
+		public override TextAndFormatFields GetHoverTitle() {
+			return new TextAndFormatFields {
 				text = Filter.Name,
 				formatFields = Filter.NameFormatFields,
 				dontLocalizeFormatFields = !Filter.LocalizeNameFormatFields
 			};
-			Description = new List<TextAndFormatFields> {
+		}
+
+		public override List<TextAndFormatFields> GetHoverDescription() {
+			return new List<TextAndFormatFields> {
 				new() {
 					text = Filter.Description,
 					formatFields = Filter.DescriptionFormatFields,
@@ -81,10 +97,8 @@ namespace ItemBrowser.Browser {
 					color = GetStateColor(CurrentState)
 				}
 			};
-			
-			toggledBackground.color = GetStateColor(CurrentState).ColorWithNewAlpha(toggledBackground.color.a);
 		}
-		
+
 		private static Color GetStateColor(FilterState state) {
 			return state switch {
 				FilterState.Include => Color.green,
