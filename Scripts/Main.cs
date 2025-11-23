@@ -92,7 +92,8 @@ public class Main : IMod {
 				new Breeding.Provider(),
 				new CreatureSummoning.Provider(),
 				new UpgradeMaterial.Provider(),
-				new DropsWhenDamaged.Provider()
+				new DropsWhenDamaged.Provider(),
+				new Unlocking.Provider()
 			);
 
 			RegisterSorters();
