@@ -2,12 +2,12 @@
 using UnityEngine;
 
 namespace ItemBrowser.Entries.Defaults {
-	public class Miscellaneous : ObjectEntry {
+	public record Miscellaneous : ObjectEntry {
 		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/Miscellaneous", ObjectID.GrimyStoneFloor);
 		
-		public (ObjectID Id, int Variation, int Amount) Result { get; protected set; }
-		public (ObjectID Id, int Variation) Source { get; protected set; }
-		public string Term { get; protected set; }
+		public (ObjectID Id, int Variation, int Amount) Result { get; set; }
+		public (ObjectID Id, int Variation) Source { get; set; }
+		public string Term { get; set; }
 
 		public bool HasSource => Source.Id != ObjectID.None;
 

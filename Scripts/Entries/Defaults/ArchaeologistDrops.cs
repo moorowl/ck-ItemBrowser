@@ -3,11 +3,11 @@ using ItemBrowser.Utilities;
 using UnityEngine;
 
 namespace ItemBrowser.Entries.Defaults {
-	public class ArchaeologistDrops : ObjectEntry {
+	public record ArchaeologistDrops : ObjectEntry {
 		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/ArchaeologistDrops", ObjectID.WallStoneBlock, 5100);
 		
-		public ObjectID Result { get; protected set; }
-		public float Chance { get; protected set; }
+		public ObjectID Result { get; set; }
+		public float Chance { get; set; }
 		
 		public class Provider : ObjectEntryProvider {
 			public override void Register(ObjectEntryRegistry registry, List<(ObjectData ObjectData, GameObject Authoring)> allObjects) {

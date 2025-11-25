@@ -1,5 +1,4 @@
-﻿using System;
-using ItemBrowser.Browser;
+﻿using ItemBrowser.UserInterface.Browser;
 using ItemBrowser.Utilities;
 using PugMod;
 using UnityEngine;

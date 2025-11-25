@@ -6,13 +6,13 @@ using PugTilemap;
 using UnityEngine;
 
 namespace ItemBrowser.Entries.Defaults {
-	public class LockedChestDrops : ObjectEntry {
+	public record LockedChestDrops : ObjectEntry {
 		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/LockedChestDrops", ObjectID.WallStoneBlock, 5100);
 		
-		public ObjectID Result { get; protected set; }
-		public Biome RequiredBiome { get; protected set; }
-		public Tileset RequiredTileset { get; protected set; }
-		public float Chance { get; protected set; }
+		public ObjectID Result { get; set; }
+		public Biome RequiredBiome { get; set; }
+		public Tileset RequiredTileset { get; set; }
+		public float Chance { get; set; }
 		
 		public class Provider : ObjectEntryProvider {
 			private static readonly MemberInfo MiBiomeAndTilesetToChest = typeof(DropLootSystem).GetMembersChecked().FirstOrDefault(x => x.GetNameChecked() == "BiomeAndTilesetToChest");

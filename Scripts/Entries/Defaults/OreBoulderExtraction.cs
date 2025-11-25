@@ -3,12 +3,12 @@ using Unity.Mathematics;
 using UnityEngine;
 
 namespace ItemBrowser.Entries.Defaults {
-	public class OreBoulderExtraction : ObjectEntry {
+	public record OreBoulderExtraction : ObjectEntry {
 		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/OreBoulderExtraction", ObjectID.GoldOreBoulder, 5000);
 		
-		public ObjectID Result { get; protected set; }
-		public ObjectID OreBoulder { get; protected set; }
-		public int TotalOre { get; protected set; }
+		public ObjectID Result { get; set; }
+		public ObjectID OreBoulder { get; set; }
+		public int TotalOre { get; set; }
 		
 		public class Provider : ObjectEntryProvider {
 			public override void Register(ObjectEntryRegistry registry, List<(ObjectData ObjectData, GameObject Authoring)> allObjects) {

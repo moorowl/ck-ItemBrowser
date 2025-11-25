@@ -1,4 +1,6 @@
-﻿using ItemBrowser.Browser;
+﻿using System.Collections.Generic;
+using System.Linq;
+using ItemBrowser.UserInterface.Browser;
 using ItemBrowser.Utilities;
 using UnityEngine;
 
@@ -11,9 +13,14 @@ namespace ItemBrowser.Entries.Defaults {
 		[SerializeField]
 		private PugText costText;
 
+		public override IEnumerable<VendingMachine> SortEntries(IEnumerable<VendingMachine> entries) {
+			return entries
+				.OrderBy(entry => ObjectUtils.GetLocalizedDisplayNameOrDefault(entry.Result))
+				.ThenBy(entry => ObjectUtils.GetLocalizedDisplayNameOrDefault(entry.Vendor));
+		}
+		
 		public override void RenderSelf() {
 			var buyCost = ObjectUtils.GetValue(Entry.Result, 0, true);
-			
 			RenderBody(buyCost);
 			RenderMoreInfo(buyCost);
 		}

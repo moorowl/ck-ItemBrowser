@@ -3,12 +3,12 @@ using Unity.Mathematics;
 using UnityEngine;
 
 namespace ItemBrowser.Entries.Defaults {
-	public class Salvaging : ObjectEntry {
+	public record Salvaging : ObjectEntry {
 		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/Salvaging", ObjectID.SalvageAndRepairStation, 3300);
 		
-		public ObjectID Result { get; protected set; }
-		public (int Min, int Max) ResultAmount { get; protected set; }
-		public ObjectID ItemSalvaged { get; protected set; }
+		public ObjectID Result { get; set; }
+		public (int Min, int Max) ResultAmount { get; set; }
+		public ObjectID ItemSalvaged { get; set; }
 
 		public class Provider : ObjectEntryProvider {
 			public override void Register(ObjectEntryRegistry registry, List<(ObjectData ObjectData, GameObject Authoring)> allObjects) {

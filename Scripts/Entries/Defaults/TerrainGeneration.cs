@@ -3,12 +3,12 @@ using PugTilemap;
 using UnityEngine;
 
 namespace ItemBrowser.Entries.Defaults {
-	public class TerrainGeneration : ObjectEntry {
+	public record TerrainGeneration : ObjectEntry {
 		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/TerrainGeneration", ObjectID.WallDirtBlock, 5100);
 		
-		public (ObjectID Id, int Variation) Result { get; protected set; }
-		public Tileset? GeneratesInTileset { get; protected set; }
-		public Biome GeneratesInBiome { get; protected set; }
+		public (ObjectID Id, int Variation) Result { get; set; }
+		public Tileset? GeneratesInTileset { get; set; }
+		public Biome GeneratesInBiome { get; set; }
 		
 		public class Provider : ObjectEntryProvider {
 			public static Dictionary<Biome, List<Tileset>> BiomeBlockTilesets = new() {

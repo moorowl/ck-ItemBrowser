@@ -2,12 +2,12 @@
 using UnityEngine;
 
 namespace ItemBrowser.Entries.Defaults {
-	public class Breeding : ObjectEntry {
+	public record Breeding : ObjectEntry {
 		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/Breeding", ObjectID.ValentineWallHearts, 3900);
 		
-		public ObjectID ParentType { get; protected set; }
-		public ObjectID ChildType { get; protected set; }
-		public int MealsRequired { get; protected set; }
+		public ObjectID ParentType { get; set; }
+		public ObjectID ChildType { get; set; }
+		public int MealsRequired { get; set; }
 
 		public class Provider : ObjectEntryProvider {
 			public override void Register(ObjectEntryRegistry registry, List<(ObjectData ObjectData, GameObject Authoring)> allObjects) {

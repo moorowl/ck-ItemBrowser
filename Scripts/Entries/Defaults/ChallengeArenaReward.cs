@@ -3,18 +3,18 @@ using ItemBrowser.Utilities;
 using UnityEngine;
 
 namespace ItemBrowser.Entries.Defaults {
-	public class ChallengeArenaReward : ObjectEntry {
+	public record ChallengeArenaReward : ObjectEntry {
 		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/ChallengeArenaReward", ObjectID.AlienChest, 3750);
 		
-		public ObjectID Result { get; protected set; }
-		public float Chance { get; protected set; }
-		public float ChanceForOne { get; protected set; }
-		public (int Min, int Max) Amount { get; protected set; }
-		public (int Min, int Max) Rolls { get; protected set; }
-		public Biome OnlyDropsInBiome { get; protected set; }
-		public bool IsFromGuaranteedPool { get; protected set; }
-		public bool IsFromTableWithGuaranteedPool { get; protected set; }
-		public float? ChanceWhenBraveMerchantAlive { get; protected set; }
+		public ObjectID Result { get; set; }
+		public float Chance { get; set; }
+		public float ChanceForOne { get; set; }
+		public (int Min, int Max) Amount { get; set; }
+		public (int Min, int Max) Rolls { get; set; }
+		public Biome OnlyDropsInBiome { get; set; }
+		public bool IsFromGuaranteedPool { get; set; }
+		public bool IsFromTableWithGuaranteedPool { get; set; }
+		public float? ChanceWhenBraveMerchantAlive { get; set; }
 
 		public class Provider : ObjectEntryProvider {
 			private static readonly (ObjectID Id, Biome Biome)[] GemstoneTypes = {

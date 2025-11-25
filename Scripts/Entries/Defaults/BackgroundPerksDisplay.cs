@@ -1,5 +1,5 @@
 ﻿using System;
-using ItemBrowser.Browser;
+using ItemBrowser.UserInterface.Browser;
 using ItemBrowser.Utilities;
 using UnityEngine;
 
@@ -13,7 +13,7 @@ namespace ItemBrowser.Entries.Defaults {
 		private SpriteRenderer backgroundIcon;
 		[SerializeField]
 		private BasicItemSlot resultSlot;
-
+		
 		public override void RenderSelf() {
 			RenderBody();
 			RenderMoreInfo();

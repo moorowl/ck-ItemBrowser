@@ -29,13 +29,13 @@ public class Main : IMod {
 		var modInfo = API.ModLoader.LoadedMods.FirstOrDefault(modInfo => modInfo.Handlers.Contains(this));
 		AssetBundle = modInfo!.AssetBundles[0];
 		
-		ConfigFile.EarlyInit();
+		Options.EarlyInit();
 		
 		ItemBrowserAPI.OnInit += BuiltinContent.Register;
 	}
 
 	public void Init() {
-		ConfigFile.Init();
+		Options.Init();
 		
 		ModUtils.InitOnModLoad();
 	}
@@ -359,7 +359,7 @@ public class Main : IMod {
 			ItemBrowserAPI.RegisterItemFilter(utilityGroup, new($"{utilityGroup}_Discovered") {
 				Function = objectData => ObjectUtils.HasBeenDiscovered(objectData.objectID, objectData.variation),
 				FunctionIsDynamic = true,
-				DefaultState = () => ConfigFile.DefaultDiscoveredFilter ? FilterState.Include : FilterState.None
+				DefaultState = () => Options.DefaultDiscoveredFilter ? FilterState.Include : FilterState.None
 			});
 			ItemBrowserAPI.RegisterItemFilter(utilityGroup, new($"{utilityGroup}_Technical_Item") {
 				Function = objectData => {
@@ -379,7 +379,7 @@ public class Main : IMod {
 					
 					return false;
 				},
-				DefaultState = () => ConfigFile.DefaultTechnicalFilter ? FilterState.Exclude : FilterState.None
+				DefaultState = () => Options.DefaultTechnicalFilter ? FilterState.Exclude : FilterState.None
 			});
 			ItemBrowserAPI.RegisterCreatureFilter(utilityGroup, new($"{utilityGroup}_Technical_Creature") {
 				Function = objectData => {
@@ -391,15 +391,15 @@ public class Main : IMod {
 					
 					return false;
 				},
-				DefaultState = () => ConfigFile.DefaultTechnicalFilter ? FilterState.Exclude : FilterState.None
+				DefaultState = () => Options.DefaultTechnicalFilter ? FilterState.Exclude : FilterState.None
 			});
 			ItemBrowserAPI.RegisterItemFilter(utilityGroup, new($"{utilityGroup}_NoSources_Item") {
 				Function = objectData => !ItemBrowserAPI.ObjectEntries.GetAllEntries(ObjectEntryType.Source, objectData).Any(),
-				DefaultState = () => ConfigFile.CheatMode ? FilterState.None : FilterState.Exclude
+				DefaultState = () => Options.CheatMode ? FilterState.None : FilterState.Exclude
 			});
 			ItemBrowserAPI.RegisterCreatureFilter(utilityGroup, new($"{utilityGroup}_NoSources_Creature") {
 				Function = objectData => !ItemBrowserAPI.ObjectEntries.GetAllEntries(ObjectEntryType.Source, objectData).Any(),
-				DefaultState = () => ConfigFile.CheatMode ? FilterState.None : FilterState.Exclude
+				DefaultState = () => Options.CheatMode ? FilterState.None : FilterState.Exclude
 			});
 			/*ItemBrowserAPI.RegisterItemFilter(utilityGroup, new($"{utilityGroup}_IsNonObtainable") {
 				Function = objectData => ObjectUtils.IsNonObtainable(objectData.objectID, objectData.variation)

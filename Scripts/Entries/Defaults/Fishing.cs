@@ -5,14 +5,14 @@ using PugTilemap;
 using UnityEngine;
 
 namespace ItemBrowser.Entries.Defaults {
-	public class Fishing : ObjectEntry {
+	public record Fishing : ObjectEntry {
 		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/Fishing", ObjectID.IronFishingRod, 4400);
 		
-		public ObjectID Result { get; protected set; }
-		public Biome Biome { get; protected set; }
-		public Tileset Tileset { get; protected set; }
-		public CatchType Type { get; protected set; }
-		public float Chance { get; protected set; }
+		public ObjectID Result { get; set; }
+		public Biome Biome { get; set; }
+		public Tileset Tileset { get; set; }
+		public CatchType Type { get; set; }
+		public float Chance { get; set; }
 		
 		public enum CatchType {
 			Fish,

@@ -7,20 +7,20 @@ using PugTilemap;
 using UnityEngine;
 
 namespace ItemBrowser.Entries.Defaults {
-	public class NaturalSpawnAroundObject : ObjectEntry {
+	public record NaturalSpawnAroundObject : ObjectEntry {
 		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/NaturalSpawnAroundObject", ObjectID.NatureCicadaSummoningItem, 4650);
 		
-		public (ObjectID Id, int Variation) Result { get; protected set; }
-		public (ObjectID Id, int Variation) Entity { get; protected set; }
-		public float DespawnRadius { get; protected set; }
-		public float SpawnRadius { get; protected set; }
-		public (float Min, float Max) SpawnCooldown { get; protected set; }
-		public int SpawnLimit { get; protected set; }
-		public (float Min, float Max) SpawnLimitReachedCooldown { get; protected set; }
-		public Season? SpawnsInSeason { get; protected set; }
-		public Biome? SpawnsInBiome { get; protected set; }
-		public bool NeedToBeInsideBiome { get; protected set; }
-		public Tileset? SpawnsInTileset { get; protected set; }
+		public (ObjectID Id, int Variation) Result { get; set; }
+		public (ObjectID Id, int Variation) Entity { get; set; }
+		public float DespawnRadius { get; set; }
+		public float SpawnRadius { get; set; }
+		public (float Min, float Max) SpawnCooldown { get; set; }
+		public int SpawnLimit { get; set; }
+		public (float Min, float Max) SpawnLimitReachedCooldown { get; set; }
+		public Season? SpawnsInSeason { get; set; }
+		public Biome? SpawnsInBiome { get; set; }
+		public bool NeedToBeInsideBiome { get; set; }
+		public Tileset? SpawnsInTileset { get; set; }
 		
 		public class Provider : ObjectEntryProvider {
 			public override void Register(ObjectEntryRegistry registry, List<(ObjectData ObjectData, GameObject Authoring)> allObjects) {

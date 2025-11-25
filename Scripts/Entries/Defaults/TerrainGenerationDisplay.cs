@@ -1,4 +1,4 @@
-﻿using ItemBrowser.Browser;
+﻿using ItemBrowser.UserInterface.Browser;
 using ItemBrowser.Utilities;
 using PugTilemap;
 using UnityEngine;

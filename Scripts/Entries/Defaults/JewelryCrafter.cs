@@ -2,10 +2,10 @@
 using UnityEngine;
 
 namespace ItemBrowser.Entries.Defaults {
-	public class JewelryCrafter : ObjectEntry {
+	public record JewelryCrafter : ObjectEntry {
 		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/JewelryCrafter", ObjectID.JewelryWorkBench, 3500);
 		
-		public ObjectID UnpolishedVersion { get; protected set; }
+		public ObjectID UnpolishedVersion { get; set; }
 		
 		public class Provider : ObjectEntryProvider {
 			public static readonly HashSet<ObjectID> JewelryCraftingStations = new() {

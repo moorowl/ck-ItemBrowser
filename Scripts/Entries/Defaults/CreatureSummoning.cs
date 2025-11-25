@@ -2,13 +2,13 @@
 using UnityEngine;
 
 namespace ItemBrowser.Entries.Defaults {
-	public class CreatureSummoning : ObjectEntry {
+	public record CreatureSummoning : ObjectEntry {
 		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/CreatureSummoning", ObjectID.SlimeBossSummoningItem, 5200);
 		
-		public (ObjectID Id, int Variation) Creature { get; protected set; }
-		public MethodType SummoningMethod { get; protected set; }
-		public (ObjectID Id, int Variation) SummoningArea { get; protected set; }
-		public (ObjectID Id, int Variation) SummoningItem { get; protected set; }
+		public (ObjectID Id, int Variation) Creature { get; set; }
+		public MethodType SummoningMethod { get; set; }
+		public (ObjectID Id, int Variation) SummoningArea { get; set; }
+		public (ObjectID Id, int Variation) SummoningItem { get; set; }
 
 		public enum MethodType {
 			SummonArea,

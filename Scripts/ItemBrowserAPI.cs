@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using HarmonyLib;
 using I2.Loc;
-using ItemBrowser.Browser;
+using ItemBrowser.UserInterface.Browser;
 using ItemBrowser.Utilities;
 using ItemBrowser.Entries;
 using ItemBrowser.Utilities.DataStructures;
@@ -95,11 +95,7 @@ namespace ItemBrowser {
 		public static void RegisterCreatureFilter(string group, Filter<ObjectDataCD> filter) {
 			CreatureFilters.Add((group, filter));
 		}
-
-		public static void RegisterCookingFilter(string group, Filter<ObjectDataCD> filter) {
-			CookingFilters.Add((group, filter));
-		}
-
+		
 		public static bool ShouldItemBeIncluded(ObjectDataCD objectData) {
 			var objectInfo = PugDatabase.GetObjectInfo(objectData.objectID, objectData.variation);
 
@@ -130,15 +126,6 @@ namespace ItemBrowser {
 			return !objectInfo.isCustomScenePrefab;
 		}
 		
-		public static bool ShouldMiscellaneousBeIncluded(ObjectDataCD objectData) {
-			var objectInfo = PugDatabase.GetObjectInfo(objectData.objectID, objectData.variation);
-			
-			if (PugDatabase.HasComponent<CookedFoodCD>(objectData) || !ObjectUtils.IsPrimaryVariation(objectData.objectID, objectData.variation))
-				return false;
-			
-			return !objectInfo.isCustomScenePrefab && !ShouldItemBeIncluded(objectData) && !ShouldCreatureBeIncluded(objectData);
-		}
-
 		public static void RegisterItemSorter(Sorter<ObjectDataCD> sorter) {
 			ItemSorters.Add(sorter);
 		}
@@ -146,11 +133,7 @@ namespace ItemBrowser {
 		public static void RegisterCreatureSorter(Sorter<ObjectDataCD> sorter) {
 			CreatureSorters.Add(sorter);
 		}
-
-		public static void RegisterCookingSorter(Sorter<ObjectDataCD> sorter) {
-			CookingSorters.Add(sorter);
-		}
-
+		
 		[HarmonyPatch]
 		public static class Patches {
 			private static string _lastLanguage;

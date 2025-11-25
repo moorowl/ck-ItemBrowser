@@ -8,22 +8,25 @@ using Unity.Entities;
 using UnityEngine;
 
 namespace ItemBrowser.Entries.Defaults {
-	public class Loot : ObjectEntry {
+	public record Loot : ObjectEntry {
 		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/Loot", ObjectID.CopperChest, 3700);
 		
-		public (ObjectID Id, int Variation) Result { get; protected set; }
-		public (ObjectID Id, int Variation) Entity { get; protected set; }
-		public float Chance { get; protected set; }
-		public Func<float> ChanceForOne { get; protected set; }
-		public Func<(int Min, int Max)> Amount { get; protected set; }
-		public Func<(int Min, int Max)> Rolls { get; protected set; }
-		public Biome OnlyDropsInBiome { get; protected set; }
-		public bool IsFromGuaranteedPool { get; protected set; }
-		public bool IsFromTableWithGuaranteedPool { get; protected set; }
-		public List<(string Name, int Amount)> FoundInScenes { get; protected set; } = new();
-		public List<(string Name, int Amount)> FoundInDungeons { get; protected set; } = new();
+		public (ObjectID Id, int Variation) Result { get; set; }
+		public (ObjectID Id, int Variation) Entity { get; set; }
+		public float Chance { get; set; }
+		public Func<float> ChanceForOne { get; set; }
+		public Func<(int Min, int Max)> Amount { get; set; }
+		public Func<(int Min, int Max)> Rolls { get; set; }
+		public Biome OnlyDropsInBiome { get; set; }
+		public bool IsFromGuaranteedPool { get; set; }
+		public bool IsFromTableWithGuaranteedPool { get; set; }
+		public List<(string Name, int Amount)> FoundInScenes { get; set; } = new();
+		public List<(string Name, int Amount)> FoundInDungeons { get; set; } = new();
 		
-		protected bool Equals(Loot other) {
+		public virtual bool Equals(Loot other) {
+			if (other == null)
+				return false;
+			
 			return Entity.Id == other.Entity.Id
 			       && Entity.Variation == other.Entity.Variation
 			       && Mathf.Approximately(Chance, other.Chance)
@@ -34,17 +37,7 @@ namespace ItemBrowser.Entries.Defaults {
 			       && IsFromGuaranteedPool == other.IsFromGuaranteedPool
 			       && IsFromTableWithGuaranteedPool == other.IsFromTableWithGuaranteedPool;
 		}
-
-		public override bool Equals(object obj) {
-			if (obj is null)
-				return false;
-			if (ReferenceEquals(this, obj))
-				return true;
-			if (obj.GetType() != GetType())
-				return false;
-			return Equals((Loot) obj);
-		}
-
+		
 		public override int GetHashCode() {
 			var hashCode = new HashCode();
 			hashCode.Add((int) Entity.Id);

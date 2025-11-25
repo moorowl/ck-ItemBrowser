@@ -2,12 +2,12 @@
 using UnityEngine;
 
 namespace ItemBrowser.Entries.Defaults {
-	public class VendingMachine : ObjectEntry {
+	public record VendingMachine : ObjectEntry {
 		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/VendingMachine", ObjectID.AFVendingMachine, 4100);
 		
-		public ObjectID Result { get; protected set; }
-		public ObjectID Vendor { get; protected set; }
-		public int Stock { get; protected set; }
+		public ObjectID Result { get; set; }
+		public ObjectID Vendor { get; set; }
+		public int Stock { get; set; }
 		
 		public class Provider : ObjectEntryProvider {
 			public override void Register(ObjectEntryRegistry registry, List<(ObjectData ObjectData, GameObject Authoring)> allObjects) {

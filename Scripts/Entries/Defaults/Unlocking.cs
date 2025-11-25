@@ -3,12 +3,12 @@ using ItemBrowser.Utilities;
 using UnityEngine;
 
 namespace ItemBrowser.Entries.Defaults {
-	public class Unlocking : ObjectEntry {
+	public record Unlocking : ObjectEntry {
 		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/Unlocking", ObjectID.CopperKey, 3300);
 		
-		public (ObjectID Id, int Variation) Key { get; protected set; }
-		public (ObjectID Id, int Variation) OutputObject { get; protected set; }
-		public (ObjectID Id, int Variation) InputObject { get; protected set; }
+		public (ObjectID Id, int Variation) Key { get; set; }
+		public (ObjectID Id, int Variation) OutputObject { get; set; }
+		public (ObjectID Id, int Variation) InputObject { get; set; }
 		
 		public class Provider : ObjectEntryProvider {
 			public override void Register(ObjectEntryRegistry registry, List<(ObjectData ObjectData, GameObject Authoring)> allObjects) {

@@ -4,17 +4,17 @@ using PugTilemap;
 using UnityEngine;
 
 namespace ItemBrowser.Entries.Defaults {
-	public class NaturalSpawnInitial : ObjectEntry {
+	public record NaturalSpawnInitial : ObjectEntry {
 		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/NaturalSpawnInitial", ObjectID.Bush, 4700);
 		
-		public (ObjectID Id, int Variation) Result { get; protected set; }
-		public EnvironmentSpawnType Type { get; protected set; }
-		public int AmountToSpawn { get; protected set; }
-		public Tileset? TilesetToSpawnOn { get; protected set; }
-		public float ClusterSpawnChance { get; protected set; }
-		public float ClusterSpreadChance { get; protected set; }
-		public bool ClusterSpreadFourWayOnly { get; protected set; }
-		public EnvironmentSpawnData.SpawnCheck SpawnCheck { get; protected set; }
+		public (ObjectID Id, int Variation) Result { get; set; }
+		public EnvironmentSpawnType Type { get; set; }
+		public int AmountToSpawn { get; set; }
+		public Tileset? TilesetToSpawnOn { get; set; }
+		public float ClusterSpawnChance { get; set; }
+		public float ClusterSpreadChance { get; set; }
+		public bool ClusterSpreadFourWayOnly { get; set; }
+		public EnvironmentSpawnData.SpawnCheck SpawnCheck { get; set; }
 		
 		public class Provider : ObjectEntryProvider {
 			public override void Register(ObjectEntryRegistry registry, List<(ObjectData ObjectData, GameObject Authoring)> allObjects) {

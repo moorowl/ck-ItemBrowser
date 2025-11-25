@@ -4,12 +4,12 @@ using ItemBrowser.Utilities;
 using UnityEngine;
 
 namespace ItemBrowser.Entries.Defaults {
-	public class Trading : ObjectEntry {
+	public record Trading : ObjectEntry {
 		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/Trading", ObjectID.ValentineLetter, 4300);
 		
-		public (ObjectID Id, int Variation) Result { get; protected set; }
-		public (ObjectID Id, int Variation) Vendor { get; protected set; }
-		public int Amount { get; protected set; }
+		public (ObjectID Id, int Variation) Result { get; set; }
+		public (ObjectID Id, int Variation) Vendor { get; set; }
+		public int Amount { get; set; }
 		
 		public class Provider : ObjectEntryProvider {
 			public override void Register(ObjectEntryRegistry registry, List<(ObjectData ObjectData, GameObject Authoring)> allObjects) {

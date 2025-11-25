@@ -3,13 +3,13 @@ using ItemBrowser.Utilities;
 using UnityEngine;
 
 namespace ItemBrowser.Entries.Defaults {
-	public class DropsWhenDamaged : ObjectEntry {
+	public record DropsWhenDamaged : ObjectEntry {
 		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/DropsWhenDamaged", ObjectID.SolariteOre, 3790);
 		
-		public (ObjectID Id, int Variation) Result { get; protected set; }
-		public (ObjectID Id, int Variation) Entity { get; protected set; }
-		public int DamageRequiredToDrop { get; protected set; }
-		public int HealthRequiredToDrop { get; protected set; }
+		public (ObjectID Id, int Variation) Result { get; set; }
+		public (ObjectID Id, int Variation) Entity { get; set; }
+		public int DamageRequiredToDrop { get; set; }
+		public int HealthRequiredToDrop { get; set; }
 		
 		public class Provider : ObjectEntryProvider {
 			public override void Register(ObjectEntryRegistry registry, List<(ObjectData ObjectData, GameObject Authoring)> allObjects) {

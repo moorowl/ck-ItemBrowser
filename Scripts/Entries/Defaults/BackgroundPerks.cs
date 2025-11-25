@@ -3,12 +3,12 @@ using System.Linq;
 using UnityEngine;
 
 namespace ItemBrowser.Entries.Defaults {
-	public class BackgroundPerks : ObjectEntry {
+	public record BackgroundPerks : ObjectEntry {
 		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/BackgroundPerks", ObjectID.FoodRation, 3400);
 		
-		public (ObjectID Id, int Variation, int Amount) Result { get; protected set; }
-		public CharacterRole Background { get; protected set; }
-		public SkillID BackgroundSkill { get; protected set; }
+		public (ObjectID Id, int Variation, int Amount) Result { get; set; }
+		public CharacterRole Background { get; set; }
+		public SkillID BackgroundSkill { get; set; }
 
 		public class Provider : ObjectEntryProvider {
 			public override void Register(ObjectEntryRegistry registry, List<(ObjectData ObjectData, GameObject Authoring)> allObjects) {

@@ -3,20 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using ItemBrowser.Utilities;
 using ItemBrowser.Utilities.Extensions;
-using PugMod;
 using Unity.Mathematics;
 using UnityEngine;
 
 namespace ItemBrowser.Entries.Defaults {
-	public class Crafting : ObjectEntry {
+	public record Crafting : ObjectEntry {
 		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/Crafting", ObjectID.WoodenWorkBench, 4500);
 
-		public (ObjectID Id, int Variation) Result { get; protected set; }
-		public ObjectID Station { get; protected set; }
-		public ObjectID Recipe { get; protected set; }
-		public int Amount { get; protected set; }
-		public float CraftingTime { get; protected set; }
-		public ObjectID RequiresObjectNearby { get; protected set; }
+		public (ObjectID Id, int Variation) Result { get; set; }
+		public ObjectID Station { get; set; }
+		public ObjectID Recipe { get; set; }
+		public int Amount { get; set; }
+		public float CraftingTime { get; set; }
+		public ObjectID RequiresObjectNearby { get; set; }
 		
 		public bool UsesStation => Station != ObjectID.None;
 		

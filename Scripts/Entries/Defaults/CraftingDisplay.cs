@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using I2.Loc;
-using ItemBrowser.Browser;
+using ItemBrowser.UserInterface.Browser;
 using ItemBrowser.Utilities;
 using PugMod;
 using UnityEngine;

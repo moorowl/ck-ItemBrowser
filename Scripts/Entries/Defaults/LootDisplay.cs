@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using ItemBrowser.Browser;
+using ItemBrowser.UserInterface.Browser;
 using ItemBrowser.Utilities;
 using UnityEngine;
 

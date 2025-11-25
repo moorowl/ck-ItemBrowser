@@ -5,11 +5,11 @@ using PugMod;
 using UnityEngine;
 
 namespace ItemBrowser.Entries.Defaults {
-	public class UpgradeMaterial : ObjectEntry {
+	public record UpgradeMaterial : ObjectEntry {
 		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/UpgradeMaterial", ObjectID.UpgradeForge, 2600);
 		
-		public (int From, int To) Level { get; protected set; }
-		public List<(ObjectID Id, int Amount)> Materials { get; protected set; }
+		public (int From, int To) Level { get; set; }
+		public List<(ObjectID Id, int Amount)> Materials { get; set; }
 		
 		public class Provider : ObjectEntryProvider {
 			public override void Register(ObjectEntryRegistry registry, List<(ObjectData ObjectData, GameObject Authoring)> allObjects) {

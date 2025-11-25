@@ -5,12 +5,12 @@ using PugTilemap;
 using UnityEngine;
 
 namespace ItemBrowser.Entries.Defaults {
-	public class StructureContents : ObjectEntry {
+	public record StructureContents : ObjectEntry {
 		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/StructureContents", "ItemBrowser:ObjectEntry/StructureContents_NonObtainable", ObjectID.RuinsCavelingPillar, 3200);
 		
-		public (ObjectID Id, int Variation, int Amount) Result { get; protected set; }
-		public string Scene { get; protected set; }
-		public string Dungeon { get; protected set; }
+		public (ObjectID Id, int Variation, int Amount) Result { get; set; }
+		public string Scene { get; set; }
+		public string Dungeon { get; set; }
 		
 		public class Provider : ObjectEntryProvider {
 			public override void Register(ObjectEntryRegistry registry, List<(ObjectData ObjectData, GameObject Authoring)> allObjects) {

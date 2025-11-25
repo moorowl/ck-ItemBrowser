@@ -62,7 +62,7 @@ MonoBehaviour:
   dontResetEffectsOnRender: 0
   hideInStreamerMode: 0
   maxWidth: 0
-  textString: ItemBrowser:Config/CheatMode
+  textString: ItemBrowser:Options/CheatMode
   textSuffix: 
   formatFields: []
   overrideMaterial: {fileID: 0}
@@ -498,7 +498,7 @@ MonoBehaviour:
   dontResetEffectsOnRender: 0
   hideInStreamerMode: 0
   maxWidth: 0
-  textString: ItemBrowser:Config/ShowTechnicalInfo
+  textString: ItemBrowser:Options/ShowTechnicalInfo
   textSuffix: 
   formatFields: []
   overrideMaterial: {fileID: 0}
@@ -716,7 +716,7 @@ MonoBehaviour:
   dontResetEffectsOnRender: 0
   hideInStreamerMode: 0
   maxWidth: 0
-  textString: ItemBrowser:Config/DefaultDiscoveredFilter
+  textString: ItemBrowser:Options/DefaultDiscoveredFilter
   textSuffix: 
   formatFields: []
   overrideMaterial: {fileID: 0}
@@ -1043,7 +1043,7 @@ MonoBehaviour:
   dontResetEffectsOnRender: 0
   hideInStreamerMode: 0
   maxWidth: 0
-  textString: ItemBrowser:Config/DefaultTechnicalFilter
+  textString: ItemBrowser:Options/DefaultTechnicalFilter
   textSuffix: 
   formatFields: []
   overrideMaterial: {fileID: 0}
@@ -1152,7 +1152,7 @@ MonoBehaviour:
   dontResetEffectsOnRender: 0
   hideInStreamerMode: 0
   maxWidth: 0
-  textString: ItemBrowser:Config/ShowSourceMod
+  textString: ItemBrowser:Options/ShowSourceMod
   textSuffix: 
   formatFields: []
   overrideMaterial: {fileID: 0}

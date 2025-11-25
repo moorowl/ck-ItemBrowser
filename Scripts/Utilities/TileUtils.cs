@@ -1,5 +1,4 @@
-﻿using I2.Loc;
-using PugMod;
+﻿using PugMod;
 using PugTilemap;
 
 namespace ItemBrowser.Utilities {

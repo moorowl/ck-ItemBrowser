@@ -4,11 +4,11 @@ using PugMod;
 using UnityEngine;
 
 namespace ItemBrowser.Entries.Defaults {
-	public class MerchantSpawning : ObjectEntry {
+	public record MerchantSpawning : ObjectEntry {
 		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/MerchantSpawning", ObjectID.WallWoodBlock, 5100);
 		
-		public ObjectID Merchant { get; protected set; }
-		public ObjectID Idol  { get; protected set; }
+		public ObjectID Merchant { get; set; }
+		public ObjectID Idol  { get; set; }
 		
 		public class Provider : ObjectEntryProvider {
 			private static readonly MemberInfo MiGetRequiredObjectForMerchant = typeof(SpawnMerchantSystem).GetMembersChecked().FirstOrDefault(x => x.GetNameChecked() == "GetRequiredObjectForMerchant");

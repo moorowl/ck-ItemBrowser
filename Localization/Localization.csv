@@ -348,18 +348,18 @@ ItemBrowser:StructureType/Scene	Text		Scene
 ItemBrowser:StructureType/Dungeon	Text		Dungeon												
 ItemBrowser:StructureExclusiveLoot	Text		Structure-exclusive loot												
 ItemBrowser:StructureExclusiveDrop	Text		Structure-exclusive drop												
-ItemBrowser:Config	Text		Item Browser settings												
-ItemBrowser:Config/CheatMode	Text		Cheat mode												
-ItemBrowser:Config/ShowTechnicalInfo	Text		Show technical info												
-ItemBrowser:Config/ShowSourceMod	Text		Show source mod												
-ItemBrowser:Config/ResetToDefault	Text		Reset to default												
-ItemBrowser:Config/DefaultDiscoveredFilter	Text		Default discovered filter												
-ItemBrowser:Config/DefaultTechnicalFilter	Text		Default technical filter												
-ItemBrowser:Config/VanillaStructureNames	Text		Vanilla structure names												
-ItemBrowser:Config/VanillaStructureNames_Internal	Text		Internal names												
-ItemBrowser:Config/VanillaStructureNames_Fandom	Text		Fandom wiki names												
-ItemBrowser:Config/ModdedStructureNames_Internal	Text		Internal names												
-ItemBrowser:Config/ModdedStructureNames_Provided	Text		Provided names												
+ItemBrowser:Options	Text		Item Browser settings												
+ItemBrowser:Options/CheatMode	Text		Cheat mode												
+ItemBrowser:Options/ShowTechnicalInfo	Text		Show technical info												
+ItemBrowser:Options/ShowSourceMod	Text		Show source mod												
+ItemBrowser:Options/ResetToDefault	Text		Reset to default												
+ItemBrowser:Options/DefaultDiscoveredFilter	Text		Default discovered filter												
+ItemBrowser:Options/DefaultTechnicalFilter	Text		Default technical filter												
+ItemBrowser:Options/VanillaStructureNames	Text		Vanilla structure names												
+ItemBrowser:Options/VanillaStructureNames_Internal	Text		Internal names												
+ItemBrowser:Options/VanillaStructureNames_Fandom	Text		Fandom wiki names												
+ItemBrowser:Options/ModdedStructureNames_Internal	Text		Internal names												
+ItemBrowser:Options/ModdedStructureNames_Provided	Text		Provided names												
 ItemBrowser:MiscellaneousDesc/Greggy	Text		Creating a character named 'Greggy' (case-sensitive)												
 ItemBrowser:MiscellaneousDesc/CreativeOrbLantern	Text		Creating a creative mode character												
 ItemBrowser:MiscellaneousDesc/BossAdds	Text		Spawned by {0}												

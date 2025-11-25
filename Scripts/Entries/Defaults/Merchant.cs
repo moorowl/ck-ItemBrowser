@@ -2,13 +2,13 @@
 using UnityEngine;
 
 namespace ItemBrowser.Entries.Defaults {
-	public class Merchant : ObjectEntry {
+	public record Merchant : ObjectEntry {
 		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/Merchant", ObjectID.SlimeOil, 4200);
 		
-		public ObjectID Result { get; protected set; }
-		public ObjectID MerchantType { get; protected set; }
-		public int Stock { get; protected set; }
-		public MerchantItemRequirement Requirement { get; protected set; }
+		public ObjectID Result { get; set; }
+		public ObjectID MerchantType { get; set; }
+		public int Stock { get; set; }
+		public MerchantItemRequirement Requirement { get; set; }
 		
 		public class Provider : ObjectEntryProvider {
 			public override void Register(ObjectEntryRegistry registry, List<(ObjectData ObjectData, GameObject Authoring)> allObjects) {

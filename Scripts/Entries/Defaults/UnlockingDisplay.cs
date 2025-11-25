@@ -1,5 +1,5 @@
 ﻿using ItemBrowser.Utilities;
-using ItemBrowser.Browser;
+using ItemBrowser.UserInterface.Browser;
 using UnityEngine;
 
 namespace ItemBrowser.Entries.Defaults {

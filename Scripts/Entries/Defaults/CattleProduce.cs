@@ -4,14 +4,14 @@ using ItemBrowser.Utilities;
 using UnityEngine;
 
 namespace ItemBrowser.Entries.Defaults {
-	public class CattleProduce : ObjectEntry {
+	public record CattleProduce : ObjectEntry {
 		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/CattleProduce", ObjectID.Egg, 4000);
 		
-		public ObjectID Result { get; protected set; }
-		public ObjectID Cattle { get; protected set; }
-		public int Amount { get; protected set; }
-		public List<ObjectCategoryTag> SuitableFeed { get; protected set; }
-		public int SuitableFeedRequired { get; protected set; }
+		public ObjectID Result { get; set; }
+		public ObjectID Cattle { get; set; }
+		public int Amount { get; set; }
+		public List<ObjectCategoryTag> SuitableFeed { get; set; }
+		public int SuitableFeedRequired { get; set; }
 		
 		public class Provider : ObjectEntryProvider {
 			public override void Register(ObjectEntryRegistry registry, List<(ObjectData ObjectData, GameObject Authoring)> allObjects) {

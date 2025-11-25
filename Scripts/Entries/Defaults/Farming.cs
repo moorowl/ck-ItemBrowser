@@ -3,14 +3,14 @@ using System.Linq;
 using UnityEngine;
 
 namespace ItemBrowser.Entries.Defaults {
-	public class Farming : ObjectEntry {
+	public record Farming : ObjectEntry {
 		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/Farming", ObjectID.HeartBerrySeed, 4900);
 		
-		public ObjectID Result { get; protected set; }
-		public ObjectID Seed { get; protected set; }
-		public bool HasGoldSeed  { get; protected set; }
-		public bool RequiresGoldSeed { get; protected set; }
-		public float GrowthTime { get; protected set; }
+		public ObjectID Result { get; set; }
+		public ObjectID Seed { get; set; }
+		public bool HasGoldSeed  { get; set; }
+		public bool RequiresGoldSeed { get; set; }
+		public float GrowthTime { get; set; }
 		
 		public class Provider : ObjectEntryProvider {
 			public override void Register(ObjectEntryRegistry registry, List<(ObjectData ObjectData, GameObject Authoring)> allObjects) {

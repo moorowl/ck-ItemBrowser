@@ -1,5 +1,5 @@
 ﻿using I2.Loc;
-using ItemBrowser.Browser;
+using ItemBrowser.UserInterface.Browser;
 using ItemBrowser.Config;
 using ItemBrowser.Utilities;
 using UnityEngine;
@@ -110,7 +110,7 @@ namespace ItemBrowser.Entries.Defaults {
 				}
 			}
 
-			if (ConfigFile.ShowTechnicalInfo) {
+			if (Options.ShowTechnicalInfo) {
 				MoreInfo.AddPadding();
 				MoreInfo.AddLine(new TextAndFormatFields {
 					text = "ItemBrowser:MoreInfo/NaturalSpawnRespawn_5",

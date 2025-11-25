@@ -1,5 +1,5 @@
 ﻿using ItemBrowser.Utilities;
-using ItemBrowser.Browser;
+using ItemBrowser.UserInterface.Browser;
 using UnityEngine;
 
 namespace ItemBrowser.Entries.Defaults {
@@ -8,7 +8,7 @@ namespace ItemBrowser.Entries.Defaults {
 		private BasicItemSlot resultSlot;
 		[SerializeField]
 		private PugText chanceText;
-
+		
 		public override void RenderSelf() {
 			resultSlot.DisplayedObject = new DisplayedObject.Static(new ObjectDataCD {
 				objectID = Entry.Result
