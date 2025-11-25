@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using ItemBrowser.Utilities;
 using ItemBrowser.Utilities.DataStructures.SortingAndFiltering;
 
 namespace ItemBrowser.Browser {
@@ -13,7 +14,7 @@ namespace ItemBrowser.Browser {
 		}
 
 		protected override List<ObjectDataCD> GetIncludedObjects() {
-			return PugDatabase.objectsByType.Keys.Where(ItemBrowserAPI.ShouldItemBeIncluded).ToList();
+			return ObjectUtils.GetAllObjects().Where(ItemBrowserAPI.ShouldItemBeIncluded).ToList();
 		}
 	}
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using ItemBrowser.Config;
 using ItemBrowser.Entries;
@@ -138,40 +139,25 @@ namespace ItemBrowser.Browser {
 		}
 
 		public class Tag : DisplayedObject {
-			private const float CycleTimer = 1f;
-			
 			public override ContainedObjectsBuffer VisualObject => new() {
-				objectData = _objectsToDisplay.Count > 0 ? _objectsToDisplay[_currentObjectIndex] : default
+				objectData = _objectsToDisplay.CurrentObjectData
 			};
 
 			private readonly ObjectCategoryTag _tag;
 			private readonly int _amount;
-			private readonly List<ObjectDataCD> _objectsToDisplay;
-
-			private int _currentObjectIndex;
-			private float _lastChangedObjectTime;
-
+			private readonly CyclingObjectData _objectsToDisplay;
+			
 			public Tag(ObjectCategoryTag tag, int amount = 1) {
 				_tag = tag;
-				_objectsToDisplay = GetObjectsToDisplay(tag).Select(objectData => new ObjectDataCD {
+				_objectsToDisplay = new CyclingObjectData(GetObjectsToDisplay(tag).Select(objectData => new ObjectDataCD {
 					objectID = objectData.objectID,
 					variation = objectData.variation,
 					amount = amount
-				}).ToList();
-				_currentObjectIndex = 0;
-				_lastChangedObjectTime = 0f;
+				}));
 			}
 
 			public override void Update(SlotUIBase slot) {
-				if (Time.time >= _lastChangedObjectTime + CycleTimer) {
-					_currentObjectIndex++;
-					if (_currentObjectIndex >= _objectsToDisplay.Count)
-						_currentObjectIndex = 0;
-
-					_lastChangedObjectTime = Time.time;
-					if (slot is BasicItemSlot basicItemSlot)
-						basicItemSlot.UpdateVisuals();
-				}
+				_objectsToDisplay.Update(slot);
 			}
 
 			public override TextAndFormatFields GetHoverTitle(SlotUIBase slot) {
@@ -207,26 +193,34 @@ namespace ItemBrowser.Browser {
 		
 		public class Tile : DisplayedObject {
 			public override ContainedObjectsBuffer ContainedObject => _staticObject?.ContainedObject ?? new ContainedObjectsBuffer();
-			public override ContainedObjectsBuffer VisualObject => _staticObject?.VisualObject ?? new ContainedObjectsBuffer();
+			public override ContainedObjectsBuffer VisualObject =>  _staticObject?.VisualObject ?? new ContainedObjectsBuffer {
+				objectData = _visualObjects?.CurrentObjectData ?? default
+			};
 
 			private readonly TileType _tileType;
 			private readonly Tileset _tileset;
+			private readonly CyclingObjectData _visualObjects;
 			private readonly Static _staticObject;
 
 			public Tile(TileType tileType, Tileset? tileset = null) {
 				_tileType = tileType;
 				_tileset = tileset ?? Tileset.MAX_VALUE;
 
-				if (tileset == null)
-					return;
-				
-				var objectInfo = PugDatabase.TryGetTileItemInfo(_tileType == TileType.ground ? TileType.wall : _tileType, (int) tileset);
-				if (objectInfo != null) {
-					_staticObject = new Static(new ObjectDataCD {
-						objectID = objectInfo.objectID,
-						variation = objectInfo.variation
-					});
+				if (tileset == null) {
+					_visualObjects = new CyclingObjectData(GetObjectsToDisplay(_tileType));
+				} else {
+					var objectInfo = PugDatabase.TryGetTileItemInfo(_tileType == TileType.ground ? TileType.wall : _tileType, (int) tileset);
+					if (objectInfo != null) {
+						_staticObject = new Static(new ObjectDataCD {
+							objectID = objectInfo.objectID,
+							variation = objectInfo.variation
+						});
+					}	
 				}
+			}
+			
+			public override void Update(SlotUIBase slot) {
+				_visualObjects?.Update(slot);
 			}
 			
 			public override bool ShowEntries(SlotUIBase slot, ObjectEntryType type) {
@@ -246,6 +240,28 @@ namespace ItemBrowser.Browser {
 
 			public override List<TextAndFormatFields> GetHoverStats(SlotUIBase slot, bool previewReinforced) {
 				return _staticObject != null ? _staticObject.GetHoverStats(slot, previewReinforced) : base.GetHoverStats(slot, previewReinforced);
+			}
+			
+			private static IEnumerable<ObjectDataCD> GetObjectsToDisplay(TileType tileType) {
+				return tileType switch {
+					TileType.pit => new[] {
+						new ObjectDataCD {
+							objectID = ObjectID.Pit
+						}
+					},
+					TileType.smallGrass => new[] {
+						new ObjectDataCD {
+							objectID = ObjectID.SmallGrass
+						}
+					},
+					TileType.wall => ObjectUtils.GetAllObjects()
+						.Where(objectData => PugDatabase.TryGetComponent<TileCD>(objectData, out var tileCD) && tileCD.tileType == TileType.wall),
+					TileType.water => ObjectUtils.GetAllObjects()
+						.Where(objectData => PugDatabase.TryGetComponent<TileCD>(objectData, out var tileCD) && tileCD.tileType == TileType.water),
+					TileType.ground => ObjectUtils.GetAllObjects()
+						.Where(objectData => PugDatabase.TryGetComponent<TileCD>(objectData, out var tileCD) && tileCD.tileType == TileType.wall && TileUtils.IsBlock(tileCD.tileType, (Tileset) tileCD.tileset)),
+					_ => Array.Empty<ObjectDataCD>()
+				};
 			}
 		}
 		
@@ -317,6 +333,43 @@ namespace ItemBrowser.Browser {
 					Season.LunarNewYear => ObjectID.ChineseCoin,
 					_ => ObjectID.None
 				};
+			}
+		}
+
+		private class CyclingObjectData {
+			private const float DefaultCycleSpeed = 1f;
+			
+			private readonly List<ObjectDataCD> _objectsToDisplay;
+			private readonly float _cycleSpeed;
+			private int _currentObjectDataIndex;
+			private float _lastCycledTime;
+			
+			public ObjectDataCD CurrentObjectData => _objectsToDisplay.Count > 0 ? _objectsToDisplay[_currentObjectDataIndex] : default;
+
+			public CyclingObjectData(IEnumerable<ObjectDataCD> objectsToDisplay, float cycleSpeed = DefaultCycleSpeed) {
+				_objectsToDisplay = objectsToDisplay.ToList();
+				_cycleSpeed = cycleSpeed;
+			}
+			
+			public CyclingObjectData(float cycleSpeed = DefaultCycleSpeed) {
+				_objectsToDisplay = new List<ObjectDataCD>();
+				_cycleSpeed = cycleSpeed;
+			}
+
+			public void Add(ObjectDataCD objectData) {
+				_objectsToDisplay.Add(objectData);
+			}
+			
+			public void Update(SlotUIBase slot) {
+				if (Time.time >= _lastCycledTime + _cycleSpeed) {
+					_currentObjectDataIndex++;
+					if (_currentObjectDataIndex >= _objectsToDisplay.Count)
+						_currentObjectDataIndex = 0;
+
+					_lastCycledTime = Time.time;
+					if (slot is BasicItemSlot basicItemSlot)
+						basicItemSlot.UpdateVisuals();
+				}
 			}
 		}
 	}

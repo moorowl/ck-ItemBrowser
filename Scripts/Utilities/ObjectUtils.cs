@@ -154,7 +154,7 @@ namespace ItemBrowser.Utilities {
 			PrimaryVariations.Clear();
 			
 			var nameToPrimaryVariation = new Dictionary<string, int>();
-			foreach (var objectData in PugDatabase.objectsByType.Keys.OrderBy(objectData => objectData.variation)) {
+			foreach (var objectData in GetAllObjects().OrderBy(objectData => objectData.variation)) {
 				var displayName = DisplayNames.GetValueOrDefault(objectData) ?? $"{objectData.objectID}:{objectData.variation}";
 
 				if (nameToPrimaryVariation.TryGetValue(displayName, out var primaryVariation)) {
@@ -204,7 +204,10 @@ namespace ItemBrowser.Utilities {
 			return GetPrimaryVariation(id, variation) == variation;
 		}
 
-		public static bool HasBeenDiscovered(ObjectID id, int variation = 0) {
+		public static bool HasBeenDiscovered(ObjectID id, int variation = 0, bool considerNonObtainablesDiscovered = false) {
+			if (considerNonObtainablesDiscovered)
+				return IsNonObtainable(id, variation) || Manager.saves.HasDiscoveredObject(id, variation);
+			
 			return Manager.saves.HasDiscoveredObject(id, variation);
 		}
 
@@ -286,11 +289,15 @@ namespace ItemBrowser.Utilities {
 				});
 		}
 		
+		public static IEnumerable<ObjectDataCD> GetAllObjects() {
+			return PugDatabase.objectsByType.Keys;
+		}
+		
 		public static IEnumerable<ObjectDataCD> GetAllObjectsWithTag(ObjectCategoryTag tag) {
 			if (tag == ObjectCategoryTag.None)
 				return Array.Empty<ObjectDataCD>();
 			
-			return PugDatabase.objectsByType.Keys.Where(objectData => objectData.variation == 0 && PugDatabase.GetObjectInfo(objectData.objectID, objectData.variation).tags.Contains(tag));
+			return GetAllObjects().Where(objectData => objectData.variation == 0 && PugDatabase.GetObjectInfo(objectData.objectID, objectData.variation).tags.Contains(tag));
 		}
 		
 		public static int GetDamage(ObjectID id, int variation = 0) {

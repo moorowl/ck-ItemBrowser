@@ -66,7 +66,7 @@ namespace ItemBrowser.Entries {
 				};
 
 				return (objectData, prefabData.ObjectInfo.prefabInfos[0].ecsPrefab);
-			}).Where(entry => ObjectUtils.IsPrimaryVariation(entry.objectData.objectID, entry.objectData.variation)).ToList();
+			}).Where(entry => ObjectUtils.IsPrimaryVariation(entry.objectData.objectID, entry.objectData.variation) && !ObjectUtils.UnimplementedObjects.Contains(entry.objectData.objectID)).ToList();
 
 			foreach (var provider in providers) {
 				try {
