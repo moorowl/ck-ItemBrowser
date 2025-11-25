@@ -305,13 +305,6 @@ ItemBrowser:ObjectCategoryNames/CattlePlantFood	Text		Any farmable plant
 ItemBrowser:ObjectCategoryNames/Insect	Text		Any critter except glowbugs												
 ItemBrowser:ObjectCategoryNames/UncommonOrLowerCookedFood	Text		Any cooked food of uncommon or lower rarity												
 ItemBrowser:ObjectCategoryNames/RareOrHigherCookedFood	Text		Any cooked food of rare or higher rarity												
-ItemBrowser:LiquidNames/Dirt	Text		Normal Water												
-ItemBrowser:LiquidNames/Lava	Text		Lava												
-ItemBrowser:LiquidNames/LarvaHive	Text		Acid Water												
-ItemBrowser:LiquidNames/Mold	Text		Mold Water												
-ItemBrowser:LiquidNames/Sea	Text		Sea Water												
-ItemBrowser:LiquidNames/Crystal	Text		Shimmering Water												
-ItemBrowser:LiquidNames/Passage	Text		Passage Water												
 ItemBrowser:CatchType/Fish	Text		Fish catch												
 ItemBrowser:CatchType/Loot	Text		Loot catch												
 ItemBrowser:WallBlockSuffix	Text		{0} wall												

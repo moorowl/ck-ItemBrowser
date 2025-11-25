@@ -49,14 +49,25 @@ namespace ItemBrowser.Entries.Defaults {
 			var baseCatchChance = (Entry.Chance * 100).ToString("0.##");
 			chanceText.Render(baseCatchChance + "%");
 			catchTypeText.Render($"ItemBrowser:CatchType/{Entry.Type}");
-			
-			MoreInfo.AddLine(new TextAndFormatFields {
-				text = isFromBiome ? "ItemBrowser:MoreInfo/Fishing_0_Biome" : "ItemBrowser:MoreInfo/Fishing_0_Liquid",
-				formatFields = new[] {
-					isFromBiome ? $"BiomeNames/{Entry.Biome}" : $"ItemBrowser:LiquidNames/{Entry.Tileset}"
-				},
-				color = UserInterfaceUtils.DescriptionColor
-			});
+
+			if (isFromBiome) {
+				MoreInfo.AddLine(new TextAndFormatFields {
+					text = "ItemBrowser:MoreInfo/Fishing_0_Biome",
+					formatFields = new[] {
+						$"BiomeNames/{Entry.Biome}"
+					},
+					color = UserInterfaceUtils.DescriptionColor
+				});
+			} else {
+				MoreInfo.AddLine(new TextAndFormatFields {
+					text = "ItemBrowser:MoreInfo/Fishing_0_Liquid",
+					formatFields = new[] {
+						TileUtils.GetLocalizedDisplayName(TileType.water, Entry.Tileset)
+					},
+					dontLocalizeFormatFields = true,
+					color = UserInterfaceUtils.DescriptionColor
+				});
+			}
 			MoreInfo.AddLine(new TextAndFormatFields {
 				text = $"ItemBrowser:MoreInfo/Fishing_1_{Entry.Type}",
 				formatFields = new[] {
