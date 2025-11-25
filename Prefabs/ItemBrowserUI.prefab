@@ -9696,8 +9696,8 @@ MonoBehaviour:
   - {fileID: -2138394407, guid: 687549f5a63866d4a9267afe38240b1b, type: 3}
   - {fileID: 190261337, guid: 687549f5a63866d4a9267afe38240b1b, type: 3}
   preferSmallIcons: 0
-  linksSource: 1
-  linksUsage: 1
+  linksSource: 0
+  linksUsage: 0
   showAmountInTitle: 0
   itemBrowserUI: {fileID: 325125083053886099}
 --- !u!1 &4169127997682597590
