@@ -20,23 +20,24 @@ namespace ItemBrowser.Entries.Defaults {
 					var hasDurability = PugDatabase.HasComponent<DurabilityCD>(objectData);
 					var hasLevel = PugDatabase.HasComponent<LevelCD>(objectData);
 
-					if ((objectInfo.tags.Contains(ObjectCategoryTag.CanBeSalvaged) || hasLevel) && objectInfo.rarity != Rarity.Legendary) {
-						foreach (var craftingObject in objectInfo.requiredObjectsToCraft) {
-							var minAmount = (int) math.round(craftingObject.amount * Constants.minMaterialToGainFromSalvage);
-							var maxAmount = (int) math.round(craftingObject.amount * Constants.maxMaterialToGainFromSalvage);
+					if (!objectInfo.tags.Contains(ObjectCategoryTag.CanBeSalvaged) || objectInfo.rarity == Rarity.Legendary)
+						continue;
+					
+					foreach (var craftingObject in objectInfo.requiredObjectsToCraft) {
+						var minAmount = (int) math.round(craftingObject.amount * Constants.minMaterialToGainFromSalvage);
+						var maxAmount = (int) math.round(craftingObject.amount * Constants.maxMaterialToGainFromSalvage);
 
-							if (!hasDurability || !hasLevel)
-								minAmount = maxAmount;
+						if (!hasDurability || !hasLevel)
+							minAmount = maxAmount;
 						
-							if (maxAmount > 0) {
-								var entry = new Salvaging {
-									Result = craftingObject.objectID,
-									ResultAmount = (minAmount, maxAmount),
-									ItemSalvaged = objectData.objectID
-								};
-								registry.Register(ObjectEntryType.Source, entry.Result, 0, entry);
-							}
-						}	
+						if (maxAmount > 0) {
+							var entry = new Salvaging {
+								Result = craftingObject.objectID,
+								ResultAmount = (minAmount, maxAmount),
+								ItemSalvaged = objectData.objectID
+							};
+							registry.Register(ObjectEntryType.Source, entry.Result, 0, entry);
+						}
 					}
 				}
 			}
