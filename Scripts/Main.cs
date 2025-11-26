@@ -300,7 +300,7 @@ public class Main : IMod {
 					&& !PugDatabase.HasComponent<MerchantCD>(objectData)
 			});
 			ItemBrowserAPI.RegisterCreatureFilter(typeGroup, new($"{typeGroup}_Boss") {
-				Function = PugDatabase.HasComponent<BossCD>
+				Function = objectData => PugDatabase.HasComponent<BossCD>(objectData) || ObjectUtils.GetCategories(objectData.objectID).Contains("Boss/BossCreature")
 			});
 			ItemBrowserAPI.RegisterCreatureFilter(typeGroup, new($"{typeGroup}_Merchant") {
 				Function = PugDatabase.HasComponent<MerchantCD>
