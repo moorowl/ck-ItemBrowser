@@ -234,7 +234,7 @@ namespace ItemBrowser.UserInterface.Browser {
 			icon.transform.localPosition = objectInfo.iconOffset;
 			
 			var spriteSize = icon.sprite.bounds.size;
-			if (Mathf.Approximately(spriteSize.x, 2.5f) && Mathf.Approximately(spriteSize.y, 2.5f)) {
+			if (objectInfo.objectType is ObjectType.MeleeWeapon or ObjectType.RangeWeapon or ObjectType.Hoe or ObjectType.Shovel or ObjectType.BugNet) {
 				spriteSize.x = 1f;
 				spriteSize.y = 1f;
 			}
