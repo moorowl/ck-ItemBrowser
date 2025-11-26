@@ -165,6 +165,18 @@ namespace ItemBrowser.UserInterface.Browser {
 				if (ItemBrowserAPI.ItemBrowserUI != null && ItemBrowserAPI.ItemBrowserUI.IsShowing)
 					__result = true;
 			}
+			
+			[HarmonyPatch(typeof(UIMouse), "UpdateMouseMode")]
+			[HarmonyPostfix]
+			private static void UIMouse_UpdateMouseMode(UIMouse __instance) {
+				if (ItemBrowserAPI.ItemBrowserUI != null && ItemBrowserAPI.ItemBrowserUI.IsShowing) {
+					if (__instance.mouseMode != UIMouse.MouseMode.Normal)
+						__instance.SetMouseMode(UIMouse.MouseMode.Normal);
+					
+					if (__instance.mouseInventory != null && __instance.mouseInventory.HasObject(0))
+						__instance.ReleaseGrabbedItemBackToInventory();
+				}
+			}
 
 			[HarmonyPatch(typeof(SendClientInputSystem), "PlayerInteractionBlocked")]
 			[HarmonyPostfix]
