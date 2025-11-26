@@ -331,7 +331,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   appliesTo: BirdBoss
-  appliesToVariation: 0
+  appliesToVariation: 1
   overrideName: 1
   name: ItemBrowser:NameOverrides/BirdBoss_1
   overrideIcon: 1
@@ -555,7 +555,7 @@ MonoBehaviour:
   overrideName: 1
   name: Names/KingSlime
   overrideIcon: 1
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: e8e9391fe46d8b64f9955ac798e4ec21, type: 3}
   showNameNote: 0
   nameNote: 
 --- !u!114 &8355728574425411346
