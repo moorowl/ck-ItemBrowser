@@ -59,6 +59,8 @@ ItemBrowser:Filters/Damage_MagicDamage	Text		Magic damage
 ItemBrowser:Filters/Damage_MagicDamageDesc	Text		Items dealing physical or range magic damage												
 ItemBrowser:Filters/Damage_SummonDamage	Text		Summon damage												
 ItemBrowser:Filters/Damage_SummonDamageDesc	Text		Items that summon minions												
+ItemBrowser:Filters/Damage_ExplosiveDamage	Text		Explosive damage												
+ItemBrowser:Filters/Damage_ExplosiveDamageDesc	Text		Items dealing explosive damage												
 ItemBrowser:Filters/Equipment	Text		Equipment												
 ItemBrowser:Filters/Equipment_Weapon	Text		Weapon												
 ItemBrowser:Filters/Equipment_WeaponDesc	Text		Items that deal damage and are not tools												

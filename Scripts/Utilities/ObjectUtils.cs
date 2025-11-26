@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using I2.Loc;
 using ItemBrowser.Entries;
+using PugAutomation;
 using PugMod;
 using Unity.Entities;
 using Unity.Mathematics;
@@ -318,17 +319,78 @@ namespace ItemBrowser.Utilities {
 				objectID = id,
 				variation = variation
 			};
-			
-			if (PugDatabase.TryGetComponent<SecondaryUseCD>(objectData, out var secondaryUseCD) && secondaryUseCD.summonsMinion && PugDatabase.TryGetComponent<LevelCD>(objectData, out var levelCD) && PugDatabase.TryGetComponent<MinionCD>(secondaryUseCD.minionToSpawn, out var minionCD))
-				return MinionExtensions.GetMinionBaseDamage(minionCD, levelCD.level);
 
-			var levelEntity = EntityUtility.GetLevelEntity(objectData);
-			if (levelEntity != Entity.Null && EntityUtility.TryGetComponentData<WeaponDamageCD>(levelEntity, Manager.ecs.ClientWorld, out var weaponDamageCD))
+			if (PugDatabase.TryGetComponent<HasWeaponDamageCD>(objectData, out var hasWeaponDamageCD)) {
+				if (hasWeaponDamageCD.isRange)
+					return GetDamage(id, variation, DamageCategory.PhysicalRange);
+				
+				if (hasWeaponDamageCD.isMagic)
+					return GetDamage(id, variation, DamageCategory.Magic);
+
+				return math.max(GetDamage(id, variation, DamageCategory.PhysicalMelee), GetDamage(id, variation, DamageCategory.Explosive));
+			}
+
+			return math.max(GetDamage(id, variation, DamageCategory.Summon), GetDamage(id, variation, DamageCategory.Explosive));
+		}
+
+		private static int GetDamageFromLevelEntity(ObjectID id, int variation = 0) {
+			var levelEntity = EntityUtility.GetLevelEntity(new ObjectData {
+				objectID = id,
+				variation = variation
+			});
+			if (levelEntity != Entity.Null && EntityUtility.TryGetComponentData<WeaponDamageCD>(levelEntity, API.Client.World, out var weaponDamageCD))
 				return weaponDamageCD.GetDamage(false);
 
 			return 0;
 		}
 
+		public enum DamageCategory {
+			PhysicalMelee,
+			PhysicalRange,
+			Magic,
+			Summon,
+			Explosive,
+			Trap
+		}
+		
+		public static int GetDamage(ObjectID id, int variation, DamageCategory category) {
+			var objectData = new ObjectData {
+				objectID = id,
+				variation = variation
+			};
+
+			switch (category) {
+				case DamageCategory.PhysicalMelee:
+				case DamageCategory.PhysicalRange:
+				case DamageCategory.Magic:
+					if (!PugDatabase.TryGetComponent<HasWeaponDamageCD>(objectData, out var hasWeaponDamageCD))
+						return 0;
+
+					if (category == DamageCategory.PhysicalMelee && (hasWeaponDamageCD.isRange || hasWeaponDamageCD.isMagic))
+						return 0;
+
+					if (category == DamageCategory.PhysicalRange && (!hasWeaponDamageCD.isRange || hasWeaponDamageCD.isMagic))
+						return 0;
+					
+					if (category == DamageCategory.Magic && !hasWeaponDamageCD.isMagic)
+						return 0;
+			
+					return GetDamageFromLevelEntity(id, variation);
+				case DamageCategory.Summon:
+					if (!PugDatabase.TryGetComponent<SecondaryUseCD>(objectData, out var secondaryUseCD) || !secondaryUseCD.summonsMinion)
+						return 0;
+
+					if (!PugDatabase.TryGetComponent<LevelCD>(objectData, out var levelCD) || !PugDatabase.TryGetComponent<MinionCD>(secondaryUseCD.minionToSpawn, out var minionCD))
+						return 0;
+					
+					return MinionExtensions.GetMinionBaseDamage(minionCD, levelCD.level);
+				case DamageCategory.Explosive:
+					return StatsUIUtility.HasExplosiveWeapon(objectData, out var isExplosiveCD, API.Client.World) ? isExplosiveCD.damage : 0;
+			}
+
+			return 0;
+		}
+		
 		public static int GetBaseLevel(ObjectID id, int variation = 0) {
 			var objectData = new ObjectData {
 				objectID = id,

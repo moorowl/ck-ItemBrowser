@@ -188,20 +188,22 @@ public class Main : IMod {
 			// Item damage
 			const string damageGroup = "ItemBrowser:Filters/Damage";
 			ItemBrowserAPI.RegisterItemFilter(damageGroup, new($"{damageGroup}_AnyDamage") {
-				Function = objectData => PugDatabase.HasComponent<HasWeaponDamageCD>(objectData)
-				                         || (PugDatabase.TryGetComponent<SecondaryUseCD>(objectData, out var secondaryUse) && secondaryUse.summonsMinion)
+				Function = objectData => ObjectUtils.GetDamage(objectData.objectID, objectData.variation) > 0
 			});
 			ItemBrowserAPI.RegisterItemFilter(damageGroup, new($"{damageGroup}_PhysicalMeleeDamage") {
-				Function = objectData => PugDatabase.TryGetComponent<HasWeaponDamageCD>(objectData, out var weaponDamage) && weaponDamage is { isRange: false, isMagic: false }
+				Function = objectData => ObjectUtils.GetDamage(objectData.objectID, objectData.variation, ObjectUtils.DamageCategory.PhysicalMelee) > 0
 			});
 			ItemBrowserAPI.RegisterItemFilter(damageGroup, new($"{damageGroup}_PhysicalRangeDamage") {
-				Function = objectData => PugDatabase.TryGetComponent<HasWeaponDamageCD>(objectData, out var weaponDamage) && weaponDamage is { isRange: true, isMagic: false }
+				Function = objectData => ObjectUtils.GetDamage(objectData.objectID, objectData.variation, ObjectUtils.DamageCategory.PhysicalRange) > 0
 			});
 			ItemBrowserAPI.RegisterItemFilter(damageGroup, new($"{damageGroup}_MagicDamage") {
-				Function = objectData => PugDatabase.TryGetComponent<HasWeaponDamageCD>(objectData, out var weaponDamage) && weaponDamage is { isMagic: true }
+				Function = objectData => ObjectUtils.GetDamage(objectData.objectID, objectData.variation, ObjectUtils.DamageCategory.Magic) > 0
 			});
 			ItemBrowserAPI.RegisterItemFilter(damageGroup, new($"{damageGroup}_SummonDamage") {
-				Function = objectData => PugDatabase.TryGetComponent<SecondaryUseCD>(objectData, out var secondaryUse) && secondaryUse.summonsMinion
+				Function = objectData => ObjectUtils.GetDamage(objectData.objectID, objectData.variation, ObjectUtils.DamageCategory.Summon) > 0
+			});
+			ItemBrowserAPI.RegisterItemFilter(damageGroup, new($"{damageGroup}_ExplosiveDamage") {
+				Function = objectData => ObjectUtils.GetDamage(objectData.objectID, objectData.variation, ObjectUtils.DamageCategory.Explosive) > 0
 			});
 
 			// Item equipment
