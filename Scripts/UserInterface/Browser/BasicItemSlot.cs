@@ -209,7 +209,8 @@ namespace ItemBrowser.UserInterface.Browser {
 
 			var visualObject = DisplayedObject.VisualObject;
 			RenderAmountNumberRange(DisplayedObject.Amount);
-			
+
+			icon.transform.localScale = Vector3.one;
 			colorReplacer.UpdateColorReplacerFromObjectData(visualObject);
 			Manager.ui.ApplyAnyIconGradientMap(visualObject, icon);
 			
