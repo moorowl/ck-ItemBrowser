@@ -35,7 +35,7 @@ namespace ItemBrowser.UserInterface.Browser {
 			public override ContainedObjectsBuffer ContainedObject => new() {
 				objectData = _objectData
 			};
-			public override (int Min, int Max) Amount { get; } = (0, 0);
+			public override (int Min, int Max) Amount { get; } = (1, 1);
 
 			private readonly ObjectDataCD _objectData;
 
@@ -133,7 +133,19 @@ namespace ItemBrowser.UserInterface.Browser {
 			}
 
 			public override List<TextAndFormatFields> GetHoverStats(SlotUIBase slot, bool previewReinforced) {
-				return slot.GetHoverStats(ContainedObject, previewReinforced, false);
+				var lines = slot.GetHoverStats(ContainedObject, previewReinforced, false);
+
+				var displayNameNote = ObjectUtils.GetUnlocalizedDisplayNameNote(_objectData.objectID, _objectData.variation);
+				if (displayNameNote == null)
+					return lines;
+				
+				lines ??= new List<TextAndFormatFields>();
+				lines.Insert(0, new TextAndFormatFields {
+					text = displayNameNote,
+					color = UserInterfaceUtils.DescriptionColor
+				});
+
+				return lines;
 			}
 		}
 

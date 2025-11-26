@@ -2,33 +2,29 @@
 using Pug.UnityExtensions;
 using PugMod;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace ItemBrowser.Utilities.DataStructures {
 	public class ObjectNameAndIconOverride : MonoBehaviour {
-		[SerializeField]
 		[PickStringFromEnum(typeof(ObjectID))]
-		private string appliesToObject;
-		[SerializeField]
-		private int appliesToObjectVariation; 
+		public string appliesTo;
+		public int appliesToVariation; 
 		
 		public bool overrideName = true;
 		[ShowIf("overrideName")]
-		public bool setNameManually;
-		[ShowIf("setNameManually")]
 		public string name;
 		
 		public bool overrideIcon = true;
 		[ShowIf("overrideIcon")]
 		public Sprite icon;
+		
+		public bool showNameNote;
+		[ShowIf("showNameNote")]
+		public string nameNote;
 
-		public ObjectDataCD ObjectData => new() {
-			objectID = API.Authoring.GetObjectID(appliesToObject),
-			variation = appliesToObjectVariation
+		public ObjectDataCD AppliesToObjectData => new() {
+			objectID = API.Authoring.GetObjectID(appliesTo),
+			variation = appliesToVariation,
 		};
-
-		private void OnValidate() {
-			if (overrideName && !setNameManually)
-				name = $"ItemBrowser:ItemNameOverrides/{appliesToObject}_{appliesToObjectVariation}";
-		}
 	}
 }

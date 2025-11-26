@@ -154,6 +154,41 @@ namespace ItemBrowser.UserInterface.Browser {
 		public override List<TextAndFormatFields> GetHoverStats(bool previewReinforced) {
 			return _displayedObject.GetHoverStats(this, previewReinforced);
 		}
+		
+		public override bool GetDurabilityOrFullnessOrXp(out int durability, out int maxDurability, out AmountType amountType) {
+			durability = 0;
+			maxDurability = 0;
+			amountType = AmountType.Durability;
+			
+			var slotObject = GetSlotObject();
+			if (slotObject.objectID == ObjectID.None)
+				return false;
+
+			if (PugDatabase.HasComponent<DurabilityCD>(slotObject.objectData)) {
+				maxDurability = PugDatabase.GetComponent<DurabilityCD>(slotObject.objectData).maxDurability;
+				durability = maxDurability;
+				return true;
+			}
+			
+			if (PugDatabase.HasComponent<FullnessCD>(slotObject.objectData)) {
+				amountType = AmountType.Fullness;
+				maxDurability = PugDatabase.GetComponent<FullnessCD>(slotObject.objectData).maxFullness;
+				durability = maxDurability;
+				return true;
+			}
+			
+			if (PugDatabase.HasComponent<PetCD>(slotObject.objectData)) {
+				if (PetExtensions.IsAtMaxLevel(slotObject.amount))
+					return false;
+
+				amountType = AmountType.Experience;
+				maxDurability = PetExtensions.GetTotalXpNeededToLevelUp(slotObject.amount);
+				durability = 0;
+				return true;
+			}
+			
+			return false;
+		}
 
 		public override HoverTitleIconType GetHoverTitleIconType() {
 			return HoverTitleIconType.None;

@@ -35,6 +35,7 @@ namespace ItemBrowser {
 		private static readonly List<ObjectNameAndIconOverride> ObjectNameAndIconOverrides = new();
 		internal static Dictionary<ObjectDataCD, string> ObjectNameOverrides = new();
 		internal static Dictionary<ObjectDataCD, Sprite> ObjectIconOverrides = new();
+		internal static Dictionary<ObjectDataCD, string> ObjectNameNotes = new();
 
 		private static bool _hasRegisteredContent;
 		
@@ -43,13 +44,16 @@ namespace ItemBrowser {
 			ItemBrowserUI = Object.Instantiate(prefab, API.Rendering.UICamera.transform).GetComponent<ItemBrowserUI>();
 
 			foreach (var overrides in ObjectNameAndIconOverrides) {
-				var objectData = overrides.ObjectData;
+				var objectData = overrides.AppliesToObjectData;
 				
 				if (overrides.overrideName && !string.IsNullOrWhiteSpace(overrides.name))
 					ObjectNameOverrides.TryAdd(objectData, overrides.name);
 				
 				if (overrides.overrideIcon)
 					ObjectIconOverrides.TryAdd(objectData, overrides.icon);
+				
+				if (overrides.showNameNote)
+					ObjectNameNotes.TryAdd(objectData, overrides.nameNote);
 			}
 			
 			ObjectUtils.InitOnWorldLoad();
@@ -105,7 +109,7 @@ namespace ItemBrowser {
 			if (objectInfo.objectType is ObjectType.Creature or ObjectType.Critter && !PugDatabase.HasComponent<PetCD>(objectData))
 				return false;
 			
-			if (objectData.objectID != ObjectID.Bucket && !ObjectUtils.IsPrimaryVariation(objectData.objectID, objectData.variation))
+			if (!ObjectUtils.IsPrimaryVariation(objectData.objectID, objectData.variation))
 				return false;
 			
 			return !objectInfo.isCustomScenePrefab;

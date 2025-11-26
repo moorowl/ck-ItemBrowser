@@ -61,13 +61,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7f91d821c9d4dfe9ddf9c7c0aca1d6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  appliesToObject: WoodenDestructible
-  appliesToObjectVariation: 1
+  appliesTo: WoodenDestructible
+  appliesToSpecificVariation: 1
+  appliesToVariation: 1
   overrideName: 1
-  setNameManually: 0
-  name: ItemBrowser:ItemNameOverrides/WoodenDestructible_1
+  name: ItemBrowser:NameOverrides/WoodenDestructible_1
   overrideIcon: 0
   icon: {fileID: 0}
+  showNameNote: 0
+  nameNote: 
 --- !u!114 &1061262087298341543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80,13 +82,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7f91d821c9d4dfe9ddf9c7c0aca1d6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  appliesToObject: WoodenDestructible
-  appliesToObjectVariation: 2
+  appliesTo: WoodenDestructible
+  appliesToSpecificVariation: 1
+  appliesToVariation: 2
   overrideName: 1
-  setNameManually: 1
-  name: ItemBrowser:ItemNameOverrides/WoodenDestructible_1
+  name: ItemBrowser:NameOverrides/WoodenDestructible_1
   overrideIcon: 0
   icon: {fileID: 0}
+  showNameNote: 0
+  nameNote: 
 --- !u!114 &3894814066970221507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -99,13 +103,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7f91d821c9d4dfe9ddf9c7c0aca1d6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  appliesToObject: WoodenDestructible
-  appliesToObjectVariation: 3
+  appliesTo: WoodenDestructible
+  appliesToSpecificVariation: 1
+  appliesToVariation: 3
   overrideName: 1
-  setNameManually: 1
-  name: ItemBrowser:ItemNameOverrides/WoodenDestructible_1
+  name: ItemBrowser:NameOverrides/WoodenDestructible_1
   overrideIcon: 0
   icon: {fileID: 0}
+  showNameNote: 0
+  nameNote: 
 --- !u!114 &4682401747763164783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,13 +124,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7f91d821c9d4dfe9ddf9c7c0aca1d6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  appliesToObject: NatureWoodenDestructible
-  appliesToObjectVariation: 1
+  appliesTo: NatureWoodenDestructible
+  appliesToSpecificVariation: 1
+  appliesToVariation: 1
   overrideName: 1
-  setNameManually: 0
-  name: ItemBrowser:ItemNameOverrides/NatureWoodenDestructible_1
+  name: ItemBrowser:NameOverrides/NatureWoodenDestructible_1
   overrideIcon: 0
   icon: {fileID: 0}
+  showNameNote: 0
+  nameNote: 
 --- !u!114 &5840390512028526778
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,13 +145,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7f91d821c9d4dfe9ddf9c7c0aca1d6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  appliesToObject: NatureWoodenDestructible
-  appliesToObjectVariation: 2
+  appliesTo: NatureWoodenDestructible
+  appliesToSpecificVariation: 1
+  appliesToVariation: 2
   overrideName: 1
-  setNameManually: 1
-  name: ItemBrowser:ItemNameOverrides/NatureWoodenDestructible_1
+  name: ItemBrowser:NameOverrides/NatureWoodenDestructible_1
   overrideIcon: 0
   icon: {fileID: 0}
+  showNameNote: 0
+  nameNote: 
 --- !u!114 &2225634416679968932
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -156,13 +166,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7f91d821c9d4dfe9ddf9c7c0aca1d6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  appliesToObject: NatureWoodenDestructible
-  appliesToObjectVariation: 3
+  appliesTo: NatureWoodenDestructible
+  appliesToSpecificVariation: 1
+  appliesToVariation: 3
   overrideName: 1
-  setNameManually: 1
-  name: ItemBrowser:ItemNameOverrides/NatureWoodenDestructible_1
+  name: ItemBrowser:NameOverrides/NatureWoodenDestructible_1
   overrideIcon: 0
   icon: {fileID: 0}
+  showNameNote: 0
+  nameNote: 
 --- !u!114 &1836198388255361274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,13 +187,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7f91d821c9d4dfe9ddf9c7c0aca1d6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  appliesToObject: SeaWoodenDestructible
-  appliesToObjectVariation: 1
+  appliesTo: SeaWoodenDestructible
+  appliesToSpecificVariation: 1
+  appliesToVariation: 1
   overrideName: 1
-  setNameManually: 0
-  name: ItemBrowser:ItemNameOverrides/SeaWoodenDestructible_1
+  name: ItemBrowser:NameOverrides/SeaWoodenDestructible_1
   overrideIcon: 0
   icon: {fileID: 0}
+  showNameNote: 0
+  nameNote: 
 --- !u!114 &6821751037662164367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,13 +208,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7f91d821c9d4dfe9ddf9c7c0aca1d6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  appliesToObject: SeaWoodenDestructible
-  appliesToObjectVariation: 2
+  appliesTo: SeaWoodenDestructible
+  appliesToSpecificVariation: 1
+  appliesToVariation: 2
   overrideName: 1
-  setNameManually: 1
-  name: ItemBrowser:ItemNameOverrides/SeaWoodenDestructible_1
+  name: ItemBrowser:NameOverrides/SeaWoodenDestructible_1
   overrideIcon: 0
   icon: {fileID: 0}
+  showNameNote: 0
+  nameNote: 
 --- !u!114 &2907043970092227129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -213,13 +229,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7f91d821c9d4dfe9ddf9c7c0aca1d6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  appliesToObject: SeaWoodenDestructible
-  appliesToObjectVariation: 3
+  appliesTo: SeaWoodenDestructible
+  appliesToSpecificVariation: 1
+  appliesToVariation: 3
   overrideName: 1
-  setNameManually: 1
-  name: ItemBrowser:ItemNameOverrides/SeaWoodenDestructible_1
+  name: ItemBrowser:NameOverrides/SeaWoodenDestructible_1
   overrideIcon: 0
   icon: {fileID: 0}
+  showNameNote: 0
+  nameNote: 
 --- !u!114 &3838542513372921251
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,13 +250,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7f91d821c9d4dfe9ddf9c7c0aca1d6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  appliesToObject: LavaWoodenDestructible
-  appliesToObjectVariation: 1
+  appliesTo: LavaWoodenDestructible
+  appliesToSpecificVariation: 1
+  appliesToVariation: 1
   overrideName: 1
-  setNameManually: 0
-  name: ItemBrowser:ItemNameOverrides/LavaWoodenDestructible_1
+  name: ItemBrowser:NameOverrides/LavaWoodenDestructible_1
   overrideIcon: 0
   icon: {fileID: 0}
+  showNameNote: 0
+  nameNote: 
 --- !u!114 &8859187788280336927
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -251,13 +271,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7f91d821c9d4dfe9ddf9c7c0aca1d6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  appliesToObject: LavaWoodenDestructible
-  appliesToObjectVariation: 2
+  appliesTo: LavaWoodenDestructible
+  appliesToSpecificVariation: 1
+  appliesToVariation: 2
   overrideName: 1
-  setNameManually: 1
-  name: ItemBrowser:ItemNameOverrides/LavaWoodenDestructible_1
+  name: ItemBrowser:NameOverrides/LavaWoodenDestructible_1
   overrideIcon: 0
   icon: {fileID: 0}
+  showNameNote: 0
+  nameNote: 
 --- !u!114 &7706325964851136833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -270,13 +292,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7f91d821c9d4dfe9ddf9c7c0aca1d6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  appliesToObject: LavaWoodenDestructible
-  appliesToObjectVariation: 3
+  appliesTo: LavaWoodenDestructible
+  appliesToSpecificVariation: 1
+  appliesToVariation: 3
   overrideName: 1
-  setNameManually: 1
-  name: ItemBrowser:ItemNameOverrides/LavaWoodenDestructible_1
+  name: ItemBrowser:NameOverrides/LavaWoodenDestructible_1
   overrideIcon: 0
   icon: {fileID: 0}
+  showNameNote: 0
+  nameNote: 
 --- !u!114 &7769587548339290482
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -289,13 +313,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7f91d821c9d4dfe9ddf9c7c0aca1d6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  appliesToObject: NatureDestructible
-  appliesToObjectVariation: 1
+  appliesTo: NatureDestructible
+  appliesToSpecificVariation: 1
+  appliesToVariation: 1
   overrideName: 1
-  setNameManually: 0
-  name: ItemBrowser:ItemNameOverrides/NatureDestructible_1
+  name: ItemBrowser:NameOverrides/NatureDestructible_1
   overrideIcon: 0
   icon: {fileID: 0}
+  showNameNote: 0
+  nameNote: 
 --- !u!114 &1815663698324590449
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -308,13 +334,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7f91d821c9d4dfe9ddf9c7c0aca1d6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  appliesToObject: AFWoodenDestructible
-  appliesToObjectVariation: 1
+  appliesTo: AFWoodenDestructible
+  appliesToSpecificVariation: 1
+  appliesToVariation: 1
   overrideName: 1
-  setNameManually: 0
-  name: ItemBrowser:ItemNameOverrides/AFWoodenDestructible_1
+  name: ItemBrowser:NameOverrides/AFWoodenDestructible_1
   overrideIcon: 0
   icon: {fileID: 0}
+  showNameNote: 0
+  nameNote: 
 --- !u!114 &8133140380506592069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -327,13 +355,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7f91d821c9d4dfe9ddf9c7c0aca1d6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  appliesToObject: AFWoodenDestructible
-  appliesToObjectVariation: 2
+  appliesTo: AFWoodenDestructible
+  appliesToSpecificVariation: 1
+  appliesToVariation: 2
   overrideName: 1
-  setNameManually: 1
-  name: ItemBrowser:ItemNameOverrides/AFWoodenDestructible_1
+  name: ItemBrowser:NameOverrides/AFWoodenDestructible_1
   overrideIcon: 0
   icon: {fileID: 0}
+  showNameNote: 0
+  nameNote: 
 --- !u!114 &6889770996060984235
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -346,13 +376,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7f91d821c9d4dfe9ddf9c7c0aca1d6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  appliesToObject: AFWoodenDestructible
-  appliesToObjectVariation: 3
+  appliesTo: AFWoodenDestructible
+  appliesToSpecificVariation: 1
+  appliesToVariation: 3
   overrideName: 1
-  setNameManually: 1
-  name: ItemBrowser:ItemNameOverrides/AFWoodenDestructible_1
+  name: ItemBrowser:NameOverrides/AFWoodenDestructible_1
   overrideIcon: 0
   icon: {fileID: 0}
+  showNameNote: 0
+  nameNote: 
 --- !u!114 &3328706866291426525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -365,13 +397,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7f91d821c9d4dfe9ddf9c7c0aca1d6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  appliesToObject: FallingRockDestructible
-  appliesToObjectVariation: 0
+  appliesTo: FallingRockDestructible
+  appliesToSpecificVariation: 0
+  appliesToVariation: 0
   overrideName: 1
-  setNameManually: 0
-  name: ItemBrowser:ItemNameOverrides/FallingRockDestructible_0
+  name: ItemBrowser:NameOverrides/FallingRockDestructible_0
   overrideIcon: 0
   icon: {fileID: 21300000, guid: 7a096ed0099cfee4690ea50e89111456, type: 3}
+  showNameNote: 0
+  nameNote: 
 --- !u!114 &1029190075529615702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -384,10 +418,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7f91d821c9d4dfe9ddf9c7c0aca1d6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  appliesToObject: AmberBoulder
-  appliesToObjectVariation: 0
+  appliesTo: AmberBoulder
+  appliesToSpecificVariation: 0
+  appliesToVariation: 0
   overrideName: 1
-  setNameManually: 0
-  name: ItemBrowser:ItemNameOverrides/AmberBoulder_0
+  name: ItemBrowser:NameOverrides/AmberBoulder_0
   overrideIcon: 0
   icon: {fileID: 21300000, guid: 34a1f4aed20a1f8419fb8d0f488964fa, type: 3}
+  showNameNote: 0
+  nameNote: 

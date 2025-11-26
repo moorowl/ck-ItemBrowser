@@ -58,7 +58,7 @@ namespace ItemBrowser.Utilities {
 		};
 		
 		private static readonly Dictionary<ObjectDataCD, string> DisplayNames = new();
-		private static readonly Dictionary<ObjectDataCD, string> DisplayNameTerms = new();
+		private static readonly Dictionary<ObjectDataCD, string> DisplayNameNotes = new();
 		private static readonly Dictionary<ObjectDataCD, int> DisplayNameSortOrders = new();
 		private static readonly Dictionary<ObjectID, HashSet<string>> Categories = new();
 		private static readonly Dictionary<ObjectDataCD, int> PrimaryVariations = new();
@@ -73,7 +73,7 @@ namespace ItemBrowser.Utilities {
 		
 		private static void SetupDisplayNamesAndCategories() {
 			DisplayNames.Clear();
-			DisplayNameTerms.Clear();
+			DisplayNameNotes.Clear();
 			
 			var authoringList = new List<MonoBehaviour>();
 			authoringList.AddRange(Manager.ecs.pugDatabase.prefabList);
@@ -112,6 +112,9 @@ namespace ItemBrowser.Utilities {
 
 				if (localizedName != null)
 					DisplayNames.TryAdd(objectData, localizedName.Replace("\n", ""));
+				
+				if (ItemBrowserAPI.ObjectNameNotes.TryGetValue(objectData, out var unlocalizedNameNote))
+					DisplayNameNotes.TryAdd(objectData, unlocalizedNameNote);
 			}
 			
 			DisplayNameSortOrders.Clear();
@@ -156,10 +159,13 @@ namespace ItemBrowser.Utilities {
 			var nameToPrimaryVariation = new Dictionary<string, int>();
 			foreach (var objectData in GetAllObjects().OrderBy(objectData => objectData.variation)) {
 				var displayName = DisplayNames.GetValueOrDefault(objectData) ?? $"{objectData.objectID}:{objectData.variation}";
+				var displayNameNote = DisplayNameNotes.GetValueOrDefault(objectData);
+
+				if (displayNameNote != null)
+					displayName = $"{displayName} ({displayNameNote})";
 
 				if (nameToPrimaryVariation.TryGetValue(displayName, out var primaryVariation)) {
 					PrimaryVariations[objectData] = primaryVariation;
-					Main.Log(nameof(ObjectUtils), $"{objectData.objectID}:{objectData.variation} -> {primaryVariation}");
 				} else {
 					nameToPrimaryVariation[displayName] = objectData.variation;
 					PrimaryVariations[objectData] = objectData.variation;
@@ -176,6 +182,13 @@ namespace ItemBrowser.Utilities {
 		
 		public static string GetLocalizedDisplayNameOrDefault(ObjectID id, int variation = 0) {
 			return GetLocalizedDisplayName(id, variation) ?? $"{GetInternalName(id)} ({variation})";
+		}
+		
+		public static string GetUnlocalizedDisplayNameNote(ObjectID id, int variation = 0) {
+			return DisplayNameNotes.GetValueOrDefault(new ObjectDataCD {
+				objectID = id,
+				variation = variation
+			});
 		}
 		
 		public static int GetDisplayNameSortOrder(ObjectID id, int variation = 0) {
