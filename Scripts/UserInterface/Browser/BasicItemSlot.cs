@@ -160,7 +160,7 @@ namespace ItemBrowser.UserInterface.Browser {
 		}
 
 		public override HoverWindowAlignment GetHoverWindowAlignment() {
-			return HoverWindowAlignment.BOTTOM_RIGHT_OF_CURSOR;
+			return UserInterfaceUtils.IsUsingMouseAndKeyboard ? HoverWindowAlignment.BOTTOM_RIGHT_OF_CURSOR : HoverWindowAlignment.BOTTOM_RIGHT_OF_SCREEN;
 		}
 
 		protected override ContainedObjectsBuffer GetSlotObject() {

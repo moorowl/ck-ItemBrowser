@@ -24,8 +24,7 @@ namespace ItemBrowser.UserInterface.Browser {
 						(objectListWindow.IncludedObjects + objectListWindow.ExcludedObjects).ToString()
 					},
 					dontLocalizeFormatFields = true,
-					color = UserInterfaceUtils.DescriptionColor,
-					paddingBeneath = filtersPanel.HasBeenModified ? 0.125f : 0f
+					color = UserInterfaceUtils.DescriptionColor
 				}
 			};
 			if (filtersPanel.HasBeenModified)
