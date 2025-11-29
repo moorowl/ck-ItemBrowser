@@ -234,7 +234,9 @@ namespace ItemBrowser.UserInterface.Browser {
 			icon.transform.localPosition = objectInfo.iconOffset;
 			
 			var spriteSize = icon.sprite.bounds.size;
-			if (objectInfo.objectType is ObjectType.MeleeWeapon or ObjectType.RangeWeapon or ObjectType.Hoe or ObjectType.Shovel or ObjectType.BugNet) {
+			var spriteSheetColumns = (int) (icon.sprite.texture.width / (spriteSize.x * 16f));
+			var spriteSheetRows = (int) (icon.sprite.texture.height / (spriteSize.y * 16f));
+			if (spriteSize.x > 1f && spriteSize.y > 1f && ((spriteSheetColumns == 3 && spriteSheetRows == 3) || (spriteSheetColumns == 5 && spriteSheetRows == 4))) {
 				spriteSize.x = 1f;
 				spriteSize.y = 1f;
 			}
