@@ -1,8 +1,25 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace ItemBrowser.Utilities.DataStructures {
-	public static class ObjectsAddedByVersion {
-		public static readonly HashSet<ObjectID> In10 = new() {
+	public class ObjectsAddedByVersion {
+		public readonly string Name;
+		private readonly HashSet<ObjectID> _objects;
+
+		public IEnumerable<ObjectID> Objects => _objects;
+		public bool HasAnyItems => _objects.Any(id => ItemBrowserAPI.ShouldItemBeIncluded(new ObjectDataCD {
+			objectID = id
+		}));
+		public bool HasAnyCreatures => _objects.Any(id => ItemBrowserAPI.ShouldCreatureBeIncluded(new ObjectDataCD {
+			objectID = id
+		}));
+
+		public ObjectsAddedByVersion(string name, ObjectID[] ids) {
+			Name = name;
+			_objects = new HashSet<ObjectID>(ids);
+		}
+
+		public static readonly ObjectsAddedByVersion Ck10 = new("1.0", new[] {
 			ObjectID.ExplosiveWallExplosion,
 			ObjectID.PandoriumPantsArmor,
 			ObjectID.LightningGun,
@@ -203,9 +220,9 @@ namespace ItemBrowser.Utilities.DataStructures {
 			ObjectID.FruitBasket,
 			ObjectID.HydraBossBeamMortarProjectile,
 			ObjectID.WitchDoctorHelm
-		};
+		});
 
-		public static readonly HashSet<ObjectID> In101 = new() {
+		public static readonly ObjectsAddedByVersion Ck101 = new("1.0.1", new[] {
 			ObjectID.AquariumCrystal,
 			ObjectID.FireMiteMinion,
 			ObjectID.CoralDoor,
@@ -230,15 +247,15 @@ namespace ItemBrowser.Utilities.DataStructures {
 			ObjectID.Terrarium,
 			ObjectID.RuneSongTrail,
 			ObjectID.TerrariumCrystal
-		};
+		});
 
-		public static readonly HashSet<ObjectID> In102 = new() {
+		public static readonly ObjectsAddedByVersion Ck102 = new("1.0.2", new[] {
 			ObjectID.LuckyCat,
 			ObjectID.PottedEnvelopeTree,
 			ObjectID.ChineseFoldingScreen
-		};
+		});
 
-		public static readonly HashSet<ObjectID> In11 = new() {
+		public static readonly ObjectsAddedByVersion Ck11 = new("1.1", new[] {
 			ObjectID.Grenade,
 			ObjectID.PoisonGrenadeProjectile,
 			ObjectID.CamelBaby,
@@ -346,9 +363,9 @@ namespace ItemBrowser.Utilities.DataStructures {
 			ObjectID.AlienFuse,
 			ObjectID.MediumValuablePouch,
 			ObjectID.VoidBombMortarPojectile
-		};
+		});
 
-		public static readonly HashSet<ObjectID> In111 = new() {
+		public static readonly ObjectsAddedByVersion Ck111 = new("1.1.1", new[] {
 			ObjectID.AFDrink1,
 			ObjectID.AFDrink5,
 			ObjectID.PetElectricEgg,
@@ -372,9 +389,9 @@ namespace ItemBrowser.Utilities.DataStructures {
 			ObjectID.AFQuillProjectile,
 			ObjectID.AFScienceBreastArmor,
 			ObjectID.PetElectricEggCracked
-		};
+		});
 
-		public static readonly HashSet<ObjectID> In112 = new() {
+		public static readonly ObjectsAddedByVersion Ck112 = new("1.1.2", new[] {
 			ObjectID.MeteorStaffLesser,
 			ObjectID.MeteorMortarLesserProjectile,
 			ObjectID.PetBedBirdStick,
@@ -385,6 +402,20 @@ namespace ItemBrowser.Utilities.DataStructures {
 			ObjectID.SummonerOffhand,
 			ObjectID.PetBedDogHouse,
 			ObjectID.PetWarlockEggCracked
+		});
+
+		public static readonly ObjectsAddedByVersion Ck1129 = new("1.1.2.9", new[] {
+			ObjectID.MakeAWishHat
+		});
+		
+		public static readonly ObjectsAddedByVersion[] AllVersions = {
+			Ck10,
+			Ck101,
+			Ck102,
+			Ck11,
+			Ck111,
+			Ck112,
+			Ck1129
 		};
 	}
 }

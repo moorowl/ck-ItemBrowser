@@ -442,31 +442,23 @@ public class Main : IMod {
 
 			// Version added
 			const string versionGroup = "ItemBrowser:Filters/VersionAdded";
-			var versions = new[] {
-				("1.0", ObjectsAddedByVersion.In10, true, true),
-				("1.0.1", ObjectsAddedByVersion.In101, true, true),
-				("1.0.2", ObjectsAddedByVersion.In102, true, false),
-				("1.1", ObjectsAddedByVersion.In11, true, true),
-				("1.1.1", ObjectsAddedByVersion.In111, true, true),
-				("1.1.2", ObjectsAddedByVersion.In112, true, false)
-			};
-			foreach (var version in versions) {
-				if (version.Item3) {
+			foreach (var version in ObjectsAddedByVersion.AllVersions) {
+				if (version.HasAnyItems) {
 					ItemBrowserAPI.RegisterItemFilter(versionGroup, new Filter<ObjectDataCD>($"{versionGroup}_Item_Version") {
-						NameFormatFields = new[] { version.Item1 },
+						NameFormatFields = new[] { version.Name },
 						LocalizeNameFormatFields = false,
-						DescriptionFormatFields = new[] { version.Item1 },
+						DescriptionFormatFields = new[] { version.Name },
 						LocalizeDescriptionFormatFields = false,
-						Function = objectData => version.Item2.Contains(objectData.objectID)
+						Function = objectData => version.Objects.Contains(objectData.objectID)
 					});	
 				}
-				if (version.Item4) {
+				if (version.HasAnyCreatures) {
 					ItemBrowserAPI.RegisterCreatureFilter(versionGroup, new Filter<ObjectDataCD>($"{versionGroup}_Creature_Version") {
-						NameFormatFields = new[] { version.Item1 },
+						NameFormatFields = new[] { version.Name },
 						LocalizeNameFormatFields = false,
-						DescriptionFormatFields = new[] { version.Item1 },
+						DescriptionFormatFields = new[] { version.Name },
 						LocalizeDescriptionFormatFields = false,
-						Function = objectData => version.Item2.Contains(objectData.objectID)
+						Function = objectData => version.Objects.Contains(objectData.objectID)
 					});
 				}
 			}
