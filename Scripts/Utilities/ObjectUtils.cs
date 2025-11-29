@@ -219,6 +219,9 @@ namespace ItemBrowser.Utilities {
 		}
 
 		public static bool HasBeenDiscovered(ObjectID id, int variation = 0, bool considerNonObtainablesDiscovered = false) {
+			if (id == ObjectID.None)
+				return false;
+			
 			if (considerNonObtainablesDiscovered)
 				return IsNonObtainable(id, variation) || Manager.saves.HasDiscoveredObject(id, variation);
 			
