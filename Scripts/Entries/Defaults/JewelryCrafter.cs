@@ -5,6 +5,7 @@ namespace ItemBrowser.Entries.Defaults {
 	public record JewelryCrafter : ObjectEntry {
 		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/JewelryCrafter", ObjectID.JewelryWorkBench, 3500);
 		
+		public ObjectID PolishedVersion { get; set; }
 		public ObjectID UnpolishedVersion { get; set; }
 		
 		public class Provider : ObjectEntryProvider {
@@ -35,9 +36,12 @@ namespace ItemBrowser.Entries.Defaults {
 					if (rarity == Rarity.Epic || polishedId == objectData.objectID || !jewelryItems.Contains(objectData.objectID))
 						continue;
 
-					registry.Register(ObjectEntryType.Source, polishedId, 0, new JewelryCrafter {
+					var entry = new JewelryCrafter {
+						PolishedVersion = polishedId,
 						UnpolishedVersion = objectData.objectID
-					});
+					};
+					registry.Register(ObjectEntryType.Source, entry.PolishedVersion, 0, entry);
+					registry.Register(ObjectEntryType.Usage, entry.UnpolishedVersion, 0, entry);
 				}
 			}
 		}
