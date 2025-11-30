@@ -87,6 +87,7 @@ namespace ItemBrowser.UserInterface.Browser {
 				divider.transform.localPosition = new Vector3(0f, _top, 0f);
 				_activeDividers.Add(divider);
 				_top -= dividerPadding;
+				_top -= 1f / 16f;
 			}
 		}
 		
