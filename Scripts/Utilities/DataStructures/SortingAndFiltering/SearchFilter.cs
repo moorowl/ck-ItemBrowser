@@ -39,7 +39,7 @@ namespace ItemBrowser.Utilities.DataStructures.SortingAndFiltering {
 		}
 
 		private static string ProcessString(string input) {
-			return input.Trim().ToLower().Replace("\'", "").Replace(" ", "");
+			return input.Trim().ToLower().Replace("\'", "").Replace(" ", "").Replace("-", "");
 		}
 	}
 }
