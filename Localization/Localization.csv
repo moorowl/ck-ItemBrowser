@@ -386,9 +386,9 @@ ItemBrowser:MiscellaneousDesc/OctopusTentacleEvent	Text		Appears from the water 
 ItemBrowser:MiscellaneousDesc/BombScarabEvent	Text		Appears from the ground rarely while exploring The Desert of Beginnings												
 ItemBrowser:MiscellaneousDesc/SnarePlant	Text		Occasionally planted by {0}												
 ItemBrowser:ToggleBrowserPC	Text		Item Browser: Toggle browser												
-ItemBrowser:ShowUsagesPC	Text		Item Browser: Show usage												
-ItemBrowser:ShowSourcesPC	Text		Item Browser: Show obtaining												
-ItemBrowser:FavoritePC	Text		Item Browser: Adds to favorites												
+ItemBrowser:ShowUsagesPC	Text		Item Browser: Show usages												
+ItemBrowser:ShowSourcesPC	Text		Item Browser: Show sources												
+ItemBrowser:FavoritePC	Text		Item Browser: Add to favorites												
 ItemBrowser:FactionNames/None	Text		None												
 ItemBrowser:FactionNames/Larva	Text		Larva												
 ItemBrowser:FactionNames/Caveling	Text		Caveling												
