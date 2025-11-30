@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace ItemBrowser.Entries.Defaults {
@@ -7,6 +8,7 @@ namespace ItemBrowser.Entries.Defaults {
 		
 		public ObjectID PolishedVersion { get; set; }
 		public ObjectID UnpolishedVersion { get; set; }
+		public (float Min, float Max) Chance { get; set; }
 		
 		public class Provider : ObjectEntryProvider {
 			public static readonly HashSet<ObjectID> JewelryCraftingStations = new() {
@@ -26,6 +28,10 @@ namespace ItemBrowser.Entries.Defaults {
 						jewelryItems.Add(entry.objectID);
 				}
 				
+				var chanceAtMin = Manager.mod.SkillTalentsTable.skillTalentTrees.SelectMany(tree => tree.skillTalents)
+					.FirstOrDefault(talent => talent.givesCondition == ConditionID.ChanceForPolishedJewelry).conditionValuePerPoint / 100f;
+				var chanceAtMax = chanceAtMin * Constants.kSkillPointsPerTalentPoint;
+				
 				foreach (var (objectData, _) in allObjects) {
 					if (!PugDatabase.TryGetComponent<JewelryCanBePolishedCD>(objectData, out var jewelryCanBePolished))
 						continue;
@@ -38,7 +44,8 @@ namespace ItemBrowser.Entries.Defaults {
 
 					var entry = new JewelryCrafter {
 						PolishedVersion = polishedId,
-						UnpolishedVersion = objectData.objectID
+						UnpolishedVersion = objectData.objectID,
+						Chance = (chanceAtMin, chanceAtMax)
 					};
 					registry.Register(ObjectEntryType.Source, entry.PolishedVersion, 0, entry);
 					registry.Register(ObjectEntryType.Usage, entry.UnpolishedVersion, 0, entry);

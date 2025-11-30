@@ -194,7 +194,7 @@ ItemBrowser:MoreInfo/Crafting_2	Text		- {0} x{1}
 ItemBrowser:MoreInfo/Crafting_3	Text		Takes {0} sec to craft												
 ItemBrowser:MoreInfo/Crafting_4	Text		Requires {0} nearby												
 ItemBrowser:MoreInfo/JewelryCrafter_0	Text		Crafting a {0}												
-ItemBrowser:MoreInfo/JewelryCrafter_1	Text		{0}-{1}% chance, with the Jewelry Crafter talent active												
+ItemBrowser:MoreInfo/JewelryCrafter_1	Text		{0}-{1}% chance, with the Jewelry crafter talent active												
 ItemBrowser:MoreInfo/Merchant_0	Text		Purchased from the {0} for {1} ancient coins												
 ItemBrowser:MoreInfo/Merchant_1	Text		{0} stocked at a time												
 ItemBrowser:MoreInfo/Merchant_2_LarvaBossStatueActivated	Text		Only available after activating the Ghorm Statue												

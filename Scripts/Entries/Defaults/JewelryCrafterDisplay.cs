@@ -13,25 +13,21 @@ namespace ItemBrowser.Entries.Defaults {
 		private PugText chanceText;
 
 		public override void RenderSelf() {
-			var chanceAtMin = Manager.mod.SkillTalentsTable.skillTalentTrees.SelectMany(tree => tree.skillTalents)
-				.FirstOrDefault(talent => talent.givesCondition == ConditionID.ChanceForPolishedJewelry).conditionValuePerPoint;
-			var chanceAtMax = chanceAtMin * Constants.kSkillPointsPerTalentPoint;
-			
-			RenderBody((chanceAtMin, chanceAtMax));
-			RenderMoreInfo((chanceAtMin, chanceAtMax));
+			RenderBody();
+			RenderMoreInfo();
 		}
 
-		private void RenderBody((float Min, float Max) chance) {
+		private void RenderBody() {
 			unpolishedSlot.DisplayedObject = new DisplayedObject.Static(new ObjectDataCD {
 				objectID = Entry.UnpolishedVersion
 			});
 			polishedSlot.DisplayedObject = new DisplayedObject.Static(new ObjectDataCD {
 				objectID = Entry.PolishedVersion
 			});
-			chanceText.Render($"{chance.Min}-{chance.Max}%");
+			chanceText.Render($"{UserInterfaceUtils.FormatChance(Entry.Chance.Min)}-{UserInterfaceUtils.FormatChance(Entry.Chance.Max)}%");
 		}
 
-		private void RenderMoreInfo((float Min, float Max) chance) {
+		private void RenderMoreInfo() {
 			MoreInfo.AddLine(new TextAndFormatFields {
 				text = "ItemBrowser:MoreInfo/JewelryCrafter_0",
 				formatFields = new[] {
@@ -44,8 +40,8 @@ namespace ItemBrowser.Entries.Defaults {
 			MoreInfo.AddLine(new TextAndFormatFields {
 				text = "ItemBrowser:MoreInfo/JewelryCrafter_1",
 				formatFields = new[] {
-					chance.Min.ToString(),
-					chance.Max.ToString(),
+					UserInterfaceUtils.FormatChance(Entry.Chance.Min),
+					UserInterfaceUtils.FormatChance(Entry.Chance.Max)
 				},
 				dontLocalizeFormatFields = true,
 				color = UserInterfaceUtils.DescriptionColor
