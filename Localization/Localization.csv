@@ -56,7 +56,7 @@ ItemBrowser:Filters/Damage_PhysicalMeleeDamageDesc	Text		Items dealing physical 
 ItemBrowser:Filters/Damage_PhysicalRangeDamage	Text		Physical range damage												
 ItemBrowser:Filters/Damage_PhysicalRangeDamageDesc	Text		Items dealing physical range damage												
 ItemBrowser:Filters/Damage_MagicDamage	Text		Magic damage												
-ItemBrowser:Filters/Damage_MagicDamageDesc	Text		Items dealing physical or range magic damage												
+ItemBrowser:Filters/Damage_MagicDamageDesc	Text		Items dealing magic melee or range damage												
 ItemBrowser:Filters/Damage_SummonDamage	Text		Summon damage												
 ItemBrowser:Filters/Damage_SummonDamageDesc	Text		Items that summon minions												
 ItemBrowser:Filters/Damage_ExplosiveDamage	Text		Explosive damage												
