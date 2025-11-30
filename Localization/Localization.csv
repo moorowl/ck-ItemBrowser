@@ -182,6 +182,7 @@ ItemBrowser:ObjectEntry/BossAdds	Text		Boss adds
 ItemBrowser:ObjectEntry/DropsWhenDamaged	Text		Drops when damaged												
 ItemBrowser:ObjectEntry/UpgradeMaterial	Text		Upgrade material												
 ItemBrowser:ObjectEntry/Unlocking	Text		Unlocking												
+ItemBrowser:ObjectEntry/Bucketing	Text		Bucketing												
 ItemBrowser:MoreInfo/Farming_0	Text		Grown from a {0}												
 ItemBrowser:MoreInfo/Farming_0_Normal	Text		Grown from a normal {0}												
 ItemBrowser:MoreInfo/Farming_0_Golden	Text		Grown from a golden {0}												
@@ -303,6 +304,8 @@ ItemBrowser:MoreInfo/DropsWhenDamaged_1	Text		1 dropped for every {0} damage dea
 ItemBrowser:MoreInfo/DropsWhenDamaged_2	Text		Can only drop when health is at least {0}/{1}												
 ItemBrowser:MoreInfo/Unlocking_0	Text		Placing a {0} inside a {1} unlocks it												
 ItemBrowser:MoreInfo/Unlocking_1	Text		Turns into {0} when unlocked												
+ItemBrowser:MoreInfo/Bucketing_0_Liquid	Text		From using a {0} on {1}												
+ItemBrowser:MoreInfo/Bucketing_0_Pit	Text		From using a {0} filled with {1} on a pit												
 ItemBrowser:ObjectCategoryNames/CattleKelpFood	Text		Any kelp												
 ItemBrowser:ObjectCategoryNames/Sand	Text		Any sand block												
 ItemBrowser:ObjectCategoryNames/CattlePlantFood	Text		Any farmable plant												
