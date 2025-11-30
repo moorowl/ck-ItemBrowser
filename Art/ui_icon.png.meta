@@ -286,35 +286,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui_icon_0
-      rect:
-        serializedVersion: 2
-        x: 80
-        y: 1
-        width: 9
-        height: 9
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 764a51fdfb989704698a341a5d44667e
-      internalID: -2036461585
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ui_icon_structure
+      name: ui_icon_cheat
       rect:
         serializedVersion: 2
         x: 90
-        y: 1
-        width: 9
-        height: 9
+        y: 0
+        width: 10
+        height: 10
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -325,6 +303,50 @@ TextureImporter:
       bones: []
       spriteID: 9a8cb548d64a05c46893a8e1e11bb305
       internalID: 77498136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_icon_favorite
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 0
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 784782abc16b58646af4db0ab85fcbfc
+      internalID: -2075442542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_icon_structure
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 0
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69e262d0da047fd4f8d6035162f7775a
+      internalID: 1402510494
       vertices: []
       indices: 
       edges: []
@@ -343,16 +365,18 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      ui_icon_0: -2036461585
+      ui_icon_cheat: 77498136
       ui_icon_clear_search: -1281604667
       ui_icon_cycle: 169372963
+      ui_icon_favorite: -2075442542
       ui_icon_filter: -392396922
       ui_icon_help: 1986276185
+      ui_icon_help_old: -2036461585
       ui_icon_settings: 160195236
       ui_icon_sort: 278813827
       ui_icon_sort_order_asc: 1804492927
       ui_icon_sort_order_desc: 169819583
-      ui_icon_structure: 77498136
+      ui_icon_structure: 1402510494
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

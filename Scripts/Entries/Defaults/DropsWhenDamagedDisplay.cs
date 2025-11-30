@@ -10,8 +10,6 @@ namespace ItemBrowser.Entries.Defaults {
 		private BasicItemSlot entitySlot;
 		[SerializeField]
 		private PugText damageToDropText;
-		[SerializeField]
-		private PugText healthToDropText;
 
 		public override void RenderSelf() {
 			RenderBody();
@@ -27,6 +25,10 @@ namespace ItemBrowser.Entries.Defaults {
 				objectID = Entry.Entity.Id,
 				variation = Entry.Entity.Variation
 			});
+			damageToDropText.formatFields = new[] {
+				Entry.DamageRequiredToDrop.ToString()
+			};
+			damageToDropText.Render("ItemBrowser:AmountPerDamage");
 		}
 
 		private void RenderMoreInfo() {

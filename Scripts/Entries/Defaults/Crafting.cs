@@ -55,7 +55,7 @@ namespace ItemBrowser.Entries.Defaults {
 
 						if (includedCraftingBuildings.Count > 1) {
 							foreach (var includedCraftingBuilding in includedCraftingBuildings.Skip(1)) {
-								if (ObjectUtils.GetLocalizedDisplayName(includedCraftingBuilding.objectID) == null) {
+								if (PugDatabase.GetObjectInfo(includedCraftingBuilding.objectID).requiredObjectsToCraft.Count == 0) {
 									Main.Log(nameof(Crafting), $"{ObjectUtils.GetInternalName(objectData.objectID)} can craft {string.Join(',', Enumerable.Range(endIndex + 1, endIndex + includedCraftingBuilding.amountOfCraftingOptions - 1))} from {ObjectUtils.GetInternalName(includedCraftingBuilding.objectID)}");
 									for (var i = endIndex + 1; i < endIndex + includedCraftingBuilding.amountOfCraftingOptions; i++)
 										canCraftObjectsIndexesToInclude.Add(i);	

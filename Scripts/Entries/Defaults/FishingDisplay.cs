@@ -17,10 +17,6 @@ namespace ItemBrowser.Entries.Defaults {
 		private PugText chanceText;
 		[SerializeField]
 		private PugText catchTypeText;
-		[SerializeField]
-		private float moreInfoOffsetWithLeftSlot;
-		[SerializeField]
-		private float moreInfoOffsetWithoutLeftSlot;
 
 		public override void RenderSelf() {
 			resultSlot.DisplayedObject = new DisplayedObject.Static(new ObjectDataCD {
@@ -31,7 +27,6 @@ namespace ItemBrowser.Entries.Defaults {
 			
 			if (isFromBiome) {
 				// Biome + Normal water
-				MoreInfo.transform.localPosition = new Vector3(moreInfoOffsetWithLeftSlot, MoreInfo.transform.localPosition.y, MoreInfo.transform.localPosition.z);
 				leftSourceSlot.gameObject.SetActive(true);
 				plusText.gameObject.SetActive(true);
 				
@@ -39,7 +34,6 @@ namespace ItemBrowser.Entries.Defaults {
 				rightSourceSlot.DisplayedObject = new DisplayedObject.Tile(TileType.water, Tileset.Dirt);
 			} else {
 				// Any biome + specific liquid
-				MoreInfo.transform.localPosition = new Vector3(moreInfoOffsetWithoutLeftSlot, MoreInfo.transform.localPosition.y, MoreInfo.transform.localPosition.z);
 				leftSourceSlot.gameObject.SetActive(false);
 				plusText.gameObject.SetActive(false);
 				

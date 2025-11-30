@@ -12,10 +12,6 @@ namespace ItemBrowser.Entries.Defaults {
 		private BasicItemSlot leftSlot;
 		[SerializeField]
 		private PugText plusText;
-		[SerializeField]
-		private float moreInfoOffsetWithLeftSlot;
-		[SerializeField]
-		private float moreInfoOffsetWithoutLeftSlot;
 
 		public override void RenderSelf() {
 			RenderBody();
@@ -30,7 +26,6 @@ namespace ItemBrowser.Entries.Defaults {
 			
 			var hasSummoningArea = Entry.SummoningArea.Id != ObjectID.None;
 			if (hasSummoningArea) {
-				MoreInfo.transform.localPosition = new Vector3(moreInfoOffsetWithLeftSlot, MoreInfo.transform.localPosition.y, MoreInfo.transform.localPosition.z);
 				leftSlot.gameObject.SetActive(true);
 				plusText.gameObject.SetActive(true);
 				
@@ -43,7 +38,6 @@ namespace ItemBrowser.Entries.Defaults {
 					variation = Entry.SummoningItem.Variation
 				});
 			} else {
-				MoreInfo.transform.localPosition = new Vector3(moreInfoOffsetWithoutLeftSlot, MoreInfo.transform.localPosition.y, MoreInfo.transform.localPosition.z);
 				leftSlot.gameObject.SetActive(false);
 				plusText.gameObject.SetActive(false);
 				

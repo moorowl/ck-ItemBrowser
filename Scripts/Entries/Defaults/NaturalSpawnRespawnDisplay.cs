@@ -16,10 +16,6 @@ namespace ItemBrowser.Entries.Defaults {
 		private PugText plusText;
 		[SerializeField]
 		private PugText chanceText;
-		[SerializeField]
-		private float moreInfoOffsetWithLeftSlot;
-		[SerializeField]
-		private float moreInfoOffsetWithoutLeftSlot;
 
 		public override void RenderSelf() {
 			resultSlot.DisplayedObject = new DisplayedObject.Static(new ObjectDataCD {
@@ -31,7 +27,6 @@ namespace ItemBrowser.Entries.Defaults {
 			
 			if (isFromBiome) {
 				// Specific biome + Tile
-				MoreInfo.transform.localPosition = new Vector3(moreInfoOffsetWithLeftSlot, MoreInfo.transform.localPosition.y, MoreInfo.transform.localPosition.z);
 				leftSourceSlot.gameObject.SetActive(true);
 				plusText.gameObject.SetActive(true);
 				
@@ -39,7 +34,6 @@ namespace ItemBrowser.Entries.Defaults {
 				rightSourceSlot.DisplayedObject = new DisplayedObject.Tile(Entry.SpawnCheck.tileType, Entry.TilesetToSpawnOn);
 			} else {
 				// Any biome + Tile
-				MoreInfo.transform.localPosition = new Vector3(moreInfoOffsetWithoutLeftSlot, MoreInfo.transform.localPosition.y, MoreInfo.transform.localPosition.z);
 				leftSourceSlot.gameObject.SetActive(false);
 				plusText.gameObject.SetActive(false);
 				

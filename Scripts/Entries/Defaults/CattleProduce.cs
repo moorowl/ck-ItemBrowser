@@ -18,21 +18,13 @@ namespace ItemBrowser.Entries.Defaults {
 				foreach (var (objectData, _) in allObjects) {
 					if (!PugDatabase.TryGetComponent<CraftingCD>(objectData, out var craftingCD) || !PugDatabase.HasComponent<CanCraftObjectsBuffer>(objectData))
 						continue;
-
-					if (craftingCD.craftingType != CraftingType.Cattle)
-						continue;
-
-					if (!PugDatabase.TryGetComponent<BehaviourTagsCD>(objectData, out var behaviorTags))
-						continue;
-
-					var eatsTags = new List<ObjectCategoryTag>();
-					for (var i = 1; i < 64; i++) {
-						if ((behaviorTags.eatsTagsBitMask & (1uL << i)) != 0) {
-							eatsTags.Add((ObjectCategoryTag) i);
-						}
-					}
 					
+					if (craftingCD.craftingType != CraftingType.Cattle || !PugDatabase.TryGetComponent<BehaviourTagsCD>(objectData, out var behaviorTagsCD))
+						continue;
+
+					var eatsTags = GetTagsFromBitMask(behaviorTagsCD.eatsTagsBitMask);
 					var canCraftObjects = PugDatabase.GetBuffer<CanCraftObjectsBuffer>(objectData);
+					
 					foreach (var canCraftObject in canCraftObjects) {
 						var objectInfo = PugDatabase.GetObjectInfo(canCraftObject.objectID);
 						if (objectInfo == null || canCraftObject.objectID == ObjectID.None || canCraftObject.entityAmountToConsume == 0)
@@ -54,6 +46,16 @@ namespace ItemBrowser.Entries.Defaults {
 						}
 					}
 				}
+			}
+
+			private static List<ObjectCategoryTag> GetTagsFromBitMask(ulong bitMask) {
+				var tags = new List<ObjectCategoryTag>();
+				for (var i = 1; i < 64; i++) {
+					if ((bitMask & (1uL << i)) != 0)
+						tags.Add((ObjectCategoryTag) i);
+				}
+
+				return tags;
 			}
 		}
 	}

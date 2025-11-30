@@ -318,6 +318,7 @@ ItemBrowser:AnyTileType/pit	Text		Pit
 ItemBrowser:GroundBlockSuffix	Text		{0} ground												
 ItemBrowser:GuaranteedPool	Text		Guaranteed pool												
 ItemBrowser:RandomPool	Text		Random pool												
+ItemBrowser:AmountPerDamage	Text		x1 per {0} damage												
 ItemBrowser:NameOverrides/Water_0	Text		Normal Water												
 ItemBrowser:NameOverrides/Water_1	Text		Acid Water												
 ItemBrowser:NameOverrides/Water_2	Text		Mold Water												

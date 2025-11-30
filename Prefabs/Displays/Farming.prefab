@@ -101,6 +101,7 @@ MonoBehaviour:
   - {fileID: 6850733429720379538}
   - {fileID: 1175822458289469767}
   moreInfoButton: {fileID: 1175822458289469767}
+  resultSlot: {fileID: 0}
   seedSlot: {fileID: 9122015134071768588}
 --- !u!1001 &525134964397648019
 PrefabInstance:
@@ -330,12 +331,12 @@ PrefabInstance:
     - target: {fileID: 8756679517012009632, guid: 5fa33eba93a8b0147bd395bc55fc2fbb,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.815
+      value: 5.1375
       objectReference: {fileID: 0}
     - target: {fileID: 8756679517012009632, guid: 5fa33eba93a8b0147bd395bc55fc2fbb,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.05
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8756679517012009632, guid: 5fa33eba93a8b0147bd395bc55fc2fbb,
         type: 3}

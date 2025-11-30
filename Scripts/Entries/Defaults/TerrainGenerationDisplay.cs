@@ -13,10 +13,6 @@ namespace ItemBrowser.Entries.Defaults {
 		private BasicItemSlot leftSourceSlot;
 		[SerializeField]
 		private PugText plusText;
-		[SerializeField]
-		private float moreInfoOffsetWithLeftSlot;
-		[SerializeField]
-		private float moreInfoOffsetWithoutLeftSlot;
 
 		public override void RenderSelf() {
 			RenderBody();
@@ -32,7 +28,6 @@ namespace ItemBrowser.Entries.Defaults {
 			var generatesInTileset = Entry.GeneratesInTileset != null;
 			if (generatesInTileset) {
 				// Biome + Tileset
-				MoreInfo.transform.localPosition = new Vector3(moreInfoOffsetWithLeftSlot, MoreInfo.transform.localPosition.y, MoreInfo.transform.localPosition.z);
 				leftSourceSlot.gameObject.SetActive(true);
 				plusText.gameObject.SetActive(true);
 				
@@ -40,7 +35,6 @@ namespace ItemBrowser.Entries.Defaults {
 				rightSourceSlot.DisplayedObject = new DisplayedObject.Tile(TileType.wall, Entry.GeneratesInTileset.Value);
 			} else {
 				// Biome + Any tileset
-				MoreInfo.transform.localPosition = new Vector3(moreInfoOffsetWithoutLeftSlot, MoreInfo.transform.localPosition.y, MoreInfo.transform.localPosition.z);
 				leftSourceSlot.gameObject.SetActive(false);
 				plusText.gameObject.SetActive(false);
 				

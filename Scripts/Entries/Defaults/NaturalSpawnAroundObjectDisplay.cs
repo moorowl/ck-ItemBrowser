@@ -20,8 +20,6 @@ namespace ItemBrowser.Entries.Defaults {
 		private PugText plusTextRight;
 		[SerializeField]
 		private PugText plusTextLeft;
-		[SerializeField]
-		private float moreInfoOffsetFromSlot;
 
 		public override void RenderSelf() {
 			RenderBody();
@@ -42,36 +40,28 @@ namespace ItemBrowser.Entries.Defaults {
 			seasonSlot.gameObject.SetActive(false);
 			plusTextRight.gameObject.SetActive(false);
 			plusTextLeft.gameObject.SetActive(false);
-
-			var leftMostSlot = entitySlot.transform;
 			
 			if (Entry.SpawnsInBiome != null) {
 				biomeOrTilesetSlot.gameObject.SetActive(true);
 				biomeOrTilesetSlot.DisplayedObject = new DisplayedObject.BiomeIcon(Entry.SpawnsInBiome.Value);
 				plusTextRight.gameObject.SetActive(true);
-				leftMostSlot = biomeOrTilesetSlot.transform;
 			}
 			if (Entry.SpawnsInTileset != null) {
 				biomeOrTilesetSlot.gameObject.SetActive(true);
 				biomeOrTilesetSlot.DisplayedObject = new DisplayedObject.Tile(TileType.ground, Entry.SpawnsInTileset.Value);
 				plusTextRight.gameObject.SetActive(true);
-				leftMostSlot = biomeOrTilesetSlot.transform;
 			}
 			if (Entry.SpawnsInSeason != null) {
 				if (Entry.SpawnsInBiome == null && Entry.SpawnsInBiome == null) {
 					biomeOrTilesetSlot.gameObject.SetActive(true);
 					biomeOrTilesetSlot.DisplayedObject = new DisplayedObject.SeasonIcon(Entry.SpawnsInSeason.Value);
 					plusTextRight.gameObject.SetActive(true);
-					leftMostSlot = biomeOrTilesetSlot.transform;
 				} else {
 					seasonSlot.gameObject.SetActive(true);
 					seasonSlot.DisplayedObject = new DisplayedObject.SeasonIcon(Entry.SpawnsInSeason.Value);
 					plusTextLeft.gameObject.SetActive(true);
-					leftMostSlot = seasonSlot.transform;	
 				}
 			}
-			
-			MoreInfo.transform.position = new Vector3(leftMostSlot.position.x - moreInfoOffsetFromSlot, MoreInfo.transform.position.y, MoreInfo.transform.position.z);
 		}
 
 		private void RenderMoreInfo() {

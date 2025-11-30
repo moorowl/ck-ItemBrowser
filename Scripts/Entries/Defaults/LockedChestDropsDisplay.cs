@@ -43,7 +43,7 @@ namespace ItemBrowser.Entries.Defaults {
 			MoreInfo.AddLine(new TextAndFormatFields {
 				text = $"ItemBrowser:MoreInfo/LockedChestDrops_1",
 				formatFields = new[] {
-					UserInterfaceUtils.FormatChance(Entry.Chance) + "%"
+					UserInterfaceUtils.FormatChance(Entry.Chance)
 				},
 				dontLocalizeFormatFields = true,
 				color = UserInterfaceUtils.DescriptionColor

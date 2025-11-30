@@ -14,10 +14,10 @@ namespace ItemBrowser.Entries.Defaults {
 		
 		public class Provider : ObjectEntryProvider {
 			public override void Register(ObjectEntryRegistry registry, List<(ObjectData ObjectData, GameObject Authoring)> allObjects) {
-				ref var customScenesBlobArray = ref API.Client.GetEntityQuery(typeof(CustomSceneTableCD)).GetSingleton<CustomSceneTableCD>().Value.Value.scenes;
-
-				for (var sceneIdx = 0; sceneIdx < customScenesBlobArray.Length; sceneIdx++) {
-					ref var customSceneBlob = ref customScenesBlobArray[sceneIdx];
+				// Scenes
+				ref var customScenes = ref API.Client.GetEntityQuery(typeof(CustomSceneTableCD)).GetSingleton<CustomSceneTableCD>().Value.Value.scenes;
+				for (var sceneIdx = 0; sceneIdx < customScenes.Length; sceneIdx++) {
+					ref var customSceneBlob = ref customScenes[sceneIdx];
 					var allObjectDatas = new List<ObjectDataCD>();
 					
 					// Add normal objects
@@ -67,6 +67,8 @@ namespace ItemBrowser.Entries.Defaults {
 						registry.Register(ObjectEntryType.Source, entry.Result.Id, entry.Result.Variation, entry);
 					}
 				}
+				
+				// Dungeons
 			}
 		}
 	}

@@ -239,7 +239,7 @@ Transform:
   m_GameObject: {fileID: 3890265358090082775}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.8125, y: 0, z: 0}
+  m_LocalPosition: {x: 4, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -283,8 +283,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   topUIElements: []
   bottomUIElements: []
-  leftUIElements:
-  - {fileID: 1175822458289469767}
+  leftUIElements: []
   rightUIElements: []
   childElements: []
   selectFirstEnabledElementInList: 0
@@ -690,7 +689,7 @@ PrefabInstance:
     - target: {fileID: 6366707470054676481, guid: 43a739b2d2b45fe4bb5817b99deae7f4,
         type: 3}
       propertyPath: rightUIElements.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6366707470054676481, guid: 43a739b2d2b45fe4bb5817b99deae7f4,
         type: 3}
@@ -731,12 +730,12 @@ PrefabInstance:
     - target: {fileID: 4085852874247140146, guid: 5fa33eba93a8b0147bd395bc55fc2fbb,
         type: 3}
       propertyPath: leftUIElements.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4085852874247140146, guid: 5fa33eba93a8b0147bd395bc55fc2fbb,
         type: 3}
       propertyPath: rightUIElements.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4085852874247140146, guid: 5fa33eba93a8b0147bd395bc55fc2fbb,
         type: 3}
@@ -756,12 +755,12 @@ PrefabInstance:
     - target: {fileID: 8756679517012009632, guid: 5fa33eba93a8b0147bd395bc55fc2fbb,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.7
+      value: 5.1375
       objectReference: {fileID: 0}
     - target: {fileID: 8756679517012009632, guid: 5fa33eba93a8b0147bd395bc55fc2fbb,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.325
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8756679517012009632, guid: 5fa33eba93a8b0147bd395bc55fc2fbb,
         type: 3}
