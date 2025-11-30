@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using ItemBrowser.Utilities;
+using Pug.UnityExtensions;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -19,7 +20,7 @@ namespace ItemBrowser.UserInterface.Browser {
 		public override int MAX_COLUMNS => size.x;
 
 		public override UIScrollWindow uiScrollWindow => GetComponent<UIScrollWindow>();
-		
+
 		public void SetObjects(List<ObjectDataCD> objects, bool preserveScrollPosition) {
 			if (_objects.SequenceEqual(objects))
 				return;
@@ -152,6 +153,10 @@ namespace ItemBrowser.UserInterface.Browser {
 			}
 
 			_prevSelectedIndex = prevSelectedIndex;
+		}
+
+		public override UIelement GetAdjacentUIElement(Direction.Id dir, Vector3 currentPosition) {
+			return SnapPoint.TryFindNextSnapPoint(this, dir)?.AttachedElement;
 		}
 
 		private float GetSideStartPosition(int size) {

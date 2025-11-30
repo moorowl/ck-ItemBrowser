@@ -2,6 +2,7 @@
 using ItemBrowser.Config;
 using ItemBrowser.Entries;
 using ItemBrowser.Utilities;
+using Pug.UnityExtensions;
 using UnityEngine;
 
 namespace ItemBrowser.UserInterface.Browser {
@@ -200,6 +201,10 @@ namespace ItemBrowser.UserInterface.Browser {
 
 		protected override ContainedObjectsBuffer GetSlotObject() {
 			return _displayedObject.ContainedObject;
+		}
+		
+		public override UIelement GetAdjacentUIElement(Direction.Id dir, Vector3 currentPosition) {
+			return SnapPoint.TryFindNextSnapPoint(this, dir)?.AttachedElement;
 		}
 
 		public void UpdateVisuals() {

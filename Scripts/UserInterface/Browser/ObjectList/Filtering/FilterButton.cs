@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using ItemBrowser.Utilities;
 using ItemBrowser.Utilities.DataStructures.SortingAndFiltering;
 using Pug.UnityExtensions;
+using PugMod;
 using UnityEngine;
 
 namespace ItemBrowser.UserInterface.Browser {
@@ -63,16 +66,6 @@ namespace ItemBrowser.UserInterface.Browser {
 			toggledBackground.color = GetStateColor(CurrentState).ColorWithNewAlpha(toggledBackground.color.a);
 			
 			base.LateUpdate();
-		}
-
-		public override UIelement GetAdjacentUIElement(Direction.Id direction, Vector3 currentPosition) {
-			return filtersPanel.GetClosestUIElement(currentPosition + direction switch {
-				Direction.Id.forward => new Vector3(0, boxCollider.size.y, 0f),
-				Direction.Id.left => new Vector3(-boxCollider.size.x, 0f, 0f),
-				Direction.Id.back => new Vector3(0, -boxCollider.size.y, 0f),
-				Direction.Id.right => new Vector3(boxCollider.size.x, 0f, 0f),
-				_ => Vector3.zero
-			});
 		}
 		
 		public override TextAndFormatFields GetHoverTitle() {

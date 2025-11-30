@@ -206,6 +206,7 @@ namespace ItemBrowser.UserInterface.Browser {
 				nextCategory = 0;
 			
 			SetCategory(nextCategory);
+			UserInterfaceUtils.PlayMenuOpenSound();
 		}
 		
 		private void CycleToPreviousCategory() {
@@ -214,10 +215,12 @@ namespace ItemBrowser.UserInterface.Browser {
 				nextCategory = _entries.Count - 1;
 			
 			SetCategory(nextCategory);
+			UserInterfaceUtils.PlayMenuOpenSound();
 		}
 		
 		private void CycleType() {
 			SetTypeAndCategory(NextType, SelectedCategory);
+			UserInterfaceUtils.PlayMenuOpenSound();
 		}
 	}
 }

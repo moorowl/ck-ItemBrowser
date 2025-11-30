@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using ItemBrowser.Entries;
 using ItemBrowser.Utilities;
+using Pug.UnityExtensions;
 using UnityEngine;
 
 namespace ItemBrowser.UserInterface.Browser {
@@ -52,7 +53,11 @@ namespace ItemBrowser.UserInterface.Browser {
 		public override void OnSelected() {
 			base.OnSelected();
 			
-			_scrollWindow?.MoveScrollToIncludePosition(localScrollPosition, _boxCollider != null ? Mathf.Max(_boxCollider.size.x, _boxCollider.size.y) / 2f : 0f);
+			_scrollWindow?.MoveScrollToIncludePosition(localScrollPosition, _boxCollider != null ? Mathf.Max(_boxCollider.size.x, _boxCollider.size.y) : 0f);
+		}
+
+		public override UIelement GetAdjacentUIElement(Direction.Id dir, Vector3 currentPosition) {
+			return SnapPoint.TryFindNextSnapPoint(this, dir)?.AttachedElement;
 		}
 
 		public override TextAndFormatFields GetHoverTitle() {

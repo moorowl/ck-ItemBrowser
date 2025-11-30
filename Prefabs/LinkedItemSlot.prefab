@@ -188,6 +188,7 @@ GameObject:
   - component: {fileID: 6366707470054676481}
   - component: {fileID: 7490008461380557671}
   - component: {fileID: 6248817826791661344}
+  - component: {fileID: 5077621929990727955}
   m_Layer: 5
   m_Name: LinkedItemSlot
   m_TagString: Untagged
@@ -323,6 +324,24 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.25, y: 1.25, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5077621929990727955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1382606607859124186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b601986d030e410a9af7488ad60cb26f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tags:
+  - ItemBrowserUI
+  useCustomSnapRules: 1
+  angleWeight: 0.5
+  distanceWeight: 0.5
+  coneThreshold: 0.1
 --- !u!1 &2047886213579325946
 GameObject:
   m_ObjectHideFlags: 0

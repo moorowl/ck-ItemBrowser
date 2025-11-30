@@ -94,10 +94,11 @@ namespace ItemBrowser.UserInterface.Browser {
 		}
 		
 		private void UpdateGoBack() {
-			if (Manager.menu.IsAnyMenuActive() || Manager.input.activeInputField != null || !Manager.input.IsMenuStartButtonDown())
+			if (Manager.menu.IsAnyMenuActive() || Manager.input.activeInputField != null)
 				return;
 
-			GoBack();
+			if (Manager.input.IsMenuStartButtonDown() || Manager.input.singleplayerInputModule.WasButtonPressedDownThisFrame(PlayerInput.InputType.CANCEL))
+				GoBack();
 		}
 
 		private void UpdateSwapToInventory() {
@@ -190,7 +191,7 @@ namespace ItemBrowser.UserInterface.Browser {
 			[HarmonyPostfix]
 			private static void SendClientInputSystem_PlayerInputBlocked(SendClientInputSystem __instance, ref bool __result) {
 				// Prevent moving when using a controller
-				if (ItemBrowserAPI.ItemBrowserUI != null && ItemBrowserAPI.ItemBrowserUI.IsShowing && !Manager.input.singleplayerInputModule.PrefersKeyboardAndMouse())
+				if (ItemBrowserAPI.ItemBrowserUI != null && ItemBrowserAPI.ItemBrowserUI.IsShowing && !Manager.input.singleplayerInputModule.PrefersKeyboardAndMouse() && !Manager.input.textInputIsActive)
 					__result = true;
 			}
 			

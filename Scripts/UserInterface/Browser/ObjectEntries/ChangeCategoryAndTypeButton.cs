@@ -53,7 +53,7 @@ namespace ItemBrowser.UserInterface.Browser {
 			if (IsToggled || !canBeClicked)
 				return;
 			
-			UserInterfaceUtils.PlayMenuOpenSound(0.0025f * _categoryIndex);
+			UserInterfaceUtils.PlayMenuOpenSound();
 			objectEntriesWindow.SetTypeAndCategory(_type, _categoryIndex);
 		}
 

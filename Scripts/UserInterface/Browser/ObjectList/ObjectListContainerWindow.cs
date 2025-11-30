@@ -1,4 +1,5 @@
 ﻿using System;
+using ItemBrowser.Utilities;
 using UnityEngine;
 
 namespace ItemBrowser.UserInterface.Browser {
@@ -27,6 +28,21 @@ namespace ItemBrowser.UserInterface.Browser {
 			CreatureList
 		}
 
+		private void Update() {
+			UpdateControllerInput();
+		}
+
+		private void UpdateControllerInput() {
+			if (UserInterfaceUtils.IsUsingMouseAndKeyboard)
+				return;
+			
+			var inputModule = Manager.input.singleplayerInputModule;
+			if (inputModule.WasButtonPressedDownThisFrame(PlayerInput.InputType.ZOOM_IN_MAP) || inputModule.WasButtonPressedDownThisFrame(PlayerInput.InputType.SELECT_NEXT_MAP_MARKER))
+				CycleToNextTab();
+			if (inputModule.WasButtonPressedDownThisFrame(PlayerInput.InputType.ZOOM_OUT_MAP) || inputModule.WasButtonPressedDownThisFrame(PlayerInput.InputType.SELECT_PREVIOUS_MAP_MARKER))
+				CycleToPreviousTab();
+		}
+
 		private void SetTab(WindowTab tab) {
 			_currentTab = tab;
 			itemListWindow.IsShowing = _currentTab == WindowTab.ItemList;
@@ -44,6 +60,19 @@ namespace ItemBrowser.UserInterface.Browser {
 
 		public void SetCreaturesTab() {
 			SetTab(WindowTab.CreatureList);
+		}
+
+		private void CycleToNextTab() {
+			SetTab(_currentTab switch {
+				WindowTab.ItemList => WindowTab.CreatureList,
+				WindowTab.CreatureList => WindowTab.ItemList,
+				_ => throw new ArgumentOutOfRangeException()
+			});
+			UserInterfaceUtils.PlayMenuOpenSound();
+		}
+
+		private void CycleToPreviousTab() {
+			CycleToNextTab();
 		}
 	}
 }

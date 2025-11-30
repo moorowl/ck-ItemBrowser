@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Pug.UnityExtensions;
+using UnityEngine;
 
 namespace ItemBrowser.UserInterface.Browser {
 	public class SearchBar : TextInputField {
@@ -19,6 +20,10 @@ namespace ItemBrowser.UserInterface.Browser {
 			} else {
 				_lastLeftClicked = Time.time;
 			}
+		}
+		
+		public override UIelement GetAdjacentUIElement(Direction.Id dir, Vector3 currentPosition) {
+			return SnapPoint.TryFindNextSnapPoint(this, dir)?.AttachedElement;
 		}
 	}
 }

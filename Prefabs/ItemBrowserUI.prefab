@@ -915,7 +915,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7325476551127524847
 Transform:
   m_ObjectHideFlags: 0
@@ -1953,6 +1953,7 @@ GameObject:
   - component: {fileID: 6369121362270942510}
   - component: {fileID: 5573473069138006842}
   - component: {fileID: 1228941382566036721}
+  - component: {fileID: 474671122761639629}
   m_Layer: 5
   m_Name: sort
   m_TagString: Untagged
@@ -2012,12 +2013,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   topUIElements: []
-  bottomUIElements:
-  - {fileID: 8711156953105458776}
-  leftUIElements:
-  - {fileID: 1833067378169538758}
-  rightUIElements:
-  - {fileID: 6854211803507320715}
+  bottomUIElements: []
+  leftUIElements: []
+  rightUIElements: []
   childElements: []
   selectFirstEnabledElementInList: 0
   invokeSelectionEvents: 0
@@ -2093,6 +2091,24 @@ MonoBehaviour:
   clickSoundPitch: 0.6
   optionalToggledMarker: {fileID: 4012969505573735715}
   objectListWindow: {fileID: 1088986253751835052}
+--- !u!114 &474671122761639629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 986307289230484490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b601986d030e410a9af7488ad60cb26f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tags:
+  - ItemBrowserUI
+  useCustomSnapRules: 0
+  angleWeight: 0.5
+  distanceWeight: 0.5
+  coneThreshold: 0.2
 --- !u!1 &994083583148026933
 GameObject:
   m_ObjectHideFlags: 0
@@ -3396,11 +3412,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 546d818d964944ac8e6af274346da1c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  topUIElements:
-  - {fileID: 1833067378169538758}
-  - {fileID: 5508078225110138208}
-  - {fileID: 6854211803507320715}
-  - {fileID: 1228941382566036721}
+  topUIElements: []
   bottomUIElements: []
   leftUIElements: []
   rightUIElements: []
@@ -3455,7 +3467,7 @@ MonoBehaviour:
   arrowDownInactive: {fileID: 0}
   dontForcePixelPerfect: 0
   scrollMultiplierSpeedMouse: 0.5
-  scrollMultiplierSpeedJoystick: 0.3
+  scrollMultiplierSpeedJoystick: 0
   scrollWithLeftStick: 0
   allowScrollWithArrowKeys: 0
   cursorMustBeInsideWindowToScroll: 1
@@ -3696,6 +3708,7 @@ GameObject:
   - component: {fileID: 4413496659882207191}
   - component: {fileID: 6151528596027757449}
   - component: {fileID: 6854211803507320715}
+  - component: {fileID: 187725174474292762}
   m_Layer: 5
   m_Name: sortOrder
   m_TagString: Untagged
@@ -3755,12 +3768,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   topUIElements: []
-  bottomUIElements:
-  - {fileID: 8711156953105458776}
-  leftUIElements:
-  - {fileID: 1228941382566036721}
-  rightUIElements:
-  - {fileID: 5508078225110138208}
+  bottomUIElements: []
+  leftUIElements: []
+  rightUIElements: []
   childElements: []
   selectFirstEnabledElementInList: 0
   invokeSelectionEvents: 0
@@ -3829,6 +3839,24 @@ MonoBehaviour:
   spritesToUpdate:
   - {fileID: 5249241511474392994}
   - {fileID: 4348884252066553042}
+--- !u!114 &187725174474292762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1523093180620422169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b601986d030e410a9af7488ad60cb26f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tags:
+  - ItemBrowserUI
+  useCustomSnapRules: 0
+  angleWeight: 0.5
+  distanceWeight: 0.5
+  coneThreshold: 0.2
 --- !u!1 &1528945338671616741
 GameObject:
   m_ObjectHideFlags: 0
@@ -5266,13 +5294,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   topUIElements: []
-  bottomUIElements:
-  - {fileID: 1833067378169538758}
-  - {fileID: 0}
-  - {fileID: 0}
+  bottomUIElements: []
   leftUIElements: []
-  rightUIElements:
-  - {fileID: 7919244962237739291}
+  rightUIElements: []
   childElements: []
   selectFirstEnabledElementInList: 0
   invokeSelectionEvents: 0
@@ -5499,7 +5523,8 @@ MonoBehaviour:
   - {fileID: 7187806512288291350}
   bottomUIElements: []
   leftUIElements: []
-  rightUIElements: []
+  rightUIElements:
+  - {fileID: 1501561423520032586}
   childElements: []
   selectFirstEnabledElementInList: 0
   invokeSelectionEvents: 0
@@ -5551,7 +5576,7 @@ MonoBehaviour:
   arrowDownInactive: {fileID: 0}
   dontForcePixelPerfect: 0
   scrollMultiplierSpeedMouse: 0.5
-  scrollMultiplierSpeedJoystick: 0.3
+  scrollMultiplierSpeedJoystick: 0
   scrollWithLeftStick: 0
   allowScrollWithArrowKeys: 0
   cursorMustBeInsideWindowToScroll: 1
@@ -6018,10 +6043,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   topUIElements: []
-  bottomUIElements:
-  - {fileID: 6980087637661643546}
-  leftUIElements:
-  - {fileID: 7009813561107956569}
+  bottomUIElements: []
+  leftUIElements: []
   rightUIElements: []
   childElements: []
   selectFirstEnabledElementInList: 0
@@ -9568,6 +9591,7 @@ GameObject:
   - component: {fileID: 2071267034721920241}
   - component: {fileID: 2106148368454883864}
   - component: {fileID: 8133831571594449623}
+  - component: {fileID: 4127965186200794582}
   m_Layer: 5
   m_Name: slot
   m_TagString: Untagged
@@ -9649,8 +9673,7 @@ MonoBehaviour:
   topUIElements: []
   bottomUIElements: []
   leftUIElements: []
-  rightUIElements:
-  - {fileID: 7009813561107956569}
+  rightUIElements: []
   childElements: []
   selectFirstEnabledElementInList: 0
   invokeSelectionEvents: 0
@@ -9700,6 +9723,24 @@ MonoBehaviour:
   linksUsage: 0
   showAmountInTitle: 0
   itemBrowserUI: {fileID: 325125083053886099}
+--- !u!114 &4127965186200794582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4164874462550777103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b601986d030e410a9af7488ad60cb26f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tags:
+  - ItemBrowserUI
+  useCustomSnapRules: 0
+  angleWeight: 0
+  distanceWeight: 1
+  coneThreshold: 0.2
 --- !u!1 &4169127997682597590
 GameObject:
   m_ObjectHideFlags: 0
@@ -9923,14 +9964,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d4ae516f2dc4992b5f6efa212305ecf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  topUIElements:
-  - {fileID: 0}
-  bottomUIElements:
-  - {fileID: 6980087637661643546}
-  leftUIElements:
-  - {fileID: 8133831571594449623}
-  rightUIElements:
-  - {fileID: 8499251604141231597}
+  topUIElements: []
+  bottomUIElements: []
+  leftUIElements: []
+  rightUIElements: []
   childElements: []
   selectFirstEnabledElementInList: 0
   invokeSelectionEvents: 0
@@ -10001,7 +10038,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1825659855901789496
 Transform:
   m_ObjectHideFlags: 0
@@ -10660,12 +10697,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   topUIElements: []
-  bottomUIElements:
-  - {fileID: 1833067378169538758}
-  - {fileID: 0}
-  - {fileID: 0}
-  leftUIElements:
-  - {fileID: 4776286747380554550}
+  bottomUIElements: []
+  leftUIElements: []
   rightUIElements: []
   childElements: []
   selectFirstEnabledElementInList: 0
@@ -11008,7 +11041,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   topUIElements: []
   bottomUIElements: []
-  leftUIElements: []
+  leftUIElements:
+  - {fileID: 4606017290505451867}
   rightUIElements: []
   childElements: []
   selectFirstEnabledElementInList: 0
@@ -13104,6 +13138,7 @@ GameObject:
   - component: {fileID: 5744724864244486930}
   - component: {fileID: 1833067378169538758}
   - component: {fileID: 8187408715653656626}
+  - component: {fileID: 3087291021355099703}
   m_Layer: 5
   m_Name: search
   m_TagString: Untagged
@@ -13146,8 +13181,7 @@ MonoBehaviour:
   topUIElements:
   - {fileID: 4776286747380554550}
   - {fileID: 7919244962237739291}
-  bottomUIElements:
-  - {fileID: 8711156953105458776}
+  bottomUIElements: []
   leftUIElements: []
   rightUIElements:
   - {fileID: 1228941382566036721}
@@ -13197,6 +13231,24 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 8.625, y: 0.75, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3087291021355099703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5873392183233683850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b601986d030e410a9af7488ad60cb26f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tags:
+  - ItemBrowserUI
+  useCustomSnapRules: 1
+  angleWeight: 0.25
+  distanceWeight: 0
+  coneThreshold: 0.2
 --- !u!1 &5904833359328278601
 GameObject:
   m_ObjectHideFlags: 0
@@ -14165,14 +14217,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d4ae516f2dc4992b5f6efa212305ecf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  topUIElements:
-  - {fileID: 0}
-  bottomUIElements:
-  - {fileID: 6980087637661643546}
-  leftUIElements:
-  - {fileID: 8133831571594449623}
-  rightUIElements:
-  - {fileID: 5388895862687659919}
+  topUIElements: []
+  bottomUIElements: []
+  leftUIElements: []
+  rightUIElements: []
   childElements: []
   selectFirstEnabledElementInList: 0
   invokeSelectionEvents: 0
@@ -15261,6 +15309,7 @@ GameObject:
   - component: {fileID: 972742728172856212}
   - component: {fileID: 1219003836620301227}
   - component: {fileID: 5508078225110138208}
+  - component: {fileID: 4476988385894891760}
   m_Layer: 5
   m_Name: toggleFilters
   m_TagString: Untagged
@@ -15320,12 +15369,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   topUIElements: []
-  bottomUIElements:
-  - {fileID: 8711156953105458776}
-  leftUIElements:
-  - {fileID: 6854211803507320715}
-  rightUIElements:
-  - {fileID: 1671546495232284839}
+  bottomUIElements: []
+  leftUIElements: []
+  rightUIElements: []
   childElements: []
   selectFirstEnabledElementInList: 0
   invokeSelectionEvents: 0
@@ -15402,6 +15448,24 @@ MonoBehaviour:
   optionalToggledMarker: {fileID: 8219822237294946314}
   objectListWindow: {fileID: 1088986253751835052}
   filtersPanel: {fileID: 1671546495232284839}
+--- !u!114 &4476988385894891760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6876559209357238362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b601986d030e410a9af7488ad60cb26f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tags:
+  - ItemBrowserUI
+  useCustomSnapRules: 0
+  angleWeight: 0
+  distanceWeight: 1
+  coneThreshold: 0.2
 --- !u!1 &6895516070525970972
 GameObject:
   m_ObjectHideFlags: 0
@@ -16046,10 +16110,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   topUIElements: []
-  bottomUIElements:
-  - {fileID: 6980087637661643546}
-  leftUIElements:
-  - {fileID: 7828561395537069990}
+  bottomUIElements: []
+  leftUIElements: []
   rightUIElements: []
   childElements: []
   selectFirstEnabledElementInList: 0
@@ -16187,12 +16249,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8aaae2190754fa291d9e85a5939eb3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  topUIElements:
-  - {fileID: 7009813561107956569}
-  - {fileID: 5388895862687659919}
+  topUIElements: []
   bottomUIElements: []
-  leftUIElements:
-  - {fileID: 8133831571594449623}
+  leftUIElements: []
   rightUIElements: []
   childElements: []
   selectFirstEnabledElementInList: 0
@@ -17126,6 +17185,7 @@ GameObject:
   - component: {fileID: 5905048852506711186}
   - component: {fileID: 1145011901395005722}
   - component: {fileID: 3716859432240804249}
+  - component: {fileID: 7050991922592307534}
   m_Layer: 5
   m_Name: filterTemplate
   m_TagString: Untagged
@@ -17242,6 +17302,24 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.5, y: 0.5, z: 0.5}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7050991922592307534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7865814747192859441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b601986d030e410a9af7488ad60cb26f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tags:
+  - ItemBrowserUI
+  useCustomSnapRules: 0
+  angleWeight: 0.5
+  distanceWeight: 0.5
+  coneThreshold: 0.2
 --- !u!1 &7878803435378838727
 GameObject:
   m_ObjectHideFlags: 0
@@ -19079,6 +19157,7 @@ GameObject:
   - component: {fileID: 1933065958249912124}
   - component: {fileID: 5282178514693971122}
   - component: {fileID: 9175328623434937124}
+  - component: {fileID: 5408537040892384331}
   m_Layer: 5
   m_Name: slotTemplate
   m_TagString: Untagged
@@ -19211,6 +19290,24 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.25, y: 1.25, z: 0.5}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5408537040892384331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8742288203690901215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b601986d030e410a9af7488ad60cb26f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tags:
+  - ItemBrowserUI
+  useCustomSnapRules: 0
+  angleWeight: 0.5
+  distanceWeight: 0.5
+  coneThreshold: 0.2
 --- !u!1 &8742922318251114955
 GameObject:
   m_ObjectHideFlags: 0

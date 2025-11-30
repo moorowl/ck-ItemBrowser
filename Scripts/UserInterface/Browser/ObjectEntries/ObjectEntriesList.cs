@@ -30,13 +30,6 @@ namespace ItemBrowser.UserInterface.Browser {
 		private void Awake() {
 			SetupPools();
 		}
-		
-		public override void OnSelected() {
-			base.OnSelected();
-
-			if (_activeDisplays.Count > 0)
-				_activeDisplays[0].TopMostUIElements.FirstOrDefault()?.Select();
-		}
 
 		public void SetEntries(ObjectDataCD objectData, List<ObjectEntry> entries, float scrollProgress = 1f) {
 			_objectData = objectData;
@@ -55,10 +48,6 @@ namespace ItemBrowser.UserInterface.Browser {
 			_activeDisplayComponent = component;
 
 			RenderList();
-
-			var firstElement = GetComponentInChildren<UIelement>(scrollWindow.scrollingContent);
-			if (firstElement != null && !UserInterfaceUtils.IsUsingMouseAndKeyboard)
-				UserInterfaceUtils.SelectAndMoveMouseTo(firstElement);
 			
 			scrollWindow.SetScrollValue(scrollProgress);
 		}
@@ -98,29 +87,6 @@ namespace ItemBrowser.UserInterface.Browser {
 				divider.transform.localPosition = new Vector3(0f, _top, 0f);
 				_activeDividers.Add(divider);
 				_top -= dividerPadding;
-			}
-
-			for (var i = 0; i < _activeDisplays.Count; i++) {
-				var display = _activeDisplays[i];
-
-				if (i == 0) {
-					display.topUIElements.Clear();
-					display.topUIElements.AddRange(topUIElements);
-				}
-
-				if (i > 0) {
-					var previousDisplay = _activeDisplays[i - 1];
-
-					foreach (var element in previousDisplay.BottomMostUIElements) {
-						element.bottomUIElements.Clear();
-						element.bottomUIElements.AddRange(display.TopMostUIElements);
-					}
-
-					foreach (var element in display.TopMostUIElements) {
-						element.topUIElements.Clear();
-						element.topUIElements.AddRange(previousDisplay.BottomMostUIElements);
-					}
-				}
 			}
 		}
 		
