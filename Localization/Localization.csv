@@ -222,6 +222,8 @@ ItemBrowser:MoreInfo/Salvaging_1	Text		Always drops {0}
 ItemBrowser:MoreInfo/Salvaging_1_Durability	Text		Drops {0}-{1}, based on the item's current durability												
 ItemBrowser:MoreInfo/LockedChestDrops_0	Text		From breaking {0} walls in {1}												
 ItemBrowser:MoreInfo/LockedChestDrops_1	Text		{0}% chance per wall												
+ItemBrowser:MoreInfo/ArchaeologistDrops_0	Text		From breaking any wall with the Archaeologist talent active												
+ItemBrowser:MoreInfo/ArchaeologistDrops_1	Text		{0}-{1}% chance per wall												
 ItemBrowser:MoreInfo/NaturalSpawnInitial_0_AnyBiome	Text		Spawns on suitable tiles when an area in any biome is loaded for the first time												
 ItemBrowser:MoreInfo/NaturalSpawnInitial_0_SpecificBiome	Text		Spawns on suitable tiles when an area in {0} is loaded for the first time												
 ItemBrowser:MoreInfo/NaturalSpawnInitial_1	Text		{0}% chance (per suitable tile)												
