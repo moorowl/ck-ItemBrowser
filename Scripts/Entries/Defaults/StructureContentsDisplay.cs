@@ -14,7 +14,9 @@ namespace ItemBrowser.Entries.Defaults {
 		private PugText structureNameText;
 
 		public override IEnumerable<StructureContents> SortEntries(IEnumerable<StructureContents> entries) {
-			return entries.OrderByDescending(entry => entry.Result.Amount).ThenByDescending(entry => entry.Scene ?? entry.Dungeon);
+			return entries.OrderByDescending(entry => entry.Dungeon != null ? 1 : 0)
+				.ThenByDescending(entry => entry.Result.Amount)
+				.ThenByDescending(entry => entry.Scene ?? entry.Dungeon);
 		}
 		
 		public override void RenderSelf() {
