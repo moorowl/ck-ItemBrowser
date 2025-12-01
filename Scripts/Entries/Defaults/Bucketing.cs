@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace ItemBrowser.Entries.Defaults {
 	public record Bucketing : ObjectEntry {
-		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/Bucketing", ObjectID.Bucket, 5200);
+		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/Bucketing", ObjectID.Bucket, 4100);
 		
 		public (ObjectID Id, int Variation) EmptyBucket { get; set; }
 		public (ObjectID Id, int Variation) FilledBucket { get; set; }
