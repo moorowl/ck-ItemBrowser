@@ -352,8 +352,8 @@ ItemBrowser:NameOverrides/BigLarva_1	Text		Big Hive Larva
 ItemBrowser:NameOverrides/AmberBoulder_0	Text		Amber Boulder												
 ItemBrowser:NameOverrides/NatureCicadaEnemy_0	Text		Floracada												
 ItemBrowser:NameOverrides/BirdBoss_1	Text		Awakened Azeos												
-ItemBrowser:NameOverrides/CrystalMeteor_0	Text		Crystal Meteor												
-ItemBrowser:NameOverrides/CrystalMeteorBoulder_0	Text		Crystal Meteor Boulder												
+ItemBrowser:NameOverrides/CrystalMeteor_0	Text		Crystal Meteorite												
+ItemBrowser:NameOverrides/CrystalMeteorBoulder_0	Text		Crystal Meteorite Boulder												
 ItemBrowser:NameOverrides/SummonArea_0	Text		Rune												
 ItemBrowser:NameOverrides/TowerShell_0	Text		Tower Shell												
 ItemBrowser:NameOverrides/ConchShell_0	Text		Giant Conch Shell												
