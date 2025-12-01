@@ -62,7 +62,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   appliesTo: WoodenDestructible
-  appliesToSpecificVariation: 1
   appliesToVariation: 1
   overrideName: 1
   name: ItemBrowser:NameOverrides/WoodenDestructible_1
@@ -83,7 +82,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   appliesTo: WoodenDestructible
-  appliesToSpecificVariation: 1
   appliesToVariation: 2
   overrideName: 1
   name: ItemBrowser:NameOverrides/WoodenDestructible_1
@@ -104,7 +102,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   appliesTo: WoodenDestructible
-  appliesToSpecificVariation: 1
   appliesToVariation: 3
   overrideName: 1
   name: ItemBrowser:NameOverrides/WoodenDestructible_1
@@ -125,7 +122,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   appliesTo: NatureWoodenDestructible
-  appliesToSpecificVariation: 1
   appliesToVariation: 1
   overrideName: 1
   name: ItemBrowser:NameOverrides/NatureWoodenDestructible_1
@@ -146,7 +142,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   appliesTo: NatureWoodenDestructible
-  appliesToSpecificVariation: 1
   appliesToVariation: 2
   overrideName: 1
   name: ItemBrowser:NameOverrides/NatureWoodenDestructible_1
@@ -167,7 +162,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   appliesTo: NatureWoodenDestructible
-  appliesToSpecificVariation: 1
   appliesToVariation: 3
   overrideName: 1
   name: ItemBrowser:NameOverrides/NatureWoodenDestructible_1
@@ -188,7 +182,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   appliesTo: SeaWoodenDestructible
-  appliesToSpecificVariation: 1
   appliesToVariation: 1
   overrideName: 1
   name: ItemBrowser:NameOverrides/SeaWoodenDestructible_1
@@ -209,7 +202,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   appliesTo: SeaWoodenDestructible
-  appliesToSpecificVariation: 1
   appliesToVariation: 2
   overrideName: 1
   name: ItemBrowser:NameOverrides/SeaWoodenDestructible_1
@@ -230,7 +222,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   appliesTo: SeaWoodenDestructible
-  appliesToSpecificVariation: 1
   appliesToVariation: 3
   overrideName: 1
   name: ItemBrowser:NameOverrides/SeaWoodenDestructible_1
@@ -251,7 +242,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   appliesTo: LavaWoodenDestructible
-  appliesToSpecificVariation: 1
   appliesToVariation: 1
   overrideName: 1
   name: ItemBrowser:NameOverrides/LavaWoodenDestructible_1
@@ -272,7 +262,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   appliesTo: LavaWoodenDestructible
-  appliesToSpecificVariation: 1
   appliesToVariation: 2
   overrideName: 1
   name: ItemBrowser:NameOverrides/LavaWoodenDestructible_1
@@ -293,7 +282,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   appliesTo: LavaWoodenDestructible
-  appliesToSpecificVariation: 1
   appliesToVariation: 3
   overrideName: 1
   name: ItemBrowser:NameOverrides/LavaWoodenDestructible_1
@@ -314,7 +302,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   appliesTo: NatureDestructible
-  appliesToSpecificVariation: 1
   appliesToVariation: 1
   overrideName: 1
   name: ItemBrowser:NameOverrides/NatureDestructible_1
@@ -335,7 +322,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   appliesTo: AFWoodenDestructible
-  appliesToSpecificVariation: 1
   appliesToVariation: 1
   overrideName: 1
   name: ItemBrowser:NameOverrides/AFWoodenDestructible_1
@@ -356,7 +342,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   appliesTo: AFWoodenDestructible
-  appliesToSpecificVariation: 1
   appliesToVariation: 2
   overrideName: 1
   name: ItemBrowser:NameOverrides/AFWoodenDestructible_1
@@ -377,7 +362,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   appliesTo: AFWoodenDestructible
-  appliesToSpecificVariation: 1
   appliesToVariation: 3
   overrideName: 1
   name: ItemBrowser:NameOverrides/AFWoodenDestructible_1
@@ -398,11 +382,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   appliesTo: FallingRockDestructible
-  appliesToSpecificVariation: 0
   appliesToVariation: 0
   overrideName: 1
   name: ItemBrowser:NameOverrides/FallingRockDestructible_0
-  overrideIcon: 0
+  overrideIcon: 1
   icon: {fileID: 21300000, guid: 7a096ed0099cfee4690ea50e89111456, type: 3}
   showNameNote: 0
   nameNote: 
@@ -419,7 +402,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   appliesTo: AmberBoulder
-  appliesToSpecificVariation: 0
   appliesToVariation: 0
   overrideName: 1
   name: ItemBrowser:NameOverrides/AmberBoulder_0
