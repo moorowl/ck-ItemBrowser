@@ -275,6 +275,7 @@ ItemBrowser:MoreInfo/Loot_1_PerRoll	Text		- {0}% chance of being dropped per rol
 ItemBrowser:MoreInfo/Loot_2	Text		Can only drop when {0} is the closest biome out of Azeos' Wilderness, The Sunken Sea and The Desert of Beginnings												
 ItemBrowser:MoreInfo/Loot_3	Text		Only found in the following scenes:												
 ItemBrowser:MoreInfo/Loot_4	Text		- {0}												
+ItemBrowser:MoreInfo/Loot_5	Text		Only found in the following dungeons:												
 ItemBrowser:MoreInfo/StructureContents_1_Scene	Text		Found in the {0} scene												
 ItemBrowser:MoreInfo/StructureContents_1_Dungeon	Text		Found in the {0} dungeon												
 ItemBrowser:MoreInfo/StructureContents_2_Scene	Text		Contains {0} total												

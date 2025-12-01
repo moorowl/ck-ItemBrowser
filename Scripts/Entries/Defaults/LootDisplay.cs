@@ -136,6 +136,24 @@ namespace ItemBrowser.Entries.Defaults {
 				text = "ItemBrowser:StructureExclusiveLoot"
 			});
 			
+			if (Entry.FoundInDungeons.Count > 0) {
+				structureInfo.AddLine(new TextAndFormatFields {
+					text = "ItemBrowser:MoreInfo/Loot_5",
+					color = UserInterfaceUtils.DescriptionColor
+				});
+
+				foreach (var dungeon in Entry.FoundInDungeons) {
+					structureInfo.AddLine(new TextAndFormatFields {
+						text = "ItemBrowser:MoreInfo/Loot_4",
+						formatFields = new[] {
+							dungeon.Name
+						},
+						dontLocalizeFormatFields = true,
+						color = UserInterfaceUtils.DescriptionColor
+					});	
+				}
+			}
+			
 			if (Entry.FoundInScenes.Count > 0) {
 				structureInfo.AddLine(new TextAndFormatFields {
 					text = "ItemBrowser:MoreInfo/Loot_3",
