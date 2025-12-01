@@ -4,6 +4,7 @@ using System.Linq;
 using ItemBrowser.Utilities.Extensions;
 using ItemBrowser.Utilities;
 using PugMod;
+using PugWorldGen;
 using Unity.Entities;
 using UnityEngine;
 
@@ -63,7 +64,7 @@ namespace ItemBrowser.Entries.Defaults {
 				
 				void AddEntryFromScene(ObjectID id, int variation, string sceneName, Loot entry) {
 					foreach (var existingEntry in entriesToAdd) {
-						if (existingEntry.Id == id && existingEntry.Variation == variation && existingEntry.Entry.Equals(entry) && existingEntry.Entry.FoundInScenes.Count > 0) {
+						if (existingEntry.Id == id && existingEntry.Variation == variation && existingEntry.Entry.Equals(entry) && (existingEntry.Entry.FoundInScenes.Count > 0 || existingEntry.Entry.FoundInDungeons.Count > 0)) {
 							var existingScene = existingEntry.Entry.FoundInScenes.FirstOrDefault(x => x.Name == sceneName);
 							if (existingScene.Name != null)
 								existingScene.Amount += 1;
@@ -75,6 +76,23 @@ namespace ItemBrowser.Entries.Defaults {
 					}
 					
 					entry.FoundInScenes.Add((sceneName, 1));
+					AddNormalEntry(id, variation, entry);
+				}
+				
+				void AddEntryFromDungeon(ObjectID id, int variation, string dungeonName, Loot entry) {
+					foreach (var existingEntry in entriesToAdd) {
+						if (existingEntry.Id == id && existingEntry.Variation == variation && existingEntry.Entry.Equals(entry) && (existingEntry.Entry.FoundInScenes.Count > 0 || existingEntry.Entry.FoundInDungeons.Count > 0)) {
+							var existingDungeon = existingEntry.Entry.FoundInDungeons.FirstOrDefault(x => x.Name == dungeonName);
+							if (existingDungeon.Name != null)
+								existingDungeon.Amount += 1;
+							else
+								existingEntry.Entry.FoundInDungeons.Add((dungeonName, 1));
+							
+							return;
+						}
+					}
+					
+					entry.FoundInDungeons.Add((dungeonName, 1));
 					AddNormalEntry(id, variation, entry);
 				}
 				
@@ -240,6 +258,60 @@ namespace ItemBrowser.Entries.Defaults {
 						
 						if (prefab != null && EntityUtility.HasComponentData<CustomScenePrefab>(prefab, API.Client.World))
 							AddEntriesFromPrefab(API.Client.World, prefabObjectData, prefab, sceneName);
+					}
+				}
+				
+				// Dungeon objects
+				// Dungeons
+				foreach (var dungeon in StructureUtils.GetAllDungeons()) {
+					var roomsThatSpawn = new HashSet<RoomFlags>();
+
+					if (EntityUtility.TryGetBuffer<DungeonRoomPlacementBuffer>(dungeon.Entity, API.Client.World, out var dungeonRoomPlacementBuffer)) {
+						foreach (var dungeonRoomPlacement in dungeonRoomPlacementBuffer) {
+							var room = dungeonRoomPlacement.Value;
+							if (room.amount.max <= 0)
+								continue;
+
+							roomsThatSpawn.UnionWith(StructureUtils.SeparateFlags(room.roomType));
+						}
+					}
+
+					if (EntityUtility.TryGetBuffer<DungeonNodeTemplateBuffer>(dungeon.Entity, API.Client.World, out var dungeonNodeTemplateBuffer)) {
+						foreach (var dungeonNodeTemplate in dungeonNodeTemplateBuffer) {
+							var nodeFlags = StructureUtils.SeparateFlags(dungeonNodeTemplate.flags);
+							var nodeEntity = dungeonNodeTemplate.spawnTemplateBufferEntity;
+
+							if (!EntityUtility.TryGetBuffer<DungeonNodeSpawnTemplateBuffer>(nodeEntity, API.Client.World, out var dungeonNodeSpawnTemplateBuffer))
+								continue;
+
+							if (!roomsThatSpawn.Any(room => nodeFlags.Contains(room)))
+								continue;
+
+							foreach (var dungeonNodeSpawnTemplate in dungeonNodeSpawnTemplateBuffer) {
+								ref var spawnTemplate = ref dungeonNodeSpawnTemplate.Value.Value;
+
+								for (var entryIdx = 0; entryIdx < spawnTemplate.entries.Length; entryIdx++) {
+									ref var spawnEntry = ref spawnTemplate.entries[entryIdx];
+									if (spawnEntry.containLoot == LootTableID.Empty)
+										continue;
+									
+									foreach (var drop in LootUtils.GetLootTableContents(spawnEntry.containLoot)) {
+										var entry = new Loot {
+											Result = (drop.ObjectId, 0),
+											Entity = (spawnEntry.objectToSpawn.objectID, 0),
+											Chance = drop.Chance,
+											ChanceForOne = () => drop.CalculateChanceForOne(),
+											Amount = () => drop.ObjectAmount,
+											Rolls = () => drop.CalculateRolls(),
+											OnlyDropsInBiome = drop.OnlyDropsInBiome,
+											IsFromGuaranteedPool = drop.IsFromGuaranteedPool,
+											IsFromTableWithGuaranteedPool = drop.TableHasGuaranteedPool
+										};
+										AddEntryFromDungeon(entry.Result.Id, entry.Result.Variation, dungeon.Name, entry);
+									}
+								}
+							}
+						}
 					}
 				}
 
