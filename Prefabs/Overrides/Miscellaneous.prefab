@@ -374,7 +374,7 @@ MonoBehaviour:
   overrideName: 1
   name: ItemBrowser:NameOverrides/Player_0
   overrideIcon: 1
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 33c2dbce631398d4699ba1a105c255ef, type: 3}
   showNameNote: 0
   nameNote: 
 --- !u!114 &8240683526713596835
