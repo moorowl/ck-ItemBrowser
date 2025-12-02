@@ -1,0 +1,68 @@
+﻿using System.Linq;
+using Pug.UnityExtensions;
+using UnityEngine;
+
+namespace ItemBrowser.UserInterface.Browser {
+	public class OptionsPanel : BlockingUIElement {
+		[SerializeField]
+		private Transform untoggledRoot;
+		[SerializeField]
+		private Transform toggledRoot;
+		[SerializeField]
+		private float selectedOpacity;
+		[SerializeField]
+		private float unselectedOpacity;
+		[SerializeField]
+		private float unselectedOpacityButtonMultiplier;
+		[SerializeField]
+		private float opacityLerpSpeed;
+		[SerializeField]
+		private SpriteRenderer[] affectedSRs;
+		
+		private float _opacity;
+		private float[] _affectedSrInitialOpacity;
+		private bool[] _affectedSrIsButton;
+
+		public bool IsToggled {
+			get => toggledRoot.gameObject.activeSelf;
+			set {
+				untoggledRoot.gameObject.SetActive(!value);
+				toggledRoot.gameObject.SetActive(value);
+			}
+		}
+
+		private void Awake() {
+			_affectedSrInitialOpacity = new float[affectedSRs.Length];
+			_affectedSrIsButton = new bool[affectedSRs.Length];
+			for (var i = 0; i < affectedSRs.Length; i++) {
+				_affectedSrInitialOpacity[i] = affectedSRs[i].color.a;
+				_affectedSrIsButton[i] = affectedSRs[i].transform.GetComponentInParent<BasicButton>(true) != null;
+			}
+
+			UpdateSelected();
+		}
+
+		protected override void LateUpdate() {
+			base.LateUpdate();
+
+			UpdateSelected();
+		}
+
+		private void UpdateSelected() {
+			var isAnyChildSelected = childElements.Any(element => Manager.ui.currentSelectedUIElement == element);
+			var targetOpacity = isAnyChildSelected ? selectedOpacity : unselectedOpacity;
+			
+			_opacity = Mathf.Lerp(_opacity, targetOpacity, opacityLerpSpeed * Time.deltaTime);
+
+			for (var i = 0; i < affectedSRs.Length; i++) {
+				var sr = affectedSRs[i];
+				sr.color = sr.color.ColorWithNewAlpha(_affectedSrInitialOpacity[i] * (_affectedSrIsButton[i] ? _opacity * unselectedOpacityButtonMultiplier : _opacity));
+			}
+		}
+		
+		private void OnValidate() {
+			childElements = GetComponentsInChildren<UIelement>(true).ToList();
+			affectedSRs = GetComponentsInChildren<SpriteRenderer>(true);
+		}
+	}
+}

@@ -11,6 +11,8 @@ namespace ItemBrowser.UserInterface.Browser {
 		[SerializeField]
 		private Transform tabButtonsRoot;
 		[SerializeField]
+		private Transform optionsPanelRoot;
+		[SerializeField]
 		private BasicButton itemListTabButton;
 		[SerializeField]
 		private BasicButton creatureListTabButton;
@@ -73,6 +75,7 @@ namespace ItemBrowser.UserInterface.Browser {
 			creatureListTabButton.IsToggled = creatureListWindow.IsShowing;
 
 			tabButtonsRoot.SetParent(CurrentWindow.tabButtonsAnchor, false);
+			optionsPanelRoot.SetParent(CurrentWindow.optionsPanelAnchor, false);
 		}
 
 		public void SetItemsTab() {

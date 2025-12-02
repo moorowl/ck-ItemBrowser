@@ -21,6 +21,7 @@ namespace ItemBrowser.UserInterface.Browser {
 		[SerializeField]
 		private FiltersPanel[] filtersPanels;
 		public Transform tabButtonsAnchor;
+		public Transform optionsPanelAnchor;
 		
 		private bool _refreshList;
 		private bool _preserveScrollOnRefresh;
