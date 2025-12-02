@@ -8313,7 +8313,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5823914502007235474
 Transform:
   m_ObjectHideFlags: 0
@@ -16810,7 +16810,7 @@ MonoBehaviour:
   arrowDownInactive: {fileID: 0}
   dontForcePixelPerfect: 0
   scrollMultiplierSpeedMouse: 0.5
-  scrollMultiplierSpeedJoystick: 0.3
+  scrollMultiplierSpeedJoystick: 0
   scrollWithLeftStick: 0
   allowScrollWithArrowKeys: 0
   cursorMustBeInsideWindowToScroll: 1

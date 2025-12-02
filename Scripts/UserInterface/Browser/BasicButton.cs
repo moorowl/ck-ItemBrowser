@@ -17,12 +17,13 @@ namespace ItemBrowser.UserInterface.Browser {
 		private BoxCollider _boxCollider;
 		private UIScrollWindow _scrollWindow;
 		private Transform _displayTransform;
-		
+
 		public override float localScrollPosition => transform.localPosition.y + (_displayTransform != null ? _displayTransform.localPosition.y : -0.625f);
 		private bool ShowHoverWindow => _scrollWindow == null || _scrollWindow.IsShowingPosition(localScrollPosition);
 		public override bool isVisibleOnScreen => ShowHoverWindow && base.isVisibleOnScreen;
 		public override UIScrollWindow uiScrollWindow => _scrollWindow;
 
+		public bool IsSelected { get; private set; }
 		public virtual float ScrollPadding => _boxCollider != null ? Mathf.Max(_boxCollider.size.x, _boxCollider.size.y) : 0f;
 
 		protected override void Awake() {
@@ -56,8 +57,15 @@ namespace ItemBrowser.UserInterface.Browser {
 		
 		public override void OnSelected() {
 			base.OnSelected();
-			
+
+			IsSelected = true;
 			_scrollWindow?.MoveScrollToIncludePosition(localScrollPosition, ScrollPadding);
+		}
+
+		public override void OnDeselected(bool playEffect = true) {
+			base.OnDeselected(playEffect);
+
+			IsSelected = false;
 		}
 
 		public override UIelement GetAdjacentUIElement(Direction.Id dir, Vector3 currentPosition) {

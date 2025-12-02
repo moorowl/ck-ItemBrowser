@@ -17,8 +17,7 @@ namespace ItemBrowser.UserInterface.Browser {
 		private ObjectEntriesWindow objectEntriesWindow;
 
 		private bool _entriesOpenedOutsideOfBrowser;
-		private bool _textFieldWasActive;
-		
+
 		private void Awake() {
 			gameObject.SetActive(false);
 			OnInit?.Invoke(this);
@@ -90,7 +89,6 @@ namespace ItemBrowser.UserInterface.Browser {
 			UpdateGoBack();
 			HideMapAndInventoryIfShowing();
 			UpdateSwapToInventory();
-			_textFieldWasActive = Manager.input.textInputIsActive;
 		}
 
 		private void UpdateScale() {
@@ -98,7 +96,7 @@ namespace ItemBrowser.UserInterface.Browser {
 		}
 		
 		private void UpdateGoBack() {
-			if (Manager.menu.IsAnyMenuActive() || _textFieldWasActive)
+			if (Manager.menu.IsAnyMenuActive() || Manager.input.textInputIsActive)
 				return;
 
 			if (Manager.input.IsMenuStartButtonDown() || Manager.input.singleplayerInputModule.WasButtonPressedDownThisFrame(PlayerInput.InputType.CANCEL))

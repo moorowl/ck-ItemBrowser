@@ -3,6 +3,8 @@ using System.Linq;
 
 namespace ItemBrowser.UserInterface.Browser {
 	public class MoreInfoButton : BasicButton {
+		public override float ScrollPadding => 1.25f;
+		
 		private readonly List<TextAndFormatFields> _lines = new();
 		
 		public void AddLine(TextAndFormatFields line) {

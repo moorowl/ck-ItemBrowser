@@ -1,4 +1,5 @@
-﻿using Pug.UnityExtensions;
+﻿using ItemBrowser.Utilities;
+using Pug.UnityExtensions;
 using UnityEngine;
 
 namespace ItemBrowser.UserInterface.Browser {
@@ -6,6 +7,11 @@ namespace ItemBrowser.UserInterface.Browser {
 		private const float DoubleClickThreshold = 0.5f;
 		
 		private float _lastLeftClicked;
+
+		public override void OnLeftClicked(bool mod1, bool mod2) {
+			if (UserInterfaceUtils.IsUsingMouseAndKeyboard)
+				base.OnLeftClicked(mod1, mod2);
+		}
 
 		protected override void LateUpdate() {
 			base.LateUpdate();
@@ -20,6 +26,9 @@ namespace ItemBrowser.UserInterface.Browser {
 			} else {
 				_lastLeftClicked = Time.time;
 			}
+			
+			if (!UserInterfaceUtils.IsUsingMouseAndKeyboard && inputIsActive)
+				Deactivate(true);
 		}
 		
 		public override UIelement GetAdjacentUIElement(Direction.Id dir, Vector3 currentPosition) {

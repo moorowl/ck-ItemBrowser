@@ -47,12 +47,7 @@ namespace ItemBrowser.UserInterface.Browser {
 			_ => throw new ArgumentOutOfRangeException()
 		};
 		public bool IsSelectedObjectNonObtainable { get; private set; }
-
-		protected override void OnShow(bool isFirstTimeShowing) {
-			if (!UserInterfaceUtils.IsUsingMouseAndKeyboard)
-				UserInterfaceUtils.SelectAndMoveMouseTo(selectedItemSlot);
-		}
-
+		
 		private void LateUpdate() {
 			UpdateControllerInput();
 		}
@@ -138,6 +133,8 @@ namespace ItemBrowser.UserInterface.Browser {
 				.ToList();
 
 			selectedItemSlot.SetObjectData(_objectData);
+			if (!UserInterfaceUtils.IsUsingMouseAndKeyboard)
+				UserInterfaceUtils.SelectAndMoveMouseTo(selectedItemSlot);
 			
 			var typeHeaderTerm = IsSelectedObjectNonObtainable
 				? $"ItemBrowser:ObjectEntryTypeHeader_NonObtainable/{SelectedType}"
@@ -169,6 +166,7 @@ namespace ItemBrowser.UserInterface.Browser {
 			if (_entries.Count == 0)
 				return;
 
+			Debug.Log(category.ToString());
 			var details = _entries[category];
 			if (details.Count == 0)
 				return;
