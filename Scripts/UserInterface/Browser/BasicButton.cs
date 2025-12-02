@@ -31,6 +31,8 @@ namespace ItemBrowser.UserInterface.Browser {
 			
 			if (_scrollWindow != null && _scrollWindow.gameObject.GetComponent<ObjectEntriesList>() != null)
 				_displayTransform = GetComponentInParent<ObjectEntryDisplayBase>().transform;
+
+			LateUpdate();
 		}
 
 		public override void OnRightClicked(bool mod1, bool mod2) {
