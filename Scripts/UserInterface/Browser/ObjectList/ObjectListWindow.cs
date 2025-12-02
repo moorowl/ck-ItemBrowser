@@ -49,15 +49,17 @@ namespace ItemBrowser.UserInterface.Browser {
 		
 		protected override void OnShow(bool isFirstTimeShowing) {
 			objectList.ShowContainerUI();
+			
 			if (isFirstTimeShowing) {
 				SetupFiltersAndSorting();
 				RefreshList(false);
 			} else {
 				RefreshList(true);
 			}
-
-			if (!UserInterfaceUtils.IsUsingMouseAndKeyboard)
-				objectList.SelectPreviousSlot();
+			
+			objectList.ShowContainerUI();
+			if (isFirstTimeShowing)
+				objectList.TrySelectSlot(0);
 			
 			AdjustWindowPosition();
 		}
@@ -85,6 +87,9 @@ namespace ItemBrowser.UserInterface.Browser {
 				_preserveScrollOnRefresh = true;
 				_refreshList = false;
 			}
+			
+			if (Manager.ui.currentSelectedUIElement == null || Manager.ui.currentSelectedUIElement is BlockingUIElement || !SnapPoint.HasSnapPoint(Manager.ui.currentSelectedUIElement))
+				objectList.TrySelectSlot(0);
 		}
 		
 		private void SetupFiltersAndSorting() {

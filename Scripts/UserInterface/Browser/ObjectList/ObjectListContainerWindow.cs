@@ -16,6 +16,7 @@ namespace ItemBrowser.UserInterface.Browser {
 		private BasicButton creatureListTabButton;
 
 		private WindowTab _currentTab;
+		private UIelement _lastSelectedElement;
 
 		private ObjectListWindow CurrentWindow => _currentTab switch {
 			WindowTab.ItemList => itemListWindow,
@@ -28,8 +29,16 @@ namespace ItemBrowser.UserInterface.Browser {
 			CreatureList
 		}
 
+		protected override void OnShow(bool isFirstTimeShowing) {
+			TrySelectLastSelectedElement();
+		}
+
 		private void Update() {
 			UpdateControllerInput();
+		}
+
+		private void LateUpdate() {
+			UpdateLastSelectedElement();
 		}
 
 		private void UpdateControllerInput() {
@@ -41,6 +50,18 @@ namespace ItemBrowser.UserInterface.Browser {
 				CycleToNextTab();
 			if (inputModule.WasButtonPressedDownThisFrame(PlayerInput.InputType.ZOOM_OUT_MAP) || inputModule.WasButtonPressedDownThisFrame(PlayerInput.InputType.SELECT_PREVIOUS_MAP_MARKER))
 				CycleToPreviousTab();
+		}
+
+		private void TrySelectLastSelectedElement() {
+			if (_lastSelectedElement != null && !UserInterfaceUtils.IsUsingMouseAndKeyboard)
+				UserInterfaceUtils.SelectAndMoveMouseTo(_lastSelectedElement);
+		}
+
+		private void UpdateLastSelectedElement() {
+			if (Manager.ui.currentSelectedUIElement == null || Manager.ui.currentSelectedUIElement is BlockingUIElement || !SnapPoint.HasSnapPoint(Manager.ui.currentSelectedUIElement))
+				return;
+			
+			_lastSelectedElement = Manager.ui.currentSelectedUIElement;
 		}
 
 		private void SetTab(WindowTab tab) {

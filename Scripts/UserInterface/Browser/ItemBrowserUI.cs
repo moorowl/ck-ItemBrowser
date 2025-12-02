@@ -17,6 +17,7 @@ namespace ItemBrowser.UserInterface.Browser {
 		private ObjectEntriesWindow objectEntriesWindow;
 
 		private bool _entriesOpenedOutsideOfBrowser;
+		private bool _textFieldWasActive;
 		
 		private void Awake() {
 			gameObject.SetActive(false);
@@ -71,7 +72,9 @@ namespace ItemBrowser.UserInterface.Browser {
 		}
 
 		public void GoBack() {
-			if (objectEntriesWindow.HasAnyHistory) {
+			if (Manager.input.textInputIsActive) {
+				Manager.input.activeInputField.Deactivate(true);
+			} else if (objectEntriesWindow.HasAnyHistory) {
 				objectEntriesWindow.PopObjectData();
 				UserInterfaceUtils.PlayMenuCloseSound();
 			} else if (objectEntriesWindow.IsShowing && !_entriesOpenedOutsideOfBrowser) {
@@ -87,6 +90,7 @@ namespace ItemBrowser.UserInterface.Browser {
 			UpdateGoBack();
 			HideMapAndInventoryIfShowing();
 			UpdateSwapToInventory();
+			_textFieldWasActive = Manager.input.textInputIsActive;
 		}
 
 		private void UpdateScale() {
@@ -94,7 +98,7 @@ namespace ItemBrowser.UserInterface.Browser {
 		}
 		
 		private void UpdateGoBack() {
-			if (Manager.menu.IsAnyMenuActive() || Manager.input.activeInputField != null)
+			if (Manager.menu.IsAnyMenuActive() || _textFieldWasActive)
 				return;
 
 			if (Manager.input.IsMenuStartButtonDown() || Manager.input.singleplayerInputModule.WasButtonPressedDownThisFrame(PlayerInput.InputType.CANCEL))

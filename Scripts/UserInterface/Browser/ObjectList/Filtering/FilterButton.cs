@@ -31,7 +31,9 @@ namespace ItemBrowser.UserInterface.Browser {
 		private SpriteRenderer toggledBackground;
 		[SerializeField]
 		private BoxCollider boxCollider;
-		
+
+		public override float ScrollPadding => 1.5f;
+
 		public void SetFilter(Filter<ObjectDataCD> filter) {
 			Filter = filter;
 			ResetState();
@@ -40,7 +42,7 @@ namespace ItemBrowser.UserInterface.Browser {
 		public void ResetState() {
 			CurrentState = Filter.DefaultState();
 		}
-
+		
 		public override void OnLeftClicked(bool mod1, bool mod2) {
 			base.OnLeftClicked(mod1, mod2);
 			

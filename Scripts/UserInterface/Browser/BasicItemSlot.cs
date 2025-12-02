@@ -2,6 +2,7 @@
 using ItemBrowser.Config;
 using ItemBrowser.Entries;
 using ItemBrowser.Utilities;
+using PlayerEquipment;
 using Pug.UnityExtensions;
 using UnityEngine;
 
@@ -30,8 +31,8 @@ namespace ItemBrowser.UserInterface.Browser {
 				UpdateVisuals();
 			}
 		}
-
-		public bool IsHovered => hoverBorder.gameObject.activeSelf;
+		
+		public bool IsSelected => hoverBorder.gameObject.activeSelf;
 		public bool IsFavorited => Options.FavoritedObjects.Contains(FavoritedKey);
 		private ObjectDataCD FavoritedKey => new() {
 			objectID = DisplayedObject.ContainedObject.objectID,
@@ -76,7 +77,7 @@ namespace ItemBrowser.UserInterface.Browser {
 		private void UpdateFavoriting() {
 			var input = Manager.input.singleplayerInputModule;
 			
-			if (IsHovered && input.WasButtonPressedDownThisFrame(PlayerInput.InputType.LOCKING_TOGGLE)) {
+			if (IsSelected && input.WasButtonPressedDownThisFrame(PlayerInput.InputType.LOCKING_TOGGLE)) {
 				if (IsFavorited) {
 					AudioManager.Sfx(SfxTableID.inventorySFXSlotLock, transform.position);
 					Options.FavoritedObjects.Remove(FavoritedKey);
@@ -93,7 +94,7 @@ namespace ItemBrowser.UserInterface.Browser {
 		protected virtual void OnFavoritedStateChanged() { }
 
 		public override void OnSelected() {
-			_scrollWindow?.MoveScrollToIncludePosition(localScrollPosition, _boxCollider != null ? Mathf.Max(_boxCollider.size.x, _boxCollider.size.y) / 2f : 0f);
+			_scrollWindow?.MoveScrollToIncludePosition(localScrollPosition, _boxCollider != null ? Mathf.Max(_boxCollider.size.x, _boxCollider.size.y) : 0f);
 			OnSelectSlot();
 		}
 
@@ -239,9 +240,7 @@ namespace ItemBrowser.UserInterface.Browser {
 			icon.transform.localPosition = objectInfo.iconOffset;
 			
 			var spriteSize = icon.sprite.bounds.size;
-			var spriteSheetColumns = (int) (icon.sprite.texture.width / (spriteSize.x * 16f));
-			var spriteSheetRows = (int) (icon.sprite.texture.height / (spriteSize.y * 16f));
-			if (spriteSize.x > 1f && spriteSize.y > 1f && ((spriteSheetColumns == 3 && spriteSheetRows == 3) || (spriteSheetColumns == 5 && spriteSheetRows == 4))) {
+			if (spriteSize is { x: > 1f, y: > 1f } && IsCarriedObject(objectInfo)) {
 				spriteSize.x = 1f;
 				spriteSize.y = 1f;
 			}
@@ -260,8 +259,7 @@ namespace ItemBrowser.UserInterface.Browser {
 		private bool RenderAmountNumberRange((int Min, int Max) amount) {
 			if (amountNumber == null)
 				return false;
-
-			var slotObject = GetSlotObject();
+			
 			if (amount.Max > 1 && !AmountIsShownAsBar()) {
 				var text = amount.Min != amount.Max ? $"{amount.Min}-{amount.Max}" : amount.Min.ToString();
 				
@@ -273,6 +271,25 @@ namespace ItemBrowser.UserInterface.Browser {
 			}
 			
 			return false;
+		}
+
+		private static readonly HashSet<EquipmentSlotType> CarriedEquipmentSlotTypes = new() {
+			EquipmentSlotType.MeleeWeaponSlot,
+			EquipmentSlotType.RangeWeaponSlot,
+			EquipmentSlotType.ShovelSlot,
+			EquipmentSlotType.HoeSlot,
+			EquipmentSlotType.BugNet,
+			EquipmentSlotType.SeederSlot,
+			EquipmentSlotType.Shield,
+			EquipmentSlotType.InstrumentSlot,
+			EquipmentSlotType.FishingRodSlot
+		};
+
+		private static bool IsCarriedObject(ObjectInfo objectInfo) {
+			var objectType = objectInfo.objectType;
+			var equipmentSlotType = PlayerController.GetEquippedSlotTypeForObjectType(objectType, default, default, default);
+
+			return objectType != ObjectType.ThrowingWeapon && CarriedEquipmentSlotTypes.Contains(equipmentSlotType);
 		}
 	}
 }

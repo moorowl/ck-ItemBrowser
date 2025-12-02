@@ -497,7 +497,7 @@ Transform:
   m_GameObject: {fileID: 269485817766743573}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.25, y: 0, z: 0}
+  m_LocalPosition: {x: 5.6875, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1978,7 +1978,7 @@ Transform:
   m_GameObject: {fileID: 972079311161227733}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.25, y: 0, z: 0}
+  m_LocalPosition: {x: 5.6875, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2824,9 +2824,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tags:
   - ItemBrowserUI
-  useCustomSnapRules: 0
-  angleWeight: 0.5
-  distanceWeight: 0.5
+  useCustomSnapRules: 1
+  angleWeight: 0.25
+  distanceWeight: 0.75
   coneThreshold: 0.2
 --- !u!1 &1143864391548591943
 GameObject:
@@ -3657,7 +3657,7 @@ Transform:
   m_GameObject: {fileID: 1449268943876550732}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.75, y: -0.5, z: 0}
+  m_LocalPosition: {x: -0.1875, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3724,7 +3724,7 @@ MonoBehaviour:
   scrollable: {fileID: 8711156953105458776}
   windowHeight: 7.4375
   windowWidth: 10.875
-  windowLocalCenter: {x: 1.5625, y: 0}
+  windowLocalCenter: {x: 0, y: 0}
   minScrollPos: 0
   scrollBar: {fileID: 7691308531498251815}
   arrowUp: {fileID: 0}
@@ -5780,7 +5780,7 @@ Transform:
   m_GameObject: {fileID: 2084388076315443613}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.75, y: -0.5, z: 0}
+  m_LocalPosition: {x: -0.1875, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5847,7 +5847,7 @@ MonoBehaviour:
   scrollable: {fileID: 4606017290505451867}
   windowHeight: 7.4375
   windowWidth: 10.875
-  windowLocalCenter: {x: 1.5625, y: 0}
+  windowLocalCenter: {x: 0, y: 0}
   minScrollPos: 0
   scrollBar: {fileID: 4793430146034343650}
   arrowUp: {fileID: 0}
@@ -6096,7 +6096,7 @@ Transform:
   m_GameObject: {fileID: 2257487238923464382}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.25, y: 0, z: 0}
+  m_LocalPosition: {x: 5.6875, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7823,7 +7823,7 @@ Transform:
   m_GameObject: {fileID: 2831957757716516770}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.5625, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 174, y: 119, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8627,7 +8627,7 @@ Transform:
   m_GameObject: {fileID: 3464578764209974142}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.8125, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -10730,7 +10730,7 @@ MonoBehaviour:
   arrowDownInactive: {fileID: 0}
   dontForcePixelPerfect: 0
   scrollMultiplierSpeedMouse: 0.5
-  scrollMultiplierSpeedJoystick: 0.3
+  scrollMultiplierSpeedJoystick: 0
   scrollWithLeftStick: 0
   allowScrollWithArrowKeys: 0
   cursorMustBeInsideWindowToScroll: 1
@@ -11017,7 +11017,7 @@ Transform:
   m_GameObject: {fileID: 4548316177358436871}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.25, y: 0, z: 0}
+  m_LocalPosition: {x: 5.6875, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -11635,7 +11635,7 @@ MonoBehaviour:
   arrowDownInactive: {fileID: 0}
   dontForcePixelPerfect: 0
   scrollMultiplierSpeedMouse: 0.5
-  scrollMultiplierSpeedJoystick: 0.3
+  scrollMultiplierSpeedJoystick: 0
   scrollWithLeftStick: 0
   allowScrollWithArrowKeys: 0
   cursorMustBeInsideWindowToScroll: 1
@@ -13233,7 +13233,7 @@ Transform:
   m_GameObject: {fileID: 5529845307088774000}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.5625, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 174, y: 119, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -15159,7 +15159,7 @@ Transform:
   m_GameObject: {fileID: 6425299091437969794}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.75, y: 3.25, z: 0.000001907349}
+  m_LocalPosition: {x: 0, y: 3.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -16229,7 +16229,7 @@ Transform:
   m_GameObject: {fileID: 7040118860721461307}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.75, y: 3.25, z: 0.000001907349}
+  m_LocalPosition: {x: 0, y: 3.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -18001,9 +18001,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tags:
   - ItemBrowserUI
-  useCustomSnapRules: 0
-  angleWeight: 0.5
-  distanceWeight: 0.5
+  useCustomSnapRules: 1
+  angleWeight: 0.25
+  distanceWeight: 0.75
   coneThreshold: 0.2
 --- !u!1 &7878803435378838727
 GameObject:
@@ -20866,7 +20866,7 @@ Transform:
   m_GameObject: {fileID: 9016169767368188018}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.8125, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

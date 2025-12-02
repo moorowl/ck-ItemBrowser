@@ -23,6 +23,8 @@ namespace ItemBrowser.UserInterface.Browser {
 		public override bool isVisibleOnScreen => ShowHoverWindow && base.isVisibleOnScreen;
 		public override UIScrollWindow uiScrollWindow => _scrollWindow;
 
+		public virtual float ScrollPadding => _boxCollider != null ? Mathf.Max(_boxCollider.size.x, _boxCollider.size.y) : 0f;
+
 		protected override void Awake() {
 			base.Awake();
 			
@@ -55,7 +57,7 @@ namespace ItemBrowser.UserInterface.Browser {
 		public override void OnSelected() {
 			base.OnSelected();
 			
-			_scrollWindow?.MoveScrollToIncludePosition(localScrollPosition, _boxCollider != null ? Mathf.Max(_boxCollider.size.x, _boxCollider.size.y) : 0f);
+			_scrollWindow?.MoveScrollToIncludePosition(localScrollPosition, ScrollPadding);
 		}
 
 		public override UIelement GetAdjacentUIElement(Direction.Id dir, Vector3 currentPosition) {

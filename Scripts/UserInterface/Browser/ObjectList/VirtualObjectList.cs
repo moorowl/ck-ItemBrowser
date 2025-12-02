@@ -3,6 +3,7 @@ using System.Linq;
 using ItemBrowser.Utilities;
 using Pug.UnityExtensions;
 using Unity.Mathematics;
+using Unity.Physics;
 using UnityEngine;
 
 namespace ItemBrowser.UserInterface.Browser {
@@ -11,7 +12,7 @@ namespace ItemBrowser.UserInterface.Browser {
 		
 		private float _currentScroll;
 		private int _prevStartIndex;
-		private int _prevSelectedIndex;
+		private int _prevSelectedSlot;
 		private List<ObjectDataCD> _objects = new();
 		private readonly Dictionary<int, int> _slotToObjectIndex = new();
 
@@ -26,45 +27,34 @@ namespace ItemBrowser.UserInterface.Browser {
 				return;
 			
 			_objects = objects;
-			_prevSelectedIndex = 0;
 			_prevStartIndex = 0;
+			
+			UpdateList();
 			
 			if (!preserveScrollPosition)
 				uiScrollWindow.ResetScroll();
+		}
+
+		public void TrySelectSlot(int slotIndex) {
+			if (_objects.Count == 0 || UserInterfaceUtils.IsUsingMouseAndKeyboard)
+				return;
 			
-			UpdateList();
-		}
-
-		public void SelectPreviousSlot() {
-			if (_prevSelectedIndex >= 0 && _prevSelectedIndex < itemSlots.Count)
-				UserInterfaceUtils.SelectAndMoveMouseTo(itemSlots[_prevSelectedIndex]);
-		}
-		
-		protected override void LateUpdate() {
-			base.LateUpdate();
-
-			if ((Manager.ui.currentSelectedUIElement == null || Manager.ui.currentSelectedUIElement is BlockingUIElement) && _objects.Count > 0 && !UserInterfaceUtils.IsUsingMouseAndKeyboard) {
-				foreach (var slot in itemSlots) {
-					if (slot.visibleSlotIndex == 0) {
-						UserInterfaceUtils.SelectAndMoveMouseTo(slot);
-						break;
-					}
-				}
+			foreach (var slot in itemSlots) {
+				if (slot.visibleSlotIndex == slotIndex)
+					UserInterfaceUtils.SelectAndMoveMouseTo(slot);
 			}
 		}
 
 		public override void ShowContainerUI() {
 			base.ShowContainerUI();
 			gameObject.SetActive(true);
-			UpdateList();
 		}
 
 		public override void HideContainerUI() {
 			base.HideContainerUI();
-			if (gameObject.activeSelf)
-				gameObject.SetActive(false);
+			gameObject.SetActive(false);
 		}
-
+		
 		public void UpdateContainingElements(float scroll) {
 			_currentScroll = scroll;
 			UpdateList();
@@ -102,8 +92,10 @@ namespace ItemBrowser.UserInterface.Browser {
 		}
 
 		public float GetCurrentWindowHeight() {
-			if (itemSlots.Count > MAX_COLUMNS)
-				return (math.abs(itemSlots[0].transform.localPosition.y - itemSlots[MAX_COLUMNS].transform.localPosition.y) * ((_objects.Count - 1f) / MAX_COLUMNS + 1f));
+			if (itemSlots.Count > MAX_COLUMNS) {
+				var totalRows = math.ceil((float) _objects.Count / MAX_COLUMNS);
+				return (spread * totalRows) - (2f / 16f);
+			}
 
 			return 0f;
 		}
@@ -114,9 +106,10 @@ namespace ItemBrowser.UserInterface.Browser {
 			var num3 = spread * (num / MAX_COLUMNS);
 			var sideStartPosition = GetSideStartPosition(MAX_COLUMNS);
 			var num4 = 0f;
-			var prevSelectedIndex = -1;
-			if (Manager.ui.currentSelectedUIElement is VirtualObjectListItem craftingSelectorSlot)
-				prevSelectedIndex = craftingSelectorSlot.visibleSlotIndex;
+
+			var prevSelectedSlot = -1;
+			if (Manager.ui.currentSelectedUIElement is VirtualObjectListItem prevSlot)
+				prevSelectedSlot = prevSlot.visibleSlotIndex;
 
 			_slotToObjectIndex.Clear();
 
@@ -134,25 +127,20 @@ namespace ItemBrowser.UserInterface.Browser {
 				var num7 = i / MAX_COLUMNS;
 				slot.transform.localPosition = new Vector3(sideStartPosition + num6 * spread, num4 - num7 * spread - num3, 0f);
 				slot.gameObject.SetActive(value: true);
+				slot.OnDeselectSlot();
 
 				_slotToObjectIndex[i] = num5;
 			}
 
 			if (_prevStartIndex != num) {
 				_prevStartIndex = num;
-				if (Manager.ui.currentSelectedUIElement is VirtualObjectListItem && !UserInterfaceUtils.IsUsingMouseAndKeyboard) {
-					for (var j = 0; j < itemSlots.Count; j++) {
-						if (itemSlots[j].visibleSlotIndex == _prevSelectedIndex) {
-							foreach (var slot in itemSlots)
-								slot.OnDeselectSlot();
-							
-							UserInterfaceUtils.SelectAndMoveMouseTo(itemSlots[j]);
-						}
-					}
-				}
+				TrySelectSlot(_prevSelectedSlot);
 			}
-
-			_prevSelectedIndex = prevSelectedIndex;
+			
+			if (Manager.ui.currentSelectedUIElement is VirtualObjectListItem currentSlot)
+				currentSlot.OnSelectSlot();
+			
+			_prevSelectedSlot = prevSelectedSlot;
 		}
 
 		public override UIelement GetAdjacentUIElement(Direction.Id dir, Vector3 currentPosition) {

@@ -111,5 +111,9 @@ namespace ItemBrowser.UserInterface {
 
 			return snapPoint.TryFindNextSnapPoint(direction);
 		}
+
+		public static bool HasSnapPoint(UIelement element) {
+			return element.GetComponent<SnapPoint>() != null;
+		}
 	}
 }
