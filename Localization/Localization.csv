@@ -186,7 +186,7 @@ ItemBrowser:ObjectEntry/Bucketing	Text		Bucketing
 ItemBrowser:MoreInfo/Farming_0	Text		Grown from a {0}												
 ItemBrowser:MoreInfo/Farming_0_Normal	Text		Grown from a normal {0}												
 ItemBrowser:MoreInfo/Farming_0_Golden	Text		Grown from a golden {0}												
-ItemBrowser:MoreInfo/Farming_1	Text		Seeds have a {0}-{1}% chance to become golden when planted with the Expert Gardener talent active												
+ItemBrowser:MoreInfo/Farming_1	Text		Seeds have a {0}-{1}% chance to become golden when planted with the Expert gardener talent active												
 ItemBrowser:MoreInfo/Farming_2	Text		Takes {0} min to grow												
 ItemBrowser:MoreInfo/Crafting_0_Station	Text		Crafted at {0}												
 ItemBrowser:MoreInfo/Crafting_0_Recipe	Text		Crafted using {0}												
