@@ -101,7 +101,7 @@ MonoBehaviour:
   - {fileID: 6850733429720379538}
   - {fileID: 1175822458289469767}
   moreInfoButton: {fileID: 1175822458289469767}
-  resultSlot: {fileID: 0}
+  resultSlot: {fileID: 6850733429720379538}
   seedSlot: {fileID: 9122015134071768588}
 --- !u!1001 &525134964397648019
 PrefabInstance:
