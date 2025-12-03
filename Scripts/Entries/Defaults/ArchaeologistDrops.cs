@@ -13,7 +13,7 @@ namespace ItemBrowser.Entries.Defaults {
 		public class Provider : ObjectEntryProvider {
 			public override void Register(ObjectEntryRegistry registry, List<(ObjectData ObjectData, GameObject Authoring)> allObjects) {
 				var chanceAtMin = Manager.mod.SkillTalentsTable.skillTalentTrees.SelectMany(tree => tree.skillTalents)
-					.FirstOrDefault(talent => talent.givesCondition == ConditionID.ChanceForRandomLootFromWall).conditionValuePerPoint / 100f;
+					.FirstOrDefault(talent => talent.givesCondition == ConditionID.ChanceForRandomLootFromWall).conditionValuePerPoint / 1000f;
 				var chanceAtMax = chanceAtMin * Constants.kSkillPointsPerTalentPoint;
 				
 				foreach (var drop in LootUtils.GetLootTableContents(LootTableID.ArcheologistWallLoot)) {
