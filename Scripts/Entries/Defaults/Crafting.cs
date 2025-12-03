@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Interaction;
 using ItemBrowser.Utilities;
 using ItemBrowser.Utilities.Extensions;
+using PugProperties;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -21,7 +23,15 @@ namespace ItemBrowser.Entries.Defaults {
 		
 		public class Provider : ObjectEntryProvider {
 			public override void Register(ObjectEntryRegistry registry, List<(ObjectData ObjectData, GameObject Authoring)> allObjects) {
+				var dummyStations = allObjects.Where(entry => IsDummyStation(entry.ObjectData.objectID))
+					.Select(entry => entry.ObjectData.objectID)
+					.ToHashSet();
+				
+				// Normal stations
 				foreach (var (objectData, _) in allObjects) {
+					if (!PugDatabase.HasComponent<CraftingCD>(objectData) || dummyStations.Contains(objectData.objectID))
+						continue;
+
 					if (!PugDatabase.TryGetComponent<CraftingCD>(objectData, out var craftingCD) || !PugDatabase.HasComponent<CanCraftObjectsBuffer>(objectData))
 						continue;
 					
@@ -43,31 +53,28 @@ namespace ItemBrowser.Entries.Defaults {
 					var canCraftObjects = PugDatabase.GetBuffer<CanCraftObjectsBuffer>(objectData);
 					var canCraftObjectsIndexesToInclude = new HashSet<int>();
 					
+					Main.Log(nameof(Crafting), $"Adding recipes for {ObjectUtils.GetInternalName(objectData.objectID)}");
+
 					if (PugDatabase.HasComponent<IncludedCraftingBuildingsBuffer>(objectData)) {
 						var includedCraftingBuildings = PugDatabase.GetBuffer<IncludedCraftingBuildingsBuffer>(objectData).ConvertToList();
 						var endIndex = 0;
 
-						if (includedCraftingBuildings.Count > 0) {
-							endIndex = includedCraftingBuildings[0].amountOfCraftingOptions - 1;
-							for (var i = 0; i <= endIndex; i++)
-								canCraftObjectsIndexesToInclude.Add(i);
-						}
+						foreach (var includedCraftingBuilding in includedCraftingBuildings) {
+							for (var i = 0; i < includedCraftingBuilding.amountOfCraftingOptions; i++) {
+								var shouldInclude = (dummyStations.Contains(includedCraftingBuilding.objectID) || includedCraftingBuilding.objectID == objectData.objectID)
+								                    && !IsCraftableInAnyBuilding(includedCraftingBuilding.objectID, GetIncludedBuildings(objectData.objectID));
 
-						if (includedCraftingBuildings.Count > 1) {
-							foreach (var includedCraftingBuilding in includedCraftingBuildings.Skip(1)) {
-								if (PugDatabase.GetObjectInfo(includedCraftingBuilding.objectID).requiredObjectsToCraft.Count == 0) {
-									Main.Log(nameof(Crafting), $"{ObjectUtils.GetInternalName(objectData.objectID)} can craft {string.Join(',', Enumerable.Range(endIndex + 1, endIndex + includedCraftingBuilding.amountOfCraftingOptions - 1))} from {ObjectUtils.GetInternalName(includedCraftingBuilding.objectID)}");
-									for (var i = endIndex + 1; i < endIndex + includedCraftingBuilding.amountOfCraftingOptions; i++)
-										canCraftObjectsIndexesToInclude.Add(i);	
-								}
-								endIndex = math.max(endIndex, includedCraftingBuilding.amountOfCraftingOptions - 1);
+								if (shouldInclude)
+									canCraftObjectsIndexesToInclude.Add(endIndex);
+
+								endIndex++;
 							}
 						}
 					} else {
 						for (var i = 0; i < canCraftObjects.Length; i++)
 							canCraftObjectsIndexesToInclude.Add(i);
 					}
-					
+
 					foreach (var i in canCraftObjectsIndexesToInclude) {
 						var canCraftObject = canCraftObjects[i];
 						var canCraftObjectInfo = PugDatabase.GetObjectInfo(canCraftObject.objectID);
@@ -80,8 +87,8 @@ namespace ItemBrowser.Entries.Defaults {
 							Amount = Math.Max(canCraftObject.amount, 1),
 							CraftingTime = craftingCD.craftingType == CraftingType.ProcessResources ? canCraftObjectInfo.craftingTime : 0f
 						};
-						registry.Register(ObjectEntryType.Source, canCraftObject.objectID, 0, entry);
-						registry.Register(ObjectEntryType.Usage, objectData.objectID, 0, entry);
+						registry.Register(ObjectEntryType.Source, entry.Result.Id, entry.Result.Variation, entry);
+						registry.Register(ObjectEntryType.Usage, entry.Station, 0, entry);
 						foreach (var ingredient in ObjectUtils.GroupAndSumObjects(canCraftObjectInfo.requiredObjectsToCraft))
 							registry.Register(ObjectEntryType.Usage, ingredient.objectID, 0, entry);
 						foreach (var ingredient in ObjectUtils.GetAllObjectsWithTag(canCraftObjectInfo.craftingSettings.canOnlyUseAnyMaterialsWithTag))
@@ -89,6 +96,7 @@ namespace ItemBrowser.Entries.Defaults {
 					}
 				}
 				
+				// Parchment recipes
 				foreach (var (objectData, _) in allObjects) {
 					if (!PugDatabase.TryGetComponent<ParchmentRecipeCD>(objectData, out var parchmentRecipe))
 						continue;
@@ -104,11 +112,48 @@ namespace ItemBrowser.Entries.Defaults {
 						CraftingTime = castTime,
 						RequiresObjectNearby = parchmentRecipe.requiresNearbyObject
 					};
-					registry.Register(ObjectEntryType.Source, objectToCraft.objectID, objectToCraft.variation, entry);
-					registry.Register(ObjectEntryType.Usage, objectData.objectID, 0, entry);
+					registry.Register(ObjectEntryType.Source, entry.Result.Id, entry.Result.Variation, entry);
+					registry.Register(ObjectEntryType.Usage, entry.Station, 0, entry);
 					foreach (var ingredient in ObjectUtils.GroupAndSumObjects(objectToCraftInfo.requiredObjectsToCraft))
 						registry.Register(ObjectEntryType.Usage, ingredient.objectID, 0, entry);
 				}
+			}
+			
+			private static bool IsCraftableInAnyBuilding(ObjectID id, HashSet<ObjectID> buildings) {
+				foreach (var building in buildings) {
+					if (!PugDatabase.HasComponent<IncludedCraftingBuildingsBuffer>(building))
+						continue;
+					
+					foreach (var includedCraftingBuildings in PugDatabase.GetBuffer<IncludedCraftingBuildingsBuffer>(building)) {
+						if (includedCraftingBuildings.objectID == id)
+							return true;
+					}
+				}
+
+				return false;
+			}
+
+			private static HashSet<ObjectID> GetIncludedBuildings(ObjectID id) {
+				var includedBuildings = new HashSet<ObjectID>();
+				if (!PugDatabase.HasComponent<IncludedCraftingBuildingsBuffer>(id))
+					return includedBuildings;
+				
+				foreach (var includedBuilding in PugDatabase.GetBuffer<IncludedCraftingBuildingsBuffer>(id).ConvertToList().Skip(1)) {
+					includedBuildings.Add(includedBuilding.objectID);
+					
+					foreach (var subIncludedBuilding in GetIncludedBuildings(includedBuilding.objectID))
+						includedBuildings.Add(subIncludedBuilding);
+				}
+				
+				return includedBuildings;
+			}
+
+			private static bool IsDummyStation(ObjectID id) {
+				if (id == ObjectID.Player || PugDatabase.HasComponent<InteractableCD>(id))
+					return false;
+				
+				return PugDatabase.TryGetComponent<ObjectPropertiesCD>(id, out var objectPropertiesCD)
+				       && !objectPropertiesCD.Has(PropertyID.PlaceableObject.placeableObject);
 			}
 		}
 	}
