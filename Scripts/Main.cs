@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Interaction;
 using ItemBrowser.Utilities;
 using ItemBrowser;
 using ItemBrowser.Entries;
@@ -378,6 +379,9 @@ public class Main : IMod {
 						return true;
 					
 					if (objectInfo.objectType == ObjectType.NonObtainable && !PugDatabase.HasComponent<DestructibleObjectCD>(objectData) && !PugDatabase.HasComponent<SoulOrbCD>(objectData))
+						return true;
+					
+					if (objectData.objectID != ObjectID.Player && PugDatabase.HasComponent<CraftingCD>(objectData) && !PugDatabase.HasComponent<InteractableCD>(objectData))
 						return true;
 					
 					return false;
