@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Interaction;
 using ItemBrowser.Utilities;
 using ItemBrowser.Utilities.Extensions;
 using PugProperties;
 using Unity.Mathematics;
+using Unity.Physics;
 using UnityEngine;
 
 namespace ItemBrowser.Entries.Defaults {
@@ -84,7 +84,7 @@ namespace ItemBrowser.Entries.Defaults {
 						var entry = new Crafting {
 							Result = (canCraftObject.objectID, 0),
 							Station = objectData.objectID,
-							Amount = Math.Max(canCraftObject.amount, 1),
+							Amount = math.max(canCraftObject.amount, 1),
 							CraftingTime = craftingCD.craftingType == CraftingType.ProcessResources ? canCraftObjectInfo.craftingTime : 0f
 						};
 						registry.Register(ObjectEntryType.Source, entry.Result.Id, entry.Result.Variation, entry);
@@ -108,7 +108,7 @@ namespace ItemBrowser.Entries.Defaults {
 					var entry = new Crafting {
 						Result = (objectToCraft.objectID, objectToCraft.variation),
 						Recipe = objectData.objectID,
-						Amount = Math.Max(objectToCraft.amount, 1),
+						Amount = math.max(objectToCraft.amount, 1),
 						CraftingTime = castTime,
 						RequiresObjectNearby = parchmentRecipe.requiresNearbyObject
 					};
@@ -149,7 +149,7 @@ namespace ItemBrowser.Entries.Defaults {
 			}
 
 			private static bool IsDummyStation(ObjectID id) {
-				if (id == ObjectID.Player || PugDatabase.HasComponent<InteractableCD>(id))
+				if (id == ObjectID.Player || PugDatabase.HasComponent<PhysicsCollider>(id))
 					return false;
 				
 				return PugDatabase.TryGetComponent<ObjectPropertiesCD>(id, out var objectPropertiesCD)

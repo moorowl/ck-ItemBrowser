@@ -12,6 +12,7 @@ using ItemBrowser.Utilities.DataStructures.SortingAndFiltering;
 using PugMod;
 using PugProperties;
 using PugTilemap;
+using Unity.Physics;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -369,7 +370,7 @@ public class Main : IMod {
 				Function = objectData => {
 					var objectInfo = PugDatabase.GetObjectInfo(objectData.objectID, objectData.variation);
 					
-					if (PugDatabase.HasComponent<ProjectileCD>(objectData))
+					if (PugDatabase.HasComponent<ProjectileCD>(objectData) && !PugDatabase.HasComponent<IndirectProjectileCD>(objectData))
 						return true;
 					
 					if (PugDatabase.TryGetComponent<TileCD>(objectData, out var tileCD) && tileCD.tileType == TileType.ground)
@@ -378,10 +379,10 @@ public class Main : IMod {
 					if (ObjectUtils.GetLocalizedDisplayName(objectData.objectID, objectData.variation) == null)
 						return true;
 					
-					if (objectInfo.objectType == ObjectType.NonObtainable && !PugDatabase.HasComponent<DestructibleObjectCD>(objectData) && !PugDatabase.HasComponent<SoulOrbCD>(objectData))
+					if (objectInfo.objectType == ObjectType.NonObtainable && !PugDatabase.HasComponent<DestructibleObjectCD>(objectData) && !PugDatabase.HasComponent<SoulOrbCD>(objectData) && !PugDatabase.HasComponent<DiggableCD>(objectData))
 						return true;
 					
-					if (objectData.objectID != ObjectID.Player && PugDatabase.HasComponent<CraftingCD>(objectData) && !PugDatabase.HasComponent<InteractableCD>(objectData))
+					if (objectData.objectID != ObjectID.Player && PugDatabase.HasComponent<CraftingCD>(objectData) && !PugDatabase.HasComponent<PhysicsCollider>(objectData))
 						return true;
 					
 					return false;
