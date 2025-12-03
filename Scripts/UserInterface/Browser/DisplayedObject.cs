@@ -289,6 +289,18 @@ namespace ItemBrowser.UserInterface.Browser {
 					text = $"BiomeNames/{_biome}"
 				};
 			}
+			
+			public override List<TextAndFormatFields> GetHoverDescription(SlotUIBase slot) {
+				if (Options.ShowTechnicalInfo) {
+					return new List<TextAndFormatFields> {
+						new() {
+							text = _biome.ToString(),
+							dontLocalize = true
+						}
+					};
+				}
+				return base.GetHoverDescription(slot);
+			}
 
 			private static ObjectID GetBiomeIcon(Biome biome) {
 				return biome switch {
