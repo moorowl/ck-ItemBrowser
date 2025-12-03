@@ -48,7 +48,7 @@ namespace ItemBrowser.UserInterface.Browser {
 		public override bool isVisibleOnScreen => ShowHoverWindow && base.isVisibleOnScreen;
 		public override UIScrollWindow uiScrollWindow => _scrollWindow;
 		
-		private static bool CanCheatInObjects => Options.CheatMode && (Manager.saves.IsCreativeModeCharacter() || Manager.main.player.adminPrivileges >= 1);
+		public static bool CanCheatInObjects => Options.CheatMode && (Manager.saves.IsCreativeModeCharacter() || Manager.main.player.adminPrivileges >= 1);
 		
 		protected override void Awake() {
 			base.Awake();
@@ -108,7 +108,7 @@ namespace ItemBrowser.UserInterface.Browser {
 			var input = Manager.input.singleplayerInputModule;
 			var containedObjectData = _displayedObject.ContainedObject.objectData;
 			
-			if (input.IsButtonCurrentlyDown(PlayerInput.InputType.PICK_UP_HALF) && CanCheatInObjects) {
+			if (containedObjectData.objectID != ObjectID.None && input.IsButtonCurrentlyDown(PlayerInput.InputType.PICK_UP_HALF) && CanCheatInObjects) {
 				var pickUpTen = mod1 && PugDatabase.GetObjectInfo(containedObjectData.objectID, containedObjectData.variation) is { isStackable: true };
 
 				var player = Manager.main.player;
@@ -150,7 +150,26 @@ namespace ItemBrowser.UserInterface.Browser {
 		}
 		
 		public override List<TextAndFormatFields> GetHoverDescription() {
-			return _displayedObject.GetHoverDescription(this) ?? new List<TextAndFormatFields>();
+			var lines = _displayedObject.GetHoverDescription(this) ?? new List<TextAndFormatFields>();
+			
+			var containedObjectData = _displayedObject.ContainedObject.objectData;
+			if (containedObjectData.objectID != ObjectID.None) {
+				if (IsFavorited) {
+					lines.Add(new TextAndFormatFields {
+						text = "ItemBrowser:Favorited",
+						color = Color.yellow
+					});	
+				}
+				
+				if (CanCheatInObjects) {
+					lines.Add(new TextAndFormatFields {
+						text = "ItemBrowser:CheatModeEnabled",
+						color = Manager.ui.brokenColor
+					});
+				}
+			}
+			
+			return lines;
 		}
 		
 		public override List<TextAndFormatFields> GetHoverStats(bool previewReinforced) {

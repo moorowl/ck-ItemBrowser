@@ -121,13 +121,6 @@ namespace ItemBrowser.UserInterface.Browser {
 						color = UserInterfaceUtils.DescriptionColor
 					});
 				}
-				
-				if (slot is BasicItemSlot basicItemSlot && basicItemSlot.IsFavorited) {
-					lines.Add(new TextAndFormatFields {
-						text = "ItemBrowser:Favorited",
-						color = Color.yellow
-					});
-				}
 
 				return lines;
 			}
@@ -331,6 +324,18 @@ namespace ItemBrowser.UserInterface.Browser {
 				return new TextAndFormatFields {
 					text = $"Seasons/{_season}"
 				};
+			}
+			
+			public override List<TextAndFormatFields> GetHoverDescription(SlotUIBase slot) {
+				if (Options.ShowTechnicalInfo) {
+					return new List<TextAndFormatFields> {
+						new() {
+							text = _season.ToString(),
+							dontLocalize = true
+						}
+					};
+				}
+				return base.GetHoverDescription(slot);
 			}
 
 			private static ObjectID GetSeasonIcon(Season season) {
