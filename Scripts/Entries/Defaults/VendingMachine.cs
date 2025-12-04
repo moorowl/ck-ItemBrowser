@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace ItemBrowser.Entries.Defaults {
@@ -16,10 +17,13 @@ namespace ItemBrowser.Entries.Defaults {
 						continue;
 
 					foreach (var info in PugDatabase.GetBuffer<VendingMachineItemBuffer>(objectData)) {
+						if (info.objectID == ObjectID.None)
+							continue;
+						
 						var entry = new VendingMachine {
 							Result = info.objectID,
 							Vendor = objectData.objectID,
-							Stock = objectData.amount
+							Stock = math.max(objectData.amount, 1)
 						};
 						registry.Register(ObjectEntryType.Source, entry.Result, 0, entry);
 						registry.Register(ObjectEntryType.Usage, entry.Vendor, 0, entry);
