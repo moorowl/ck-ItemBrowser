@@ -47,7 +47,11 @@ namespace ItemBrowser.UserInterface.Browser {
 			_ => throw new ArgumentOutOfRangeException()
 		};
 		public bool IsSelectedObjectNonObtainable { get; private set; }
-		
+
+		protected override void OnShow(bool isFirstTimeShowing) {
+			TrySelectSelectedItemSlot();
+		}
+
 		private void LateUpdate() {
 			UpdateControllerInput();
 		}
@@ -117,6 +121,11 @@ namespace ItemBrowser.UserInterface.Browser {
 			_history.Clear();
 			_objectData = default;
 		}
+
+		private void TrySelectSelectedItemSlot() {
+			if (!UserInterfaceUtils.IsUsingMouseAndKeyboard)
+				UserInterfaceUtils.SelectAndMoveMouseTo(selectedItemSlot);
+		}
 		
 		public void SetTypeAndCategory(ObjectEntryType type, int category, float scrollProgress = 1f) {
 			SelectedType = type;
@@ -133,8 +142,7 @@ namespace ItemBrowser.UserInterface.Browser {
 				.ToList();
 
 			selectedItemSlot.SetObjectData(_objectData);
-			if (!UserInterfaceUtils.IsUsingMouseAndKeyboard)
-				UserInterfaceUtils.SelectAndMoveMouseTo(selectedItemSlot);
+			TrySelectSelectedItemSlot();
 			
 			var typeHeaderTerm = IsSelectedObjectNonObtainable
 				? $"ItemBrowser:ObjectEntryTypeHeader_NonObtainable/{SelectedType}"
