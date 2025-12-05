@@ -53,7 +53,7 @@ namespace ItemBrowser.Plugins.BuiltinContent.Entries {
 					var canCraftObjects = PugDatabase.GetBuffer<CanCraftObjectsBuffer>(objectData);
 					var canCraftObjectsIndexesToInclude = new HashSet<int>();
 					
-					Main.Log(nameof(Crafting), $"Adding recipes for {ObjectUtils.GetInternalName(objectData.objectID)}");
+					// Main.Log(nameof(Crafting), $"Adding recipes for {ObjectUtils.GetInternalName(objectData.objectID)}");
 
 					if (PugDatabase.HasComponent<IncludedCraftingBuildingsBuffer>(objectData)) {
 						var includedCraftingBuildings = PugDatabase.GetBuffer<IncludedCraftingBuildingsBuffer>(objectData).ConvertToList();
