@@ -2,7 +2,6 @@
 using Pug.UnityExtensions;
 using PugMod;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace ItemBrowser.Utilities.DataStructures {
 	public class ObjectNameAndIconOverride : MonoBehaviour {

@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using ItemBrowser.Entries;
-using ItemBrowser.Utilities;
+using ItemBrowser.Api;
+using ItemBrowser.Api.Entries;
 using UnityEngine;
 
 namespace ItemBrowser.UserInterface.Browser {
@@ -95,7 +94,7 @@ namespace ItemBrowser.UserInterface.Browser {
 			pool = null;
 			component = null;
 			
-			if (!ItemBrowserAPI.ObjectEntryDisplayPrefabs.TryGetValue(entryType, out var displayPrefab))
+			if (!ItemBrowserAPI.Registry.EntryDisplays.TryGetValue(entryType, out var displayPrefab))
 				return false;
 			
 			component = displayPrefab.GetComponent<ObjectEntryDisplayBase>();
@@ -114,7 +113,7 @@ namespace ItemBrowser.UserInterface.Browser {
 				return;
 			
 			_dividerPool = new PoolSystem(dividerTemplate, autoParent: scrollWindow.scrollingContent, autoEnable: true, initialSize: 16, maxSize: 1024);
-			foreach (var (entryType, _) in ItemBrowserAPI.ObjectEntryDisplayPrefabs)
+			foreach (var (entryType, _) in ItemBrowserAPI.Registry.EntryDisplays)
 				TryGetDisplayPool(entryType, out _, out _);
 		}
 		

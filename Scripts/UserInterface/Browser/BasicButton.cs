@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using ItemBrowser.Entries;
+using ItemBrowser.Api.Entries;
 using ItemBrowser.Utilities;
 using Pug.UnityExtensions;
 using UnityEngine;

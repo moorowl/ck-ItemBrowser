@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using ItemBrowser.Api;
 
 namespace ItemBrowser.Utilities.DataStructures {
 	public class ObjectsAddedByVersion {
@@ -7,10 +8,10 @@ namespace ItemBrowser.Utilities.DataStructures {
 		private readonly HashSet<ObjectID> _objects;
 
 		public IEnumerable<ObjectID> Objects => _objects;
-		public bool HasAnyItems => _objects.Any(id => ItemBrowserAPI.ShouldItemBeIncluded(new ObjectDataCD {
+		public bool HasAnyItems => _objects.Any(id => ItemBrowserAPI.ShouldItemBeIndexed(new ObjectDataCD {
 			objectID = id
 		}));
-		public bool HasAnyCreatures => _objects.Any(id => ItemBrowserAPI.ShouldCreatureBeIncluded(new ObjectDataCD {
+		public bool HasAnyCreatures => _objects.Any(id => ItemBrowserAPI.ShouldCreatureBeIndexed(new ObjectDataCD {
 			objectID = id
 		}));
 

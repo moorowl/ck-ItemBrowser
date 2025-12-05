@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using ItemBrowser.Entries;
-using ItemBrowser.Entries.Defaults;
+using ItemBrowser.Api;
+using ItemBrowser.Api.Entries;
+using ItemBrowser.Plugins.BuiltinContent.Entries;
 using ItemBrowser.Utilities;
 using UnityEngine;
 
@@ -53,7 +54,7 @@ namespace ItemBrowser.UserInterface.Browser {
 			
 			var slotObject = GetSlotObject();
 			if (filtersPanel.DisplayItemCraftingRequirements) {
-				var craftingSources = ItemBrowserAPI.ObjectEntries.GetEntries<Crafting>(ObjectEntryType.Source, slotObject.objectID, slotObject.variation).ToList();
+				var craftingSources = ItemBrowserAPI.ObjectEntryRegistry.GetEntries<Crafting>(ObjectEntryType.Source, slotObject.objectID, slotObject.variation).ToList();
 				if (craftingSources.Count > 0) {
 					lines[^1].paddingBeneath = 0.125f;
 					foreach (var craftingSource in craftingSources) {

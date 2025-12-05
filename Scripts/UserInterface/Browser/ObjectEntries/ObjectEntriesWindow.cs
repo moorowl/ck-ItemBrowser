@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ItemBrowser.Entries;
+using ItemBrowser.Api;
+using ItemBrowser.Api.Entries;
 using ItemBrowser.Utilities;
 using UnityEngine;
 
@@ -90,7 +91,7 @@ namespace ItemBrowser.UserInterface.Browser {
 			if (objectData.Equals(_objectData) && initialSelectedType == SelectedType)
 				return false;
 			
-			var entries = ItemBrowserAPI.ObjectEntries.GetAllEntries(initialSelectedType, objectData.objectID, objectData.variation);
+			var entries = ItemBrowserAPI.ObjectEntryRegistry.GetAllEntries(initialSelectedType, objectData.objectID, objectData.variation);
 			if (!entries.Any())
 				return false;
 
@@ -132,8 +133,8 @@ namespace ItemBrowser.UserInterface.Browser {
 			SelectedCategory = Math.Clamp(category, 0, Math.Max(_entries.Count - 1, 0));
 
 			IsSelectedObjectNonObtainable = ObjectUtils.IsNonObtainable(_objectData.objectID, _objectData.variation);
-			var allEntriesOfSelectedType = ItemBrowserAPI.ObjectEntries.GetAllEntries(SelectedType, _objectData.objectID, _objectData.variation).ToList();
-			var allEntriesOfOtherType = ItemBrowserAPI.ObjectEntries.GetAllEntries(NextType, _objectData.objectID, _objectData.variation).ToList();
+			var allEntriesOfSelectedType = ItemBrowserAPI.ObjectEntryRegistry.GetAllEntries(SelectedType, _objectData.objectID, _objectData.variation).ToList();
+			var allEntriesOfOtherType = ItemBrowserAPI.ObjectEntryRegistry.GetAllEntries(NextType, _objectData.objectID, _objectData.variation).ToList();
 			
 			_entries = allEntriesOfSelectedType
 				.GroupBy(details => details.Category.GetTitle(IsSelectedObjectNonObtainable))

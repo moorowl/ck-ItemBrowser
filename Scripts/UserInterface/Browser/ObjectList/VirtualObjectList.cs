@@ -3,7 +3,6 @@ using System.Linq;
 using ItemBrowser.Utilities;
 using Pug.UnityExtensions;
 using Unity.Mathematics;
-using Unity.Physics;
 using UnityEngine;
 
 namespace ItemBrowser.UserInterface.Browser {

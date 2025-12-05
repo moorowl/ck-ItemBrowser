@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using ItemBrowser.Utilities;
 using ItemBrowser.Utilities.DataStructures.SortingAndFiltering;
 using Pug.UnityExtensions;
-using PugMod;
 using UnityEngine;
 
 namespace ItemBrowser.UserInterface.Browser {

@@ -1,6 +1,7 @@
 ﻿using System;
 using HarmonyLib;
-using ItemBrowser.Entries;
+using ItemBrowser.Api;
+using ItemBrowser.Api.Entries;
 using ItemBrowser.Utilities;
 using UnityEngine;
 

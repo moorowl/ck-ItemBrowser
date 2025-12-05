@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ItemBrowser.Config;
-using ItemBrowser.Entries;
+using ItemBrowser.Api;
+using ItemBrowser.Api.Entries;
 using ItemBrowser.Utilities;
 using PugTilemap;
 using UnityEngine;

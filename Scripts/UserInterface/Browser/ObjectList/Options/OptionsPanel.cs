@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Pug.UnityExtensions;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace ItemBrowser.UserInterface.Browser {
@@ -55,8 +56,9 @@ namespace ItemBrowser.UserInterface.Browser {
 			_opacity = Mathf.Lerp(_opacity, targetOpacity, opacityLerpSpeed * Time.deltaTime);
 
 			for (var i = 0; i < affectedSRs.Length; i++) {
+				var ratio = math.clamp(_affectedSrIsButton[i] ? _opacity * unselectedOpacityButtonMultiplier : _opacity, 0f, 1f);
 				var sr = affectedSRs[i];
-				sr.color = sr.color.ColorWithNewAlpha(_affectedSrInitialOpacity[i] * (_affectedSrIsButton[i] ? _opacity * unselectedOpacityButtonMultiplier : _opacity));
+				sr.color = sr.color.ColorWithNewAlpha(_affectedSrInitialOpacity[i] * ratio);
 			}
 		}
 		

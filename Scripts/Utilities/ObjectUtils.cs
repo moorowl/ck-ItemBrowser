@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using I2.Loc;
-using ItemBrowser.Entries;
-using PugAutomation;
+using ItemBrowser.Api;
+using ItemBrowser.Api.Entries;
 using PugMod;
 using Unity.Entities;
 using Unity.Mathematics;
@@ -93,7 +93,7 @@ namespace ItemBrowser.Utilities {
 				
 				string localizedName;
 				string unlocalizedName;
-				if (ItemBrowserAPI.ObjectNameOverrides.TryGetValue(objectData, out var term)) {
+				if (ItemBrowserAPI.Registry.ObjectNameOverrides.TryGetValue(objectData, out var term)) {
 					localizedName = API.Localization.GetLocalizedTerm(term);
 					unlocalizedName = term;
 				} else {
@@ -114,7 +114,7 @@ namespace ItemBrowser.Utilities {
 				if (localizedName != null)
 					DisplayNames.TryAdd(objectData, localizedName.Replace("\n", ""));
 				
-				if (ItemBrowserAPI.ObjectNameNotes.TryGetValue(objectData, out var unlocalizedNameNote))
+				if (ItemBrowserAPI.Registry.ObjectNameNotes.TryGetValue(objectData, out var unlocalizedNameNote))
 					DisplayNameNotes.TryAdd(objectData, unlocalizedNameNote);
 			}
 			
@@ -243,7 +243,7 @@ namespace ItemBrowser.Utilities {
 			if (iconOverride != null)
 				iconToUse = iconOverride;
 			
-			if (ItemBrowserAPI.ObjectIconOverrides.TryGetValue(objectData, out iconOverride))
+			if (ItemBrowserAPI.Registry.ObjectIconOverrides.TryGetValue(objectData, out iconOverride))
 				iconToUse = iconOverride;
 
 			return iconToUse;
@@ -277,7 +277,7 @@ namespace ItemBrowser.Utilities {
 			if (PugDatabase.HasComponent<AllowHealthRegenerationInCombatCD>(id, variation) && PugDatabase.GetComponent<HealthCD>(id, variation).maxHealth >= 9999999 && PugDatabase.GetComponent<HealthRegenerationCD>(id, variation).NormalizedHealthIncreasePerFiveSeconds >= 1f)
 				return true;
 
-			if (!ItemBrowserAPI.ObjectEntries.GetAllEntries(ObjectEntryType.Source, id, variation).Any())
+			if (!ItemBrowserAPI.ObjectEntryRegistry.GetAllEntries(ObjectEntryType.Source, id, variation).Any())
 				return true;
 
 			return false;
