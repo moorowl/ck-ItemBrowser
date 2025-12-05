@@ -15,6 +15,8 @@ using Unity.Physics;
 namespace ItemBrowser.Plugins.Default {
 	public class BuiltinContentPlugin : ItemBrowserPlugin {
 		public override void OnRegister(ItemBrowserRegistry registry) {
+			base.OnRegister(registry);
+			
 			foreach (var objectData in ObjectUtils.GetAllObjects()) {
 				if (IsItemIndexed(objectData))
 					registry.AddItem(objectData);

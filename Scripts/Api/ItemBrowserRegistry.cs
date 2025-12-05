@@ -38,7 +38,7 @@ namespace ItemBrowser.Api {
 		}
 		
 		public void AddTechnicalCreature(ObjectDataCD creature) {
-			Creatures.Add(creature);
+			TechnicalCreatures.Add(creature);
 		}
 
 		public void RemoveItem(ObjectDataCD item) {
