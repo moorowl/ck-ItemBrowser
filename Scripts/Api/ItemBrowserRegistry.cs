@@ -8,7 +8,9 @@ using UnityEngine;
 namespace ItemBrowser.Api {
 	public class ItemBrowserRegistry {
 		internal readonly HashSet<ObjectDataCD> Items = new();
+		internal readonly HashSet<ObjectDataCD> TechnicalItems = new();
 		internal readonly HashSet<ObjectDataCD> Creatures = new();
+		internal readonly HashSet<ObjectDataCD> TechnicalCreatures = new();
 		
 		internal readonly List<(string Group, Filter<ObjectDataCD> Filter)> ItemFilters = new();
 		internal readonly List<(string Group, Filter<ObjectDataCD> Filter)> CreatureFilters = new();
@@ -27,16 +29,32 @@ namespace ItemBrowser.Api {
 			Items.Add(item);
 		}
 
-		public void AddCreature(ObjectDataCD item) {
-			Creatures.Add(item);
+		public void AddTechnicalItem(ObjectDataCD item) {
+			TechnicalItems.Add(item);
+		}
+		
+		public void AddCreature(ObjectDataCD creature) {
+			Creatures.Add(creature);
+		}
+		
+		public void AddTechnicalCreature(ObjectDataCD creature) {
+			Creatures.Add(creature);
 		}
 
 		public void RemoveItem(ObjectDataCD item) {
 			Items.Remove(item);
 		}
 		
-		public void RemoveCreature(ObjectDataCD item) {
-			Creatures.Remove(item);
+		public void RemoveTechnicalItem(ObjectDataCD item) {
+			TechnicalItems.Remove(item);
+		}
+		
+		public void RemoveCreature(ObjectDataCD creature) {
+			Creatures.Remove(creature);
+		}
+
+		public void RemoveTechnicalCreature(ObjectDataCD creature) {
+			TechnicalCreatures.Remove(creature);
 		}
 		
 		public void AddEntryProvider(ObjectEntryProvider provider) {

@@ -15,7 +15,7 @@ namespace ItemBrowser.UserInterface.Browser {
 		}
 
 		protected override List<ObjectDataCD> GetIncludedObjects() {
-			return ObjectUtils.GetAllObjects().Where(ItemBrowserAPI.ShouldCreatureBeIndexed).ToList();
+			return ObjectUtils.GetAllObjects().Where(ItemBrowserAPI.IsCreatureIndexed).ToList();
 		}
 	}
 }

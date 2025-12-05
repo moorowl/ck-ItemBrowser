@@ -15,13 +15,18 @@ using Unity.Physics;
 namespace ItemBrowser.Plugins.Default {
 	public class BuiltinContentPlugin : ItemBrowserPlugin {
 		public override void OnRegister(ItemBrowserRegistry registry) {
-			// Add to index
 			foreach (var objectData in ObjectUtils.GetAllObjects()) {
-				if (ShouldItemBeIndexed(objectData))
+				if (IsItemIndexed(objectData))
 					registry.AddItem(objectData);
 				
-				if (ShouldCreatureBeIndexed(objectData))
+				if (IsTechnicalItem(objectData))
+					registry.AddTechnicalItem(objectData);
+				
+				if (IsCreatureIndexed(objectData))
 					registry.AddCreature(objectData);
+				
+				if (IsTechnicalCreature(objectData))
+					registry.AddTechnicalCreature(objectData);
 			}
 			
 			AddProviders(registry);
@@ -122,10 +127,10 @@ namespace ItemBrowser.Plugins.Default {
 				
 				var objectIds = ModUtils.GetAssociatedObjects(mod.ModId);
 				var itemIds = objectIds
-					.Where(ItemBrowserAPI.ShouldItemBeIndexed)
+					.Where(ItemBrowserAPI.IsItemIndexed)
 					.ToList();
 				var creatureIds = objectIds
-					.Where(ItemBrowserAPI.ShouldCreatureBeIndexed)
+					.Where(ItemBrowserAPI.IsCreatureIndexed)
 					.ToList();
 
 				if (itemIds.Count > 0) {
@@ -336,38 +341,11 @@ namespace ItemBrowser.Plugins.Default {
 				DefaultState = () => Options.DefaultDiscoveredFilter ? FilterState.Include : FilterState.None
 			});
 			registry.AddItemFilter(utilityGroup, new Filter<ObjectDataCD>($"{utilityGroup}_Technical_Item") {
-				Function = objectData => {
-					var objectInfo = PugDatabase.GetObjectInfo(objectData.objectID, objectData.variation);
-					
-					if (PugDatabase.HasComponent<ProjectileCD>(objectData) && !PugDatabase.HasComponent<IndirectProjectileCD>(objectData))
-						return true;
-					
-					if (PugDatabase.TryGetComponent<TileCD>(objectData, out var tileCD) && tileCD.tileType == TileType.ground)
-						return true;
-
-					if (ObjectUtils.GetLocalizedDisplayName(objectData.objectID, objectData.variation) == null)
-						return true;
-					
-					if (objectInfo.objectType == ObjectType.NonObtainable && !PugDatabase.HasComponent<DestructibleObjectCD>(objectData) && !PugDatabase.HasComponent<SoulOrbCD>(objectData) && !PugDatabase.HasComponent<DiggableCD>(objectData))
-						return true;
-					
-					if (objectData.objectID != ObjectID.Player && PugDatabase.HasComponent<CraftingCD>(objectData) && !PugDatabase.HasComponent<PhysicsCollider>(objectData))
-						return true;
-					
-					return false;
-				},
+				Function = ItemBrowserAPI.IsTechnicalItem,
 				DefaultState = () => Options.DefaultTechnicalFilter ? FilterState.Exclude : FilterState.None
 			});
 			registry.AddCreatureFilter(utilityGroup, new Filter<ObjectDataCD>($"{utilityGroup}_Technical_Creature") {
-				Function = objectData => {
-					if (PugDatabase.HasComponent<MinionCD>(objectData))
-						return true;
-
-					if (ObjectUtils.GetLocalizedDisplayName(objectData.objectID, objectData.variation) == null)
-						return true;
-					
-					return false;
-				},
+				Function = ItemBrowserAPI.IsTechnicalCreature,
 				DefaultState = () => Options.DefaultTechnicalFilter ? FilterState.Exclude : FilterState.None
 			});
 			registry.AddItemFilter(utilityGroup, new Filter<ObjectDataCD>($"{utilityGroup}_NoSources_Item") {
@@ -454,7 +432,7 @@ namespace ItemBrowser.Plugins.Default {
 			}
 		}
 
-		private static bool ShouldItemBeIndexed(ObjectDataCD objectData) {
+		private static bool IsItemIndexed(ObjectDataCD objectData) {
 			var objectInfo = PugDatabase.GetObjectInfo(objectData.objectID, objectData.variation);
 
 			if (PugDatabase.HasComponent<CookedFoodCD>(objectData))
@@ -469,7 +447,7 @@ namespace ItemBrowser.Plugins.Default {
 			return !objectInfo.isCustomScenePrefab;
 		}
 		
-		private static bool ShouldCreatureBeIndexed(ObjectDataCD objectData) {
+		private static bool IsCreatureIndexed(ObjectDataCD objectData) {
 			var objectInfo = PugDatabase.GetObjectInfo(objectData.objectID, objectData.variation);
 
 			if (PugDatabase.HasComponent<CookedFoodCD>(objectData))
@@ -482,6 +460,37 @@ namespace ItemBrowser.Plugins.Default {
 				return false;
 
 			return !objectInfo.isCustomScenePrefab;
+		}
+
+		private static bool IsTechnicalItem(ObjectDataCD item) {
+			var objectInfo = PugDatabase.GetObjectInfo(item.objectID, item.variation);
+					
+			if (PugDatabase.HasComponent<ProjectileCD>(item) && !PugDatabase.HasComponent<IndirectProjectileCD>(item))
+				return true;
+					
+			if (PugDatabase.TryGetComponent<TileCD>(item, out var tileCD) && tileCD.tileType == TileType.ground)
+				return true;
+
+			if (ObjectUtils.GetLocalizedDisplayName(item.objectID, item.variation) == null)
+				return true;
+					
+			if (objectInfo.objectType == ObjectType.NonObtainable && !PugDatabase.HasComponent<DestructibleObjectCD>(item) && !PugDatabase.HasComponent<SoulOrbCD>(item) && !PugDatabase.HasComponent<DiggableCD>(item))
+				return true;
+					
+			if (item.objectID != ObjectID.Player && PugDatabase.HasComponent<CraftingCD>(item) && !PugDatabase.HasComponent<PhysicsCollider>(item))
+				return true;
+					
+			return false;
+		}
+		
+		private static bool IsTechnicalCreature(ObjectDataCD creature) {
+			if (PugDatabase.HasComponent<MinionCD>(creature))
+				return true;
+
+			if (ObjectUtils.GetLocalizedDisplayName(creature.objectID, creature.variation) == null)
+				return true;
+					
+			return false;
 		}
 	}
 }

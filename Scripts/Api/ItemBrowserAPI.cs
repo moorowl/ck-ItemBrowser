@@ -59,12 +59,20 @@ namespace ItemBrowser.Api {
 				Object.Destroy(ItemBrowserUI);
 		}
 
-		public static bool ShouldItemBeIndexed(ObjectDataCD objectData) {
-			return Registry.Items.Contains(objectData);
+		public static bool IsItemIndexed(ObjectDataCD item) {
+			return Registry.Items.Contains(item);
 		}
 		
-		public static bool ShouldCreatureBeIndexed(ObjectDataCD objectData) {
-			return Registry.Creatures.Contains(objectData);
+		public static bool IsCreatureIndexed(ObjectDataCD creature) {
+			return Registry.Creatures.Contains(creature);
+		}
+		
+		public static bool IsTechnicalItem(ObjectDataCD item) {
+			return Registry.TechnicalItems.Contains(item);
+		}
+
+		public static bool IsTechnicalCreature(ObjectDataCD creature) {
+			return Registry.TechnicalCreatures.Contains(creature);
 		}
 		
 		[HarmonyPatch]

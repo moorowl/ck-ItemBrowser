@@ -8,10 +8,10 @@ namespace ItemBrowser.Utilities.DataStructures {
 		private readonly HashSet<ObjectID> _objects;
 
 		public IEnumerable<ObjectID> Objects => _objects;
-		public bool HasAnyItems => _objects.Any(id => ItemBrowserAPI.ShouldItemBeIndexed(new ObjectDataCD {
+		public bool HasAnyItems => _objects.Any(id => ItemBrowserAPI.IsItemIndexed(new ObjectDataCD {
 			objectID = id
 		}));
-		public bool HasAnyCreatures => _objects.Any(id => ItemBrowserAPI.ShouldCreatureBeIndexed(new ObjectDataCD {
+		public bool HasAnyCreatures => _objects.Any(id => ItemBrowserAPI.IsCreatureIndexed(new ObjectDataCD {
 			objectID = id
 		}));
 
