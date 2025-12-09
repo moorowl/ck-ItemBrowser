@@ -3,7 +3,6 @@ using System.Linq;
 using ItemBrowser.Utilities;
 using ItemBrowser;
 using ItemBrowser.Api;
-using ItemBrowser.Plugins.Default;
 using PugMod;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -23,14 +22,12 @@ public class Main : IMod {
 		var modInfo = API.ModLoader.LoadedMods.FirstOrDefault(modInfo => modInfo.Handlers.Contains(this));
 		AssetBundle = modInfo!.AssetBundles[0];
 		
-		// Register plugins
-		ItemBrowserAPI.AddPlugin<BuiltinContentPlugin>(this);
-		
 		Options.EarlyInit();
 	}
 
 	public void Init() {
 		Options.Init();
+		ItemBrowserAPI.Init();
 		ModUtils.InitOnModLoad();
 	}
 

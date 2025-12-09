@@ -1,25 +1,30 @@
 ﻿using ItemBrowser.Api.Entries;
+using ItemBrowser.Utilities;
 using ItemBrowser.Utilities.DataStructures;
 using PugMod;
 using UnityEngine;
 
 namespace ItemBrowser.Api {
 	public abstract class ItemBrowserPlugin {
-		internal LoadedMod AssociatedMod;
+		internal LoadedMod AssociatedLoadedMod;
+
+		public abstract string AssociatedMod { get; }
+		public virtual bool IsEnabled => ModUtils.IsLoaded(AssociatedMod);
+		public virtual bool AutomaticallyRegisterFromAssets => false;
 		
-		public virtual void OnRegister(ItemBrowserRegistry registry) {
-			AutomaticallyRegisterFromAssets(registry);
-		}
+		public virtual void OnEarlyRegister(ItemBrowserRegistry registry) { }
 		
-		protected virtual void AutomaticallyRegisterFromAssets(ItemBrowserRegistry registry) {
-			foreach (var asset in AssociatedMod.Assets) {
+		public virtual void OnRegister(ItemBrowserRegistry registry) { }
+		
+		public virtual void OnAutomaticallyRegisterFromAssets(ItemBrowserRegistry registry) {
+			foreach (var asset in AssociatedLoadedMod.Assets) {
 				if (asset is not GameObject gameObject)
 					continue;
 
 				if (gameObject.TryGetComponent<ObjectEntryDisplayBase>(out var displayComponent))
 					registry.AddEntryDisplay(displayComponent);
-
-				if (gameObject.TryGetComponent<ObjectNameAndIconOverride>(out var overrides))
+				
+				foreach (var overrides in gameObject.GetComponents<ObjectNameAndIconOverride>())
 					registry.AddObjectNameAndIconOverride(overrides);
 			}
 		}

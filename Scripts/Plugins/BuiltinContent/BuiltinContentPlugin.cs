@@ -12,25 +12,30 @@ using PugProperties;
 using PugTilemap;
 using Unity.Physics;
 
-namespace ItemBrowser.Plugins.Default {
+namespace ItemBrowser.Plugins.BuiltinContent {
 	public class BuiltinContentPlugin : ItemBrowserPlugin {
-		public override void OnRegister(ItemBrowserRegistry registry) {
-			base.OnRegister(registry);
-			
+		public override string AssociatedMod => Main.InternalName;
+		public override bool AutomaticallyRegisterFromAssets => true;
+
+		public override void OnEarlyRegister(ItemBrowserRegistry registry) {
 			foreach (var objectData in ObjectUtils.GetAllObjects()) {
-				if (IsItemIndexed(objectData))
+				if (IsItemIndexed(objectData)) {
 					registry.AddItem(objectData);
-				
-				if (IsTechnicalItem(objectData))
-					registry.AddTechnicalItem(objectData);
-				
-				if (IsCreatureIndexed(objectData))
+					
+					if (IsTechnicalItem(objectData))
+						registry.AddTechnicalItem(objectData);
+				}
+
+				if (IsCreatureIndexed(objectData)) {
 					registry.AddCreature(objectData);
-				
-				if (IsTechnicalCreature(objectData))
-					registry.AddTechnicalCreature(objectData);
+					
+					if (IsTechnicalCreature(objectData))
+						registry.AddTechnicalCreature(objectData);
+				}
 			}
-			
+		}
+
+		public override void OnRegister(ItemBrowserRegistry registry) {
 			AddProviders(registry);
 			AddSorters(registry);
 			AddFilters(registry);
@@ -335,12 +340,7 @@ namespace ItemBrowser.Plugins.Default {
 				}
 			});
 			registry.AddItemFilter(utilityGroup, new Filter<ObjectDataCD>($"{utilityGroup}_Paintable") {
-				Function = objectData => PugDatabase.HasComponent<PaintableObjectCD>(objectData)
-			});
-			registry.AddItemFilter(utilityGroup, new Filter<ObjectDataCD>($"{utilityGroup}_Discovered") {
-				Function = objectData => ObjectUtils.HasBeenDiscovered(objectData.objectID, objectData.variation),
-				FunctionIsDynamic = true,
-				DefaultState = () => Options.DefaultDiscoveredFilter ? FilterState.Include : FilterState.None
+				Function = PugDatabase.HasComponent<PaintableObjectCD>
 			});
 			registry.AddItemFilter(utilityGroup, new Filter<ObjectDataCD>($"{utilityGroup}_Technical_Item") {
 				Function = ItemBrowserAPI.IsTechnicalItem,
@@ -378,7 +378,9 @@ namespace ItemBrowser.Plugins.Default {
 					continue;
 				
 				registry.AddCreatureFilter(factionGroup, new Filter<ObjectDataCD>($"ItemBrowser:FactionNames/{faction}", $"{factionGroup}_FactionDesc") {
-					DescriptionFormatFields = new[] { faction.ToString() },
+					DescriptionFormatFields = new[] {
+						$"ItemBrowser:FactionNames/{faction}"
+					},
 					Function = objectData => PugDatabase.TryGetComponent<FactionCD>(objectData, out var factionCD) && factionCD.faction == faction
 				});
 			}
