@@ -18,6 +18,14 @@ namespace ItemBrowser.Utilities {
 			SetupDisplayNames();
 			SetupAssociatedObjects();
 		}
+
+		public static bool IsLoaded(long mod) {
+			return API.ModLoader.LoadedMods.Any(loadedMod => loadedMod.ModId == mod);
+		}
+		
+		public static bool IsLoaded(string mod) {
+			return API.ModLoader.LoadedMods.Any(loadedMod => loadedMod.Metadata.name == mod);
+		}
 		
 		public static string GetDisplayName(long mod) {
 			return mod switch {
