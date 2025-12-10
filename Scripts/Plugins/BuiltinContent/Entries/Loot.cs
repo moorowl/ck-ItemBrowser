@@ -203,9 +203,9 @@ namespace ItemBrowser.Plugins.BuiltinContent.Entries {
 				ref var customScenesBlobArray = ref API.Client.GetEntityQuery(typeof(CustomSceneTableCD)).GetSingleton<CustomSceneTableCD>().Value.Value.scenes;
 				for (var sceneIdx = 0; sceneIdx < customScenesBlobArray.Length; sceneIdx++) {
 					ref var customSceneBlob = ref customScenesBlobArray[sceneIdx];
-					var sceneName = customSceneBlob.sceneName.ToString();
+					var name = customSceneBlob.sceneName.ToString();
 					
-					if (!StructureUtils.CanSceneSpawn(sceneName))
+					if (!StructureUtils.CanSceneGenerateInAnyWorld(name))
 						continue;
 
 					for (var i = 0; i < customSceneBlob.prefabInventoryOverrides.Length; i++) {
@@ -228,7 +228,7 @@ namespace ItemBrowser.Plugins.BuiltinContent.Entries {
 									IsFromGuaranteedPool = drop.IsFromGuaranteedPool,
 									IsFromTableWithGuaranteedPool = drop.TableHasGuaranteedPool
 								};
-								AddEntryFromScene(entry.Result.Id, entry.Result.Variation, sceneName, entry);
+								AddEntryFromScene(entry.Result.Id, entry.Result.Variation, name, entry);
 							}
 						}
 
@@ -253,12 +253,12 @@ namespace ItemBrowser.Plugins.BuiltinContent.Entries {
 									ChanceForOne = () => 1f,
 									Rolls = () => (1, 1)
 								};
-								AddEntryFromScene(entry.Result.Id, entry.Result.Variation, sceneName, entry);
+								AddEntryFromScene(entry.Result.Id, entry.Result.Variation, name, entry);
 							}
 						}
 						
 						if (prefab != null && EntityUtility.HasComponentData<CustomScenePrefab>(prefab, API.Client.World))
-							AddEntriesFromPrefab(API.Client.World, prefabObjectData, prefab, sceneName);
+							AddEntriesFromPrefab(API.Client.World, prefabObjectData, prefab, name);
 					}
 				}
 				

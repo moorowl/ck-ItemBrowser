@@ -144,9 +144,19 @@ namespace ItemBrowser.Plugins.BuiltinContent.Entries {
 							if (drop.lootDropID == objectData.objectID && EntityUtility.HasComponentData<DontDropSelfCD>(entity, world) && !EntityUtility.HasComponentData<TileCD>(entity, world))
 								continue;
 
+							var entityObjectData = objectData;
+							if (PugDatabase.TryGetComponent<PlantCD>(entityObjectData, out var plantCD)) {
+								if (entityObjectData.variation != 0)
+									continue;
+								
+								entityObjectData = new ObjectDataCD {
+									objectID = plantCD.objectToDropWhenHarvested,
+								};
+							}
+
 							var entry = new Drops {
 								Result = (drop.lootDropID, 0),
-								Entity = (objectData.objectID, ObjectUtils.GetPrimaryVariation(objectData.objectID, objectData.variation)),
+								Entity = (entityObjectData.objectID, ObjectUtils.GetPrimaryVariation(entityObjectData.objectID, entityObjectData.variation)),
 								Chance = chanceToDropLootCD.chance,
 								ChanceForOne = () => chanceToDropLootCD.chance,
 								Amount = () => {
@@ -246,9 +256,9 @@ namespace ItemBrowser.Plugins.BuiltinContent.Entries {
 				ref var customScenesBlobArray = ref API.Client.GetEntityQuery(typeof(CustomSceneTableCD)).GetSingleton<CustomSceneTableCD>().Value.Value.scenes;
 				for (var sceneIdx = 0; sceneIdx < customScenesBlobArray.Length; sceneIdx++) {
 					ref var customSceneBlob = ref customScenesBlobArray[sceneIdx];
-					var sceneName = customSceneBlob.sceneName.ToString();
+					var name = StructureUtils.GetPersistentSceneName(customSceneBlob.sceneName.ToString());
 					
-					if (!StructureUtils.CanSceneSpawn(sceneName))
+					if (!StructureUtils.CanSceneGenerateInAnyWorld(name))
 						continue;
 
 					for (var i = 0; i < customSceneBlob.prefabInventoryOverrides.Length; i++) {
@@ -256,7 +266,7 @@ namespace ItemBrowser.Plugins.BuiltinContent.Entries {
 						ref var prefab = ref customSceneBlob.prefabs[i];
 
 						if (prefab != null && EntityUtility.HasComponentData<CustomScenePrefab>(prefab, API.Client.World))
-							AddEntriesFromPrefab(API.Client.World, prefabObjectData, prefab, sceneName);
+							AddEntriesFromPrefab(API.Client.World, prefabObjectData, prefab, name);
 					}
 				}
 

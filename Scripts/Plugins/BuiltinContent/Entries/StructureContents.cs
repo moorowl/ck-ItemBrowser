@@ -20,12 +20,17 @@ namespace ItemBrowser.Plugins.BuiltinContent.Entries {
 				// Scenes
 				ref var customScenes = ref API.Client.GetEntityQuery(typeof(CustomSceneTableCD)).GetSingleton<CustomSceneTableCD>().Value.Value.scenes;
 				for (var sceneIdx = 0; sceneIdx < customScenes.Length; sceneIdx++) {
-					ref var customSceneBlob = ref customScenes[sceneIdx];
+					ref var customScene = ref customScenes[sceneIdx];
+					var name = StructureUtils.GetPersistentSceneName(customScene.sceneName.ToString());
+
+					if (!StructureUtils.CanSceneGenerateInAnyWorld(name))
+						continue;
+					
 					var allObjectDatas = new List<ObjectDataCD>();
 					
 					// Add normal objects
-					for (var i = 0; i < customSceneBlob.prefabObjectDatas.Length; i++) {
-						var objectData = customSceneBlob.prefabObjectDatas[i];
+					for (var i = 0; i < customScene.prefabObjectDatas.Length; i++) {
+						var objectData = customScene.prefabObjectDatas[i];
 						var objectInfo = PugDatabase.GetObjectInfo(objectData.objectID, objectData.variation);
 						
 						// Some scenes contain objects that can't be placed for some reason
@@ -40,8 +45,8 @@ namespace ItemBrowser.Plugins.BuiltinContent.Entries {
 					}
 
 					// Add tiles
-					for (var i = 0; i < customSceneBlob.tiles.Length; i++) {
-						var tile = customSceneBlob.tiles[i];
+					for (var i = 0; i < customScene.tiles.Length; i++) {
+						var tile = customScene.tiles[i];
 						
 						var tileType = tile.tileType;
 						if (tileType == TileType.ground)
@@ -65,7 +70,7 @@ namespace ItemBrowser.Plugins.BuiltinContent.Entries {
 					foreach (var objectData in combinedObjectDatas) {
 						var entry = new StructureContents {
 							Result = (objectData.objectID, objectData.variation, objectData.amount),
-							Scene = customSceneBlob.sceneName.ToString()
+							Scene = customScene.sceneName.ToString()
 						};
 						registry.Register(ObjectEntryType.Source, entry.Result.Id, entry.Result.Variation, entry);
 					}
