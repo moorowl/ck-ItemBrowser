@@ -269,6 +269,29 @@ namespace ItemBrowser.UserInterface.Browser {
 			}
 		}
 		
+		public class CookedFood : DisplayedObject {
+			public override ContainedObjectsBuffer VisualObject => new() {
+				objectData = _objectData
+			};
+
+			private readonly string _name;
+			private readonly ObjectDataCD _objectData;
+			
+			public CookedFood(ObjectID id) {
+				_objectData = new ObjectDataCD {
+					objectID = id,
+					variation = CookedFoodCD.GetFoodVariation(id, ObjectID.Egg)
+				};
+				_name = ObjectUtils.GetInternalName(id).Replace("Rare", "").Replace("Epic", "");
+			}
+			
+			public override TextAndFormatFields GetHoverTitle(SlotUIBase slot) {
+				return new TextAndFormatFields {
+					text = $"Items/{_name}"
+				};
+			}
+		}
+		
 		public class BiomeIcon : DisplayedObject {
 			public override ContainedObjectsBuffer VisualObject => new() {
 				objectData = _objectData

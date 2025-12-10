@@ -183,6 +183,7 @@ ItemBrowser:ObjectEntry/DropsWhenDamaged	Text		Drops when damaged
 ItemBrowser:ObjectEntry/UpgradeMaterial	Text		Upgrade material												
 ItemBrowser:ObjectEntry/Unlocking	Text		Unlocking												
 ItemBrowser:ObjectEntry/Bucketing	Text		Bucketing												
+ItemBrowser:ObjectEntry/CookingIngredient	Text		Cooking ingredient												
 ItemBrowser:MoreInfo/Farming_0	Text		Grown from a {0}												
 ItemBrowser:MoreInfo/Farming_0_Normal	Text		Grown from a normal {0}												
 ItemBrowser:MoreInfo/Farming_0_Golden	Text		Grown from a golden {0}												
