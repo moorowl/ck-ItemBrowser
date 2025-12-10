@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace ItemBrowser.Plugins.BuiltinContent.Entries {
 	public record CattleProduce : ObjectEntry {
-		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/CattleProduce", ObjectID.Egg, 4000);
+		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/CattleProduce", ObjectID.Egg, Priorities.CattleProduce);
 		
 		public ObjectID Result { get; set; }
 		public ObjectID Cattle { get; set; }

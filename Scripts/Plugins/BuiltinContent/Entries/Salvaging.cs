@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace ItemBrowser.Plugins.BuiltinContent.Entries {
 	public record Salvaging : ObjectEntry {
-		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/Salvaging", ObjectID.SalvageAndRepairStation, 3300);
+		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/Salvaging", ObjectID.SalvageAndRepairStation, Priorities.Salvaging);
 		
 		public ObjectID Result { get; set; }
 		public (int Min, int Max) ResultAmount { get; set; }

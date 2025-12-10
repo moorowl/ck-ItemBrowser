@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace ItemBrowser.Plugins.BuiltinContent.Entries {
 	public record Unlocking : ObjectEntry {
-		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/Unlocking", ObjectID.CopperKey, 3300);
+		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/Unlocking", ObjectID.CopperKey, Priorities.Unlocking);
 		
 		public (ObjectID Id, int Variation) Key { get; set; }
 		public (ObjectID Id, int Variation) OutputObject { get; set; }

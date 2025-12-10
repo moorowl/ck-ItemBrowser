@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace ItemBrowser.Plugins.BuiltinContent.Entries {
 	public record Loot : ObjectEntry {
-		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/Loot", ObjectID.CopperChest, 3700);
+		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/Loot", ObjectID.CopperChest, Priorities.Loot);
 		
 		public (ObjectID Id, int Variation) Result { get; set; }
 		public (ObjectID Id, int Variation) Entity { get; set; }

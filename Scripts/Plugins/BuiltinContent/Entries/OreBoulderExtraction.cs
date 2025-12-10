@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace ItemBrowser.Plugins.BuiltinContent.Entries {
 	public record OreBoulderExtraction : ObjectEntry {
-		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/OreBoulderExtraction", ObjectID.GoldOreBoulder, 5000);
+		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/OreBoulderExtraction", ObjectID.GoldOreBoulder, Priorities.OreBoulderExtraction);
 		
 		public ObjectID Result { get; set; }
 		public ObjectID OreBoulder { get; set; }

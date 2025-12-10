@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace ItemBrowser.Plugins.BuiltinContent.Entries {
 	public record Crafting : ObjectEntry {
-		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/Crafting", ObjectID.WoodenWorkBench, 4500);
+		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/Crafting", ObjectID.WoodenWorkBench, Priorities.Crafting);
 
 		public (ObjectID Id, int Variation) Result { get; set; }
 		public ObjectID Station { get; set; }

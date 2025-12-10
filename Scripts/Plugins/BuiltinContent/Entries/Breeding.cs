@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ItemBrowser.Plugins.BuiltinContent.Entries {
 	public record Breeding : ObjectEntry {
-		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/Breeding", ObjectID.ValentineWallHearts, 3900);
+		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/Breeding", ObjectID.ValentineWallHearts, Priorities.Breeding);
 		
 		public ObjectID ParentType { get; set; }
 		public ObjectID ChildType { get; set; }

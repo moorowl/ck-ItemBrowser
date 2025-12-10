@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ItemBrowser.Plugins.BuiltinContent.Entries {
 	public record Miscellaneous : ObjectEntry {
-		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/Miscellaneous", ObjectID.GrimyStoneFloor);
+		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/Miscellaneous", ObjectID.GrimyStoneFloor, Priorities.Miscellaneous);
 		
 		public (ObjectID Id, int Variation, int Amount) Result { get; set; }
 		public (ObjectID Id, int Variation) Source { get; set; }

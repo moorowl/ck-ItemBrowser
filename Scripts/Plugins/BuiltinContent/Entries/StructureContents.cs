@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace ItemBrowser.Plugins.BuiltinContent.Entries {
 	public record StructureContents : ObjectEntry {
-		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/StructureContents", "ItemBrowser:ObjectEntry/StructureContents_NonObtainable", ObjectID.RuinsCavelingPillar, 3200);
+		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/StructureContents", "ItemBrowser:ObjectEntry/StructureContents_NonObtainable", ObjectID.RuinsCavelingPillar, Priorities.StructureContents);
 		
 		public (ObjectID Id, int Variation, int Amount) Result { get; set; }
 		public string Scene { get; set; }

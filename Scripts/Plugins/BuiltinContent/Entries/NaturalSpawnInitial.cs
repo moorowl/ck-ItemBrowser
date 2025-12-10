@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace ItemBrowser.Plugins.BuiltinContent.Entries {
 	public record NaturalSpawnInitial : ObjectEntry {
-		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/NaturalSpawnInitial", ObjectID.Bush, 4700);
+		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/NaturalSpawnInitial", ObjectID.Bush, Priorities.NaturalSpawnInitial);
 		
 		public (ObjectID Id, int Variation) Result { get; set; }
 		public EnvironmentSpawnType Type { get; set; }

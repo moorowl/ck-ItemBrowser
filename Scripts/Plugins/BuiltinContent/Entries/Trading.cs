@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace ItemBrowser.Plugins.BuiltinContent.Entries {
 	public record Trading : ObjectEntry {
-		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/Trading", ObjectID.ValentineLetter, 4300);
+		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/Trading", ObjectID.ValentineLetter, Priorities.Trading);
 		
 		public (ObjectID Id, int Variation) Result { get; set; }
 		public (ObjectID Id, int Variation) Vendor { get; set; }

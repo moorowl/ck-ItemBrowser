@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace ItemBrowser.Plugins.BuiltinContent.Entries {
 	public record MerchantSpawning : ObjectEntry {
-		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/MerchantSpawning", ObjectID.WallWoodBlock, 5100);
+		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/MerchantSpawning", ObjectID.WallWoodBlock, Priorities.MerchantSpawning);
 		
 		public ObjectID Merchant { get; set; }
 		public ObjectID Idol  { get; set; }

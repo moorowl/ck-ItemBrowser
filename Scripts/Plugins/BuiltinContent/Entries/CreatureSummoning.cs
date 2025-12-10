@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ItemBrowser.Plugins.BuiltinContent.Entries {
 	public record CreatureSummoning : ObjectEntry {
-		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/CreatureSummoning", ObjectID.SlimeBossSummoningItem, 5200);
+		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/CreatureSummoning", ObjectID.SlimeBossSummoningItem, Priorities.CreatureSummoning);
 		
 		public (ObjectID Id, int Variation) Creature { get; set; }
 		public MethodType SummoningMethod { get; set; }

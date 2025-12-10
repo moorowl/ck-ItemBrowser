@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace ItemBrowser.Plugins.BuiltinContent.Entries {
 	public record Fishing : ObjectEntry {
-		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/Fishing", ObjectID.IronFishingRod, 4400);
+		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/Fishing", ObjectID.IronFishingRod, Priorities.Fishing);
 		
 		public ObjectID Result { get; set; }
 		public Biome Biome { get; set; }

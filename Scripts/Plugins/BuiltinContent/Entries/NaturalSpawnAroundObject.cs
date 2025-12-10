@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace ItemBrowser.Plugins.BuiltinContent.Entries {
 	public record NaturalSpawnAroundObject : ObjectEntry {
-		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/NaturalSpawnAroundObject", ObjectID.NatureCicadaSummoningItem, 4650);
+		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/NaturalSpawnAroundObject", ObjectID.NatureCicadaSummoningItem, Priorities.NaturalSpawnAroundObject);
 		
 		public (ObjectID Id, int Variation) Result { get; set; }
 		public (ObjectID Id, int Variation) Entity { get; set; }

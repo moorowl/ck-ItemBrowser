@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace ItemBrowser.Plugins.BuiltinContent.Entries {
 	public record LockedChestDrops : ObjectEntry {
-		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/LockedChestDrops", ObjectID.WallStoneBlock, 5100);
+		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/LockedChestDrops", ObjectID.WallStoneBlock, Priorities.LockedChestDrops);
 		
 		public ObjectID Result { get; set; }
 		public Biome RequiredBiome { get; set; }

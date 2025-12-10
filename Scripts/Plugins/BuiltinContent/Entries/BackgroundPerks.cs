@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace ItemBrowser.Plugins.BuiltinContent.Entries {
 	public record BackgroundPerks : ObjectEntry {
-		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/BackgroundPerks", ObjectID.FoodRation, 3400);
+		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/BackgroundPerks", ObjectID.FoodRation, Priorities.BackgroundPerks);
 		
 		public (ObjectID Id, int Variation, int Amount) Result { get; set; }
 		public CharacterRole Background { get; set; }

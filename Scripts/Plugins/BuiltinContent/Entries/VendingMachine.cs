@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace ItemBrowser.Plugins.BuiltinContent.Entries {
 	public record VendingMachine : ObjectEntry {
-		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/VendingMachine", ObjectID.AFVendingMachine, 4100);
+		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/VendingMachine", ObjectID.AFVendingMachine, Priorities.VendingMachine);
 		
 		public ObjectID Result { get; set; }
 		public ObjectID Vendor { get; set; }

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace ItemBrowser.Plugins.BuiltinContent.Entries {
 	public record ArchaeologistDrops : ObjectEntry {
-		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/ArchaeologistDrops", ObjectID.WallStoneBlock, 5100);
+		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/ArchaeologistDrops", ObjectID.WallStoneBlock, Priorities.ArchaeologistDrops);
 		
 		public ObjectID Result { get; set; }
 		public (float Min, float Max) Chance { get; set; }

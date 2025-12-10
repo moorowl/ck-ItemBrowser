@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace ItemBrowser.Plugins.BuiltinContent.Entries {
 	public record JewelryCrafter : ObjectEntry {
-		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/JewelryCrafter", ObjectID.JewelryWorkBench, 3500);
+		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/JewelryCrafter", ObjectID.JewelryWorkBench, Priorities.JewelryCrafter);
 		
 		public ObjectID PolishedVersion { get; set; }
 		public ObjectID UnpolishedVersion { get; set; }

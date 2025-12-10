@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace ItemBrowser.Plugins.BuiltinContent.Entries {
 	public record CookingIngredient : ObjectEntry {
-		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/CookingIngredient", ObjectID.HeartBerry, 5200);
+		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/CookingIngredient", ObjectID.HeartBerry, Priorities.CookingIngredient);
 		
 		public ObjectID Ingredient { get; set; }
 		public IngredientType IngredientType { get; set; }

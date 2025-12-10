@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace ItemBrowser.Plugins.BuiltinContent.Entries {
 	public record DropsWhenDamaged : ObjectEntry {
-		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/DropsWhenDamaged", ObjectID.SolariteOre, 3790);
+		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/DropsWhenDamaged", ObjectID.SolariteOre, Priorities.DropsWhenDamaged);
 		
 		public (ObjectID Id, int Variation) Result { get; set; }
 		public (ObjectID Id, int Variation) Entity { get; set; }

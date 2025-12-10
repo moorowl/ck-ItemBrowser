@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace ItemBrowser.Plugins.BuiltinContent.Entries {
 	public record ChallengeArenaReward : ObjectEntry {
-		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/ChallengeArenaReward", ObjectID.AlienChest, 3750);
+		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/ChallengeArenaReward", ObjectID.AlienChest, Priorities.ChallengeArenaReward);
 		
 		public ObjectID Result { get; set; }
 		public float Chance { get; set; }

@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace ItemBrowser.Plugins.BuiltinContent.Entries {
 	public record Drops : ObjectEntry {
-		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/Drops", ObjectID.Slime, 3800);
+		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/Drops", ObjectID.Slime, Priorities.Drops);
 		
 		public (ObjectID Id, int Variation) Result { get; set; }
 		public (ObjectID Id, int Variation) Entity { get; set; }

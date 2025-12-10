@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace ItemBrowser.Plugins.BuiltinContent.Entries {
 	public record Merchant : ObjectEntry {
-		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/Merchant", ObjectID.SlimeOil, 4200);
+		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/Merchant", ObjectID.SlimeOil, Priorities.Merchant);
 		
 		public ObjectID Result { get; set; }
 		public ObjectID MerchantType { get; set; }

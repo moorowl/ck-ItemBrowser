@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace ItemBrowser.Plugins.BuiltinContent.Entries {
 	public record UpgradeMaterial : ObjectEntry {
-		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/UpgradeMaterial", ObjectID.UpgradeForge, 2600);
+		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/UpgradeMaterial", ObjectID.UpgradeForge, Priorities.UpgradeMaterial);
 		
 		public (int From, int To) Level { get; set; }
 		public List<(ObjectID Id, int Amount)> Materials { get; set; }

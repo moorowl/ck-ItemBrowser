@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace ItemBrowser.Plugins.BuiltinContent.Entries {
 	public record TerrainGeneration : ObjectEntry {
-		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/TerrainGeneration", ObjectID.WallDirtBlock, 5100);
+		public override ObjectEntryCategory Category => new("ItemBrowser:ObjectEntry/TerrainGeneration", ObjectID.WallDirtBlock, Priorities.TerrainGeneration);
 		
 		public (ObjectID Id, int Variation) Result { get; set; }
 		public Tileset? GeneratesInTileset { get; set; }
