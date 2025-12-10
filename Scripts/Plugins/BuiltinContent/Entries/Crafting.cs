@@ -81,6 +81,10 @@ namespace ItemBrowser.Plugins.BuiltinContent.Entries {
 						if (canCraftObjectInfo == null)
 							continue;
 
+						var isRequiredObjectsToCraftEmpty = canCraftObjectInfo.requiredObjectsToCraft.Count == 0 || canCraftObjectInfo.requiredObjectsToCraft.All(x => x.objectID == ObjectID.None);
+						if (isRequiredObjectsToCraftEmpty && canCraftObjectInfo.craftingSettings.canOnlyUseAnyMaterialsWithTag == ObjectCategoryTag.None)
+							continue;
+
 						var entry = new Crafting {
 							Result = (canCraftObject.objectID, 0),
 							Station = objectData.objectID,
