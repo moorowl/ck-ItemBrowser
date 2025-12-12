@@ -277,10 +277,10 @@ namespace ItemBrowser.UserInterface.Browser {
 			private readonly string _name;
 			private readonly ObjectDataCD _objectData;
 			
-			public CookedFood(ObjectID id) {
+			public CookedFood(ObjectID id, ObjectID primaryIngredient = ObjectID.Egg, ObjectID secondaryIngredient = ObjectID.HeartBerry) {
 				_objectData = new ObjectDataCD {
 					objectID = id,
-					variation = CookedFoodCD.GetFoodVariation(id, ObjectID.Egg)
+					variation = CookedFoodCD.GetFoodVariation(primaryIngredient, secondaryIngredient)
 				};
 				_name = ObjectUtils.GetInternalName(id).Replace("Rare", "").Replace("Epic", "");
 			}

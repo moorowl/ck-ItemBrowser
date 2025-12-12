@@ -19,7 +19,7 @@ namespace ItemBrowser.Plugins.BuiltinContent.Entries {
 			ingredientSlot.DisplayedObject = new DisplayedObject.Static(new ObjectDataCD {
 				objectID = Entry.Ingredient
 			});
-			turnsIntoFoodSlot.DisplayedObject = new DisplayedObject.CookedFood(Entry.TurnsIntoFood);
+			turnsIntoFoodSlot.DisplayedObject = new DisplayedObject.CookedFood(Entry.TurnsIntoFood, Entry.Ingredient, ObjectID.Egg);
 		}
 		
 		private void RenderMoreInfo() {
