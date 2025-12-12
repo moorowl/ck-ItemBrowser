@@ -5,6 +5,7 @@ using ItemBrowser.Api.Entries;
 using ItemBrowser.Utilities;
 using ItemBrowser.Utilities.Extensions;
 using PugMod;
+using PugProperties;
 using Unity.Entities;
 using UnityEngine;
 
@@ -145,13 +146,11 @@ namespace ItemBrowser.Plugins.BuiltinContent.Entries {
 								continue;
 
 							var entityObjectData = objectData;
-							if (PugDatabase.TryGetComponent<PlantCD>(entityObjectData, out var plantCD)) {
+							if (PugDatabase.HasComponent<PlantCD>(entityObjectData) && TryGetSeedFromPlant(allObjects, objectData, out var associatedSeed)) {
 								if (entityObjectData.variation != 0)
 									continue;
 								
-								entityObjectData = new ObjectDataCD {
-									objectID = plantCD.objectToDropWhenHarvested,
-								};
+								entityObjectData = associatedSeed;
 							}
 
 							var entry = new Drops {
@@ -274,6 +273,23 @@ namespace ItemBrowser.Plugins.BuiltinContent.Entries {
 					registry.Register(ObjectEntryType.Source, entry.Id, entry.Variation, entry.Entry);
 					// registry.Register(ObjectEntryType.Usage, entry.Entry.Entity.Id, entry.Entry.Entity.Variation, entry.Entry);
 				}
+			}
+
+			private static bool TryGetSeedFromPlant(List<(ObjectData ObjectData, GameObject Authoring)> allObjects, ObjectDataCD plant, out ObjectDataCD seed) {
+				foreach (var (objectData, _) in allObjects) {
+					if (!PugDatabase.TryGetComponent<ObjectPropertiesCD>(objectData, out var objectPropertiesCD) || !objectPropertiesCD.Has(PropertyID.isSeed))
+						continue;
+
+					var turnsIntoPlant = objectPropertiesCD.Get<ObjectID>(PropertyID.Seed.turnsIntoPlantID);
+					if (turnsIntoPlant != plant.objectID)
+						continue;
+					
+					seed = objectData;
+					return true;
+				}
+
+				seed = default;
+				return false;
 			}
 			
 			private static bool IsSeasonalDropRequirementFulfilled(ObjectData objectData) {
