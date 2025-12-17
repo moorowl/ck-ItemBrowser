@@ -29,6 +29,8 @@ namespace ItemBrowser.UserInterface.Browser {
 		}
 
 		protected override void OnShow(bool isFirstTimeShowing) {
+			Manager.ui.DeselectAnySelectedUIElement();
+			
 			if (isFirstTimeShowing) {
 				objectListContainerWindow.IsShowing = true;
 				objectListContainerWindow.SetItemsTab();
@@ -38,7 +40,6 @@ namespace ItemBrowser.UserInterface.Browser {
 			UpdateScale();
 			HideMapAndInventoryIfShowing();
 			PlayToggleSound();
-			Manager.ui.DeselectAnySelectedUIElement();
 		}
 
 		protected override void OnHide() {
@@ -47,8 +48,8 @@ namespace ItemBrowser.UserInterface.Browser {
 		}
 
 		public bool ShowObjectEntries(ObjectDataCD objectData, ObjectEntryType type) {
-			if (!objectEntriesWindow.PushObjectData(objectData, type, !IsShowing)) {
-				AudioManager.SfxUI(SfxID.menu_denied, 1.15f, false, 0.4f, 0.05f);
+			if (!objectEntriesWindow.PushObjectData(objectData, type, false)) {
+				UserInterfaceUtils.PlaySound(UserInterfaceUtils.MenuSound.NoSourcesOrUsages, this);
 				return false;
 			}
 
@@ -58,7 +59,7 @@ namespace ItemBrowser.UserInterface.Browser {
 			objectListContainerWindow.IsShowing = false;
 			objectEntriesWindow.IsShowing = true;
 			
-			UserInterfaceUtils.PlayMenuOpenSound();
+			UserInterfaceUtils.PlaySound(UserInterfaceUtils.MenuSound.GenericOpen, this);
 
 			return true;
 		}
@@ -76,10 +77,10 @@ namespace ItemBrowser.UserInterface.Browser {
 				Manager.input.activeInputField.Deactivate(true);
 			} else if (objectEntriesWindow.HasAnyHistory) {
 				objectEntriesWindow.PopObjectData();
-				UserInterfaceUtils.PlayMenuCloseSound();
+				UserInterfaceUtils.PlaySound(UserInterfaceUtils.MenuSound.GenericClose, this);
 			} else if (objectEntriesWindow.IsShowing && !_entriesOpenedOutsideOfBrowser) {
 				ShowObjectList();
-				UserInterfaceUtils.PlayMenuCloseSound();
+				UserInterfaceUtils.PlaySound(UserInterfaceUtils.MenuSound.GenericClose, this);
 			} else {
 				IsShowing = false;
 			}
@@ -123,11 +124,11 @@ namespace ItemBrowser.UserInterface.Browser {
 				Manager.ui.HideMap();
 		}
 
-		private static void PlayToggleSound() {
+		private void PlayToggleSound() {
 			if (Manager.main.player == null)
 				return;
 			
-			AudioManager.Sfx(SfxTableID.inventorySFXInfoTab, Manager.main.player.transform.position);
+			UserInterfaceUtils.PlaySound(UserInterfaceUtils.MenuSound.ToggleBrowser, this);
 		}
 		
 		[HarmonyPatch]

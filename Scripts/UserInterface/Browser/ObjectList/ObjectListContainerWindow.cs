@@ -92,7 +92,7 @@ namespace ItemBrowser.UserInterface.Browser {
 				WindowTab.CreatureList => WindowTab.ItemList,
 				_ => throw new ArgumentOutOfRangeException()
 			});
-			UserInterfaceUtils.PlayMenuOpenSound();
+			UserInterfaceUtils.PlaySound(UserInterfaceUtils.MenuSound.ChangeTypeOrCategory, this);
 		}
 
 		private void CycleToPreviousTab() {

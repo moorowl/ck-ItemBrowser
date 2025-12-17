@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
-using ItemBrowser.Config;
-using ItemBrowser.Entries;
+using ItemBrowser.Api.Entries;
 using ItemBrowser.Utilities;
 using PlayerEquipment;
 using Pug.UnityExtensions;
@@ -79,10 +78,10 @@ namespace ItemBrowser.UserInterface.Browser {
 			
 			if (IsSelected && input.WasButtonPressedDownThisFrame(PlayerInput.InputType.LOCKING_TOGGLE)) {
 				if (IsFavorited) {
-					AudioManager.Sfx(SfxTableID.inventorySFXSlotLock, transform.position);
+					UserInterfaceUtils.PlaySound(UserInterfaceUtils.MenuSound.Unfavorite, this);
 					Options.FavoritedObjects.Remove(FavoritedKey);
 				} else {
-					AudioManager.Sfx(SfxTableID.inventorySFXSlotUnlock, transform.position);
+					UserInterfaceUtils.PlaySound(UserInterfaceUtils.MenuSound.Favorite, this);
 					Options.FavoritedObjects.Add(FavoritedKey);
 				}
 
@@ -113,7 +112,7 @@ namespace ItemBrowser.UserInterface.Browser {
 
 				var player = Manager.main.player;
 				player.playerCommandSystem.CreateAndDropEntity(containedObjectData.objectID, player.WorldPosition, pickUpTen ? 10 : 1, player.entity, containedObjectData.variation);
-				UserInterfaceUtils.PlayItemTwitchSound(transform);
+				UserInterfaceUtils.PlaySound(UserInterfaceUtils.MenuSound.AddObjectToInventory, this);
 				
 				return;
 			}
