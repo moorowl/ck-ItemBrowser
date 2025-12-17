@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ItemBrowser.Utilities.DataStructures.SortingAndFiltering {
 	public class Filter<T> {
@@ -17,10 +19,28 @@ namespace ItemBrowser.Utilities.DataStructures.SortingAndFiltering {
 		// Causes the item list to constantly refresh. Should be used if the function checks something that can change during gameplay
 		public bool FunctionIsDynamic { get; set; }
 		public bool CausesItemCraftingRequirementsToDisplay { get; set; }
+		
+		private readonly HashSet<T> _indexedMatches = new();
 
 		public Filter(string name, string description = null) {
 			Name = name;
 			Description = description ?? $"{name}Desc";
+		}
+
+		public void SetupIndexedMatches(IEnumerable<T> items) {
+			if (FunctionIsDynamic)
+				return;
+			
+			_indexedMatches.Clear();
+
+			foreach (var item in items) {
+				if (Function(item))
+					_indexedMatches.Add(item);
+			}
+		}
+		
+		public bool Matches(T item) {
+			return FunctionIsDynamic ? Function(item) : _indexedMatches.Contains(item);
 		}
 	}
 }

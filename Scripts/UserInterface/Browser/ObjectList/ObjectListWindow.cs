@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using ItemBrowser.Utilities;
 using ItemBrowser.Utilities.DataStructures.SortingAndFiltering;
@@ -7,7 +8,7 @@ using UnityEngine;
 
 namespace ItemBrowser.UserInterface.Browser {
 	public abstract class ObjectListWindow : ItemBrowserWindow {
-		private const float DynamicFiltersRefreshInterval = 0.5f;
+		private const float DynamicFiltersRefreshInterval = 1f;
 		
 		[SerializeField]
 		private VirtualObjectList objectList;
@@ -200,8 +201,9 @@ namespace ItemBrowser.UserInterface.Browser {
 
 		private bool MatchesFilters(ObjectDataCD objectData) {
 			return _searchFilter.Function(objectData)
-			       && PrimaryFiltersPanel.FiltersToInclude.All(filter => filter.Function(objectData))
-			       && !PrimaryFiltersPanel.FiltersToExclude.Any(filter => filter.Function(objectData));
+			       && (!Options.DefaultDiscoveredFilter || ObjectUtils.HasBeenDiscovered(objectData.objectID, objectData.variation, true))
+			       && PrimaryFiltersPanel.FiltersToInclude.All(filter => filter.Matches(objectData))
+			       && !PrimaryFiltersPanel.FiltersToExclude.Any(filter => filter.Matches(objectData));
 		}
 	}
 }

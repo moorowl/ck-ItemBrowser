@@ -7,6 +7,7 @@ using ItemBrowser.UserInterface.Browser;
 using ItemBrowser.Utilities;
 using ItemBrowser.Api.Entries;
 using PugMod;
+using PugTilemap;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -26,6 +27,11 @@ namespace ItemBrowser.Api {
 
 		internal static void Init() {
 			InitPlugins();
+			
+			OnClientLanguageChanged += () => {
+				if (_hasRegistered)
+					SetupSortingAndFilteringIndexes();
+			};
 		}
 
 		private static void InitPlugins() {
@@ -73,6 +79,8 @@ namespace ItemBrowser.Api {
 			
 			_hasRegistered = true;
 			ObjectEntryRegistry.RegisterFromProviders(Registry.EntryProviders);
+
+			SetupSortingAndFilteringIndexes();
 		}
 
 		private static void UninitBrowserUI() {
@@ -80,6 +88,16 @@ namespace ItemBrowser.Api {
 				Object.Destroy(ItemBrowserUI);
 		}
 
+		private static void SetupSortingAndFilteringIndexes() {
+			var allObjects = ObjectUtils.GetAllObjects().ToHashSet();
+			
+			foreach (var entry in Registry.ItemFilters)
+				entry.Filter.SetupIndexedMatches(allObjects);
+			
+			foreach (var entry in Registry.CreatureFilters)
+				entry.Filter.SetupIndexedMatches(allObjects);
+		}
+		
 		public static bool IsItemIndexed(ObjectDataCD item) {
 			return Registry.Items.Contains(item);
 		}
