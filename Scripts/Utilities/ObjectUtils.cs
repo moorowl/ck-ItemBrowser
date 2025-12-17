@@ -75,6 +75,7 @@ namespace ItemBrowser.Utilities {
 		private static void SetupDisplayNamesAndCategories() {
 			DisplayNames.Clear();
 			DisplayNameNotes.Clear();
+			Categories.Clear();
 			
 			var authoringList = new List<MonoBehaviour>();
 			authoringList.AddRange(Manager.ecs.pugDatabase.prefabList);
@@ -116,6 +117,9 @@ namespace ItemBrowser.Utilities {
 				
 				if (ItemBrowserAPI.Registry.ObjectNameNotes.TryGetValue(objectData, out var unlocalizedNameNote))
 					DisplayNameNotes.TryAdd(objectData, unlocalizedNameNote);
+				
+				if (!Categories.ContainsKey(objectData.objectID))
+					Categories[objectData.objectID] = new HashSet<string>();
 			}
 			
 			DisplayNameSortOrders.Clear();
@@ -145,13 +149,12 @@ namespace ItemBrowser.Utilities {
 				DisplayNameSortOrders.TryAdd(objectData, i);
 			}
 			
-			Categories.Clear();
 			foreach (var subCategory in ObjectIDCategoryManager.SubCategories) {
 				foreach (var objectId in subCategory.ObjectIds) {
-					if (!Categories.ContainsKey(objectId))
-						Categories[objectId] = new HashSet<string>();
-
-					Categories[objectId].Add(subCategory.ToString());
+					if (!Categories.TryGetValue(objectId, out var categories))
+						continue;
+					
+					categories.Add(subCategory.ToString());
 				}
 			}
 
@@ -204,7 +207,7 @@ namespace ItemBrowser.Utilities {
 		}
 		
 		public static HashSet<string> GetCategories(ObjectID id) {
-			return Categories.GetValueOrDefault(id);
+			return Categories.TryGetValue(id, out var categories) ? categories : new HashSet<string>();
 		}
 
 		public static int GetPrimaryVariation(ObjectID id, int variation) {
