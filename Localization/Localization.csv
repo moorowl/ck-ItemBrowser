@@ -4,6 +4,7 @@ ItemBrowser:Items	Text		Items and objects
 ItemBrowser:Creatures	Text		Creatures												
 ItemBrowser:Cooking	Text		Cooking												
 ItemBrowser:NameAndAmountFormat	Text		{0} x{1}												
+ItemBrowser:Undiscovered	Text		Undiscovered												
 ItemBrowser:EntriesAmount/Source	Text		{0} source												
 ItemBrowser:EntriesAmountPlural/Source	Text		{0} sources												
 ItemBrowser:EntriesAmount/Usage	Text		{0} usage												
@@ -23,6 +24,9 @@ ItemBrowser:ButtonHint/GoBack	Text		Go back: {0}
 ItemBrowser:ButtonHint/ViewUsage	Text		View usages: {0}												
 ItemBrowser:ButtonHint/ViewSource	Text		View sources: {0}												
 ItemBrowser:ButtonHint/RestoreDefaults	Text		Restore defaults: {0}												
+ItemBrowser:ButtonHint/GiveOne	Text		Give 1x: {0}												
+ItemBrowser:ButtonHint/GiveTen	Text		Give 10x: {0}												
+ItemBrowser:ButtonHint/GiveStack	Text		Give 9999x: {0}												
 ItemBrowser:Sorting	Text		Sort												
 ItemBrowser:Sorters/Alphabetical	Text		Alphabetical												
 ItemBrowser:Sorters/Category	Text		By creative category												
@@ -33,6 +37,9 @@ ItemBrowser:Sorters/Value	Text		By value
 ItemBrowser:SortingOrder	Text		Sort order												
 ItemBrowser:SortingOrder/Ascending	Text		Ascending												
 ItemBrowser:SortingOrder/Descending	Text		Descending												
+ItemBrowser:ShowOptions	Text		Show options												
+ItemBrowser:HideOptions	Text		Hide options												
+ItemBrowser:ShowFilters	Text		Show filters												
 ItemBrowser:Favorited	Text		Favorited												
 ItemBrowser:ShowFilters	Text		Show filters												
 ItemBrowser:HideFilters	Text		Hide filters												
@@ -371,8 +378,11 @@ ItemBrowser:StructureType/Scene	Text		Scene
 ItemBrowser:StructureType/Dungeon	Text		Dungeon												
 ItemBrowser:StructureExclusiveLoot	Text		Structure-exclusive loot												
 ItemBrowser:StructureExclusiveDrop	Text		Structure-exclusive drop												
-ItemBrowser:Options	Text		Item Browser settings												
 ItemBrowser:Options/CheatMode	Text		Cheat mode												
+ItemBrowser:Options/CheatModeDesc	Text		Allows you to spawn in items.												
+ItemBrowser:Options/Enabled	Text		Enabled												
+ItemBrowser:Options/Disabled	Text		Disabled												
+ItemBrowser:Options/CheatModeCantBeToggled	Text		Can only be enabled in creative mode or if you're an admin												
 ItemBrowser:Options/ShowTechnicalInfo	Text		Show technical info												
 ItemBrowser:Options/ShowSourceMod	Text		Show source mod												
 ItemBrowser:Options/ResetToDefault	Text		Reset to default												

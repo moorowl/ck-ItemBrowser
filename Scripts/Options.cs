@@ -22,14 +22,14 @@ namespace ItemBrowser {
 		public static HashSet<ObjectDataCD> FavoritedObjects { get; set; }
 
 		public static void EarlyInit() {
-			MenuAdder.OnInit += () => {
+			/*MenuAdder.OnInit += () => {
 				_settingsMenu = MenuAdder.AddMenu(19900, "ItemBrowser:Options");
 				_settingsMenu.AddOptionFromPath(Main.AssetBundle, "Assets/ItemBrowser/Prefabs/MenuOptions.prefab");
 			};
 			MenuAdder.OnMenuClosed += (menu) => {
 				if (menu == _settingsMenu)
 					Save();
-			};
+			};*/
 		}
 		
 		public static void Init() {
