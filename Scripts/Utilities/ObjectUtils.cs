@@ -47,17 +47,6 @@ namespace ItemBrowser.Utilities {
 			ObjectType.BeamWeapon
 		};
 		
-		public static readonly HashSet<ObjectID> UnimplementedObjects = new() {
-			ObjectID.DesertBrute,
-			ObjectID.GreeneryPod,
-			ObjectID.WormSegmentTail,
-			ObjectID.ClayWormSegmentTail,
-			ObjectID.NatureWormSegmentTail,
-			ObjectID.GreatWallBlock,
-			ObjectID.WallObsidianBlock,
-			ObjectID.GroundObsidianBlock
-		};
-		
 		private static readonly Dictionary<ObjectDataCD, string> DisplayNames = new();
 		private static readonly Dictionary<ObjectDataCD, string> DisplayNameNotes = new();
 		private static readonly Dictionary<ObjectDataCD, int> DisplayNameSortOrders = new();

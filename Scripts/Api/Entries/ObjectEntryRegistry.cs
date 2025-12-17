@@ -38,7 +38,7 @@ namespace ItemBrowser.Api.Entries {
 		
 		public void Register(ObjectEntryType type, ObjectID id, int variation, ObjectEntry entry) {
 			id = TryReplaceObjectID(id);
-			if (id == ObjectID.None || !ObjectUtils.IsPrimaryVariation(id, variation) || (type == ObjectEntryType.Source && ObjectUtils.UnimplementedObjects.Contains(id)))
+			if (id == ObjectID.None || !ObjectUtils.IsPrimaryVariation(id, variation) || (type == ObjectEntryType.Source && ObjectUtils.GetCategories(id).Contains("NonObtainable/Deprecated")))
 				return;
 			
 			var objectData = new ObjectDataCD {
@@ -66,7 +66,7 @@ namespace ItemBrowser.Api.Entries {
 				};
 
 				return (objectData, prefabData.ObjectInfo.prefabInfos[0].ecsPrefab);
-			}).Where(entry => ObjectUtils.IsPrimaryVariation(entry.objectData.objectID, entry.objectData.variation) && !ObjectUtils.UnimplementedObjects.Contains(entry.objectData.objectID)).ToList();
+			}).Where(entry => ObjectUtils.IsPrimaryVariation(entry.objectData.objectID, entry.objectData.variation) && !ObjectUtils.GetCategories(entry.objectData.objectID).Contains("NonObtainable/Deprecated") && !(ItemBrowserAPI.IsTechnicalItem(entry.objectData) || ItemBrowserAPI.IsTechnicalCreature(entry.objectData))).ToList();
 
 			foreach (var provider in providers) {
 				try {
